@@ -1,0 +1,12 @@
+{
+  "_comment": "Rounding scale in CSS pixels at 1x. Every generator and config snippet reads from here.",
+  "window": 12,
+  "popup": 12,
+  "widget": 8,
+  "menu_item": 6,
+  "tooltip": 8,
+  "icon_squircle_n": 5,
+  "titlebar_height": 32,
+  "titlebar_button": 14,
+  "titlebar_button_spacing": 8
+}

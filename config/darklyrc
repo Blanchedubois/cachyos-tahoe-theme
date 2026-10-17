@@ -1,0 +1,15 @@
+[Common]
+CornerRadius=8
+ShadowSize=ShadowSmall
+
+[Style]
+DolphinSidebarOpacity=100
+DolphinViewOpacity=100
+MenuBarOpacity=100
+MenuOpacity=100
+RoundedRubberBandFrame=true
+TabBarOpacity=100
+ToolBarOpacity=100
+TransparentDolphinView=false
+WidgetDrawShadow=false
+WidgetToolBarShadow=false

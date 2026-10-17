@@ -21,8 +21,7 @@ The plan, tokens and phase status live in [docs/IMPLEMENTATION.md](docs/IMPLEMEN
 | `scripts/` | glyph fetcher, app icon generator, action icon generator |
 | `glyphs/` | fetched source glyphs, kept out of git |
 | `icons/` | generated icon theme |
-| `aurorae/` | the MacTahoe-Graphite-Dark window decoration |
-| `config/` | Darkly, KWin and panel settings the installer applies |
+| `config/` | Darkly style and decoration, KWin and panel settings the installer applies |
 
 ## Requirements
 

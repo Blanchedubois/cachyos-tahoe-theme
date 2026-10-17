@@ -87,6 +87,10 @@ def read_glyph(path):
 
 
 def glyph_group(path, scale_pct, extra_class=""):
+    """Watermark treatment: the glyph reads as frosted glass pressed into the
+    squircle rather than a flat white mark. Three stacked copies: a soft dark
+    offset below for depth, a light offset above for the lit edge, then the
+    body at partial opacity so the category colour shows through."""
     vb, ds = read_glyph(path)
     x0, y0, w, h = vb
     target = GRID * scale_pct
@@ -94,11 +98,30 @@ def glyph_group(path, scale_pct, extra_class=""):
     tx = (GRID - w * s) / 2 - x0 * s
     ty = (GRID - h * s) / 2 - y0 * s
     paths = "".join(f'<path d="{d}"/>' for d in ds)
-    return (f'<g transform="translate({tx:.2f},{ty:.2f}) scale({s:.5f})" '
-            f'fill="#ffffff" filter="url(#glyph-shadow)" {extra_class}>{paths}</g>')
+
+    def layer(dx, dy, fill, op, extra=""):
+        return (f'<g transform="translate({tx + dx:.2f},{ty + dy:.2f}) scale({s:.5f})" '
+                f'fill="{fill}" fill-opacity="{op}" {extra}>{paths}</g>')
+
+    return (layer(0, 7, "#000000", 0.20, 'filter="url(#soft-glyph)"')
+            + layer(0, -4, "#ffffff", 0.28)
+            + layer(0, 0, "#ffffff", 0.66, extra_class))
 
 
 # ---------------------------------------------------------------- brand marks
+
+TAHOE_DIRS = [str(Path.home() / ".local/share/icons/MacTahoe-dark/apps/scalable"),
+              "/usr/share/icons/MacTahoe-dark/apps/scalable"]
+
+
+def find_tahoe_icon(name):
+    """A ready-made Tahoe-style icon from the MacTahoe set, if it has one."""
+    for base in TAHOE_DIRS:
+        p = Path(base) / f"{name}.svg"
+        if p.exists():
+            return p
+    return None
+
 
 def find_brand_icon(name):
     """Locate the best installed icon file for a brand mark: scalable SVG first,
@@ -197,6 +220,7 @@ def compose(base_rgb, top_rgb, body):
     </radialGradient>
     <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="26"/></filter>
     <filter id="inner-shadow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="34"/></filter>
+    <filter id="soft-glyph" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="10"/></filter>
     <filter id="glyph-shadow" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.28"/>
     </filter>
@@ -241,6 +265,13 @@ def main():
         base, top = hex_to_rgb(cat["base"]), hex_to_rgb(cat["top"])
 
         if app.get("brand"):
+            tahoe = find_tahoe_icon(app["brand_icon"])
+            if tahoe:
+                # passthrough: MacTahoe already draws this brand in Tahoe style
+                out = scalable / f"{icon}.svg"
+                out.write_text(tahoe.read_text())
+                produced[icon] = app["name"]
+                continue
             src = find_brand_icon(app["brand_icon"])
             if not src:
                 print(f"brand mark not found for {app['name']} ({app['brand_icon']}), skipping", file=sys.stderr)

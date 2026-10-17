@@ -13,7 +13,7 @@ decision.
 | Topic | Decision |
 |---|---|
 | Base theme | MacTahoe-kde dark (vinceliuice) for colours, Plasma style, panel and dock |
-| Window decoration | MacTahoe-Graphite-Dark: Graphite rounding and sizes, MacTahoe traffic lights, solid dark outline |
+| Window decoration | Darkly's native decoration: no outline, no side borders, large shadow, line glyphs for close, minimise, maximise on the left. The Aurorae hybrid was retired after it double-drew the frame; see docs/IMPACT.md Phase A |
 | Application style | Darkly, single corner radius, opaque menus and bars |
 | Window clipping | KDE Rounded Corners effect so client-drawn windows match |
 | Glyph source | Material Symbols Rounded, weight 700, as primary. Phosphor Bold where a stroke-style glyph fits better. No SF Symbols: Apple's licence forbids redistribution. |
@@ -257,9 +257,15 @@ Before and after: `docs/panel-before.png`, `docs/panel-after.png`.
 - [ ] P1 through P7 from 4.1, one screenshot each
 - Acceptance: side-by-side before and after in `docs/`
 
-### Phase 4: rounding unification `[ ]`
+### Phase 4: rounding unification `[~]`
 
-- [ ] W1 through W5 from 4.3
+- [x] W1, W2: 12 px on the Darkly decoration and the Rounded Corners effect, Aurorae retired
+- [x] W3: Darkly titlebar, default button size, line glyphs
+- [x] W4: Darkly widget radius 8 px
+- [ ] W5: Plasma style popups to the popup token
+- Impact analysis of all phases: `docs/IMPACT.md`
+- Glyph weight is now a token, `tokens/glyphs.json`, set to 600 per review
+- App icons use the watermark glass treatment; brand apps pass through from MacTahoe's Tahoe-style set
 - Acceptance: Dolphin, System Settings, and the Claude app window measured at the same radius; menus and buttons at the widget radius
 
 ### Phase 5: workshop items `[ ]`

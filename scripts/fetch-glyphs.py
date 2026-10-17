@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Fetch the source glyphs named in tokens/*.json into glyphs/<set>/<name>.svg.
 
-Material Symbols Rounded come from google/material-design-icons at weight 700.
+Material Symbols Rounded come from google/material-design-icons at the weight
+set in tokens/glyphs.json (600 by default).
 Both app and action glyphs use the outlined cut at weight 700.
 Phosphor glyphs come from phosphor-icons/core, bold weight.
 
@@ -16,8 +17,11 @@ ROOT = Path(__file__).resolve().parent.parent
 GLYPHS = ROOT / "glyphs"
 
 MATERIAL = ("https://raw.githubusercontent.com/google/material-design-icons/master/"
-            "symbols/web/{name}/materialsymbolsrounded/{name}_wght700{fill}_48px.svg")
-PHOSPHOR = "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/bold/{name}-bold.svg"
+            "symbols/web/{name}/materialsymbolsrounded/{name}_wght{weight}{fill}_48px.svg")
+PHOSPHOR = "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/{weight}/{name}-{weight}.svg"
+GLYPH_TOKENS = json.load(open(ROOT / "tokens" / "glyphs.json"))
+MATERIAL_WEIGHT = int(GLYPH_TOKENS.get("material_weight", 700))
+PHOSPHOR_WEIGHT = GLYPH_TOKENS.get("phosphor_weight", "bold")
 
 
 def wanted():
@@ -46,9 +50,10 @@ def wanted():
 
 def url_for(set_, name, fill):
     if set_ == "material":
-        return MATERIAL.format(name=name, fill="fill1" if fill else "")
+        w = "" if MATERIAL_WEIGHT == 400 else f"wght{MATERIAL_WEIGHT}"
+        return MATERIAL.format(name=name, weight=MATERIAL_WEIGHT, fill="fill1" if fill else "").replace(f"wght{MATERIAL_WEIGHT}", w)
     if set_ == "phosphor":
-        return PHOSPHOR.format(name=name)
+        return PHOSPHOR.format(name=name, weight=PHOSPHOR_WEIGHT)
     raise ValueError(f"unknown glyph set {set_}")
 
 

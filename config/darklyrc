@@ -13,3 +13,15 @@ ToolBarOpacity=100
 TransparentDolphinView=false
 WidgetDrawShadow=false
 WidgetToolBarShadow=false
+
+[Windeco]
+BorderSize=BorderNoSides
+ButtonSize=ButtonDefault
+CornerRadius=12
+DrawBackgroundGradient=false
+DrawBorderOnMaximizedWindows=false
+DrawHighlight=false
+DrawTitleBarSeparator=false
+OutlineEnabled=false
+ShadowSize=ShadowLarge
+TitleAlignment=AlignCenter

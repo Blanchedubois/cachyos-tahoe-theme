@@ -22,17 +22,11 @@ if compgen -G "$ROOT/overrides/*.desktop" >/dev/null; then
   update-desktop-database "$DATA/applications" 2>/dev/null || true
 fi
 
-# 3. Window decoration.
-say "window decoration"
-mkdir -p "$DATA/aurorae/themes"
-rm -rf "$DATA/aurorae/themes/MacTahoe-Graphite-Dark"
-cp -r "$ROOT/aurorae/MacTahoe-Graphite-Dark" "$DATA/aurorae/themes/"
-
-# 4. Darkly application style settings.
+# 3. Darkly application style and window decoration settings.
 say "darkly"
 cp "$ROOT/config/darklyrc" "$CONF/darklyrc"
 
-# 5. KWin: decoration selection, button layout, rounded corners.
+# 4. KWin: Darkly decoration, button layout, rounded corners.
 say "kwin"
 while IFS='=' read -r key val; do
   [[ -z "$key" || "$key" == \[* ]] && continue

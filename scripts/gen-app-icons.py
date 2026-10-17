@@ -91,10 +91,9 @@ def read_glyph(path):
 
 
 def glyph_group(path, scale_pct, extra_class=""):
-    """Watermark treatment: the glyph reads as frosted glass pressed into the
-    squircle rather than a flat white mark. Three stacked copies: a soft dark
-    offset below for depth, a light offset above for the lit edge, then the
-    body at partial opacity so the category colour shows through."""
+    """Frosted-glass glyph. Stacked copies: a blurred white glow so the mark
+    looks lit from inside, a dark pressed shadow below, a bright lit edge
+    above, then the translucent body so the category colour shows through."""
     vb, ds = read_glyph(path)
     x0, y0, w, h = vb
     target = BODY * scale_pct
@@ -107,9 +106,10 @@ def glyph_group(path, scale_pct, extra_class=""):
         return (f'<g transform="translate({tx + dx:.2f},{ty + dy:.2f}) scale({s:.5f})" '
                 f'fill="{fill}" fill-opacity="{op}" {extra}>{paths}</g>')
 
-    return (layer(0, 7, "#000000", 0.20, 'filter="url(#soft-glyph)"')
-            + layer(0, -4, "#ffffff", 0.28)
-            + layer(0, 0, "#ffffff", 0.66, extra_class))
+    return (layer(0, 0, "#ffffff", 0.55, 'filter="url(#glow)"')
+            + layer(0, 8, "#000000", 0.26, 'filter="url(#soft-glyph)"')
+            + layer(0, -3, "#ffffff", 0.45)
+            + layer(0, 0, "#ffffff", 0.80, extra_class))
 
 
 # ---------------------------------------------------------------- brand marks
@@ -197,45 +197,59 @@ def dominant_colour(path):
 # ---------------------------------------------------------------- composition
 
 def compose(base_rgb, top_rgb, body):
-    """Return the full SVG for one icon. Body is the glyph or brand group."""
-    bottom = rotate_hue(mix(base_rgb, (0, 0, 0), 0.12), 6)
+    """Return the full SVG for one icon. Body is the glyph or brand group.
+
+    Glass recipe, bottom to top: saturated vertical gradient; a glossy dome of
+    light falling from the top; a broad inner rim highlight that is bright on
+    the upper edges and fades out below; a soft refracted glow along the
+    bottom inside edge; a thin outer rim; then the body."""
+    bottom = rotate_hue(mix(base_rgb, (0, 0, 0), 0.18), 6)
+    lit = mix(top_rgb, (255, 255, 255), 0.18)
     outer = squircle_path(inset=INSET)
-    rim = squircle_path(inset=INSET + 6)
+    inner = squircle_path(inset=INSET + 14)
+    rim = squircle_path(inset=INSET + 4)
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{GRID}" height="{GRID}" viewBox="0 0 {GRID} {GRID}">
   <defs>
     <clipPath id="clip"><path d="{outer}"/></clipPath>
     <linearGradient id="base" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="{rgb_to_hex(top_rgb)}"/>
-      <stop offset="0.55" stop-color="{rgb_to_hex(base_rgb)}"/>
+      <stop offset="0" stop-color="{rgb_to_hex(lit)}"/>
+      <stop offset="0.5" stop-color="{rgb_to_hex(base_rgb)}"/>
       <stop offset="1" stop-color="{rgb_to_hex(bottom)}"/>
     </linearGradient>
-    <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.34"/>
-      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.06"/>
-      <stop offset="1" stop-color="#000000" stop-opacity="0.28"/>
-    </linearGradient>
-    <linearGradient id="band" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.22"/>
-      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
-    </linearGradient>
-    <radialGradient id="spec" cx="0.28" cy="0.18" r="0.42">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+    <radialGradient id="dome" cx="0.5" cy="-0.15" r="0.95">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.42"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.10"/>
       <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
-    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="26"/></filter>
-    <filter id="inner-shadow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="34"/></filter>
-    <filter id="soft-glyph" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="10"/></filter>
+    <linearGradient id="innerrim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.75"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.10"/>
+    </linearGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.30"/>
+    </linearGradient>
+    <linearGradient id="bottomglow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.30"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="22"/></filter>
+    <filter id="rimblur" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="9"/></filter>
+    <filter id="soft-glyph" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="12"/></filter>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="22"/></filter>
     <filter id="glyph-shadow" x="-20%" y="-20%" width="140%" height="140%">
       <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.28"/>
     </filter>
   </defs>
   <path d="{outer}" fill="url(#base)"/>
   <g clip-path="url(#clip)">
-    <rect x="0" y="0" width="{GRID}" height="{INSET + BODY * 0.46:.0f}" fill="url(#band)" filter="url(#soft)"/>
-    <rect x="-80" y="{GRID - INSET - 40}" width="{GRID + 160}" height="200" fill="#000000" opacity="0.30" filter="url(#inner-shadow)"/>
-    <ellipse cx="{GRID * 0.3:.0f}" cy="{GRID * 0.2:.0f}" rx="{GRID * 0.34:.0f}" ry="{GRID * 0.22:.0f}" fill="url(#spec)"/>
+    <rect x="0" y="0" width="{GRID}" height="{GRID}" fill="url(#dome)"/>
+    <path d="{inner}" fill="none" stroke="url(#innerrim)" stroke-width="26" filter="url(#rimblur)"/>
+    <rect x="0" y="{GRID - INSET - 150}" width="{GRID}" height="150" fill="url(#bottomglow)" filter="url(#soft)"/>
   </g>
-  <path d="{rim}" fill="none" stroke="url(#rim)" stroke-width="12"/>
+  <path d="{rim}" fill="none" stroke="url(#rim)" stroke-width="8"/>
   {body}
 </svg>
 """

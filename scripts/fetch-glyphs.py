@@ -33,9 +33,12 @@ def wanted():
                 yield key
     actions_file = ROOT / "tokens" / "actions.json"
     if actions_file.exists():
-        for entry in json.load(open(actions_file))["actions"].values():
+        spec = json.load(open(actions_file))
+        contexts = spec["contexts"]
+        for entry in spec["actions"].values():
             g = entry["glyph"]
-            key = (g["set"], g["name"], g.get("fill", False))
+            fill = g.get("fill", contexts[entry["context"]]["fill"])
+            key = (g["set"], g["name"], fill)
             if key not in seen:
                 seen.add(key)
                 yield key

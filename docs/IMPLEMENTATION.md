@@ -226,11 +226,14 @@ These are proposals, not commitments. Each needs a yes before it is built.
 - Acceptance: every dock and Kickoff icon is on a squircle, glass read is visible at 48 px, brand marks are recognisable, Steam unchanged
 - Review notes: Claude's brand mark has generous built-in padding so it reads smaller than its neighbours; a per-app `scale` override is the fix if it bothers you
 
-### Phase 2: action and status icons `[ ]`
+### Phase 2: action and status icons `[x]` awaiting review
 
-- [ ] `tokens/actions.json` covering 4 coverage tiers
-- [ ] `scripts/gen-action-icons.py`
-- [ ] Theme `index.theme` with inheritance chain
+- [x] `tokens/actions.json`: 385 entries with aliases across actions, status, places, devices, emblems
+- [x] `scripts/gen-action-icons.py`: symbolic SVGs with KDE's colour-scheme stylesheet, `FollowsColorScheme=true`
+- [x] Theme `index.theme` with inheritance chain MacTahoe-dark, breeze-dark, breeze, hicolor
+- [x] Verified: Dolphin toolbar and Places sidebar, tray (notifications, clipboard, volume, bluetooth, brightness, USB, keyboard, wifi) all on the heavy Material set
+- Design call: every symbolic context uses the outlined cut, per review. Filled glyphs were tried first and read too heavy in the tray and sidebar
+- Places and devices are generated at 16 to 24 px. KDE scales the current theme's vector icons for larger sizes rather than falling through to a parent, so Dolphin's main view shows the same outlined folders at 64 px. That turned out to sit well next to the glass app icons, so it stays
 - Acceptance: Dolphin toolbar, Konsole menus, tray, and System Settings sidebar all show the heavy rounded set, recolour with the scheme, nothing falls back to Breeze in those views
 
 ### Phase 3: panel cleanup `[ ]`

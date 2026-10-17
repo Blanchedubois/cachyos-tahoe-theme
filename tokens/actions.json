@@ -1,0 +1,3694 @@
+{
+  "_comment": "Freedesktop / Breeze icon name -> glyph. context selects the icon-theme directory. Material glyphs are wght 700; fill=false is the outlined cut used for actions, fill=true the solid cut used for places, devices and status so they read at 16 px. aliases are extra names that get the same file. places and devices stop at 24 px on purpose: larger sizes fall through to MacTahoe's coloured folders and drives so file views stay Tahoe-like.",
+  "contexts": {
+    "actions": {
+      "sizes": [
+        16,
+        22,
+        24,
+        32
+      ],
+      "fill": false
+    },
+    "status": {
+      "sizes": [
+        16,
+        22,
+        24,
+        32
+      ],
+      "fill": false
+    },
+    "places": {
+      "sizes": [
+        16,
+        22,
+        24
+      ],
+      "fill": false
+    },
+    "devices": {
+      "sizes": [
+        16,
+        22,
+        24
+      ],
+      "fill": false
+    },
+    "emblems": {
+      "sizes": [
+        8,
+        16,
+        22,
+        24
+      ],
+      "fill": false
+    }
+  },
+  "actions": {
+    "go-previous": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "arrow_back"
+      },
+      "aliases": [
+        "draw-arrow-back",
+        "go-previous-view"
+      ]
+    },
+    "go-next": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "arrow_forward"
+      },
+      "aliases": [
+        "draw-arrow-forward",
+        "go-next-view"
+      ]
+    },
+    "go-up": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "arrow_upward"
+      },
+      "aliases": [
+        "draw-arrow-up"
+      ]
+    },
+    "go-down": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "arrow_downward"
+      },
+      "aliases": [
+        "draw-arrow-down"
+      ]
+    },
+    "go-home": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "home"
+      }
+    },
+    "go-jump": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "arrow_outward"
+      }
+    },
+    "go-top": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "vertical_align_top"
+      }
+    },
+    "go-bottom": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "vertical_align_bottom"
+      }
+    },
+    "go-first": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "first_page"
+      }
+    },
+    "go-last": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "last_page"
+      }
+    },
+    "arrow-up": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "keyboard_arrow_up"
+      },
+      "aliases": [
+        "go-up-symbolic"
+      ]
+    },
+    "arrow-down": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "keyboard_arrow_down"
+      },
+      "aliases": [
+        "go-down-symbolic"
+      ]
+    },
+    "arrow-left": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "keyboard_arrow_left"
+      }
+    },
+    "arrow-right": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "keyboard_arrow_right"
+      }
+    },
+    "view-list-icons": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "grid_view"
+      }
+    },
+    "view-list-details": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "view_list"
+      }
+    },
+    "view-list-tree": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "account_tree"
+      }
+    },
+    "view-list-text": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "view_headline"
+      }
+    },
+    "view-split-left-right": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "vertical_split"
+      }
+    },
+    "view-split-top-bottom": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "horizontal_split"
+      }
+    },
+    "view-right-close": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "close"
+      }
+    },
+    "view-left-close": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "close"
+      }
+    },
+    "view-refresh": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "refresh"
+      }
+    },
+    "view-fullscreen": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "fullscreen"
+      }
+    },
+    "view-restore": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "fullscreen_exit"
+      }
+    },
+    "view-preview": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "preview"
+      }
+    },
+    "view-hidden": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "visibility_off"
+      }
+    },
+    "view-visible": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "visibility"
+      }
+    },
+    "view-sort": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "sort"
+      },
+      "aliases": [
+        "view-sort-ascending",
+        "view-sort-descending"
+      ]
+    },
+    "view-filter": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "filter_alt"
+      }
+    },
+    "view-choose": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "dashboard"
+      }
+    },
+    "view-grid": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "grid_on"
+      }
+    },
+    "view-sidetree": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "side_navigation"
+      }
+    },
+    "view-process-tree": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "account_tree"
+      }
+    },
+    "view-pim-calendar": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "calendar_month"
+      }
+    },
+    "view-media-playlist": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "queue_music"
+      }
+    },
+    "view-pages-single": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "crop_portrait"
+      }
+    },
+    "view-pages-facing": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "auto_stories"
+      }
+    },
+    "edit-find": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "search"
+      },
+      "aliases": [
+        "search",
+        "system-search",
+        "edit-find-project"
+      ]
+    },
+    "edit-find-replace": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "find_replace"
+      }
+    },
+    "edit-copy": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "content_copy"
+      }
+    },
+    "edit-cut": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "content_cut"
+      }
+    },
+    "edit-paste": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "content_paste"
+      },
+      "aliases": [
+        "klipper"
+      ]
+    },
+    "edit-delete": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "delete"
+      },
+      "aliases": [
+        "edit-delete-remove",
+        "trash-empty"
+      ]
+    },
+    "edit-undo": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "undo"
+      }
+    },
+    "edit-redo": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "redo"
+      }
+    },
+    "edit-select-all": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "select_all"
+      }
+    },
+    "edit-select": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "highlight"
+      }
+    },
+    "edit-select-none": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "deselect"
+      }
+    },
+    "edit-rename": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "edit"
+      },
+      "aliases": [
+        "document-edit",
+        "edit-entry"
+      ]
+    },
+    "edit-clear": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "backspace"
+      },
+      "aliases": [
+        "edit-clear-locationbar-rtl",
+        "edit-clear-locationbar-ltr"
+      ]
+    },
+    "edit-clear-all": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "clear_all"
+      },
+      "aliases": [
+        "edit-clear-list",
+        "edit-clear-history"
+      ]
+    },
+    "edit-link": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "link"
+      },
+      "aliases": [
+        "insert-link"
+      ]
+    },
+    "edit-move": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "drive_file_move"
+      }
+    },
+    "edit-duplicate": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "file_copy"
+      }
+    },
+    "document-new": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "note_add"
+      }
+    },
+    "document-open": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "folder_open"
+      }
+    },
+    "document-open-folder": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "folder_open"
+      }
+    },
+    "document-open-recent": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "history"
+      }
+    },
+    "document-save": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "save"
+      }
+    },
+    "document-save-as": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "save_as"
+      }
+    },
+    "document-save-all": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "save"
+      }
+    },
+    "document-print": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "print"
+      }
+    },
+    "document-print-preview": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "preview"
+      }
+    },
+    "document-properties": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "info"
+      }
+    },
+    "document-close": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "close"
+      }
+    },
+    "document-revert": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "settings_backup_restore"
+      }
+    },
+    "document-export": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "upload_file"
+      }
+    },
+    "document-import": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "download"
+      }
+    },
+    "document-share": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "share"
+      }
+    },
+    "document-send": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "send"
+      },
+      "aliases": [
+        "mail-send"
+      ]
+    },
+    "document-encrypt": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "lock"
+      }
+    },
+    "document-decrypt": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "lock_open"
+      }
+    },
+    "folder-new": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "create_new_folder"
+      }
+    },
+    "archive-extract": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "unarchive"
+      }
+    },
+    "archive-insert": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "archive"
+      }
+    },
+    "tab-new": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "add_box"
+      },
+      "aliases": [
+        "tab-new-background"
+      ]
+    },
+    "tab-close": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "close"
+      },
+      "aliases": [
+        "tab-close-other"
+      ]
+    },
+    "tab-duplicate": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "tab_duplicate"
+      }
+    },
+    "tab-detach": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "open_in_new"
+      }
+    },
+    "window-new": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "open_in_new"
+      }
+    },
+    "window-close": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "close"
+      }
+    },
+    "window-pin": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "push_pin"
+      },
+      "aliases": [
+        "pin"
+      ]
+    },
+    "window-unpin": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "push_pin"
+      },
+      "aliases": [
+        "unpin"
+      ]
+    },
+    "window-minimize": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "minimize"
+      }
+    },
+    "window-maximize": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "crop_square"
+      }
+    },
+    "application-exit": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "logout"
+      }
+    },
+    "application-menu": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "menu"
+      },
+      "aliases": [
+        "open-menu",
+        "overflow-menu",
+        "application-menu-symbolic",
+        "menu_new"
+      ]
+    },
+    "overflow-menu-left": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "more_horiz"
+      },
+      "aliases": [
+        "overflow-menu-right",
+        "view-more-symbolic",
+        "more"
+      ]
+    },
+    "configure": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "settings"
+      },
+      "aliases": [
+        "settings-configure",
+        "configure-symbolic",
+        "preferences-other",
+        "preferences-system-symbolic",
+        "systemsettings"
+      ]
+    },
+    "configure-shortcuts": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "keyboard"
+      }
+    },
+    "configure-toolbars": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "build"
+      }
+    },
+    "preferences-desktop": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "desktop_windows"
+      }
+    },
+    "preferences-desktop-theme": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "palette"
+      },
+      "aliases": [
+        "preferences-desktop-color",
+        "preferences-desktop-theme-global",
+        "preferences-desktop-icons"
+      ]
+    },
+    "preferences-desktop-font": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "text_fields"
+      }
+    },
+    "preferences-desktop-wallpaper": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "wallpaper"
+      }
+    },
+    "preferences-desktop-display": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "monitor"
+      },
+      "aliases": [
+        "video-display",
+        "preferences-desktop-display-randr",
+        "osd-shutd-screen"
+      ]
+    },
+    "preferences-desktop-notification": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "notifications"
+      },
+      "aliases": [
+        "preferences-desktop-notification-bell"
+      ]
+    },
+    "preferences-desktop-user": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "person"
+      },
+      "aliases": [
+        "user",
+        "user-identity",
+        "system-users"
+      ]
+    },
+    "preferences-desktop-locale": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "language"
+      },
+      "aliases": [
+        "preferences-desktop-locale-symbolic"
+      ]
+    },
+    "preferences-desktop-keyboard": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "keyboard"
+      },
+      "aliases": [
+        "input-keyboard"
+      ]
+    },
+    "preferences-desktop-mouse": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "mouse"
+      },
+      "aliases": [
+        "input-mouse"
+      ]
+    },
+    "preferences-desktop-touchpad": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "touchpad_mouse"
+      }
+    },
+    "preferences-desktop-sound": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "volume_up"
+      },
+      "aliases": [
+        "preferences-desktop-sound-symbolic",
+        "audio-card"
+      ]
+    },
+    "preferences-desktop-accessibility": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "accessibility"
+      }
+    },
+    "preferences-desktop-screensaver": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "screen_lock_portrait"
+      }
+    },
+    "preferences-desktop-emoticons": {
+      "context": "actions",
+      "glyph": {
+        "set": "phosphor",
+        "name": "smiley"
+      }
+    },
+    "preferences-system-network": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "lan"
+      },
+      "aliases": [
+        "network-workgroup-symbolic"
+      ]
+    },
+    "preferences-system-power-management": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "bolt"
+      },
+      "aliases": [
+        "battery",
+        "preferences-system-power"
+      ]
+    },
+    "preferences-system-bluetooth": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "bluetooth"
+      },
+      "aliases": [
+        "network-bluetooth",
+        "bluetooth"
+      ]
+    },
+    "preferences-system-time": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "schedule"
+      },
+      "aliases": [
+        "clock",
+        "appointment-new"
+      ]
+    },
+    "preferences-system-windows": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "web_asset"
+      },
+      "aliases": [
+        "preferences-system-windows-actions",
+        "preferences-system-windows-behavior"
+      ]
+    },
+    "preferences-system-login": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "login"
+      }
+    },
+    "preferences-system-startup": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "rocket_launch"
+      }
+    },
+    "preferences-system-search": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "manage_search"
+      }
+    },
+    "preferences-system-privacy": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "shield"
+      },
+      "aliases": [
+        "security-high",
+        "security-medium"
+      ]
+    },
+    "preferences-system-session-services": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "settings_suggest"
+      }
+    },
+    "preferences-devices-printer": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "print"
+      }
+    },
+    "preferences-desktop-plasma": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "space_dashboard"
+      }
+    },
+    "preferences-desktop-effects": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "auto_awesome"
+      }
+    },
+    "preferences-desktop-cryptography": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "key"
+      },
+      "aliases": [
+        "dialog-password",
+        "kwalletmanager",
+        "password-show-on",
+        "password-show-off"
+      ]
+    },
+    "preferences-desktop-default-applications": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "apps"
+      },
+      "aliases": [
+        "applications-all",
+        "applications-other"
+      ]
+    },
+    "preferences-desktop-filetype-association": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "description"
+      }
+    },
+    "help-contents": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "help"
+      },
+      "aliases": [
+        "help-browser",
+        "help-contextual",
+        "help-hint"
+      ]
+    },
+    "help-about": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "info"
+      },
+      "aliases": [
+        "dialog-information",
+        "documentinfo",
+        "data-information"
+      ]
+    },
+    "help-whatsthis": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "contact_support"
+      }
+    },
+    "help-donate": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "volunteer_activism"
+      }
+    },
+    "help-feedback": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "feedback"
+      }
+    },
+    "tools-report-bug": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "bug_report"
+      }
+    },
+    "tools-check-spelling": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "spellcheck"
+      }
+    },
+    "tools-wizard": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "auto_fix_high"
+      }
+    },
+    "dialog-ok": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "check"
+      },
+      "aliases": [
+        "dialog-ok-apply",
+        "checkmark",
+        "answer-correct",
+        "emblem-ok",
+        "emblem-checked"
+      ]
+    },
+    "dialog-cancel": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "close"
+      },
+      "aliases": [
+        "dialog-close",
+        "process-stop",
+        "window-close-symbolic",
+        "emblem-remove"
+      ]
+    },
+    "dialog-warning": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "warning"
+      },
+      "aliases": [
+        "emblem-warning",
+        "data-warning",
+        "state-warning"
+      ]
+    },
+    "dialog-error": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "error"
+      },
+      "aliases": [
+        "emblem-error",
+        "data-error",
+        "state-error"
+      ]
+    },
+    "dialog-question": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "help"
+      },
+      "aliases": [
+        "emblem-question"
+      ]
+    },
+    "dialog-messages": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "chat"
+      }
+    },
+    "dialog-scripts": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "code"
+      },
+      "aliases": [
+        "text-x-script"
+      ]
+    },
+    "dialog-layers": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "layers"
+      }
+    },
+    "list-add": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "add"
+      },
+      "aliases": [
+        "list-add-symbolic",
+        "add",
+        "contact-new",
+        "list-add-user"
+      ]
+    },
+    "list-remove": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "remove"
+      },
+      "aliases": [
+        "list-remove-symbolic",
+        "remove",
+        "list-remove-user"
+      ]
+    },
+    "zoom-in": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "zoom_in"
+      }
+    },
+    "zoom-out": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "zoom_out"
+      }
+    },
+    "zoom-original": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "crop_free"
+      },
+      "aliases": [
+        "zoom",
+        "zoom-fit-best",
+        "zoom-fit-width",
+        "zoom-fit-height",
+        "zoom-select"
+      ]
+    },
+    "bookmarks": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "bookmarks"
+      },
+      "aliases": [
+        "bookmarks-organize",
+        "bookmarks-bookmarked"
+      ]
+    },
+    "bookmark-new": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "bookmark_add"
+      }
+    },
+    "bookmark-remove": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "bookmark_remove"
+      }
+    },
+    "favorite": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "star"
+      },
+      "aliases": [
+        "rating",
+        "emblem-favorite",
+        "favorites",
+        "starred",
+        "bookmark"
+      ]
+    },
+    "non-starred": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "star"
+      },
+      "aliases": [
+        "rating-unrated",
+        "non-starred-symbolic"
+      ]
+    },
+    "flag": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "flag"
+      }
+    },
+    "mail-mark-important": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "label_important"
+      }
+    },
+    "tag": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "sell"
+      },
+      "aliases": [
+        "tag-new",
+        "tag-symbolic"
+      ]
+    },
+    "color-picker": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "colorize"
+      }
+    },
+    "format-justify-left": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_align_left"
+      }
+    },
+    "format-justify-center": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_align_center"
+      }
+    },
+    "format-justify-right": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_align_right"
+      }
+    },
+    "format-justify-fill": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_align_justify"
+      }
+    },
+    "format-text-bold": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_bold"
+      }
+    },
+    "format-text-italic": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_italic"
+      }
+    },
+    "format-text-underline": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_underlined"
+      }
+    },
+    "format-text-strikethrough": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_strikethrough"
+      }
+    },
+    "format-list-unordered": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_list_bulleted"
+      }
+    },
+    "format-list-ordered": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_list_numbered"
+      }
+    },
+    "format-indent-more": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_indent_increase"
+      }
+    },
+    "format-indent-less": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "format_indent_decrease"
+      }
+    },
+    "insert-image": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "image"
+      }
+    },
+    "insert-text": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "text_fields"
+      }
+    },
+    "insert-table": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "table"
+      }
+    },
+    "object-rotate-left": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "rotate_left"
+      }
+    },
+    "object-rotate-right": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "rotate_right"
+      }
+    },
+    "object-flip-horizontal": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "flip"
+      }
+    },
+    "transform-crop": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "crop"
+      },
+      "aliases": [
+        "crop"
+      ]
+    },
+    "transform-move": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "open_with"
+      }
+    },
+    "transform-scale": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "aspect_ratio"
+      }
+    },
+    "media-playback-start": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "play_arrow"
+      },
+      "aliases": [
+        "media-playback-playing",
+        "player-play"
+      ]
+    },
+    "media-playback-pause": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "pause"
+      },
+      "aliases": [
+        "media-playback-paused"
+      ]
+    },
+    "media-playback-stop": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "stop"
+      }
+    },
+    "media-skip-forward": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "skip_next"
+      }
+    },
+    "media-skip-backward": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "skip_previous"
+      }
+    },
+    "media-seek-forward": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "fast_forward"
+      }
+    },
+    "media-seek-backward": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "fast_rewind"
+      }
+    },
+    "media-record": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "fiber_manual_record"
+      }
+    },
+    "media-eject": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "eject"
+      }
+    },
+    "media-playlist-shuffle": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "shuffle"
+      }
+    },
+    "media-playlist-repeat": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "repeat"
+      }
+    },
+    "media-default-album": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "album"
+      }
+    },
+    "camera-photo": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "photo_camera"
+      },
+      "aliases": [
+        "camera-photo-symbolic"
+      ]
+    },
+    "camera-video": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "videocam"
+      },
+      "aliases": [
+        "camera-web"
+      ]
+    },
+    "audio-volume-high": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "volume_up"
+      }
+    },
+    "audio-volume-medium": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "volume_down"
+      }
+    },
+    "audio-volume-low": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "volume_mute"
+      }
+    },
+    "audio-volume-muted": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "volume_off"
+      }
+    },
+    "microphone-sensitivity-high": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "mic"
+      },
+      "aliases": [
+        "microphone-sensitivity-medium",
+        "microphone-sensitivity-low",
+        "audio-input-microphone"
+      ]
+    },
+    "microphone-sensitivity-muted": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "mic_off"
+      },
+      "aliases": [
+        "audio-input-microphone-muted"
+      ]
+    },
+    "system-run": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "terminal"
+      },
+      "aliases": [
+        "utilities-terminal",
+        "utilities-terminal-symbolic",
+        "run-build",
+        "akonadiconsole"
+      ]
+    },
+    "system-shutdown": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "power_settings_new"
+      }
+    },
+    "system-reboot": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "restart_alt"
+      }
+    },
+    "system-suspend": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "bedtime"
+      },
+      "aliases": [
+        "system-suspend-hibernate"
+      ]
+    },
+    "system-lock-screen": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "lock"
+      },
+      "aliases": [
+        "lock",
+        "object-locked",
+        "emblem-locked"
+      ]
+    },
+    "system-log-out": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "logout"
+      }
+    },
+    "system-switch-user": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "switch_account"
+      }
+    },
+    "system-file-manager": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "folder"
+      }
+    },
+    "system-search": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "search"
+      }
+    },
+    "system-software-update": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "update"
+      },
+      "aliases": [
+        "update-none",
+        "update-low",
+        "update-medium",
+        "update-high",
+        "software-updates"
+      ]
+    },
+    "system-help": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "help"
+      }
+    },
+    "download": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "download"
+      },
+      "aliases": [
+        "cloud-download",
+        "folder-download",
+        "edit-download"
+      ]
+    },
+    "upload": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "upload"
+      },
+      "aliases": [
+        "cloud-upload",
+        "edit-upload"
+      ]
+    },
+    "network-connect": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "link"
+      }
+    },
+    "network-disconnect": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "link_off"
+      }
+    },
+    "call-start": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "call"
+      }
+    },
+    "mail-message-new": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "mail"
+      },
+      "aliases": [
+        "mail-message",
+        "internet-mail",
+        "mail-unread",
+        "mail-read"
+      ]
+    },
+    "im-user": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "chat_bubble"
+      },
+      "aliases": [
+        "internet-chat",
+        "im-message-new"
+      ]
+    },
+    "games-config-options": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "sports_esports"
+      },
+      "aliases": [
+        "input-gaming",
+        "applications-games"
+      ]
+    },
+    "code-context": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "code"
+      },
+      "aliases": [
+        "code-block",
+        "text-x-generic"
+      ]
+    },
+    "distribute-horizontal": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "horizontal_distribute"
+      }
+    },
+    "distribute-vertical": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "vertical_distribute"
+      }
+    },
+    "visibility": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "visibility"
+      },
+      "aliases": [
+        "view-visible-symbolic",
+        "show-all"
+      ]
+    },
+    "hint": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "lightbulb"
+      }
+    },
+    "labplot-auto-scale-all": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "fit_screen"
+      }
+    },
+    "edit-image-face-detect": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "face"
+      }
+    },
+    "games-highscores": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "emoji_events"
+      }
+    },
+    "clock": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "schedule"
+      },
+      "aliases": [
+        "chronometer",
+        "clock-symbolic"
+      ]
+    },
+    "calendar": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "calendar_today"
+      },
+      "aliases": [
+        "view-calendar",
+        "office-calendar"
+      ]
+    },
+    "window": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "web_asset"
+      },
+      "aliases": [
+        "window-duplicate"
+      ]
+    },
+    "desktop": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "desktop_windows"
+      },
+      "aliases": [
+        "user-desktop-symbolic",
+        "show-desktop"
+      ]
+    },
+    "virtual-desktops": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "grid_view"
+      },
+      "aliases": [
+        "preferences-desktop-virtual"
+      ]
+    },
+    "cursor-arrow": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "arrow_selector_tool"
+      },
+      "aliases": [
+        "preferences-desktop-cursors",
+        "tool-pointer"
+      ]
+    },
+    "draw-brush": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "brush"
+      }
+    },
+    "draw-text": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "title"
+      }
+    },
+    "draw-rectangle": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "rectangle"
+      }
+    },
+    "draw-ellipse": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "circle"
+      }
+    },
+    "draw-line": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "horizontal_rule"
+      }
+    },
+    "draw-arrow": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "north_east"
+      }
+    },
+    "draw-highlight": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "ink_highlighter"
+      }
+    },
+    "draw-eraser": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "ink_eraser"
+      }
+    },
+    "draw-freehand": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "gesture"
+      }
+    },
+    "blur": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "blur_on"
+      }
+    },
+    "pixelate": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "grid_4x4"
+      }
+    },
+    "select-rectangular": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "crop_free"
+      },
+      "aliases": [
+        "select-rectangle"
+      ]
+    },
+    "screenshot": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "screenshot_monitor"
+      },
+      "aliases": [
+        "spectacle"
+      ]
+    },
+    "screen-record": {
+      "context": "actions",
+      "glyph": {
+        "set": "material",
+        "name": "screen_record"
+      },
+      "aliases": [
+        "media-record-symbolic"
+      ]
+    },
+    "user-home": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "home"
+      },
+      "aliases": [
+        "user-home-symbolic",
+        "go-home-symbolic",
+        "folder-home"
+      ]
+    },
+    "user-desktop": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "desktop_windows"
+      },
+      "aliases": [
+        "folder-desktop"
+      ]
+    },
+    "folder": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "folder"
+      },
+      "aliases": [
+        "folder-symbolic",
+        "inode-directory",
+        "folder-blue",
+        "folder-open-symbolic"
+      ]
+    },
+    "folder-open": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "folder_open"
+      }
+    },
+    "folder-documents": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "description"
+      },
+      "aliases": [
+        "folder-text",
+        "folder-documents-symbolic"
+      ]
+    },
+    "folder-download": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "download"
+      },
+      "aliases": [
+        "folder-downloads",
+        "folder-download-symbolic"
+      ]
+    },
+    "folder-music": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "music_note"
+      },
+      "aliases": [
+        "folder-sound",
+        "folder-music-symbolic"
+      ]
+    },
+    "folder-pictures": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "image"
+      },
+      "aliases": [
+        "folder-image",
+        "folder-images",
+        "folder-pictures-symbolic"
+      ]
+    },
+    "folder-videos": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "movie"
+      },
+      "aliases": [
+        "folder-video",
+        "folder-videos-symbolic"
+      ]
+    },
+    "folder-templates": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "dashboard_customize"
+      }
+    },
+    "folder-publicshare": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "public"
+      },
+      "aliases": [
+        "folder-public"
+      ]
+    },
+    "folder-remote": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "cloud"
+      },
+      "aliases": [
+        "folder-cloud",
+        "folder-network",
+        "network-workgroup",
+        "network-server",
+        "remote"
+      ]
+    },
+    "folder-root": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "dns"
+      },
+      "aliases": [
+        "drive-harddisk-root"
+      ]
+    },
+    "folder-games": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "sports_esports"
+      }
+    },
+    "folder-development": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "code"
+      },
+      "aliases": [
+        "folder-script",
+        "folder-code"
+      ]
+    },
+    "folder-favorites": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "star"
+      },
+      "aliases": [
+        "folder-bookmark"
+      ]
+    },
+    "folder-recent": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "history"
+      },
+      "aliases": [
+        "document-open-recent-symbolic",
+        "folder-temp"
+      ]
+    },
+    "folder-tar": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "folder_zip"
+      },
+      "aliases": [
+        "folder-archive"
+      ]
+    },
+    "folder-activities": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "dashboard"
+      },
+      "aliases": [
+        "activities",
+        "preferences-desktop-activities"
+      ]
+    },
+    "folder-locked": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "folder_special"
+      }
+    },
+    "folder-tag": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "label"
+      },
+      "aliases": [
+        "tag-places",
+        "folder-tags"
+      ]
+    },
+    "user-trash": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "delete"
+      },
+      "aliases": [
+        "user-trash-symbolic",
+        "trash-empty"
+      ]
+    },
+    "user-trash-full": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "delete_sweep"
+      },
+      "aliases": [
+        "user-trash-full-symbolic",
+        "trash-full"
+      ]
+    },
+    "network-workgroup-places": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "lan"
+      },
+      "aliases": [
+        "network",
+        "network-workgroup",
+        "folder-network-symbolic"
+      ]
+    },
+    "search-places": {
+      "context": "places",
+      "glyph": {
+        "set": "material",
+        "name": "saved_search"
+      },
+      "aliases": [
+        "baloo",
+        "folder-saved-search"
+      ]
+    },
+    "drive-harddisk": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "hard_drive"
+      },
+      "aliases": [
+        "drive-harddisk-symbolic",
+        "drive-harddisk-usb",
+        "drive-partition",
+        "disk-quota"
+      ]
+    },
+    "drive-removable-media": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "usb"
+      },
+      "aliases": [
+        "drive-removable-media-usb",
+        "drive-removable-media-usb-pendrive",
+        "media-flash",
+        "media-removable",
+        "media-flash-sd-mmc",
+        "media-flash-memory-stick"
+      ]
+    },
+    "drive-optical": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "album"
+      },
+      "aliases": [
+        "media-optical",
+        "media-optical-audio",
+        "media-optical-data",
+        "media-optical-video",
+        "media-optical-dvd",
+        "media-optical-bd"
+      ]
+    },
+    "computer": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "computer"
+      },
+      "aliases": [
+        "computer-laptop",
+        "computer-symbolic",
+        "pc"
+      ]
+    },
+    "phone": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "smartphone"
+      },
+      "aliases": [
+        "smartphone",
+        "phone-symbolic",
+        "multimedia-player",
+        "kdeconnect",
+        "kdeconnect-tray"
+      ]
+    },
+    "tablet": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "tablet"
+      }
+    },
+    "printer": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "print"
+      },
+      "aliases": [
+        "printer-symbolic",
+        "printer-network"
+      ]
+    },
+    "scanner": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "scanner"
+      }
+    },
+    "audio-headphones": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "headphones"
+      },
+      "aliases": [
+        "audio-headset"
+      ]
+    },
+    "audio-speakers": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "speaker"
+      },
+      "aliases": [
+        "audio-speakers-symbolic"
+      ]
+    },
+    "audio-card-devices": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "music_note"
+      },
+      "aliases": [
+        "audio-card-symbolic"
+      ]
+    },
+    "input-mouse-devices": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "mouse"
+      },
+      "aliases": [
+        "input-mouse-symbolic"
+      ]
+    },
+    "input-keyboard-devices": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "keyboard"
+      },
+      "aliases": [
+        "input-keyboard-symbolic",
+        "input-keyboard-virtual"
+      ]
+    },
+    "input-gaming-devices": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "sports_esports"
+      },
+      "aliases": [
+        "input-gamepad",
+        "input-gaming-symbolic"
+      ]
+    },
+    "input-tablet": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "draw"
+      },
+      "aliases": [
+        "input-tablet-symbolic"
+      ]
+    },
+    "camera-devices": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "photo_camera"
+      },
+      "aliases": [
+        "camera-photo-devices",
+        "camera-web-devices"
+      ]
+    },
+    "network-wireless-devices": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "wifi"
+      },
+      "aliases": [
+        "network-wireless",
+        "network-wireless-symbolic",
+        "network-card"
+      ]
+    },
+    "network-wired-devices": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "settings_ethernet"
+      },
+      "aliases": [
+        "network-wired",
+        "network-wired-symbolic"
+      ]
+    },
+    "monitor": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "monitor"
+      },
+      "aliases": [
+        "video-display-devices",
+        "display",
+        "video-television",
+        "tv"
+      ]
+    },
+    "cpu": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "memory"
+      },
+      "aliases": [
+        "cpu-symbolic",
+        "memory-devices"
+      ]
+    },
+    "battery-devices": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "battery_full"
+      },
+      "aliases": [
+        "battery-symbolic",
+        "battery-full"
+      ]
+    },
+    "modem": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "router"
+      },
+      "aliases": [
+        "network-modem",
+        "router"
+      ]
+    },
+    "media-tape": {
+      "context": "devices",
+      "glyph": {
+        "set": "material",
+        "name": "save"
+      },
+      "aliases": [
+        "media-floppy"
+      ]
+    },
+    "network-wireless-connected-100": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "wifi"
+      },
+      "aliases": [
+        "network-wireless-100",
+        "network-wireless-signal-excellent",
+        "network-wireless-connected",
+        "network-wireless-on"
+      ]
+    },
+    "network-wireless-connected-80": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "wifi"
+      },
+      "aliases": [
+        "network-wireless-80",
+        "network-wireless-signal-good"
+      ]
+    },
+    "network-wireless-connected-60": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "wifi_2_bar"
+      },
+      "aliases": [
+        "network-wireless-60",
+        "network-wireless-signal-ok"
+      ]
+    },
+    "network-wireless-connected-40": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "wifi_2_bar"
+      },
+      "aliases": [
+        "network-wireless-40",
+        "network-wireless-signal-weak"
+      ]
+    },
+    "network-wireless-connected-20": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "wifi_1_bar"
+      },
+      "aliases": [
+        "network-wireless-20",
+        "network-wireless-signal-none",
+        "network-wireless-connected-00",
+        "network-wireless-00"
+      ]
+    },
+    "network-wireless-disconnected": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "wifi_off"
+      },
+      "aliases": [
+        "network-wireless-off",
+        "network-wireless-disconnected-symbolic",
+        "network-wireless-unavailable"
+      ]
+    },
+    "network-wireless-acquiring": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "wifi_find"
+      },
+      "aliases": [
+        "network-wireless-connecting"
+      ]
+    },
+    "network-wireless-hotspot": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "wifi_tethering"
+      }
+    },
+    "network-wired-activated": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "settings_ethernet"
+      },
+      "aliases": [
+        "network-wired-connected",
+        "network-wired-status",
+        "network-connect-status",
+        "network-wired-activated-symbolic"
+      ]
+    },
+    "network-wired-unavailable": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "cable"
+      },
+      "aliases": [
+        "network-wired-disconnected",
+        "network-disconnect-status",
+        "network-unavailable",
+        "network-wired-acquiring"
+      ]
+    },
+    "network-vpn": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "vpn_lock"
+      },
+      "aliases": [
+        "network-vpn-symbolic",
+        "network-vpn-connected"
+      ]
+    },
+    "network-mobile-100": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "signal_cellular_4_bar"
+      },
+      "aliases": [
+        "network-mobile-connected",
+        "network-mobile"
+      ]
+    },
+    "network-flightmode-on": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "airplanemode_active"
+      }
+    },
+    "network-flightmode-off": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "airplanemode_inactive"
+      }
+    },
+    "audio-volume-high-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "volume_up"
+      },
+      "aliases": [
+        "audio-volume-high",
+        "audio-on",
+        "audio-volume-high-symbolic"
+      ]
+    },
+    "audio-volume-medium-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "volume_down"
+      },
+      "aliases": [
+        "audio-volume-medium",
+        "audio-volume-medium-symbolic"
+      ]
+    },
+    "audio-volume-low-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "volume_mute"
+      },
+      "aliases": [
+        "audio-volume-low",
+        "audio-volume-low-symbolic"
+      ]
+    },
+    "audio-volume-muted-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "volume_off"
+      },
+      "aliases": [
+        "audio-volume-muted",
+        "audio-off",
+        "audio-volume-muted-symbolic"
+      ]
+    },
+    "microphone-sensitivity-high-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "mic"
+      },
+      "aliases": [
+        "microphone-sensitivity-high",
+        "microphone-sensitivity-medium",
+        "microphone-sensitivity-low",
+        "mic-on",
+        "audio-input-microphone-high"
+      ]
+    },
+    "microphone-sensitivity-muted-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "mic_off"
+      },
+      "aliases": [
+        "microphone-sensitivity-muted",
+        "mic-off",
+        "audio-input-microphone-muted-symbolic"
+      ]
+    },
+    "preferences-system-bluetooth-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "bluetooth"
+      },
+      "aliases": [
+        "preferences-system-bluetooth",
+        "network-bluetooth",
+        "bluetooth-active",
+        "bluetooth-online",
+        "preferences-system-bluetooth-activated"
+      ]
+    },
+    "preferences-system-bluetooth-inactive": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "bluetooth_disabled"
+      },
+      "aliases": [
+        "bluetooth-disabled",
+        "bluetooth-offline",
+        "network-bluetooth-inactive",
+        "bluetooth-disconnected"
+      ]
+    },
+    "bluetooth-connected-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "bluetooth_connected"
+      },
+      "aliases": [
+        "bluetooth-connected",
+        "preferences-system-bluetooth-connected",
+        "bluetooth-paired"
+      ]
+    },
+    "notifications": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "notifications"
+      },
+      "aliases": [
+        "notifications-symbolic",
+        "preferences-desktop-notification-symbolic"
+      ]
+    },
+    "notifications-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "notifications_off"
+      },
+      "aliases": [
+        "notifications-disabled-symbolic",
+        "notifications-none"
+      ]
+    },
+    "notification-active": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "notifications_active"
+      },
+      "aliases": [
+        "notification-new",
+        "notifications-active"
+      ]
+    },
+    "notification-inactive": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "notifications"
+      },
+      "aliases": [
+        "notification-disabled",
+        "notifications-inactive"
+      ]
+    },
+    "edit-paste-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "content_paste"
+      },
+      "aliases": [
+        "klipper",
+        "klipper-symbolic",
+        "edit-paste",
+        "clipboard"
+      ]
+    },
+    "battery-100-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "battery_full"
+      },
+      "aliases": [
+        "battery-100",
+        "battery-full",
+        "battery-full-charged",
+        "battery-100-charging",
+        "battery-charging-100",
+        "battery-full-charging"
+      ]
+    },
+    "battery-080-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "battery_6_bar"
+      },
+      "aliases": [
+        "battery-080",
+        "battery-090",
+        "battery-080-charging",
+        "battery-090-charging"
+      ]
+    },
+    "battery-060-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "battery_5_bar"
+      },
+      "aliases": [
+        "battery-060",
+        "battery-070",
+        "battery-060-charging",
+        "battery-070-charging"
+      ]
+    },
+    "battery-040-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "battery_3_bar"
+      },
+      "aliases": [
+        "battery-040",
+        "battery-050",
+        "battery-040-charging",
+        "battery-050-charging"
+      ]
+    },
+    "battery-020-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "battery_2_bar"
+      },
+      "aliases": [
+        "battery-020",
+        "battery-030",
+        "battery-020-charging",
+        "battery-030-charging",
+        "battery-low"
+      ]
+    },
+    "battery-000-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "battery_alert"
+      },
+      "aliases": [
+        "battery-000",
+        "battery-010",
+        "battery-caution",
+        "battery-empty",
+        "battery-missing",
+        "battery-000-charging",
+        "battery-010-charging"
+      ]
+    },
+    "battery-charging-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "battery_charging_full"
+      },
+      "aliases": [
+        "battery-charging",
+        "battery-ac-adapter",
+        "ac-adapter"
+      ]
+    },
+    "preferences-desktop-display-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "monitor"
+      },
+      "aliases": [
+        "preferences-desktop-display",
+        "video-display",
+        "video-display-symbolic",
+        "osd-shutd-screen",
+        "preferences-desktop-display-randr",
+        "kscreen"
+      ]
+    },
+    "input-keyboard-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "keyboard"
+      },
+      "aliases": [
+        "input-keyboard",
+        "input-keyboard-symbolic",
+        "preferences-desktop-keyboard",
+        "keyboard-layout"
+      ]
+    },
+    "input-keyboard-virtual-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "keyboard_alt"
+      },
+      "aliases": [
+        "input-keyboard-virtual",
+        "input-keyboard-virtual-on",
+        "input-keyboard-virtual-off",
+        "input-keyboard-virtual-hide",
+        "input-keyboard-virtual-show"
+      ]
+    },
+    "device-notifier": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "usb"
+      },
+      "aliases": [
+        "device-notifier-symbolic",
+        "drive-removable-media-usb-symbolic",
+        "media-removable-symbolic"
+      ]
+    },
+    "media-playback-start-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "play_arrow"
+      },
+      "aliases": [
+        "media-playback-start",
+        "media-playback-playing",
+        "multimedia-player",
+        "media-playback-playing-symbolic"
+      ]
+    },
+    "media-playback-pause-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "pause"
+      },
+      "aliases": [
+        "media-playback-pause",
+        "media-playback-paused",
+        "media-playback-paused-symbolic"
+      ]
+    },
+    "media-playback-stop-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "stop"
+      },
+      "aliases": [
+        "media-playback-stop",
+        "media-playback-stopped"
+      ]
+    },
+    "redshift-status-on": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "nightlight"
+      },
+      "aliases": [
+        "redshift-status-day",
+        "redshift-status-manual",
+        "color-temperature",
+        "preferences-desktop-display-nightcolor-on",
+        "nightcolor-on"
+      ]
+    },
+    "redshift-status-off": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "light_mode"
+      },
+      "aliases": [
+        "preferences-desktop-display-nightcolor-off",
+        "nightcolor-off"
+      ]
+    },
+    "brightness-high": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "brightness_7"
+      },
+      "aliases": [
+        "video-display-brightness",
+        "display-brightness",
+        "display-brightness-symbolic",
+        "high-brightness"
+      ]
+    },
+    "brightness-low": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "brightness_5"
+      },
+      "aliases": [
+        "low-brightness",
+        "display-brightness-low"
+      ]
+    },
+    "keyboard-brightness": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "keyboard"
+      },
+      "aliases": [
+        "input-keyboard-brightness",
+        "keyboard-brightness-symbolic"
+      ]
+    },
+    "update-none-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "task_alt"
+      },
+      "aliases": [
+        "update-none",
+        "update-none-symbolic",
+        "software-updates-none"
+      ]
+    },
+    "update-low-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "update"
+      },
+      "aliases": [
+        "update-low",
+        "update-medium",
+        "update-high",
+        "update-low-symbolic",
+        "update-medium-symbolic",
+        "update-high-symbolic",
+        "system-software-update-symbolic",
+        "software-updates-available"
+      ]
+    },
+    "security-high": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "verified_user"
+      },
+      "aliases": [
+        "security-high-symbolic",
+        "security-medium-symbolic"
+      ]
+    },
+    "security-low": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "gpp_maybe"
+      },
+      "aliases": [
+        "security-low-symbolic"
+      ]
+    },
+    "object-locked-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "lock"
+      },
+      "aliases": [
+        "object-locked",
+        "object-locked-symbolic",
+        "emblem-locked",
+        "changes-prevent"
+      ]
+    },
+    "object-unlocked-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "lock_open"
+      },
+      "aliases": [
+        "object-unlocked",
+        "object-unlocked-symbolic",
+        "emblem-unlocked",
+        "changes-allow"
+      ]
+    },
+    "dialog-information-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "info"
+      },
+      "aliases": [
+        "dialog-information",
+        "dialog-information-symbolic",
+        "data-information",
+        "emblem-information",
+        "state-information"
+      ]
+    },
+    "dialog-warning-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "warning"
+      },
+      "aliases": [
+        "dialog-warning",
+        "dialog-warning-symbolic",
+        "data-warning",
+        "emblem-warning",
+        "state-warning",
+        "task-attention"
+      ]
+    },
+    "dialog-error-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "error"
+      },
+      "aliases": [
+        "dialog-error",
+        "dialog-error-symbolic",
+        "data-error",
+        "emblem-error",
+        "state-error",
+        "dialog-cancel"
+      ]
+    },
+    "dialog-ok-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "check_circle"
+      },
+      "aliases": [
+        "dialog-ok",
+        "dialog-ok-symbolic",
+        "emblem-ok",
+        "emblem-success",
+        "state-ok",
+        "task-complete",
+        "checkbox"
+      ]
+    },
+    "dialog-question-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "help"
+      },
+      "aliases": [
+        "dialog-question",
+        "emblem-question"
+      ]
+    },
+    "user-available": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "check_circle"
+      },
+      "aliases": [
+        "user-online",
+        "im-user-online"
+      ]
+    },
+    "user-away": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "schedule"
+      },
+      "aliases": [
+        "user-idle",
+        "im-user-away"
+      ]
+    },
+    "user-busy": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "do_not_disturb_on"
+      },
+      "aliases": [
+        "im-user-busy"
+      ]
+    },
+    "user-offline": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "radio_button_unchecked"
+      },
+      "aliases": [
+        "im-user-offline",
+        "user-invisible"
+      ]
+    },
+    "plasma-search": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "search"
+      },
+      "aliases": [
+        "krunner",
+        "search-symbolic"
+      ]
+    },
+    "vault-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "enhanced_encryption"
+      },
+      "aliases": [
+        "plasmavault",
+        "plasma-vault",
+        "vault"
+      ]
+    },
+    "weather-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "partly_cloudy_day"
+      },
+      "aliases": [
+        "weather-clear",
+        "weather-few-clouds",
+        "weather-clouds"
+      ]
+    },
+    "sync-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "sync"
+      },
+      "aliases": [
+        "state-sync",
+        "view-refresh-symbolic",
+        "folder-sync"
+      ]
+    },
+    "printer-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "print"
+      },
+      "aliases": [
+        "printer-symbolic",
+        "printer-printing",
+        "printer-error",
+        "print-queue"
+      ]
+    },
+    "caffeine-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "coffee"
+      },
+      "aliases": [
+        "caffeine",
+        "caffeine-on",
+        "caffeine-off",
+        "caffeine-cup-empty",
+        "caffeine-cup-full"
+      ]
+    },
+    "nvidia-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "developer_board"
+      },
+      "aliases": [
+        "gpu",
+        "nvidia-settings-symbolic"
+      ]
+    },
+    "kdeconnect-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "devices"
+      },
+      "aliases": [
+        "kdeconnect",
+        "kdeconnect-tray",
+        "kdeconnect-symbolic",
+        "smartphone-connected",
+        "smartphone-disconnected",
+        "smartphone-symbolic"
+      ]
+    },
+    "touchpad-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "touchpad_mouse"
+      },
+      "aliases": [
+        "input-touchpad",
+        "input-touchpad-on",
+        "input-touchpad-off",
+        "touchpad-enabled",
+        "touchpad-disabled"
+      ]
+    },
+    "power-profile-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "speed"
+      },
+      "aliases": [
+        "power-profile-performance",
+        "power-profile-balanced",
+        "power-profile-powersave",
+        "speedometer"
+      ]
+    },
+    "camera-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "videocam"
+      },
+      "aliases": [
+        "camera-on",
+        "camera-off",
+        "camera-web-symbolic",
+        "camera-ready"
+      ]
+    },
+    "location-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "location_on"
+      },
+      "aliases": [
+        "gps",
+        "mark-location",
+        "find-location"
+      ]
+    },
+    "cast-status": {
+      "context": "status",
+      "glyph": {
+        "set": "material",
+        "name": "cast"
+      },
+      "aliases": [
+        "cast",
+        "screen-share",
+        "media-casting"
+      ]
+    },
+    "emblem-symbolic-link": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "link"
+      },
+      "aliases": [
+        "emblem-link"
+      ]
+    },
+    "emblem-locked-emblem": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "lock"
+      },
+      "aliases": [
+        "emblem-locked",
+        "emblem-readonly"
+      ]
+    },
+    "emblem-unlocked-emblem": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "lock_open"
+      },
+      "aliases": [
+        "emblem-unlocked"
+      ]
+    },
+    "emblem-mounted": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "check_circle"
+      },
+      "aliases": [
+        "emblem-mounted-symbolic",
+        "emblem-ok-emblem"
+      ]
+    },
+    "emblem-unmounted": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "eject"
+      },
+      "aliases": [
+        "emblem-unmounted-symbolic"
+      ]
+    },
+    "emblem-favorite-emblem": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "star"
+      },
+      "aliases": [
+        "emblem-favorite"
+      ]
+    },
+    "emblem-shared": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "share"
+      },
+      "aliases": [
+        "emblem-shared-symbolic"
+      ]
+    },
+    "emblem-important": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "priority_high"
+      }
+    },
+    "emblem-new": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "fiber_new"
+      }
+    },
+    "emblem-encrypted": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "enhanced_encryption"
+      },
+      "aliases": [
+        "emblem-encrypted-locked",
+        "emblem-encrypted-unlocked"
+      ]
+    },
+    "emblem-added": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "add_circle"
+      }
+    },
+    "emblem-remove-emblem": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "do_not_disturb_on"
+      },
+      "aliases": [
+        "emblem-remove",
+        "emblem-removed"
+      ]
+    },
+    "emblem-downloads": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "download"
+      }
+    },
+    "emblem-music-symbolic": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "music_note"
+      }
+    },
+    "emblem-photos-symbolic": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "photo"
+      }
+    },
+    "emblem-videos-symbolic": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "movie"
+      }
+    },
+    "emblem-documents-symbolic": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "description"
+      }
+    },
+    "emblem-default": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "check"
+      },
+      "aliases": [
+        "emblem-default-symbolic",
+        "emblem-checked-emblem"
+      ]
+    },
+    "emblem-pause": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "pause_circle"
+      }
+    },
+    "emblem-synchronizing": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "sync"
+      },
+      "aliases": [
+        "emblem-synchronizing-symbolic",
+        "emblem-sync"
+      ]
+    },
+    "emblem-unavailable": {
+      "context": "emblems",
+      "glyph": {
+        "set": "material",
+        "name": "block"
+      },
+      "aliases": [
+        "emblem-unavailable-symbolic",
+        "emblem-dropbox-unsyncable"
+      ]
+    }
+  }
+}

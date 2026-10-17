@@ -2,7 +2,7 @@
 """Fetch the source glyphs named in tokens/*.json into glyphs/<set>/<name>.svg.
 
 Material Symbols Rounded come from google/material-design-icons at weight 700.
-App glyphs use the filled variant; action glyphs use the outlined one.
+Both app and action glyphs use the outlined cut at weight 700.
 Phosphor glyphs come from phosphor-icons/core, bold weight.
 
 Usage: fetch-glyphs.py [--force]
@@ -27,7 +27,7 @@ def wanted():
     for app in apps.values():
         g = app.get("glyph")
         if g:
-            key = (g["set"], g["name"], True)
+            key = (g["set"], g["name"], False)
             if key not in seen:
                 seen.add(key)
                 yield key

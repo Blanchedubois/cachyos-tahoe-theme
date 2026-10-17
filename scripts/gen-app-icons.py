@@ -3,7 +3,7 @@
 
 Each icon is an Apple-style squircle filled with its category gradient, given a
 liquid-glass treatment (inner highlight, inner shadow, lit rim, specular), and
-topped with either a heavy white glyph or the app's own brand mark.
+topped with either a heavy white outlined glyph or the app's own brand mark.
 
 Outputs icons/Tahoe-Material/apps/scalable/<icon>.svg, rasterised PNGs for the
 standard sizes, desktop-entry overrides for apps whose Icon= cannot be themed,
@@ -249,14 +249,14 @@ def main():
             if dom:
                 base = mix(dom, hex_to_rgb("#808080"), 0.2)
                 top = mix(base, (255, 255, 255), 0.22)
-            body = brand_group(src, 0.62)
+            body = brand_group(src, 0.74)
         else:
             g = app["glyph"]
-            gpath = GLYPHS / g["set"] / f"{g['name']}.svg"
+            gpath = GLYPHS / g["set"] / (f"{g['name']}-outline.svg" if g["set"] == "material" else f"{g['name']}.svg")
             if not gpath.exists():
                 print(f"glyph missing for {app['name']}: {gpath}", file=sys.stderr)
                 continue
-            body = glyph_group(gpath, 0.56)
+            body = glyph_group(gpath, 0.68)
 
         svg = compose(base, top, body)
         out = scalable / f"{icon}.svg"
@@ -274,7 +274,8 @@ def main():
                 subprocess.run(["rsvg-convert", "-w", str(size), "-h", str(size),
                                 str(scalable / f"{icon}.svg"), "-o", str(d / f"{icon}.png")], check=True)
 
-    write_index_theme()
+    if not (TOKENS / "actions.json").exists():
+        write_index_theme()  # gen-action-icons.py owns index.theme once the symbolic set exists
     if do_sheet and do_png:
         contact_sheet(produced)
     print(f"generated {len(produced)} icons")

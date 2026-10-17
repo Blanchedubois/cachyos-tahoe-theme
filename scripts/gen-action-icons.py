@@ -65,6 +65,20 @@ def symbolic_svg(vb, ds, size):
             f'transform="translate({tx:.4f},{ty:.4f}) scale({s:.6f})">{paths}</g></svg>\n')
 
 
+def asset_svg(path, size, scale=0.86):
+    """Embed a repo asset (viewBox 0 0 N N, fills stripped) as a symbolic icon,
+    keeping its internal group transforms."""
+    text = path.read_text()
+    vb = re.search(r'viewBox="([^"]+)"', text)
+    n = float(vb.group(1).split()[2]) if vb else 64.0
+    body = re.search(r'<svg[^>]*>(.*)</svg>', text, re.S).group(1)
+    off = (1 - scale) / 2 * size
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" '
+            f'viewBox="0 0 {size} {size}">{STYLE}'
+            f'<g class="ColorScheme-Text" fill="currentColor" '
+            f'transform="translate({off:.3f},{off:.3f}) scale({size * scale / n:.5f})">{body}</g></svg>\n')
+
+
 def write_index_theme(contexts):
     dirs = [f"apps/{s}" for s in APP_SIZES] + ["apps/scalable"]
     for ctx, cfg in contexts.items():
@@ -98,13 +112,26 @@ def main():
             continue
         ctx = entry["context"]
         cfg = contexts[ctx]
+        names = [name] + entry.get("aliases", [])
+        if "source" in entry:
+            src = ROOT / entry["source"]
+            if not src.exists():
+                missing.append((name, entry["source"]))
+                continue
+            for size in cfg["sizes"]:
+                d = THEME / ctx / str(size)
+                d.mkdir(parents=True, exist_ok=True)
+                svg = asset_svg(src, size, entry.get("scale", 0.86))
+                for n in names:
+                    (d / f"{n}.svg").write_text(svg)
+                    written += 1
+            continue
         fill = entry["glyph"].get("fill", cfg["fill"])
         gpath = glyph_path_for(entry["glyph"], fill)
         if not gpath.exists():
             missing.append((name, str(gpath.relative_to(ROOT))))
             continue
         vb, ds = read_glyph(gpath)
-        names = [name] + entry.get("aliases", [])
         for size in cfg["sizes"]:
             d = THEME / ctx / str(size)
             d.mkdir(parents=True, exist_ok=True)

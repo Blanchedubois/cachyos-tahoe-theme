@@ -43,8 +43,14 @@ while IFS='=' read -r key val; do
   kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key "$key" "$val"
 done < "$ROOT/config/kwinrc.decoration"
 kwriteconfig6 --file kwinrc --group Plugins --key shapecornersEnabled true
+# Overview on the top-left hot corner (ElectricBorder TopLeft = 7).
+kwriteconfig6 --file kwinrc --group Effect-overview --key BorderActivate 7
 
-# 6. Apply: icons, widget style, then reload.
+# 6. Top panel layout (P1 to P7).
+say "panel"
+qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(cat "$ROOT/config/panel.js")" >/dev/null 2>&1 || true
+
+# 7. Apply: icons, widget style, then reload.
 say "apply"
 /usr/lib/plasma-changeicons Tahoe-Material 2>/dev/null || kwriteconfig6 --file kdeglobals --group Icons --key Theme Tahoe-Material
 kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle Darkly

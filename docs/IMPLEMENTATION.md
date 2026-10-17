@@ -233,7 +233,23 @@ These are proposals, not commitments. Each needs a yes before it is built.
 - [x] Theme `index.theme` with inheritance chain MacTahoe-dark, breeze-dark, breeze, hicolor
 - [x] Verified: Dolphin toolbar and Places sidebar, tray (notifications, clipboard, volume, bluetooth, brightness, USB, keyboard, wifi) all on the heavy Material set
 - Design call: every symbolic context uses the outlined cut, per review. Filled glyphs were tried first and read too heavy in the tray and sidebar
-- Places and devices are generated at 16 to 24 px. KDE scales the current theme's vector icons for larger sizes rather than falling through to a parent, so Dolphin's main view shows the same outlined folders at 64 px. That turned out to sit well next to the glass app icons, so it stays
+- Design call: no places context at all, per review. Folders, home, desktop, trash and network places stay MacTahoe's coloured Tahoe icons in both the sidebar and file views. Devices remain outlined
+- Lesson: never ship one-word generic aliases such as `user` or `network`. KIconLoader tries shortened names inside the current theme before consulting parents, so `user-home` resolved to our `user` glyph instead of MacTahoe's home. Thirty such aliases were pruned
+- App glyphs enlarged from 56 to 68 percent of the squircle, brand marks from 62 to 74, per review
+
+### Phase 3: panel cleanup `[x]` awaiting review
+
+| Step | Result |
+|---|---|
+| P1 | Height 32 px, floating off, panel hugs the top edge |
+| P2 | Kickoff shows the CachyOS mark as a symbolic glyph, `assets/cachyos-mark.svg`, generated under the name `cachyos-launcher` and also aliased to `start-here-kde` |
+| P3 | App menu padding is hard-coded in the applet QML. Left as is; revisit only if a patched applet is worth carrying |
+| P4 | Second margins separator removed |
+| P5 | Tray icons come from the symbolic set; spacing left at Plasma's medium, which already reads tight at 32 px |
+| P6 | Clock: 24 hour, no date, Noto Sans Semibold 13 |
+| P7 | Show desktop removed; Overview on the top-left hot corner instead |
+
+Before and after: `docs/panel-before.png`, `docs/panel-after.png`.
 - Acceptance: Dolphin toolbar, Konsole menus, tray, and System Settings sidebar all show the heavy rounded set, recolour with the scheme, nothing falls back to Breeze in those views
 
 ### Phase 3: panel cleanup `[ ]`

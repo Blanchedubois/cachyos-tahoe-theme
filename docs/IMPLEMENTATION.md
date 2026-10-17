@@ -262,15 +262,21 @@ Before and after: `docs/panel-before.png`, `docs/panel-after.png`.
 - [x] W1, W2: 12 px on the Darkly decoration and the Rounded Corners effect, Aurorae retired
 - [x] W3: Darkly titlebar, default button size, line glyphs
 - [x] W4: Darkly widget radius 8 px
-- [ ] W5: Plasma style popups to the popup token
+- [x] W5: Plasma popups checked on Kickoff. MacTahoe's dialog style rounds the free corners at about the 12 px token and squares the edge that touches the panel, which is Plasma's intended behaviour. No overlay style needed
 - Impact analysis of all phases: `docs/IMPACT.md`
 - Glyph weight is now a token, `tokens/glyphs.json`, set to 600 per review
 - App icons use the watermark glass treatment; brand apps pass through from MacTahoe's Tahoe-style set
 - Acceptance: Dolphin, System Settings, and the Claude app window measured at the same radius; menus and buttons at the widget radius
 
-### Phase 5: workshop items `[ ]`
+### Phase 5: workshop items `[~]`
 
-- [ ] Whichever rows in section 5 get a yes
+- [x] Accent colour `#0a84ff` system-wide, applied by `install.sh`
+- [x] Konsole profile "Tahoe" with the ink palette, `config/konsole/`, set as default
+- [x] Overview on the top-left hot corner (landed in Phase 3)
+- [ ] Inter font: needs `inter-font` from the repos, which is a root install. The installer prints a note when it is missing; set it under Fonts once installed
+- [ ] Firefox userChrome: not started; wants a yes on touching the profile
+- [ ] SDDM and lock screen: root install, not started
+- [ ] Kickoff replacement: not started; recommended against for now
 
 ## 7. Open questions
 

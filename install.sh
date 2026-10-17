@@ -40,6 +40,16 @@ kwriteconfig6 --file kwinrc --group Plugins --key shapecornersEnabled true
 # Overview on the top-left hot corner (ElectricBorder TopLeft = 7).
 kwriteconfig6 --file kwinrc --group Effect-overview --key BorderActivate 7
 
+# 5. Accent colour and Konsole profile (Phase 5).
+say "accent and konsole"
+kwriteconfig6 --file kdeglobals --group General --key AccentColor "10,132,255"
+mkdir -p "$DATA/konsole"
+cp "$ROOT"/config/konsole/Tahoe.colorscheme "$ROOT"/config/konsole/Tahoe.profile "$DATA/konsole/"
+kwriteconfig6 --file konsolerc --group "Desktop Entry" --key DefaultProfile Tahoe.profile
+if ! fc-list | grep -qi 'Inter'; then
+  echo "    note: the Inter font is not installed; 'sudo pacman -S inter-font' then set it under Fonts if you want it"
+fi
+
 # 6. Top panel layout (P1 to P7).
 say "panel"
 qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(cat "$ROOT/config/panel.js")" >/dev/null 2>&1 || true

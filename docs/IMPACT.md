@@ -52,7 +52,7 @@ window radius.
 | Darkly radius | `darklyrc` `[Common] CornerRadius=8` | **pass** by configuration. |
 | Dialog capture | attempted twice | **deferred**. The capture tooling kept grabbing the Claude app, which holds focus while this session runs. Judged from Dolphin's tab bar, selection highlight and toolbar buttons, which are all on the 8 px radius. |
 | Menus | not captured | **deferred**. Menus cannot be opened without input injection on Wayland. Darkly applies `CornerRadius` to menus as well, so they follow by construction. |
-| Plasma popups | not captured | **deferred** to Phase 4 W5. |
+| Plasma popups | Kickoff opened over D-Bus and captured | **pass** by inspection. Free corners round at about the 12 px token; the edge touching the panel is square, as Plasma intends. Pixel measurement was not possible because the window behind the popup shares its colour. |
 
 ## Phase D: panel, dock, glass, dark mode
 

@@ -209,20 +209,22 @@ These are proposals, not commitments. Each needs a yes before it is built.
 
 ## 6. Phases
 
-### Phase 0: repo and tokens `[~]`
+### Phase 0: repo and tokens `[x]`
 
 - [x] Repo scaffold, current decoration, Darkly, Rounded Corners config captured
-- [ ] `tokens/palette.json`, `tokens/radius.json`, `tokens/apps.json`
-- [ ] `install.sh` that applies everything per-user without root
-- [ ] First push
+- [x] `tokens/palette.json`, `tokens/radius.json`, `tokens/apps.json`
+- [x] `install.sh` that applies everything per-user without root
+- [x] First push
 
-### Phase 1: app icon generator `[ ]`
+### Phase 1: app icon generator `[x]` awaiting review
 
-- [ ] `scripts/fetch-glyphs.py` pulls Material and Phosphor SVGs by name into `glyphs/`
-- [ ] `scripts/gen-app-icons.py` with the composition in 3.1
-- [ ] Icons for all 74 visible desktop entries except Steam
-- [ ] Contact sheet `docs/contact-sheet.png` for review
+- [x] `scripts/fetch-glyphs.py` pulls Material and Phosphor SVGs by name into `glyphs/`
+- [x] `scripts/gen-app-icons.py` with the composition in 3.1
+- [x] Icons for all visible desktop entries except Steam: 67 unique icons
+- [x] Contact sheet `docs/contact-sheet.png` for review
+- [x] Desktop entry overrides for Avahi (shared `network-wired` icon) and HP tools (absolute icon paths)
 - Acceptance: every dock and Kickoff icon is on a squircle, glass read is visible at 48 px, brand marks are recognisable, Steam unchanged
+- Review notes: Claude's brand mark has generous built-in padding so it reads smaller than its neighbours; a per-app `scale` override is the fix if it bothers you
 
 ### Phase 2: action and status icons `[ ]`
 

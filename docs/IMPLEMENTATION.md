@@ -274,7 +274,7 @@ Before and after: `docs/panel-before.png`, `docs/panel-after.png`.
 - [x] Konsole profile "Tahoe" with the ink palette, `config/konsole/`, set as default
 - [x] Overview on the top-left hot corner (landed in Phase 3)
 - [ ] Inter font: needs `inter-font` from the repos, which is a root install. The installer prints a note when it is missing; set it under Fonts once installed
-- [ ] Firefox userChrome: not started; wants a yes on touching the profile
+- [x] Firefox: `config/firefox/user.js` hands the titlebar to KWin so Darkly draws it, and `userChrome.css` flattens the tab strip, rounds tabs and the URL field at the widget radius, and uses the accent for focus. Installed into the default-release profile; the installer skips the step while Firefox runs
 - [ ] SDDM and lock screen: root install, not started
 - [ ] Kickoff replacement: not started; recommended against for now
 

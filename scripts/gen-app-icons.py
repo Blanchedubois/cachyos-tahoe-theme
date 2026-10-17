@@ -27,6 +27,10 @@ OVERRIDES = ROOT / "overrides"
 DOCS = ROOT / "docs"
 
 GRID = 1024
+# MacTahoe draws its squircle 64 units in from each edge of a 1024 canvas (896 wide).
+# Match it so generated icons and passthrough brand icons sit at the same size.
+INSET = 64
+BODY = GRID - 2 * INSET
 SIZES = [16, 22, 24, 32, 48, 64, 128, 256]
 
 ICON_DIRS = [
@@ -93,7 +97,7 @@ def glyph_group(path, scale_pct, extra_class=""):
     body at partial opacity so the category colour shows through."""
     vb, ds = read_glyph(path)
     x0, y0, w, h = vb
-    target = GRID * scale_pct
+    target = BODY * scale_pct
     s = target / max(w, h)
     tx = (GRID - w * s) / 2 - x0 * s
     ty = (GRID - h * s) / 2 - y0 * s
@@ -150,7 +154,7 @@ def find_brand_icon(name):
 
 
 def brand_group(path, scale_pct):
-    target = GRID * scale_pct
+    target = BODY * scale_pct
     off = (GRID - target) / 2
     if path.suffix == ".svg":
         data = base64.b64encode(path.read_bytes()).decode()
@@ -195,8 +199,8 @@ def dominant_colour(path):
 def compose(base_rgb, top_rgb, body):
     """Return the full SVG for one icon. Body is the glyph or brand group."""
     bottom = rotate_hue(mix(base_rgb, (0, 0, 0), 0.12), 6)
-    outer = squircle_path()
-    rim = squircle_path(inset=6)
+    outer = squircle_path(inset=INSET)
+    rim = squircle_path(inset=INSET + 6)
     return f"""<svg xmlns="http://www.w3.org/2000/svg" width="{GRID}" height="{GRID}" viewBox="0 0 {GRID} {GRID}">
   <defs>
     <clipPath id="clip"><path d="{outer}"/></clipPath>
@@ -227,8 +231,8 @@ def compose(base_rgb, top_rgb, body):
   </defs>
   <path d="{outer}" fill="url(#base)"/>
   <g clip-path="url(#clip)">
-    <rect x="0" y="0" width="{GRID}" height="{GRID * 0.46:.0f}" fill="url(#band)" filter="url(#soft)"/>
-    <rect x="-80" y="{GRID - 40}" width="{GRID + 160}" height="200" fill="#000000" opacity="0.30" filter="url(#inner-shadow)"/>
+    <rect x="0" y="0" width="{GRID}" height="{INSET + BODY * 0.46:.0f}" fill="url(#band)" filter="url(#soft)"/>
+    <rect x="-80" y="{GRID - INSET - 40}" width="{GRID + 160}" height="200" fill="#000000" opacity="0.30" filter="url(#inner-shadow)"/>
     <ellipse cx="{GRID * 0.3:.0f}" cy="{GRID * 0.2:.0f}" rx="{GRID * 0.34:.0f}" ry="{GRID * 0.22:.0f}" fill="url(#spec)"/>
   </g>
   <path d="{rim}" fill="none" stroke="url(#rim)" stroke-width="12"/>

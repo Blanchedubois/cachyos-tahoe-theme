@@ -50,6 +50,20 @@ if ! fc-list | grep -qi 'Inter'; then
   echo "    note: the Inter font is not installed; 'sudo pacman -S inter-font' then set it under Fonts if you want it"
 fi
 
+# 5b. Firefox chrome (default-release profile from profiles.ini). Skipped while Firefox runs.
+say "firefox"
+FFDIR="$CONF/mozilla/firefox"; [[ -d "$FFDIR" ]] || FFDIR="$HOME/.mozilla/firefox"
+if [[ -f "$FFDIR/profiles.ini" ]] && ! pgrep -x firefox >/dev/null; then
+  FFPROF="$(awk -F= '/^\[Install/{f=1} f&&/^Default=/{print $2; exit}' "$FFDIR/profiles.ini")"
+  if [[ -n "$FFPROF" && -d "$FFDIR/$FFPROF" ]]; then
+    mkdir -p "$FFDIR/$FFPROF/chrome"
+    cp "$ROOT/config/firefox/userChrome.css" "$FFDIR/$FFPROF/chrome/userChrome.css"
+    cp "$ROOT/config/firefox/user.js" "$FFDIR/$FFPROF/user.js"
+  fi
+else
+  echo "    note: Firefox is running or has no profile; chrome files not installed"
+fi
+
 # 6. Top panel layout (P1 to P7).
 say "panel"
 qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(cat "$ROOT/config/panel.js")" >/dev/null 2>&1 || true

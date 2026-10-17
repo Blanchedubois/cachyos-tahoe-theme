@@ -1,0 +1,103 @@
+/* CachyOS Tahoe theme: Firefox tab bar and toolbar.
+   Colours follow the MacTahoe dark colour scheme as Darkly draws it:
+   window #242424, header #333333, selection #315bef.
+   Radii follow tokens/radius.json: widget 8 px, menu item 6 px. */
+
+:root {
+  --tahoe-window: #242424;
+  --tahoe-header: #2b2b2b;
+  --tahoe-raised: #333333;
+  --tahoe-text: #e0e0e0;
+  --tahoe-muted: #9a9a9a;
+  --tahoe-accent: #0a84ff;
+  --tahoe-radius: 8px;
+  --tahoe-radius-item: 6px;
+
+  /* Firefox's own variables, pointed at ours. */
+  --toolbar-bgcolor: var(--tahoe-window) !important;
+  --toolbar-color: var(--tahoe-text) !important;
+  --toolbarbutton-border-radius: var(--tahoe-radius) !important;
+  --tab-border-radius: var(--tahoe-radius) !important;
+  --tab-min-height: 34px !important;
+  --tab-block-margin: 4px !important;
+  --tab-inline-margin: 3px !important;
+  --urlbar-min-height: 34px !important;
+  --arrowpanel-border-radius: 12px !important;
+  --panel-border-radius: 12px !important;
+  --focus-outline-color: var(--tahoe-accent) !important;
+}
+
+/* Tab strip: one flat band, no top-of-window gradient. */
+#TabsToolbar,
+#navigator-toolbox {
+  background: var(--tahoe-window) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Tabs: rounded on all four corners, with the selected tab raised. */
+.tabbrowser-tab .tab-background {
+  border-radius: var(--tahoe-radius) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.tabbrowser-tab[selected] .tab-background {
+  background: var(--tahoe-raised) !important;
+}
+.tabbrowser-tab:not([selected]):hover .tab-background {
+  background: color-mix(in srgb, var(--tahoe-raised) 55%, transparent) !important;
+}
+.tabbrowser-tab .tab-label {
+  color: var(--tahoe-text) !important;
+}
+.tabbrowser-tab:not([selected]) .tab-label {
+  color: var(--tahoe-muted) !important;
+}
+
+/* Hide the separators Firefox draws between tabs; spacing does the work. */
+.tabbrowser-tab::after,
+.tabbrowser-tab::before {
+  display: none !important;
+}
+
+/* Navigation bar and URL field. */
+#nav-bar {
+  background: var(--tahoe-window) !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding-block: 3px !important;
+}
+#urlbar-background,
+#searchbar {
+  background: var(--tahoe-header) !important;
+  border: 1px solid #1c1c1c !important;
+  border-radius: var(--tahoe-radius) !important;
+  box-shadow: none !important;
+}
+#urlbar[focused] #urlbar-background {
+  border-color: var(--tahoe-accent) !important;
+}
+
+/* Toolbar buttons: match the widget radius. */
+.toolbarbutton-1 > .toolbarbutton-icon,
+.toolbarbutton-1 > .toolbarbutton-badge-stack {
+  border-radius: var(--tahoe-radius) !important;
+}
+
+/* Bookmarks bar, same band. */
+#PersonalToolbar {
+  background: var(--tahoe-window) !important;
+  border: 0 !important;
+}
+
+/* Popups and menus: rounded items. */
+menupopup > menuitem,
+menupopup > menu,
+.subviewbutton {
+  border-radius: var(--tahoe-radius-item) !important;
+}
+
+/* No line under the toolbox meeting the page. */
+#navigator-toolbox::after {
+  display: none !important;
+}

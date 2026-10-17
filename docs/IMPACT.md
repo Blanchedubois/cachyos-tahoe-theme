@@ -40,6 +40,7 @@ glyph; app icons are glass squircles; folders stay Tahoe; Steam untouched.
 | App icons | `docs/contact-sheet.png` | **pass**. Watermark treatment: glyph at 66 percent white over the category colour with a lit upper edge and soft lower shadow, so it reads as frosted glass rather than a flat mark. |
 | Brand apps | contact sheet rows for Brave, Chromium, Firefox, Discord, Heroic, Lutris, OBS, Telegram, VLC | **pass**. Passed through from the MacTahoe icon set, which already draws them in Tahoe style. Claude has no MacTahoe icon and keeps the restyled shell. |
 | Steam | `kiconfinder6 steam` | **pass**. Falls through to MacTahoe. |
+| Squircle size | alpha bounding boxes of generated and passthrough icons at 128 px | **fixed**. MacTahoe insets its squircle 64 units on a 1024 canvas; generated icons filled the canvas, so Firefox and the other passthroughs looked smaller. The generator now uses the same inset and all icons measure 8 to 120 px at 128. |
 | Launcher mark | panel left crop | **pass**. CachyOS hex mark from `assets/cachyos-mark.svg`. |
 
 ## Phase C: widget rounding

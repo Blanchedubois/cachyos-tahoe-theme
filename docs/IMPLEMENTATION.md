@@ -245,7 +245,7 @@ These are proposals, not commitments. Each needs a yes before it is built.
 | P2 | Kickoff shows the CachyOS mark as a symbolic glyph, `assets/cachyos-mark.svg`, generated under the name `cachyos-launcher` and also aliased to `start-here-kde` |
 | P3 | App menu padding is hard-coded in the applet QML. Left as is; revisit only if a patched applet is worth carrying |
 | P4 | Second margins separator removed |
-| P5 | Tray icons come from the symbolic set; spacing left at Plasma's medium, which already reads tight at 32 px |
+| P5 | Tray icons come from the symbolic set; spacing set to large so one item's hover highlight no longer bleeds into its neighbours |
 | P6 | Clock: 24 hour, no date, Noto Sans Semibold 13 |
 | P7 | Show desktop removed; Overview on the top-left hot corner instead |
 

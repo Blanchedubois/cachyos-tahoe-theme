@@ -33,6 +33,14 @@ for (var p of panels()) {
       w.reloadConfig();
     }
 
+    // P5: large spacing between tray icons so the hover highlight of one
+    // item does not bleed into its neighbours.
+    if (w.type == "org.kde.plasma.systemtray") {
+      w.currentConfigGroup = ["General"];
+      w.writeConfig("iconSpacing", 2);
+      w.reloadConfig();
+    }
+
     // P4: one margins separator is enough between the tray and the clock.
     if (w.type == "org.kde.plasma.marginsseparator") {
       separators++;

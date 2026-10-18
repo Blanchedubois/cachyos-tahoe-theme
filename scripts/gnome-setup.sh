@@ -78,7 +78,7 @@ gsettings set org.gnome.shell enabled-extensions \
   "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn']"
 gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 gsettings set org.gnome.shell favorite-apps \
-  "['org.gnome.Nautilus.desktop','firefox.desktop','discord.desktop','steam.desktop','com.anthropic.Claude.desktop','org.gnome.Console.desktop','org.gnome.Calculator.desktop','org.gnome.TextEditor.desktop','org.gnome.Settings.desktop']"
+  "['org.gnome.Nautilus.desktop','firefox.desktop','discord.desktop','steam.desktop','com.anthropic.Claude.desktop','spotify.desktop','org.gnome.Console.desktop','org.gnome.Calculator.desktop','org.gnome.TextEditor.desktop','org.gnome.Settings.desktop']"
 
 # 4. Dock: bottom, intellihide, 48 px, themed by the shell theme, glass.
 say "dock"

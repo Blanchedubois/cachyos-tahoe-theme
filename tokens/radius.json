@@ -9,18 +9,15 @@
   "titlebar_height": 32,
   "titlebar_button": 14,
   "titlebar_button_spacing": 8,
-  "frame_outer_ring": {
-    "thickness": 3,
-    "color": "#000000",
-    "alpha": 140
-  },
-  "frame_gap": {
+  "frame_edge_line": {
     "thickness": 2,
-    "color": "window background"
+    "color": "header background (#333333)",
+    "alpha": 255
   },
-  "frame_inner_line": {
+  "frame_outer_line": {
     "thickness": 1,
     "color": "#ffffff",
-    "alpha": 40
+    "alpha": 46,
+    "inactive_alpha": 30
   }
 }

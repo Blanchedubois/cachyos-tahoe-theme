@@ -20,14 +20,13 @@ are kept for reference but the live target is GNOME.
 
 ## Screenshots
 
+![Desktop with quick settings, Files, Settings and a browser](docs/screenshots/hero.png)
+
 | | |
 |---|---|
-| ![Quick settings](docs/screenshots/quick-settings.png) | ![Terminal, Settings and Files](docs/screenshots/terminal.png) |
-| ![Settings and Files](docs/screenshots/settings-and-files.png) | ![App grid](docs/screenshots/app-grid.png) |
-
+| ![Terminal, Settings and Files](docs/screenshots/terminal.png) | ![Settings and Files](docs/screenshots/settings-and-files.png) |
 | ![Overview](docs/screenshots/overview.png) | ![App grid, first page](docs/screenshots/app-grid-1.png) |
-
-![Search](docs/screenshots/search.png)
+| ![App grid](docs/screenshots/app-grid.png) | ![Search](docs/screenshots/search.png) |
 
 ## Requirements
 

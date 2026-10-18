@@ -11,7 +11,7 @@ say() { printf '\033[1;36m==>\033[0m %s\n' "$*"; }
 SHELL_VER="$(gnome-shell --version | grep -oE '[0-9]+' | head -1)"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
-EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com)
+EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn)
 
 # 1. MacTahoe GTK + shell theme, exactly as the README recommends for GNOME:
 #    the blur variant (-b) since Blur my Shell is used, all colour and
@@ -74,7 +74,7 @@ gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
 gsettings set org.gnome.shell disable-user-extensions false
 gsettings set org.gnome.shell enabled-extensions \
-  "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com']"
+  "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn']"
 gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 gsettings set org.gnome.shell favorite-apps \
   "['org.gnome.Nautilus.desktop','firefox.desktop','discord.desktop','steam.desktop','com.anthropic.Claude.desktop','org.gnome.Console.desktop','org.gnome.Calculator.desktop','org.gnome.TextEditor.desktop','org.gnome.Settings.desktop']"
@@ -126,6 +126,8 @@ ln -sfn "$ROOT/icons/Tahoe-Material-KDE" "$HOME/.local/share/icons/Tahoe-Materia
 kwriteconfig6 --file kdeglobals --group Icons --key Theme Tahoe-Material-KDE
 CSS="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
 grep -q 'tahoe-overrides' "$CSS" || { printf '\n' >> "$CSS"; cat "$ROOT/config/gnome-shell-overrides.css" >> "$CSS"; }
+# GTK3: round the bottom corners too (theme ships 24px 24px 0 0).
+for f in "$HOME"/.themes/MacTahoe-*/gtk-3.0/gtk.css "$HOME"/.themes/MacTahoe-*/gtk-3.0/gtk-dark.css; do [[ -f "$f" ]] && sed -i 's/border-radius: 24px 24px 0 0/border-radius: 24px/g' "$f"; done
 # Modal dialogs out of Blur my Shell's popup surfaces (whole-screen blur otherwise).
 BSF="$EXT_DIR/blur-my-shell@aunetx/components/popup/blur_surface.js"
 [[ -f "$BSF" ]] && python3 - "$BSF" <<'PY'
@@ -137,6 +139,10 @@ t=p.replace("blur_surface.js","targets.js"); u=open(t).read()
 u=u.replace("        style_classes: ['modal-dialog', 'run-dialog'],","        style_classes: [],  /* tahoe: modal dialogs are not blurred */")
 open(t,"w").write(u)
 PY
+# Rounded Window Corners: GNOME 51 port of its shader effects, settings.
+RWC="$EXT_DIR/rounded-window-corners@fxgn"
+[[ -d "$RWC/effect" ]] && { cp "$ROOT"/config/rwc-gnome51/*.js "$RWC/effect/"; python3 -c "import json,sys; p=sys.argv[1]; m=json.load(open(p)); m['shell-version']=['51']; json.dump(m,open(p,'w'),indent=4)" "$RWC/metadata.json"; }
+gsettings set org.gnome.shell disable-extension-version-validation true
 # Reload the shell theme so a reinstalled stylesheet is picked up. The theme
 # build deletes and recreates ~/.themes/MacTahoe-Dark; a running shell falls
 # back to Adwaita (square, opaque popups) until the name is set again.

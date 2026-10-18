@@ -20,6 +20,8 @@
 #  10. dock drift: Dash to Dock back on the theme's own styling
 #  11. dock stylesheet present (the theme's -d tweak deletes it)
 #  5c. Blur my Shell patched so modal dialogs do not blur the whole screen
+#  5d. GTK3 windows rounded on all four corners
+#  5e. Rounded Window Corners ported to GNOME 51 and configured (24 px, non-libadwaita windows)
 #  12. icon theme contents: regenerate from the repo if the generated set is
 #      missing or stale (symbolic places for Files, apps, KDE companion)
 set -uo pipefail
@@ -29,7 +31,7 @@ log() { printf '[tahoe-repair] %s\n' "$*"; }
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
-EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com)
+EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn)
 # Popup blur (quick settings, menus, notifications). Static mode renders on
 # this machine where dynamic painted an opaque box. Switch with
 #   tahoe-repair --popup-blur off      (writes config/popup-blur)
@@ -38,7 +40,7 @@ case "${1:-}" in
   --popup-blur) echo "${2:-on}" > "$POPUP_FLAG"; shift 2 ;;
 esac
 POPUP_BLUR=true; [[ -f "$POPUP_FLAG" && "$(cat "$POPUP_FLAG")" == "off" ]] && POPUP_BLUR=false
-WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com']"
+WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn']"
 SHELL_VER="$(gnome-shell --version 2>/dev/null | grep -oE '[0-9]+' | head -1)"
 changed=0
 
@@ -133,6 +135,34 @@ u=u.replace("        style_classes: ['modal-dialog', 'run-dialog'],","        st
 open(t,"w").write(u)
 PY
   gnome-extensions disable blur-my-shell@aunetx 2>/dev/null; gnome-extensions enable blur-my-shell@aunetx 2>/dev/null
+fi
+
+# 5d. GTK3 windows: the theme rounds only the top corners (24px 24px 0 0).
+#     Round all four so pywebview, Meld and other GTK3 apps match.
+for f in "$HOME"/.themes/MacTahoe-*/gtk-3.0/gtk.css "$HOME"/.themes/MacTahoe-*/gtk-3.0/gtk-dark.css; do
+  [[ -f "$f" ]] && grep -q 'border-radius: 24px 24px 0 0' "$f" && { log "rounding GTK3 bottom corners in $(basename "$(dirname "$(dirname "$f")")")"; sed -i 's/border-radius: 24px 24px 0 0/border-radius: 24px/g' "$f"; }
+done
+
+# 5e. Rounded Window Corners Reborn: its published build targets GNOME 50 and
+#     fails on 51 (Shell.GLSLEffect was removed). Apply the GNOME 51 port of
+#     its three shader-effect files (from upstream PR 175) after any refetch.
+#     A running shell only picks the port up after a logout.
+RWC="$EXT_DIR/rounded-window-corners@fxgn"
+if [[ -d "$RWC/effect" && -d "$ROOT/config/rwc-gnome51" ]] && grep -q "gi://Shell" "$RWC/effect/rounded_corners_effect.js" 2>/dev/null; then
+  log "porting Rounded Window Corners to GNOME 51 (logout to activate)"
+  cp "$ROOT"/config/rwc-gnome51/*.js "$RWC/effect/"
+  python3 - "$RWC/metadata.json" <<'PY'
+import json,sys
+p=sys.argv[1]; m=json.load(open(p)); m["shell-version"]=["51"]; json.dump(m,open(p,"w"),indent=4)
+PY
+fi
+gsettings set org.gnome.shell disable-extension-version-validation true
+RWS="$RWC/schemas"; RS=org.gnome.shell.extensions.rounded-window-corners-reborn
+if [[ -d "$RWS" ]]; then
+  gsettings --schemadir "$RWS" set $RS skip-libadwaita-app true
+  gsettings --schemadir "$RWS" set $RS border-width 0
+  gsettings --schemadir "$RWS" set $RS blacklist "['steam','VRChat.exe','vrmonitor']"
+  gsettings --schemadir "$RWS" set $RS global-rounded-corner-settings "{'padding': <{'left': uint32 0, 'right': uint32 0, 'top': uint32 0, 'bottom': uint32 0}>, 'keepRoundedCorners': <{'maximized': false, 'fullscreen': false}>, 'borderRadius': <uint32 24>, 'smoothing': <0.0>, 'borderColor': <(0.5, 0.5, 0.5, 1.0)>, 'enabled': <true>}"
 fi
 
 # 6. blur: the exact Blur my Shell module config. Applications blur on a

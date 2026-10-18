@@ -80,6 +80,8 @@ window radius.
 
 | Shadows | Konsole and Claude corner crops | **settled**. The effect's own shadow draws a square corner on every window, so it stays off; Klassy's shadow follows the 20 px curve. Client-drawn Electron windows carry their own square shadow margin, which only the app can drop: Claude is launched with Chromium's Wayland decorations disabled via its flags file, effective on its next start. |
 
+| Inactive shadow | unfocused Konsole corner crops | **fixed**. Klassy's inactive shadow defaults to half strength, which reads as a tighter, less blurred corner when a window loses focus. Inactive shadow now matches active: Large, full strength. |
+
 ## Open items carried forward
 
 1. Verify menus and Plasma popups once a capture path exists, or by eye.

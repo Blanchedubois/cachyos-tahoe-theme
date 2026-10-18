@@ -30,7 +30,13 @@ CloseButtonIconColorActive=AsSelected
 LookAndFeelSet=com.github.vinceliuice.MacTahoe-Dark
 
 [ShadowStyle]
+LockShadowStyleActiveInactive=true
+ShadowColorActive=0,0,0
+ShadowColorInactive=0,0,0
 ShadowSizeActive=Large
+ShadowSizeInactive=Large
+ShadowStrengthActive=255
+ShadowStrengthInactive=255
 
 [TitleBarSpacing]
 TitleAlignment=AlignCenter

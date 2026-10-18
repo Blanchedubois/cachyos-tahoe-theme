@@ -32,6 +32,27 @@
   border: none !important;
   box-shadow: none !important;
 }
+/* Its toggles, sliders and system buttons in the dropdowns' glass: the same
+   fill, hairline and 14 px corners, in place of the theme's 15 % white pills
+   with an inner glow. A toggle that is on keeps the theme's white fill; the
+   halves inside a split toggle keep drawing nothing of their own. */
+.quick-toggle,
+.quick-toggle-has-menu,
+.quick-slider,
+.quick-settings-system-item .icon-button {
+  background-color: rgba(72, 72, 76, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+}
+.quick-toggle:hover,
+.quick-toggle-has-menu:hover,
+.quick-settings-system-item .icon-button:hover { background-color: rgba(96, 96, 100, 0.55) !important; }
+.quick-toggle:active,
+.quick-toggle-has-menu:active,
+.quick-settings-system-item .icon-button:active { background-color: rgba(112, 112, 116, 0.6) !important; }
+.quick-toggle-has-menu .quick-toggle { border: none !important; }
+.quick-toggle-has-menu .quick-toggle .quick-toggle-icon { border-radius: 10px !important; }
 
 /* Now Playing Card (nowplaying@epogonii.github.io) as macOS Tahoe's Now
    Playing: one glass surface, 12 px artwork, white title over a dimmed

@@ -48,7 +48,7 @@ notch at the window level and keeps the ratio.
 
 | Token | Value |
 |---|---|
-| Frame | A real 6 px window border from the Darkly decoration in the header bar colour, so the content sits inset inside a band rather than being painted over by one. KWin's global border size must be set to Large with auto off, or the decoration's border is ignored. A faint 1 px light line from the Rounded Corners effect sits just outside. No edge or inner outline. Thicker steps available: VeryLarge, Huge |
+| Frame | A real 6 px Darkly border in the header colour houses the content. The Rounded Corners effect paints a 6 px inner band in the same colour over that border from the inside; because the band's inner edge follows the frame radius, the content gets rounded 6 px corners instead of square ones. A faint 1 px light line sits on the frame edge itself, so it follows the curve and never pokes out. KWin's global border size must be Large with auto off |
 | Titlebar fill | follows colour scheme window background |
 | Glass surfaces | top panel, dock, popups: MacTahoe blur, tint `#1c1c1e` at 72 percent |
 | Highlight band | 1 px `#ffffff` at 10 percent along the top inside edge of glass surfaces |

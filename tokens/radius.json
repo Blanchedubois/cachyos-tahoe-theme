@@ -10,6 +10,12 @@
   "titlebar_button": 14,
   "titlebar_button_spacing": 8,
   "frame": {
-    "note": "rounding only. 20 px on the Rounded Corners effect (all windows, including client-drawn ones) and on the Darkly decoration. No outline of any kind, no border, no inset. Shadow from the decoration."
+    "note": "20 px on the Rounded Corners effect (all windows) and on the Klassy decoration. One bright 1 px light hairline on the edge from the effect (white at 47 percent active, 27 inactive). No border, no inset."
+  },
+  "titlebar_buttons": {
+    "decoration": "Klassy",
+    "icons": "Material",
+    "background": "never",
+    "hover": "icon colour only: traffic-light colours, muted toward the titlebar at rest and full on hover"
   }
 }

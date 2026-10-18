@@ -3,5 +3,5 @@ BorderSize=None
 BorderSizeAuto=false
 ButtonsOnLeft=XIA
 ButtonsOnRight=
-library=org.kde.darkly
-theme=Darkly
+library=org.kde.klassy
+theme=Klassy

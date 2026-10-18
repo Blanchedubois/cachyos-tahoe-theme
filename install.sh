@@ -22,9 +22,14 @@ if compgen -G "$ROOT/overrides/*.desktop" >/dev/null; then
   update-desktop-database "$DATA/applications" 2>/dev/null || true
 fi
 
-# 3. Darkly application style and window decoration settings.
-say "darkly"
+# 3. Darkly application style settings, Klassy window decoration settings.
+say "darkly and klassy"
 cp "$ROOT/config/darklyrc" "$CONF/darklyrc"
+mkdir -p "$CONF/klassy"
+cp "$ROOT/config/klassyrc" "$CONF/klassy/klassyrc"
+if ! pacman -Q klassy >/dev/null 2>&1; then
+  echo "    note: klassy is not installed; the titlebar falls back to Darkly until it is (AUR: klassy)"
+fi
 
 # 4. KWin: Darkly decoration, button layout, rounded corners.
 say "kwin"

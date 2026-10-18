@@ -13,7 +13,7 @@ decision.
 | Topic | Decision |
 |---|---|
 | Base theme | MacTahoe-kde dark (vinceliuice) for colours, Plasma style, panel and dock |
-| Window decoration | Darkly's native decoration: no outline, no side borders, large shadow, line glyphs for close, minimise, maximise on the left. The Aurorae hybrid was retired after it double-drew the frame; see docs/IMPACT.md Phase A |
+| Window decoration | Klassy, built for Plasma 6 only from the AUR PKGBUILD (the Plasma 5 half stripped), config in `config/klassyrc`: Material glyphs, no button background or outline in any state, traffic-light icon colours muted at rest and full on hover, 20 px corners, no window outline, large shadow, title centred. Darkly remains the application style |
 | Application style | Darkly, single corner radius, opaque menus and bars |
 | Window clipping | KDE Rounded Corners effect so client-drawn windows match |
 | Glyph source | Material Symbols Rounded, weight 700, as primary. Phosphor Bold where a stroke-style glyph fits better. No SF Symbols: Apple's licence forbids redistribution. |
@@ -48,7 +48,7 @@ notch at the window level and keeps the ratio.
 
 | Token | Value |
 |---|---|
-| Frame | Rounding only, rebuilt from scratch after review: 20 px on every window through the Rounded Corners effect, which also covers client-drawn apps such as Claude and Discord, matched by Darkly's titlebar radius. No outline, hairline, border or inset. Every variant tried is logged in docs/IMPACT.md Phase E |
+| Frame | 20 px rounding on every window through the Rounded Corners effect, matched by Klassy, plus one bright 1 px light hairline on the edge drawn by the effect so client-drawn windows get it too. No border or inset |
 | Titlebar fill | follows colour scheme window background |
 | Glass surfaces | top panel, dock, popups: MacTahoe blur, tint `#1c1c1e` at 72 percent |
 | Highlight band | 1 px `#ffffff` at 10 percent along the top inside edge of glass surfaces |

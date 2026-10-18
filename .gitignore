@@ -4,3 +4,4 @@ glyphs/
 icons/**/*.png
 !docs/*.png
 __pycache__/
+dist/

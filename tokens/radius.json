@@ -1,7 +1,7 @@
 {
   "_comment": "Rounding scale in CSS pixels at 1x. Every generator and config snippet reads from here.",
-  "window": 12,
-  "popup": 12,
+  "window": 16,
+  "popup": 16,
   "widget": 8,
   "menu_item": 6,
   "tooltip": 8,

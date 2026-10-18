@@ -24,6 +24,15 @@
    of every other dropdown. */
 .datemenu-popover { border-radius: 14px !important; }
 
+/* Quick-settings submenus (Wi-Fi, Bluetooth, volume output, power mode,
+   power off): no card of their own, only their items on the quick-settings
+   glass. The theme draws each on a 25 % white card with a border and shadow. */
+.quick-toggle-menu {
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 /* Now Playing Card (nowplaying@epogonii.github.io) as macOS Tahoe's Now
    Playing: one glass surface, 12 px artwork, white title over a dimmed
    artist, a thin white progress line with no knob, bare white transport.

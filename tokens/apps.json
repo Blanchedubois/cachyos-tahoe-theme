@@ -978,6 +978,15 @@
         "top": "#3a3d42"
       },
       "scale": 0.8
+    },
+    "klassy-settings.desktop": {
+      "name": "Klassy Settings",
+      "icon": "klassy-settings",
+      "category": "system",
+      "glyph": {
+        "set": "sf",
+        "name": "paintbrush"
+      }
     }
   },
   "skip_patterns": [

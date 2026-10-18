@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=VRChat
+Comment=Launch VRChat through Steam
+Exec=steam steam://rungameid/438100
+Icon=steam_icon_438100
+Terminal=false
+Categories=Game;
+StartupWMClass=steam_app_438100

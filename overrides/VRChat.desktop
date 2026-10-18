@@ -7,3 +7,4 @@ Terminal=false
 Type=Application
 Categories=Game;
 StartupWMClass=steam_app_438100
+NoDisplay=true

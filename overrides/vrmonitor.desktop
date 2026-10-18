@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=SteamVR
+Comment=Launch SteamVR through Steam
+Exec=steam steam://rungameid/250820
+Icon=steam_icon_250820
+Terminal=false
+Categories=Game;
+StartupWMClass=vrmonitor

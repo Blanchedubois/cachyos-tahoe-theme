@@ -24,10 +24,10 @@
    of every other dropdown. */
 .datemenu-popover { border-radius: 14px !important; }
 
-/* Quick-settings submenus (Wi-Fi, Bluetooth, volume output, power mode,
-   power off): no card of their own, only their items on the quick-settings
-   glass. The theme draws each on a 25 % white card with a border and shadow. */
-.quick-toggle-menu {
+/* Quick settings (the Control Center): no card behind the panel, so the
+   toggles, sliders and system buttons stand on their own. Two classes to
+   outweigh the dropdown glass above. */
+.popup-menu-content.quick-settings {
   background-color: transparent !important;
   border: none !important;
   box-shadow: none !important;

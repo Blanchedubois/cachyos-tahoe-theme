@@ -61,17 +61,24 @@ def glyph_path_for(glyph, fill):
 
 
 GLYPH_TOKENS = json.load(open(TOKENS / "glyphs.json"))
-# Extra stroke, in source units, added around SF outlines so they hold up at
-# 16 px. SF exports are drawn with a 1 unit stroke on a ~80 unit grid.
-SF_STROKE = float(GLYPH_TOKENS.get("sf_symbolic_stroke", 2.5))
+# Extra stroke added around SF outlines so they hold up at 16 px, in rendered
+# px at a 16 px icon (scaled with the icon). Set in rendered px, not source
+# units: SF exports differ in size (Bluetooth's is 99 units tall, Wi-Fi's 74),
+# so a fixed source stroke came out thinner on every glyph that is scaled
+# down more. The glyph is inset by the stroke so it is not clipped.
+SF_STROKE_PX = float(GLYPH_TOKENS.get("sf_symbolic_stroke_px", 1.0))
 
 
-def symbolic_svg(vb, ds, size, inner_tr="", stroke=0.0):
+def symbolic_svg(vb, ds, size, inner_tr="", stroke_px=0.0):
     """Wrap the glyph paths in a size-by-size SVG that scales the source grid
     to the icon box. Material's viewBox is 0 -960 960 960; Phosphor's is
-    0 0 256 256. Both are designed with their own optical padding."""
+    0 0 256 256. Both are designed with their own optical padding. stroke_px
+    is the outline added at 16 px; it scales with the icon, the glyph is
+    inset by it, and it renders the same width whatever the glyph's size."""
     x0, y0, w, h = vb
-    s = size / max(w, h)
+    pad = stroke_px * size / 16
+    s = (size - pad) / max(w, h)
+    stroke = pad / s if stroke_px else 0.0
     tx = -x0 * s + (size - w * s) / 2
     ty = -y0 * s + (size - h * s) / 2
     paths = "".join(f'<path d="{d}"/>' for d in ds)
@@ -79,7 +86,7 @@ def symbolic_svg(vb, ds, size, inner_tr="", stroke=0.0):
         paths = f'<g transform="{inner_tr}">{paths}</g>'
     # GNOME recolours a symbolic icon by replacing this fill; KDE uses the
     # stylesheet class. Both are present so one file serves both desktops.
-    stroke_attr = (f' stroke="#bebebe" stroke-width="{stroke}" stroke-linejoin="round"' if stroke else "")
+    stroke_attr = (f' stroke="#bebebe" stroke-width="{stroke:.3f}" stroke-linejoin="round"' if stroke else "")
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" '
             f'viewBox="0 0 {size} {size}">{STYLE}'
             f'<g class="ColorScheme-Text" fill="#bebebe"{stroke_attr} '
@@ -211,7 +218,7 @@ def main():
             missing.append((name, str(gpath.relative_to(ROOT))))
             continue
         vb, ds, inner_tr = read_glyph(gpath)
-        stroke = SF_STROKE if entry["glyph"]["set"] == "sf" else 0.0
+        stroke = SF_STROKE_PX if entry["glyph"]["set"] == "sf" else 0.0
         # GNOME: one scalable "-symbolic" file per name under symbolic/<ctx>/.
         # For places this is what Files' sidebar asks for; the plain names
         # (main view, large coloured folders) are left to MacTahoe.

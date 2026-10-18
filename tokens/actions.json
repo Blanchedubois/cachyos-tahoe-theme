@@ -1676,7 +1676,8 @@
       },
       "aliases": [
         "object-locked",
-        "emblem-locked"
+        "emblem-locked",
+        "network-wireless-encrypted"
       ]
     },
     "system-log-out": {
@@ -2400,7 +2401,8 @@
         "network-wired-disconnected",
         "network-disconnect-status",
         "network-unavailable",
-        "network-wired-acquiring"
+        "network-wired-acquiring",
+        "network-wired-no-route"
       ]
     },
     "network-vpn": {
@@ -2411,7 +2413,8 @@
       },
       "aliases": [
         "network-vpn-symbolic",
-        "network-vpn-connected"
+        "network-vpn-connected",
+        "network-vpn-acquiring"
       ]
     },
     "network-mobile-100": {
@@ -2522,7 +2525,8 @@
         "network-bluetooth",
         "bluetooth-active",
         "bluetooth-online",
-        "preferences-system-bluetooth-activated"
+        "preferences-system-bluetooth-activated",
+        "bluetooth-acquiring"
       ]
     },
     "preferences-system-bluetooth-inactive": {
@@ -2569,7 +2573,8 @@
       },
       "aliases": [
         "notifications-disabled-symbolic",
-        "notifications-none"
+        "notifications-none",
+        "no-notifications"
       ]
     },
     "notification-active": {
@@ -4649,6 +4654,95 @@
         "search-places",
         "baloo",
         "folder-saved-search"
+      ]
+    },
+    "screenshooter": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "camera.viewfinder"
+      },
+      "aliases": [
+        "applets-screenshooter"
+      ]
+    },
+    "network-vpn-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "lock.slash"
+      },
+      "aliases": []
+    },
+    "location-services-active": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "location"
+      },
+      "aliases": [
+        "location-services-disabled"
+      ]
+    },
+    "rotation-allowed": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "rotate.right"
+      },
+      "aliases": []
+    },
+    "rotation-locked": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "lock.rotation"
+      },
+      "aliases": []
+    },
+    "keyboard-brightness-high": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "light.max"
+      },
+      "aliases": [
+        "keyboard-brightness-medium"
+      ]
+    },
+    "keyboard-brightness-off": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "light.min"
+      },
+      "aliases": []
+    },
+    "network-cellular-connected": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right"
+      },
+      "aliases": [
+        "network-cellular",
+        "network-cellular-acquiring",
+        "network-cellular-signal-none",
+        "network-cellular-signal-weak",
+        "network-cellular-signal-ok",
+        "network-cellular-signal-good",
+        "network-cellular-signal-excellent"
+      ]
+    },
+    "network-cellular-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right.slash"
+      },
+      "aliases": [
+        "network-cellular-offline",
+        "network-cellular-hardware-disabled"
       ]
     }
   }

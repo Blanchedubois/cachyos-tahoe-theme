@@ -12,13 +12,13 @@
 
 /* Top-bar dropdowns (calendar, Now Playing, every panel menu) and
    notification banners in a grey tint, no blur (config/popup-blur is off):
-   grey at 88 % with a 1 px white outline at 30 % and a faint inner glow, in
+   grey at 80 % with a 1 px white outline at 30 % and a faint inner glow, in
    place of the theme's 92 % dark grey and 75 % black outline. The buttons
    and submenus of quick settings below take the same. */
 .popup-menu-content,
 .notification-banner {
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  background-color: rgba(64, 64, 68, 0.88) !important;
+  background-color: rgba(64, 64, 68, 0.8) !important;
   box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.12) !important;
 }
 /* The calendar dropdown at the 20 px popup radius (tokens/radius.json); the
@@ -26,7 +26,7 @@
 .datemenu-popover { border-radius: 20px !important; }
 /* A step darker than the other dropdowns: it is the largest, and the same
    tint read lighter over that much area. */
-.popup-menu-content.datemenu-popover { background-color: rgba(48, 48, 52, 0.92) !important; }
+.popup-menu-content.datemenu-popover { background-color: rgba(48, 48, 52, 0.86) !important; }
 /* Its cards (events, world clocks, weather) and the notifications in it:
    outline only, on the dropdown's own tint, in place of the theme's opaque
    greys. A fill of their own stacked up and washed the dropdown out; it
@@ -62,7 +62,7 @@
 .quick-toggle-has-menu,
 .quick-slider,
 .quick-settings-system-item .icon-button {
-  background-color: rgba(64, 64, 68, 0.88) !important;
+  background-color: rgba(64, 64, 68, 0.8) !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.12) !important;
 }
@@ -77,16 +77,16 @@
 .quick-toggle-menu .header .icon { border-radius: 9999px !important; }
 .quick-toggle:hover,
 .quick-toggle-has-menu:hover,
-.quick-settings-system-item .icon-button:hover { background-color: rgba(84, 84, 88, 0.9) !important; }
+.quick-settings-system-item .icon-button:hover { background-color: rgba(84, 84, 88, 0.84) !important; }
 .quick-toggle:active,
 .quick-toggle-has-menu:active,
-.quick-settings-system-item .icon-button:active { background-color: rgba(100, 100, 104, 0.92) !important; }
+.quick-settings-system-item .icon-button:active { background-color: rgba(100, 100, 104, 0.88) !important; }
 /* Split toggles that are on (Wi-Fi, Bluetooth, power mode): the theme's
    :checked rule outweighs the tint and put the 15 % white back. The pill
    stays tinted; the white icon circle shows the state. */
-.quick-toggle-has-menu:checked { background-color: rgba(64, 64, 68, 0.88) !important; }
-.quick-toggle-has-menu:checked:hover { background-color: rgba(84, 84, 88, 0.9) !important; }
-.quick-toggle-has-menu:checked:active { background-color: rgba(100, 100, 104, 0.92) !important; }
+.quick-toggle-has-menu:checked { background-color: rgba(64, 64, 68, 0.8) !important; }
+.quick-toggle-has-menu:checked:hover { background-color: rgba(84, 84, 88, 0.84) !important; }
+.quick-toggle-has-menu:checked:active { background-color: rgba(100, 100, 104, 0.88) !important; }
 .quick-toggle-has-menu .quick-toggle { border: none !important; }
 /* The round icon inside a split toggle (Wi-Fi, Bluetooth), its arrow button
    and a submenu's header icon: a light step on the pill so they read.
@@ -105,7 +105,7 @@
    dropdowns' tint in place of the theme's 25 % white card. GNOME gives the
    power submenu no class of its own, so they all change together. */
 .quick-toggle-menu {
-  background-color: rgba(64, 64, 68, 0.88) !important;
+  background-color: rgba(64, 64, 68, 0.8) !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.12) !important;
   /* The curve of the toggles beside them: a 64 px toggle is a capsule with

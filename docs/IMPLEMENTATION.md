@@ -278,6 +278,10 @@ Before and after: `docs/panel-before.png`, `docs/panel-after.png`.
 
 Two earlier attempts were rejected: a card generated from scratch and a scheme-colour retint. Card internals remain Plasma's QML. Top panel is 30 px.
 
+### Phase 7: widget-style reference survey `[x]`
+
+Twelve well-known Plasma themes compared on button, tab and rounding quality, ranked by GitHub stars and recent activity because the KDE Store's rating pages do not render for fetching. Sheet: `docs/theme-survey.png`. Recommendation for the widget reference: Klassy's application style (installed) for buttons, tabs and spacing, with Material icons; KvLibadwaita as the runner-up for its slider and input language.
+
 ### Phase 5: workshop items `[~]`
 
 - [x] Accent colour `#0a84ff` system-wide, applied by `install.sh`

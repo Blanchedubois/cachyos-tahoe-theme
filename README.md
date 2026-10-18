@@ -18,6 +18,15 @@ The full history, decisions and findings are in
 is in [docs/IMPACT.md](docs/IMPACT.md). Plasma files from the first phases
 are kept for reference but the live target is GNOME.
 
+## Screenshots
+
+| | |
+|---|---|
+| ![Quick settings](docs/screenshots/quick-settings.png) | ![Terminal, Settings and Files](docs/screenshots/terminal.png) |
+| ![Settings and Files](docs/screenshots/settings-and-files.png) | ![App grid](docs/screenshots/app-grid.png) |
+
+![Search](docs/screenshots/search.png)
+
 ## Requirements
 
 GNOME 51 on CachyOS. Root once, for the packages:

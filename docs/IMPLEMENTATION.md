@@ -327,8 +327,12 @@ MacTahoeDark because the package leaves it unset.
 
 What the reset removed: the Rounded Corners effect (disabled), the Overview
 hot corner, the Klassy and Darkly decorations, the Firefox user.js and
-userChrome.css, the Konsole default profile, the custom top panel. GTK stays
-on Graphite-Dark since the theme does not set one.
+userChrome.css, the Konsole default profile, the custom top panel.
+
+GTK: the MacTahoe GTK theme (vinceliuice/MacTahoe-gtk-theme) is installed in
+full, all twelve variants, with the libadwaita link for GTK4, and MacTahoe-Dark
+is the active GTK3 theme. Its installer needs a pseudo-terminal: without one
+its progress animation aborts the run silently after the helper-app step.
 
 An intermediate reset to the zayronxio "Apple Tahoe Dark" package was applied
 by mistake and replaced within the same session; its Panel Colorizer widget

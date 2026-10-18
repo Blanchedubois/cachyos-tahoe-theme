@@ -25,6 +25,20 @@ mkdir -p "$CONF/Kvantum"
 printf '[General]\ntheme=MacTahoeDark\n' > "$CONF/Kvantum/kvantum.kvconfig"
 kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle kvantum
 
+say "gtk theme"
+# MacTahoe GTK (vinceliuice). The installer needs a pseudo-terminal for its
+# progress animation, otherwise it exits before compiling anything.
+GTKSRC="$HOME/.local/src/MacTahoe-gtk-theme"
+if [[ ! -d "$GTKSRC" ]]; then
+  mkdir -p "$HOME/.local/src"; git clone -q --depth 1 https://github.com/vinceliuice/MacTahoe-gtk-theme "$GTKSRC"
+fi
+if [[ ! -d "$HOME/.themes/MacTahoe-Dark" ]]; then
+  rm -rf /tmp/MacTahoe.lock
+  ( cd "$GTKSRC" && TERM=xterm-256color script -qfec "./install.sh" /dev/null >/dev/null 2>&1 ) || true
+  ( cd "$GTKSRC" && ./install.sh -l >/dev/null 2>&1 ) || true
+fi
+qdbus6 org.kde.GtkConfig /GtkConfig org.kde.GtkConfig.setGtkTheme "MacTahoe-Dark" >/dev/null 2>&1 || true
+
 say "icon theme (linked, not applied)"
 mkdir -p "$DATA/icons"
 ln -sfn "$ROOT/icons/Tahoe-Material" "$DATA/icons/Tahoe-Material"

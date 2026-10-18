@@ -14,7 +14,7 @@ decision.
 |---|---|
 | Base theme | MacTahoe-kde dark (vinceliuice) for colours, Plasma style, panel and dock |
 | Window decoration | Klassy, built for Plasma 6 only from the AUR PKGBUILD (the Plasma 5 half stripped), config in `config/klassyrc`: Material glyphs, no button background or outline in any state, traffic-light icon colours muted at rest and full on hover, corner radius 0 so the Rounded Corners effect alone rounds and outlines the frame (see docs/IMPACT.md Phase F), no window outline, large shadow matched active and inactive, title centred. Darkly remains the application style |
-| Application style | Darkly, single corner radius, opaque menus and bars |
+| Application style | Kvantum with NoMansSkyJux, the widget style behind Mystical Blue: flat, near-square, compact. Darkly was the style until Phase 8 |
 | Window clipping | KDE Rounded Corners effect so client-drawn windows match |
 | Glyph source | Material Symbols Rounded, weight 700, as primary. Phosphor Bold where a stroke-style glyph fits better. No SF Symbols: Apple's licence forbids redistribution. |
 | Brand apps | Keep the brand mark, place it on the Tahoe squircle with the glass treatment and a brand-derived colour |
@@ -282,13 +282,13 @@ Two earlier attempts were rejected: a card generated from scratch and a scheme-c
 
 Twelve well-known Plasma themes compared on button, tab and rounding quality, ranked by GitHub stars and recent activity because the KDE Store's rating pages do not render for fetching. Sheets: `docs/theme-survey.png` (twelve by GitHub stars) and `docs/theme-survey-2.png` (twenty-one more from the KDE Store's rating-sorted listings read in the browser, plus GitHub's most-starred). Reddit blocks fetching, so store scores stand in for community votes. Store leaders: Lightly 9.2 (application styles), Sweet 8.9 and Layan 8.7 (global themes), ROUNDED 8.9 and Sweet 8.9 (Plasma styles), Sweet and Layan 8.8 (Kvantum), MoeDark 7.6 and Klassy 7.5 (decorations). Recommendation for the widget reference: Klassy's application style (installed) for buttons, tabs and spacing, with Material icons; KvLibadwaita as the runner-up for its slider and input language.
 
-### Phase 8: widget style from the Mystical Blue reference `[~]`
+### Phase 8: widget style from the Mystical Blue reference `[x]`
 
 Mystical Blue (MIT, juxtopposed) is a Kvantum setup: its widget style is NoMansSkyJux, a modified No Man's Sky Kvantum theme (GPL-3, Patrik Wyde). Its language is flat and near-square: corner tiles of 4 to 6 px, so roughly 3 px of rounding on buttons, tabs, inputs and menus; tabs attached to their frame; toolbar icons 22 px with text beside them; thin 2 px sliders and 5 px transient scrollbars; menus with 1 px frames.
 
 - [x] Theme vendored to `config/kvantum/NoMansSkyJux/`, selected in `config/kvantum/kvantum.kvconfig`
 - [x] Klassy's inactive button state configured to match active (icons only, no circles)
-- [ ] Decide: keep Mystical Blue's Kvantum style as is, or port its metrics onto Darkly at a 4 px radius so colours keep following the scheme
+- [x] Decision: keep the Kvantum style as is. Darkly stays installed but unused
 - Evidence: `docs/mystical-blue-dolphin.png`, `docs/mystical-blue-settings.png`
 
 ### Phase 5: workshop items `[~]`

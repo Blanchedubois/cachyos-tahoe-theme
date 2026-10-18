@@ -1,9 +1,9 @@
 {
-  "_comment": "Rounding scale in CSS pixels at 1x. Every generator and config snippet reads from here.",
+  "_comment": "Rounding scale in CSS pixels at 1x. Every generator and config snippet reads from here. widget and menu_item follow the Mystical Blue Kvantum style, which draws its own tiles; they are recorded here for reference, not applied by a generator.",
   "window": 20,
   "popup": 20,
-  "widget": 8,
-  "menu_item": 6,
+  "widget": 3,
+  "menu_item": 3,
   "tooltip": 8,
   "icon_squircle_n": 5,
   "titlebar_height": 32,

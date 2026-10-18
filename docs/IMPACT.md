@@ -73,6 +73,7 @@ window radius.
 | Glass overlay on every icon | Firefox at 512 px beside Dolphin | **fixed**. MacTahoe passthrough art is now embedded as the base under the same dome, inner rim, bottom glow and rim as generated icons. |
 | Apps without an assigned icon | contact sheet: Desktop+, SteamVR, VRChat; dock: Claude | **fixed**. Every visible launcher not in the table gets its own mark on a white glass squircle. Marks that already fill their canvas, or are flagged `tile`, become the base under the glass instead of nesting inside a shell. Steam itself stays untouched. |
 | Running-app icons in the dock | SteamVR's monitor window showed its own "VR" icon | **fixed**. `StartupWMClass=vrmonitor` on the SteamVR launcher lets the task manager match the window to the launcher and use the themed tile. The same tag can be added for any other running app that shows a stray icon. |
+| Claude icon fill | 256 px render | **fixed**. The source image carries a white canvas with the orange square inset. `tile_crop` trims a tile to its coloured content before it becomes the base, so it fills the squircle. Any brand mark that does not fill sits on a white glass shell now; the sampled-colour shell is gone. |
 | Window outline alignment | corner crops | **fixed** by removal. The effect's 1 px outline sat a pixel off Darkly's anti-aliased corner. The outline is off; rounding and Darkly's shadow are the whole frame styling. |
 
 ## Open items carried forward

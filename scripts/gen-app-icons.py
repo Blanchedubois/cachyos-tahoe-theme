@@ -195,14 +195,39 @@ def is_full_tile(path):
     im = Image.open(path).convert("RGBA").resize((64, 64))
     a = im.split()[3]
     solid = sum(1 for v in a.getdata() if v > 200)
-    return solid / (64 * 64) > 0.60
+    return solid / (64 * 64) > 0.80
 
 
-def tile_base(path):
+def tile_base(path, crop=False):
     """Embed a full-tile mark as the base, scaled to the squircle body and
-    clipped to it."""
-    data = base64.b64encode(path.read_bytes()).decode()
-    mime = "image/svg+xml" if path.suffix == ".svg" else "image/png"
+    clipped to it. With crop, the raster is first trimmed to its coloured,
+    non-white content so a mark drawn with a margin still fills the body."""
+    if crop:
+        from PIL import Image
+        import io, tempfile
+        if path.suffix == ".svg":
+            tmp = Path(tempfile.gettempdir()) / f"crop-{path.stem}.png"
+            subprocess.run(["rsvg-convert", "-w", "1024", "-h", "1024", str(path), "-o", str(tmp)], check=True)
+            path = tmp
+        im = Image.open(path).convert("RGBA")
+        px = im.load()
+        w, h = im.size
+        xs, ys = [], []
+        for yy in range(0, h, 2):
+            for xx in range(0, w, 2):
+                r, g, b, a = px[xx, yy]
+                if a > 200 and not (r > 235 and g > 235 and b > 235):
+                    xs.append(xx)
+                    ys.append(yy)
+        if xs:
+            im = im.crop((min(xs), min(ys), max(xs) + 1, max(ys) + 1))
+        buf = io.BytesIO()
+        im.save(buf, format="PNG")
+        data = base64.b64encode(buf.getvalue()).decode()
+        mime = "image/png"
+    else:
+        data = base64.b64encode(path.read_bytes()).decode()
+        mime = "image/svg+xml" if path.suffix == ".svg" else "image/png"
     return (f'<g clip-path="url(#clip)"><image x="{INSET}" y="{INSET}" width="{BODY}" height="{BODY}" '
             f'preserveAspectRatio="xMidYMid slice" href="data:{mime};base64,{data}"/></g>')
 
@@ -342,15 +367,13 @@ def main():
                 print(f"brand mark not found for {app['name']} ({app['brand_icon']}), skipping", file=sys.stderr)
                 continue
             if app.get("tile") or is_full_tile(src):
-                svg = compose(base, top, "", base_image=tile_base(src))
+                svg = compose(base, top, "", base_image=tile_base(src, crop=app.get("tile_crop", False)))
                 (scalable / f"{icon}.svg").write_text(svg)
                 produced[icon] = app["name"]
                 continue
-            dom = dominant_colour(src)
-            if dom:
-                base = mix(dom, hex_to_rgb("#808080"), 0.2)
-                top = mix(base, (255, 255, 255), 0.22)
-            body = brand_group(src, 0.74)
+            # a mark that does not fill the squircle sits on a white glass shell
+            base, top = hex_to_rgb("#e9e9ee"), hex_to_rgb("#ffffff")
+            body = brand_group(src, 0.62)
         else:
             g = app["glyph"]
             gpath = GLYPHS / g["set"] / (f"{g['name']}-outline.svg" if g["set"] == "material" else f"{g['name']}.svg")

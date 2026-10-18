@@ -237,14 +237,14 @@ PY
   bsg .dash-to-dock blur true; bsg .dash-to-dock static-blur true; bsg .dash-to-dock pipeline "'pipeline_default_rounded'"
   bsg .dash-to-dock override-background false; bsg .dash-to-dock unblur-in-overview true
   # Popups: quick settings, menus, notifications. Static only; corner radii
-  # follow the shell theme (14 px menus, banners and the calendar; quick
+  # follow the shell theme (14 px menus and banners, 20 px the calendar; quick
   # settings are not blurred, see 5c2).
   bsg .popup blur "$POPUP_BLUR"
   if [[ "$POPUP_BLUR" == true ]]; then
     bsg .popup static-blur true; bsg .popup pipeline "'pipeline_default'"
     bsg .popup override-background true; bsg .popup preserve-shell-theme true; bsg .popup style-popup 0
     bsg .popup sigma 30; bsg .popup brightness 0.6
-    bsg .popup quick-settings-corner-radius 14; bsg .popup menu-corner-radius 14; bsg .popup notification-corner-radius 14
+    bsg .popup quick-settings-corner-radius 20; bsg .popup menu-corner-radius 14; bsg .popup notification-corner-radius 14
   fi
 fi
 

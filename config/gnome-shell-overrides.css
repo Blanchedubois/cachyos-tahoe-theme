@@ -20,9 +20,9 @@
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   background-color: rgba(72, 72, 76, 0.5) !important;
 }
-/* The calendar dropdown: the theme rounds it at 22 px, well past the 14 px
-   of every other dropdown. */
-.datemenu-popover { border-radius: 14px !important; }
+/* The calendar dropdown at the 20 px popup radius (tokens/radius.json); the
+   theme rounds it at 22 px. Blur my Shell's blur behind it matches. */
+.datemenu-popover { border-radius: 20px !important; }
 
 /* Quick settings (the Control Center): no card behind the panel, so the
    toggles, sliders and system buttons stand on their own. Two classes to

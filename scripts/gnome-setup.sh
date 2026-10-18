@@ -116,6 +116,8 @@ if [[ -d "$EXT_DIR/blur-my-shell@aunetx/schemas" ]]; then
   bs .applications blur true
   # Popup module (quick settings, menus, notifications): static mode renders here; dynamic paints an opaque box.
   bs .popup static-blur true; bs .popup pipeline 'pipeline_default'; bs .popup override-background true; bs .popup preserve-shell-theme true; bs .popup sigma 30; bs .popup brightness 0.6
+  # Blur corners: 14 px like the dropdowns; this key also rounds the calendar.
+  bs .popup quick-settings-corner-radius 14; bs .popup menu-corner-radius 14; bs .popup notification-corner-radius 14
   bs .popup blur true
 fi
 # Icons: the Tahoe-Material theme, SF Symbol watermarks on glass squircles.

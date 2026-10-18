@@ -13,7 +13,7 @@ decision.
 | Topic | Decision |
 |---|---|
 | Base theme | MacTahoe-kde dark (vinceliuice) for colours, Plasma style, panel and dock |
-| Window decoration | Klassy, built for Plasma 6 only from the AUR PKGBUILD (the Plasma 5 half stripped), config in `config/klassyrc`: Material glyphs, no button background or outline in any state, traffic-light icon colours muted at rest and full on hover, 20 px corners, no window outline, large shadow, title centred. Darkly remains the application style |
+| Window decoration | Klassy, built for Plasma 6 only from the AUR PKGBUILD (the Plasma 5 half stripped), config in `config/klassyrc`: Material glyphs, no button background or outline in any state, traffic-light icon colours muted at rest and full on hover, corner radius 0 so the Rounded Corners effect alone rounds and outlines the frame (see docs/IMPACT.md Phase F), no window outline, large shadow matched active and inactive, title centred. Darkly remains the application style |
 | Application style | Darkly, single corner radius, opaque menus and bars |
 | Window clipping | KDE Rounded Corners effect so client-drawn windows match |
 | Glyph source | Material Symbols Rounded, weight 700, as primary. Phosphor Bold where a stroke-style glyph fits better. No SF Symbols: Apple's licence forbids redistribution. |

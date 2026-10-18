@@ -10,7 +10,7 @@
   "titlebar_button": 14,
   "titlebar_button_spacing": 8,
   "frame": {
-    "note": "20 px on the Rounded Corners effect (all windows) and on the Klassy decoration. One bright 1 px light hairline on the edge from the effect (white at 47 percent active, 27 inactive). No border, no inset."
+    "note": "20 px on the Rounded Corners effect for every window; the Klassy decoration draws square and never rounds, so the effect owns the corner and the hairline from one path. One bright 1 px light hairline on the edge. No border, no inset."
   },
   "titlebar_buttons": {
     "decoration": "Klassy",

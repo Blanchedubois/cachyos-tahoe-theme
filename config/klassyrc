@@ -49,7 +49,7 @@ ButtonIconStyle=Material
 ButtonShape=IntegratedRoundedRectangle
 IconSize=LargeMedium
 RoundAllCornersWhenNoBorders=true
-WindowCornerRadius=20
+WindowCornerRadius=0
 
 [WindowOutlineStyle]
 LockWindowOutlineStyleActiveInactive=true

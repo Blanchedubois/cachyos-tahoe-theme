@@ -82,6 +82,18 @@ window radius.
 
 | Inactive shadow | unfocused Konsole corner crops | **fixed**. Klassy's inactive shadow defaults to half strength, which reads as a tighter, less blurred corner when a window loses focus. Inactive shadow now matches active: Large, full strength. |
 
+## Phase F: hairline versus corner
+
+Intent: the light hairline must sit exactly on the window's corner curve on every window.
+
+| Check | Evidence | Verdict |
+|---|---|---|
+| KDE-decorated windows, as found | `docs/corner-hairline-compare.png`, top row: kcalc and Konsole, both top corners at 8x | **fail**. Klassy rounded the titlebar at its own 20 px with its own anti-aliasing, and the effect drew the hairline at its 20 px. The two arcs differ by about a pixel, which shows as a dark inner arc inside the light line. |
+| Single renderer | same sheet, bottom row | **fixed**. Klassy's corner radius is set to 0, so the effect alone clips the corner and draws the line from the same path. One light arc, no inner arc, on both windows and both corners. |
+| Client-drawn windows | Claude corner crops from Phase E | **pass**. These were already effect-only, which is why they never showed the mismatch. |
+
+Rule recorded in the plan: the effect owns every pixel of the corner, including the line. The decoration draws a square titlebar and never rounds.
+
 ## Open items carried forward
 
 1. Verify menus and Plasma popups once a capture path exists, or by eye.

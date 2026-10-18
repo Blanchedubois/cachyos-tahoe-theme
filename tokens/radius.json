@@ -8,5 +8,19 @@
   "icon_squircle_n": 5,
   "titlebar_height": 32,
   "titlebar_button": 14,
-  "titlebar_button_spacing": 8
+  "titlebar_button_spacing": 8,
+  "frame_outer_ring": {
+    "thickness": 3,
+    "color": "#000000",
+    "alpha": 140
+  },
+  "frame_gap": {
+    "thickness": 2,
+    "color": "window background"
+  },
+  "frame_inner_line": {
+    "thickness": 1,
+    "color": "#ffffff",
+    "alpha": 40
+  }
 }

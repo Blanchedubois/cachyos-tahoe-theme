@@ -48,7 +48,7 @@ notch at the window level and keeps the ratio.
 
 | Token | Value |
 |---|---|
-| Frame outlines | Workshop in progress, see `docs/frame-options.png`. Trial on screen is variant A: 3 px dark outer ring in the shadow zone, 2 px gap in window colour, 1 px light inner line. B is an accent-tinted outer ring with a wider gap; C is a single faint light edge. All three are the effect's outer, edge and second outline layers, so switching is config only |
+| Frame outlines | Variant A, chosen from `docs/frame-options.png`: 3 px dark outer ring in the shadow zone at 55 percent, 2 px gap in window colour, 1 px light inner line at 16 percent. Drawn by the Rounded Corners effect's outer, edge and second outline layers, so the three rings sit at different radii and never fight. Variants B and C remain in the mockup for reference |
 | Titlebar fill | follows colour scheme window background |
 | Glass surfaces | top panel, dock, popups: MacTahoe blur, tint `#1c1c1e` at 72 percent |
 | Highlight band | 1 px `#ffffff` at 10 percent along the top inside edge of glass surfaces |

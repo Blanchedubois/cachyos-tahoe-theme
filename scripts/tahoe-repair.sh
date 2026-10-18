@@ -109,7 +109,21 @@ fi
 #    whitelist of system apps (static pipeline, works here); enable-all off.
 BS="$EXT_DIR/blur-my-shell@aunetx/schemas"
 if [[ -d "$BS" ]]; then
-  bsg() { [[ "$(gsettings --schemadir "$BS" get "org.gnome.shell.extensions.blur-my-shell$1" "$2" | tr -d ' ')" == "$(tr -d ' ' <<<"$3")" ]] || { log "blur$1 $2 drifted: resetting"; gsettings --schemadir "$BS" set "org.gnome.shell.extensions.blur-my-shell$1" "$2" "$3"; }; }
+  # Compare as values, not text: gsettings prints 0.6 as 0.59999999999999998.
+  bsg() {
+    cur="$(gsettings --schemadir "$BS" get "org.gnome.shell.extensions.blur-my-shell$1" "$2")"
+    if ! python3 - "$cur" "$3" <<'PY' 2>/dev/null
+import sys
+a, b = sys.argv[1].strip(), sys.argv[2].strip()
+norm = lambda v: v.replace(" ", "")
+try:
+    same = abs(float(a) - float(b)) < 1e-6
+except ValueError:
+    same = norm(a) == norm(b)
+sys.exit(0 if same else 1)
+PY
+    then log "blur$1 $2 drifted: resetting"; gsettings --schemadir "$BS" set "org.gnome.shell.extensions.blur-my-shell$1" "$2" "$3"; fi
+  }
   bsg .applications blur true
   bsg .applications enable-all false
   bsg .applications static-blur true    # dynamic mode paints the window opaque on this GPU; static shows what is behind, blurred
@@ -118,8 +132,22 @@ if [[ -d "$BS" ]]; then
   bsg .applications customize true
   bsg "" hacks-level 0
   bsg .applications whitelist "['org.gnome.Nautilus','org.gnome.Settings','gnome-control-center','org.gnome.Console','kgx','org.gnome.TextEditor','org.gnome.Calculator','org.gnome.Loupe','org.gnome.Papers','org.gnome.Characters','org.gnome.clocks','org.gnome.Calendar','org.gnome.Weather','org.gnome.Music','org.gnome.Software','org.gnome.DiskUtility','org.gnome.baobab','org.gnome.SystemMonitor','org.gnome.tweaks','org.gnome.Extensions','org.gnome.Logs','org.gnome.font-viewer','org.kde.dolphin','org.kde.kate','org.kde.konsole']"
+  bsg .applications sigma 30; bsg .applications brightness 0.6; bsg .applications opacity 215
+  # Shell surfaces, per the theme author's Blur my Shell screenshot.
+  bsg .panel blur false; bsg .panel override-background true; bsg .panel unblur-in-overview true
+  bsg .overview blur true; bsg .overview style-components 0
+  bsg .appfolder blur true; bsg .appfolder sigma 30; bsg .appfolder style-dialogs 1
+  bsg .dash-to-dock blur true; bsg .dash-to-dock static-blur true; bsg .dash-to-dock pipeline "'pipeline_default_rounded'"
+  bsg .dash-to-dock override-background false; bsg .dash-to-dock unblur-in-overview true
+  # Popups: quick settings, menus, notifications. Static only; corner radii
+  # follow the shell theme (33 px quick settings, 14 px menus and banners).
   bsg .popup blur "$POPUP_BLUR"
-  [[ "$POPUP_BLUR" == true ]] && { bsg .popup static-blur true; bsg .popup pipeline "'pipeline_default'"; }
+  if [[ "$POPUP_BLUR" == true ]]; then
+    bsg .popup static-blur true; bsg .popup pipeline "'pipeline_default'"
+    bsg .popup override-background true; bsg .popup preserve-shell-theme true; bsg .popup style-popup 0
+    bsg .popup sigma 30; bsg .popup brightness 0.6
+    bsg .popup quick-settings-corner-radius 33; bsg .popup menu-corner-radius 14; bsg .popup notification-corner-radius 14
+  fi
 fi
 
 # 7. icons: theme selected and present (it is a symlink into the repo)

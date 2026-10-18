@@ -337,3 +337,20 @@ its progress animation aborts the run silently after the helper-app step.
 An intermediate reset to the zayronxio "Apple Tahoe Dark" package was applied
 by mistake and replaced within the same session; its Panel Colorizer widget
 remains installed per-user and is harmless.
+
+### Phase 10: GNOME as the desktop `[~]`
+
+Decision on 2026-10-18: the design target is GNOME's, so GNOME becomes the
+main desktop. Plasma stays installed as the proven VR fallback. GNOME 51 and
+its core apps are installed from the repos. `scripts/gnome-setup.sh` does the
+per-user part from any session: the MacTahoe GTK and shell theme, the
+Dash to Dock, Blur my Shell and AppIndicator extensions fetched for the
+installed shell version, the interface settings, the dock layout and the
+blur. User Themes comes bundled with gnome-shell-extensions.
+
+- [x] GNOME installed, extensions in place with GNOME 51 builds
+- [x] Settings pre-seeded: MacTahoe-Dark GTK and shell, MacTahoe-dark icons and cursor, dark style, buttons on the left, dock at the bottom with intellihide
+- [ ] First GNOME login and visual check against the reference screenshot
+- [ ] Display manager: switch to GDM so the login screen is GNOME's (root, user runs it)
+- [ ] GDM theme via the MacTahoe tweaks script (root)
+- [ ] Icon rework against this base

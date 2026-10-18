@@ -940,7 +940,7 @@
         "base": "#1f2124",
         "top": "#3a3d42"
       },
-      "scale": 0.66
+      "scale": 0.8
     },
     "spotify.desktop": {
       "name": "Spotify (client)",
@@ -952,7 +952,7 @@
         "base": "#1f2124",
         "top": "#3a3d42"
       },
-      "scale": 0.66
+      "scale": 0.8
     }
   },
   "skip_patterns": [

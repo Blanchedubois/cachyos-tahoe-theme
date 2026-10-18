@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-"""Write the two highlight assets of the Tahoe-Material Plasma overlay.
+"""Write the highlight asset of the Tahoe-Material Plasma overlay.
 
 widgets/viewitem.svg: hover, selected and selected+hover highlights as rounded
 rectangles inset INSET px from the item's edge, so the highlight never touches
 its neighbours or the card edge. Used by the system tray, Kickoff's sidebar,
 and every Plasma list.
-
-widgets/tabbar.svg: the active tab background (north and south) with the same
-inset rounded shape, used by Kickoff's footer tabs.
 
 Everything else in the Plasma style falls back to MacTahoe-Dark.
 """
@@ -63,13 +60,7 @@ def main():
     body += tiles("normal", "#ffffff", 0.0, 10, 160)
     (OUT / "viewitem.svg").write_text(svg(body))
 
-    body = []
-    for side, y in (("north", 10), ("south", 60), ("west", 110), ("east", 160)):
-        body += tiles(f"{side}-active-tab", "#ffffff", 0.16, 10, y)
-        for m in ("top", "bottom", "left", "right"):
-            body.append(f'<rect id="{side}-focus-hint-{m}-margin" x="{200}" y="{y}" width="{INSET}" height="{INSET}" fill="#ff00ff"/>')
-    (OUT / "tabbar.svg").write_text(svg(body))
-    print("wrote", OUT / "viewitem.svg", "and", OUT / "tabbar.svg")
+    print("wrote", OUT / "viewitem.svg")
 
 
 if __name__ == "__main__":

@@ -16,7 +16,7 @@
 #   6. Blur my Shell applications module off (it breaks the quick settings)
 #   7. icon theme is Tahoe-Material and its files are present
 #   8. extension builds match the running GNOME version (else re-fetch)
-#   9. interface drift: GTK theme, cursor, button layout, wallpaper
+#   9. interface drift: GTK theme, cursor, button layout (never the wallpaper)
 #  10. dock drift: Dash to Dock back on the theme's own styling
 #  11. dock stylesheet present (the theme's -d tweak deletes it)
 set -uo pipefail
@@ -129,8 +129,7 @@ gs() { [[ "$(gsettings get "$1" "$2")" == "$3" ]] || { log "$2 drifted: resettin
 gs org.gnome.desktop.interface cursor-theme "'MacTahoe-dark'"
 gs org.gnome.desktop.interface color-scheme "'prefer-dark'"
 gs org.gnome.desktop.wm.preferences button-layout "'close,minimize,maximize:'"
-BG="$HOME/.local/share/backgrounds/MacTahoe"
-[[ -f "$BG/MacTahoe-night.jpeg" ]] && gs org.gnome.desktop.background picture-uri-dark "'file://$BG/MacTahoe-night.jpeg'"
+# Wallpaper is deliberately not touched: the user picks it.
 
 # 10. dock drift: the theme styles the dock; Dash to Dock must not override it
 DD="$EXT_DIR/dash-to-dock@micxgx.gmail.com/schemas"

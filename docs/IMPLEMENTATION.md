@@ -416,3 +416,16 @@ volume, power profile and power now SF.
 builds that no longer match the running GNOME (re-fetched when a build
 exists), interface drift (cursor, dark style, buttons, wallpaper), dock
 settings drift, and the Dash to Dock stylesheet the theme tweak deletes.
+
+### Phase 16: blurred translucency for apps and shell popups `[~]`
+
+Blur my Shell's applications module is back on, dynamic (blurs windows
+behind, not only the wallpaper), on a whitelist of system apps so Discord,
+Steam and browsers keep their own look, with a 24 px corner to match the
+theme's window radius. Verified on Files over another window. The popup
+module (quick settings, menus, notifications) is on in static mode with
+override-background and theme-matched corner radii; its dynamic mode is what
+painted the opaque box earlier. Not yet verified on screen: the capture loop
+never caught the menu open. If the box returns, `tahoe-repair --popup-blur
+off` turns the module off and the repair keeps it off; the setting lives in
+`config/popup-blur`.

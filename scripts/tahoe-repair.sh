@@ -13,7 +13,7 @@
 #   3. extensions loaded in the running shell (else ask it to load them)
 #   4. extensions enabled
 #   5. shell theme is MacTahoe-Dark and actually loaded (else re-apply)
-#   6. Blur my Shell applications module off (it breaks the quick settings)
+#   6. Blur my Shell module config: applications on a system-app whitelist, popup per POPUP_BLUR
 #   7. icon theme is Tahoe-Material and its files are present
 #   8. extension builds match the running GNOME version (else re-fetch)
 #   9. interface drift: GTK theme, cursor, button layout (never the wallpaper)
@@ -29,6 +29,14 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
 EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com)
+# Popup blur (quick settings, menus, notifications). Static mode renders on
+# this machine where dynamic painted an opaque box. Switch with
+#   tahoe-repair --popup-blur off      (writes config/popup-blur)
+POPUP_FLAG="$ROOT/config/popup-blur"
+case "${1:-}" in
+  --popup-blur) echo "${2:-on}" > "$POPUP_FLAG"; shift 2 ;;
+esac
+POPUP_BLUR=true; [[ -f "$POPUP_FLAG" && "$(cat "$POPUP_FLAG")" == "off" ]] && POPUP_BLUR=false
 WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com']"
 SHELL_VER="$(gnome-shell --version 2>/dev/null | grep -oE '[0-9]+' | head -1)"
 changed=0
@@ -97,14 +105,19 @@ if [[ -f "$CSS" && -f "$ROOT/config/gnome-shell-overrides.css" ]] && ! grep -q '
   gsettings set org.gnome.shell.extensions.user-theme name ''; sleep 1; gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 fi
 
-# 6. blur: applications module off
+# 6. blur: the exact Blur my Shell module config. Applications blur on a
+#    whitelist of system apps (static pipeline, works here); enable-all off.
 BS="$EXT_DIR/blur-my-shell@aunetx/schemas"
-for mod in applications popup; do
-  if [[ -d "$BS" && "$(gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell.$mod blur 2>/dev/null)" == "true" ]]; then
-    log "turning off Blur my Shell $mod module (paints an opaque box behind popups here)"
-    gsettings --schemadir "$BS" set org.gnome.shell.extensions.blur-my-shell.$mod blur false
-  fi
-done
+if [[ -d "$BS" ]]; then
+  bsg() { [[ "$(gsettings --schemadir "$BS" get "org.gnome.shell.extensions.blur-my-shell$1" "$2" | tr -d ' ')" == "$(tr -d ' ' <<<"$3")" ]] || { log "blur$1 $2 drifted: resetting"; gsettings --schemadir "$BS" set "org.gnome.shell.extensions.blur-my-shell$1" "$2" "$3"; }; }
+  bsg .applications blur true
+  bsg .applications enable-all false
+  bsg .applications static-blur false   # dynamic: blurs windows behind, not just the wallpaper
+  bsg .applications corner-radius 24
+  bsg .applications whitelist "['org.gnome.Nautilus','org.gnome.Settings','gnome-control-center','org.gnome.Console','kgx','org.gnome.TextEditor','org.gnome.Calculator','org.gnome.Loupe','org.gnome.Papers','org.gnome.Characters','org.gnome.clocks','org.gnome.Calendar','org.gnome.Weather','org.gnome.Music','org.gnome.Software','org.gnome.DiskUtility','org.gnome.baobab','org.gnome.SystemMonitor','org.gnome.tweaks','org.gnome.Extensions','org.gnome.Logs','org.gnome.font-viewer','org.kde.dolphin','org.kde.kate','org.kde.konsole']"
+  bsg .popup blur "$POPUP_BLUR"
+  [[ "$POPUP_BLUR" == true ]] && { bsg .popup static-blur true; bsg .popup pipeline "'pipeline_default'"; }
+fi
 
 # 7. icons: theme selected and present (it is a symlink into the repo)
 if [[ ! -f "$HOME/.local/share/icons/Tahoe-Material/index.theme" && -d "$ROOT/icons/Tahoe-Material" ]]; then

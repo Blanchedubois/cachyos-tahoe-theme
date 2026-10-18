@@ -109,10 +109,13 @@ if [[ -d "$EXT_DIR/blur-my-shell@aunetx/schemas" ]]; then
   # Applications blur is OFF: on this machine it paints an opaque square
   # behind the quick-settings popup instead of blurring it. The panel, dock,
   # overview and app-folder modules give the look without it.
-  bs .applications blur false
-  # The popup module (new in Blur my Shell 75) blurs the quick-settings and
-  # other shell popups and paints an opaque square when its blur fails. Off.
-  bs .popup blur false
+  # Applications blur on a whitelist of system apps, static pipeline.
+  bs .applications enable-all false; bs .applications static-blur false; bs .applications corner-radius 24; bs .applications sigma 30; bs .applications brightness 0.6; bs .applications opacity 215
+  bs .applications whitelist "['org.gnome.Nautilus','org.gnome.Settings','gnome-control-center','org.gnome.Console','kgx','org.gnome.TextEditor','org.gnome.Calculator','org.gnome.Loupe','org.gnome.Papers','org.gnome.Characters','org.gnome.clocks','org.gnome.Calendar','org.gnome.Weather','org.gnome.Music','org.gnome.Software','org.gnome.DiskUtility','org.gnome.baobab','org.gnome.SystemMonitor','org.gnome.tweaks','org.gnome.Extensions','org.gnome.Logs','org.gnome.font-viewer','org.kde.dolphin','org.kde.kate','org.kde.konsole']"
+  bs .applications blur true
+  # Popup module (quick settings, menus, notifications): static mode renders here; dynamic paints an opaque box.
+  bs .popup static-blur true; bs .popup pipeline 'pipeline_default'; bs .popup override-background true; bs .popup preserve-shell-theme true; bs .popup sigma 30; bs .popup brightness 0.6
+  bs .popup blur true
 fi
 # Icons: the Tahoe-Material theme, SF Symbol watermarks on glass squircles.
 say "icons"

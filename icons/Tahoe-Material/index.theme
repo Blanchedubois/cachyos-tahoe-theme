@@ -3,7 +3,7 @@ Name=Tahoe-Material
 Comment=macOS Tahoe glass squircles with Material and Phosphor glyphs
 Inherits=MacTahoe-dark,Adwaita,breeze-dark,breeze,hicolor
 FollowsColorScheme=true
-Directories=apps/16,apps/22,apps/24,apps/32,apps/48,apps/64,apps/128,apps/256,apps/scalable,actions/16,actions/22,actions/24,actions/32,status/16,status/22,status/24,status/32,devices/16,devices/22,devices/24,emblems/8,emblems/16,emblems/22,emblems/24,symbolic/actions,symbolic/status,symbolic/devices,symbolic/emblems
+Directories=apps/16,apps/22,apps/24,apps/32,apps/48,apps/64,apps/128,apps/256,apps/scalable,actions/16,actions/22,actions/24,actions/32,status/16,status/22,status/24,status/32,devices/16,devices/22,devices/24,emblems/8,emblems/16,emblems/22,emblems/24,symbolic/actions,symbolic/status,symbolic/devices,symbolic/emblems,symbolic/places
 
 [apps/16]
 Size=16
@@ -153,4 +153,11 @@ Size=16
 MinSize=8
 MaxSize=512
 Context=Emblems
+Type=Scalable
+
+[symbolic/places]
+Size=16
+MinSize=8
+MaxSize=512
+Context=Places
 Type=Scalable

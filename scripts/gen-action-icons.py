@@ -102,12 +102,13 @@ def asset_svg(path, size, scale=0.86):
 
 def write_index_theme(contexts):
     kde_ctx = {c: cfg for c, cfg in contexts.items() if cfg.get("theme") == "kde"}
+    all_ctx = dict(contexts)
     contexts = {c: cfg for c, cfg in contexts.items() if cfg.get("theme") != "kde"}
     write_kde_index(kde_ctx)
     dirs = [f"apps/{s}" for s in APP_SIZES] + ["apps/scalable"]
     for ctx, cfg in contexts.items():
         dirs += [f"{ctx}/{s}" for s in cfg["sizes"]]
-    dirs += [f"symbolic/{ctx}" for ctx in contexts]
+    dirs += [f"symbolic/{ctx}" for ctx in all_ctx]
     lines = ["[Icon Theme]", "Name=Tahoe-Material",
              "Comment=macOS Tahoe glass squircles with Material and Phosphor glyphs",
              "Inherits=MacTahoe-dark,Adwaita,breeze-dark,breeze,hicolor",
@@ -119,11 +120,12 @@ def write_index_theme(contexts):
               "Context=Applications", "Type=Scalable", ""]
     ctx_names = {"actions": "Actions", "status": "Status", "places": "Places",
                  "devices": "Devices", "emblems": "Emblems"}
+    ctx_names.setdefault("places", "Places")
     for ctx, cfg in contexts.items():
         for s in cfg["sizes"]:
             lines += [f"[{ctx}/{s}]", f"Size={s}", f"Context={ctx_names[ctx]}", "Type=Fixed", ""]
-    for ctx in contexts:
-        lines += [f"[symbolic/{ctx}]", "Size=16", "MinSize=8", "MaxSize=512", f"Context={ctx_names[ctx]}", "Type=Scalable", ""]
+    for ctx in all_ctx:
+        lines += [f"[symbolic/{ctx}]", "Size=16", "MinSize=8", "MaxSize=512", f"Context={ctx_names.get(ctx, ctx.title())}", "Type=Scalable", ""]
     (THEME / "index.theme").write_text("\n".join(lines))
 
 
@@ -180,14 +182,15 @@ def main():
             continue
         vb, ds, inner_tr = read_glyph(gpath)
         stroke = SF_STROKE if entry["glyph"]["set"] == "sf" else 0.0
-        if not kde_only:
-            # GNOME: one scalable "-symbolic" file per name under symbolic/<ctx>/
-            sd = THEME / "symbolic" / ctx
-            sd.mkdir(parents=True, exist_ok=True)
-            svg16 = symbolic_svg(vb, ds, 16, inner_tr, stroke)
-            for n in names:
-                (sd / f"{n}-symbolic.svg").write_text(svg16)
-                written += 1
+        # GNOME: one scalable "-symbolic" file per name under symbolic/<ctx>/.
+        # For places this is what Files' sidebar asks for; the plain names
+        # (main view, large coloured folders) are left to MacTahoe.
+        sd = THEME / "symbolic" / ctx
+        sd.mkdir(parents=True, exist_ok=True)
+        svg16 = symbolic_svg(vb, ds, 16, inner_tr, stroke)
+        for n in names:
+            (sd / f"{n}-symbolic.svg").write_text(svg16)
+            written += 1
         for size in cfg["sizes"]:
             d = base / ctx / str(size)
             d.mkdir(parents=True, exist_ok=True)

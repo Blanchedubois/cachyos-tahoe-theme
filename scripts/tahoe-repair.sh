@@ -19,6 +19,8 @@
 #   9. interface drift: GTK theme, cursor, button layout (never the wallpaper)
 #  10. dock drift: Dash to Dock back on the theme's own styling
 #  11. dock stylesheet present (the theme's -d tweak deletes it)
+#  12. icon theme contents: regenerate from the repo if the generated set is
+#      missing or stale (symbolic places for Files, apps, KDE companion)
 set -uo pipefail
 log() { printf '[tahoe-repair] %s\n' "$*"; }
 
@@ -153,6 +155,16 @@ fi
 if [[ -f "$EXT_DIR/dash-to-dock@micxgx.gmail.com/stylesheet.css.bak" && ! -f "$EXT_DIR/dash-to-dock@micxgx.gmail.com/stylesheet.css" ]]; then
   log "restoring Dash to Dock stylesheet"; mv "$EXT_DIR/dash-to-dock@micxgx.gmail.com/stylesheet.css.bak" "$EXT_DIR/dash-to-dock@micxgx.gmail.com/stylesheet.css"
   gnome-extensions disable dash-to-dock@micxgx.gmail.com; gnome-extensions enable dash-to-dock@micxgx.gmail.com
+fi
+
+# 12. icon theme contents: the generated set must exist and carry the current
+#     layout (symbolic places for Files' sidebar, KDE companion). Regenerate
+#     from the repo tokens when it does not; glyphs are fetched if missing.
+if [[ -d "$ROOT/scripts" ]] && { [[ ! -f "$ROOT/icons/Tahoe-Material/symbolic/places/user-home-symbolic.svg" ]] || [[ ! -f "$ROOT/icons/Tahoe-Material-KDE/index.theme" ]] || [[ ! -f "$ROOT/icons/Tahoe-Material/apps/scalable/org.gnome.Nautilus.svg" ]]; }; then
+  log "icon theme incomplete: regenerating from tokens"
+  ( cd "$ROOT" && python3 scripts/fetch-glyphs.py >/dev/null 2>&1; python3 scripts/gen-action-icons.py >/dev/null 2>&1; python3 -W ignore scripts/gen-app-icons.py --no-sheet >/dev/null 2>&1 )
+  gtk-update-icon-cache -q -t -f "$HOME/.local/share/icons/Tahoe-Material" 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'; sleep 1; gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'
 fi
 
 log "done"

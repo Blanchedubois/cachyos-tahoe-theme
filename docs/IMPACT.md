@@ -115,6 +115,15 @@ Question: can a single renderer draw every window's shadow so they all match?
 
 Why there is no perfect answer on Wayland: a shadow is either drawn by the decoration KWin manages, or by the app inside its own surface. KWin cannot add a shadow to an undecorated client surface and cannot remove one the client painted. The only uniform outcome is to make every app server-decorated, which frameless Electron apps and games do not allow.
 
+## Phase I: panel spacing and popup cards
+
+| Check | Evidence | Verdict |
+|---|---|---|
+| Tray spacing and hover room | panel at 36 px, tray spacing large | **pass** by configuration. Hover itself cannot be captured without pointer control. |
+| Popup card corners | `docs/popup-card.png`, Kickoff on the floating panel | **fixed**. Attached popups square the edge touching the panel by Plasma's rule; a floating panel detaches them. The new card rounds all four corners at 20 px with a hairline and real padding. |
+| Hover highlight in popups | same capture, Favorites row | **pass**. 8 px rounded highlight from the overlay's viewitem asset. |
+| List highlight inset inside app windows | System Settings sidebar | **deferred**. Darkly's `FancyMargins` is on, but the Kirigami sidebar draws its own delegates and a hover could not be captured to confirm the inset. Needs a look by eye. |
+
 ## Open items carried forward
 
 1. Verify menus and Plasma popups once a capture path exists, or by eye.

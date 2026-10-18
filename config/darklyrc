@@ -5,9 +5,11 @@ ShadowSize=ShadowSmall
 [Style]
 DolphinSidebarOpacity=100
 DolphinViewOpacity=100
+FancyMargins=true
 MenuBarOpacity=100
 MenuOpacity=100
 RoundedRubberBandFrame=true
+SidePanelDrawFrame=false
 TabBarOpacity=100
 ToolBarOpacity=100
 TransparentDolphinView=false

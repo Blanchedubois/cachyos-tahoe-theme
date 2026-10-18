@@ -36,7 +36,7 @@ notch at the window level and keeps the ratio.
 | Element | Radius | Where it is set |
 |---|---|---|
 | Window frame | 20 px | Darkly `CornerRadius`, Rounded Corners `Size` |
-| Panel popups, Kickoff, tray | 20 px | MacTahoe Plasma style `dialogs/background.svg` |
+| Panel popups, Kickoff, tray | 20 px | Tahoe-Material Plasma style overlay, `scripts/gen-plasma-style.py` |
 | App icons | squircle, Apple superellipse | icon generator |
 | Buttons, inputs, frames, menus | 8 px | Darkly `CornerRadius` |
 | Menu items, list highlights | 6 px | Darkly (follows CornerRadius; override in Phase 4 if it looks heavy) |
@@ -241,7 +241,7 @@ These are proposals, not commitments. Each needs a yes before it is built.
 
 | Step | Result |
 |---|---|
-| P1 | Height 32 px, floating off, panel hugs the top edge |
+| P1 | Height 36 px, floating on. Floating detaches popups so they become full cards with every corner rounded; the extra height gives the tray hover highlight room around each glyph |
 | P2 | Kickoff shows the CachyOS mark as a symbolic glyph, `assets/cachyos-mark.svg`, generated under the name `cachyos-launcher` and also aliased to `start-here-kde` |
 | P3 | App menu padding is hard-coded in the applet QML. Left as is; revisit only if a patched applet is worth carrying |
 | P4 | Second margins separator removed |
@@ -267,6 +267,14 @@ Before and after: `docs/panel-before.png`, `docs/panel-after.png`.
 - Glyph weight is now a token, `tokens/glyphs.json`, set to 600 per review
 - App icons use the watermark glass treatment; brand apps pass through from MacTahoe's Tahoe-style set
 - Acceptance: Dolphin, System Settings, and the Claude app window measured at the same radius; menus and buttons at the widget radius
+
+### Phase 6: Plasma style overlay `[x]`
+
+- [x] `scripts/gen-plasma-style.py` writes `plasma/Tahoe-Material/`, a Plasma style that falls back to MacTahoe-Dark and replaces three assets: `dialogs/background` (popup cards: 20 px, glass tint at 78 percent with blur behind, 1 px light hairline, 12 px padding, gradient shadow), `widgets/tooltip` (same at 8 px) and `widgets/viewitem` (hover and selection highlights at 8 px, no outline)
+- [x] Shadows are gradient tiles because KSvg renders through QtSvg, which has no filters
+- [x] Top panel floated at 36 px so popups detach as full cards
+- [x] Darkly `FancyMargins` on for the application side
+- Evidence: `docs/popup-card.png`
 
 ### Phase 5: workshop items `[~]`
 

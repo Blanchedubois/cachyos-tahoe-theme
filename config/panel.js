@@ -7,7 +7,7 @@ for (var p of panels()) {
 
   // P1: 32 px, flush with the top edge like the macOS menu bar.
   p.height = 36;
-  p.floating = true;
+  p.floating = false;
 
   var toRemove = [];
   var separators = 0;

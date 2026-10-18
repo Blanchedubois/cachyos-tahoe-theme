@@ -128,6 +128,9 @@ Why there is no perfect answer on Wayland: a shadow is either drawn by the decor
 | Hover highlight in popups | same capture, Favorites row | **pass**. 8 px rounded highlight from the overlay's viewitem asset. |
 | List highlight inset inside app windows | System Settings sidebar | **deferred**. Darkly's `FancyMargins` is on, but the Kirigami sidebar draws its own delegates and a hover could not be captured to confirm the inset. Needs a look by eye. |
 
+| Dock and bar went opaque | dock and bar crops after the overlay | **fixed**. The fallback-only overlay lost MacTahoe's translucent panel. The overlay is now a full copy with three files swapped; both panels are glass again and the bar is set to always-translucent. |
+| Calendar card width | clock applet popup size | **fixed** by configuration, 380 by 420 instead of 560 by 451. |
+
 ## Open items carried forward
 
 1. Verify menus and Plasma popups once a capture path exists, or by eye.

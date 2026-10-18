@@ -9,7 +9,7 @@ for (var p of panels()) {
   p.height = 30;
   p.floating = true;
   p.lengthMode = "fill";
-  p.opacity = "adaptive";
+  p.opacity = "translucent";
 
   var toRemove = [];
   var separators = 0;
@@ -32,6 +32,11 @@ for (var p of panels()) {
       w.writeConfig("fontFamily", "Noto Sans");
       w.writeConfig("fontSize", 13);
       w.writeConfig("fontWeight", 600);
+      w.reloadConfig();
+      // Calendar card: narrower than Plasma's default.
+      w.currentConfigGroup = [];
+      w.writeConfig("popupWidth", 380);
+      w.writeConfig("popupHeight", 420);
       w.reloadConfig();
     }
 

@@ -27,6 +27,12 @@ if compgen -G "$ROOT/overrides/*.desktop" >/dev/null; then
   update-desktop-database "$DATA/applications" 2>/dev/null || true
 fi
 
+# 3a. Kvantum: the Mystical Blue reference widget style (NoMansSkyJux).
+say "kvantum"
+mkdir -p "$CONF/Kvantum"
+cp -r "$ROOT/config/kvantum/NoMansSkyJux" "$CONF/Kvantum/"
+cp "$ROOT/config/kvantum/kvantum.kvconfig" "$CONF/Kvantum/kvantum.kvconfig"
+
 # 3. Darkly application style settings, Klassy window decoration settings.
 say "darkly and klassy"
 cp "$ROOT/config/darklyrc" "$CONF/darklyrc"
@@ -86,7 +92,7 @@ qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(ca
 # 7. Apply: icons, widget style, then reload.
 say "apply"
 /usr/lib/plasma-changeicons Tahoe-Material 2>/dev/null || kwriteconfig6 --file kdeglobals --group Icons --key Theme Tahoe-Material
-kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle Darkly
+kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle kvantum
 plasma-apply-desktoptheme Tahoe-Material >/dev/null 2>&1 || kwriteconfig6 --file plasmarc --group Theme --key name Tahoe-Material
 qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
 # The Rounded Corners effect only re-reads outline colours and widths on a

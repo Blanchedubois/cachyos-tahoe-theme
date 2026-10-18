@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parent.parent
 TOKENS = ROOT / "tokens"
 GLYPHS = ROOT / "glyphs"
 THEME = ROOT / "icons" / "Tahoe-Material"
+THEME_KDE = ROOT / "icons" / "Tahoe-Material-KDE"  # companion for KDE apps: adds SF places icons
 
 APP_SIZES = [16, 22, 24, 32, 48, 64, 128, 256]
 
@@ -100,6 +101,9 @@ def asset_svg(path, size, scale=0.86):
 
 
 def write_index_theme(contexts):
+    kde_ctx = {c: cfg for c, cfg in contexts.items() if cfg.get("theme") == "kde"}
+    contexts = {c: cfg for c, cfg in contexts.items() if cfg.get("theme") != "kde"}
+    write_kde_index(kde_ctx)
     dirs = [f"apps/{s}" for s in APP_SIZES] + ["apps/scalable"]
     for ctx, cfg in contexts.items():
         dirs += [f"{ctx}/{s}" for s in cfg["sizes"]]
@@ -123,6 +127,20 @@ def write_index_theme(contexts):
     (THEME / "index.theme").write_text("\n".join(lines))
 
 
+def write_kde_index(kde_ctx):
+    ctx_names = {"places": "Places"}
+    dirs = [f"{c}/{s}" for c, cfg in kde_ctx.items() for s in cfg["sizes"]]
+    lines = ["[Icon Theme]", "Name=Tahoe-Material-KDE",
+             "Comment=Tahoe-Material plus SF places icons for KDE apps",
+             "Inherits=Tahoe-Material,MacTahoe-dark,breeze-dark,breeze,hicolor",
+             "FollowsColorScheme=true", "Directories=" + ",".join(dirs), ""]
+    for c, cfg in kde_ctx.items():
+        for sz in cfg["sizes"]:
+            lines += [f"[{c}/{sz}]", f"Size={sz}", f"Context={ctx_names.get(c, c.title())}", "Type=Fixed", ""]
+    THEME_KDE.mkdir(parents=True, exist_ok=True)
+    (THEME_KDE / "index.theme").write_text("\n".join(lines))
+
+
 def main():
     args = sys.argv[1:]
     only = args[args.index("--only") + 1] if "--only" in args else None
@@ -136,6 +154,8 @@ def main():
         ctx = entry["context"]
         cfg = contexts[ctx]
         names = [name] + entry.get("aliases", [])
+        kde_only = cfg.get("theme") == "kde"
+        base = THEME_KDE if kde_only else THEME
         if "source" in entry:
             src = ROOT / entry["source"]
             if not src.exists():
@@ -160,15 +180,16 @@ def main():
             continue
         vb, ds, inner_tr = read_glyph(gpath)
         stroke = SF_STROKE if entry["glyph"]["set"] == "sf" else 0.0
-        # GNOME: one scalable "-symbolic" file per name under symbolic/<ctx>/
-        sd = THEME / "symbolic" / ctx
-        sd.mkdir(parents=True, exist_ok=True)
-        svg16 = symbolic_svg(vb, ds, 16, inner_tr, stroke)
-        for n in names:
-            (sd / f"{n}-symbolic.svg").write_text(svg16)
-            written += 1
+        if not kde_only:
+            # GNOME: one scalable "-symbolic" file per name under symbolic/<ctx>/
+            sd = THEME / "symbolic" / ctx
+            sd.mkdir(parents=True, exist_ok=True)
+            svg16 = symbolic_svg(vb, ds, 16, inner_tr, stroke)
+            for n in names:
+                (sd / f"{n}-symbolic.svg").write_text(svg16)
+                written += 1
         for size in cfg["sizes"]:
-            d = THEME / ctx / str(size)
+            d = base / ctx / str(size)
             d.mkdir(parents=True, exist_ok=True)
             svg = symbolic_svg(vb, ds, size, inner_tr, stroke)
             for n in names:

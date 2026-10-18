@@ -1,0 +1,21 @@
+[Icon Theme]
+Name=Tahoe-Material-KDE
+Comment=Tahoe-Material plus SF places icons for KDE apps
+Inherits=Tahoe-Material,MacTahoe-dark,breeze-dark,breeze,hicolor
+FollowsColorScheme=true
+Directories=places/16,places/22,places/24
+
+[places/16]
+Size=16
+Context=Places
+Type=Fixed
+
+[places/22]
+Size=22
+Context=Places
+Type=Fixed
+
+[places/24]
+Size=24
+Context=Places
+Type=Fixed

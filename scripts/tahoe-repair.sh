@@ -88,6 +88,12 @@ if [[ "$changed" == 1 || "$last" == *Adwaita* ]]; then
   gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 fi
 [[ "$(gsettings get org.gnome.desktop.interface gtk-theme)" == "'MacTahoe-Dark'" ]] || gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark'
+# 5b. shell CSS overrides (quick settings icon size) survive a theme rebuild
+CSS="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
+if [[ -f "$CSS" && -f "$ROOT/config/gnome-shell-overrides.css" ]] && ! grep -q 'tahoe-overrides' "$CSS"; then
+  log "re-appending shell CSS overrides"; printf '\n' >> "$CSS"; cat "$ROOT/config/gnome-shell-overrides.css" >> "$CSS"
+  gsettings set org.gnome.shell.extensions.user-theme name ''; sleep 1; gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
+fi
 
 # 6. blur: applications module off
 BS="$EXT_DIR/blur-my-shell@aunetx/schemas"
@@ -104,6 +110,11 @@ if [[ ! -f "$HOME/.local/share/icons/Tahoe-Material/index.theme" && -d "$ROOT/ic
   ln -sfn "$ROOT/icons/Tahoe-Material" "$HOME/.local/share/icons/Tahoe-Material"; changed=1
 fi
 [[ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Tahoe-Material'" ]] || { [[ -d "$HOME/.local/share/icons/Tahoe-Material" ]] && { log "icon theme not set: applying"; gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'; }; }
+# KDE apps (Dolphin, Kate, Konsole) read kdeglobals: the companion theme adds SF places icons
+if [[ -d "$ROOT/icons/Tahoe-Material-KDE" ]]; then
+  [[ -L "$HOME/.local/share/icons/Tahoe-Material-KDE" ]] || { log "KDE companion icon theme link missing: restoring"; ln -sfn "$ROOT/icons/Tahoe-Material-KDE" "$HOME/.local/share/icons/Tahoe-Material-KDE"; }
+  [[ "$(kreadconfig6 --file kdeglobals --group Icons --key Theme 2>/dev/null)" == "Tahoe-Material-KDE" ]] || { log "KDE icon theme not set: applying"; kwriteconfig6 --file kdeglobals --group Icons --key Theme Tahoe-Material-KDE; }
+fi
 
 # 8. extension builds vs running shell: after a GNOME major update the old
 #    build is refused; fetch the one for this version when it exists.

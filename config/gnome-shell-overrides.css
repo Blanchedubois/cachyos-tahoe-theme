@@ -1,0 +1,10 @@
+/* tahoe-overrides: appended to ~/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css
+   by gnome-setup.sh and tahoe-repair.sh (idempotent, keyed on this header).
+   Quick settings: larger glyphs in the toggles and the system row. */
+.quick-settings .button StIcon,
+.quick-toggle .quick-toggle-icon,
+.quick-toggle-menu .header .icon,
+.quick-settings-system-item .icon-button StIcon,
+.quick-settings-system-item .message-close-button > StIcon { icon-size: 20px; }
+.quick-toggle-icon { min-height: 44px !important; min-width: 44px !important; }
+/* end tahoe-overrides */

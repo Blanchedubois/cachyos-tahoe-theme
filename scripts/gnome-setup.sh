@@ -119,6 +119,10 @@ say "icons"
 mkdir -p "$HOME/.local/share/icons"; ln -sfn "$ROOT/icons/Tahoe-Material" "$HOME/.local/share/icons/Tahoe-Material"
 gtk-update-icon-cache -q -t -f "$HOME/.local/share/icons/Tahoe-Material" 2>/dev/null || true
 gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'
+ln -sfn "$ROOT/icons/Tahoe-Material-KDE" "$HOME/.local/share/icons/Tahoe-Material-KDE"
+kwriteconfig6 --file kdeglobals --group Icons --key Theme Tahoe-Material-KDE
+CSS="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
+grep -q 'tahoe-overrides' "$CSS" || { printf '\n' >> "$CSS"; cat "$ROOT/config/gnome-shell-overrides.css" >> "$CSS"; }
 # Reload the shell theme so a reinstalled stylesheet is picked up. The theme
 # build deletes and recreates ~/.themes/MacTahoe-Dark; a running shell falls
 # back to Adwaita (square, opaque popups) until the name is set again.

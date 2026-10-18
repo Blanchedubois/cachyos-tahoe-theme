@@ -1,5 +1,5 @@
 {
-  "_comment": "Freedesktop / Breeze icon name -> glyph. context selects the icon-theme directory. Material glyphs are wght 700; fill=false is the outlined cut used for actions, fill=true the solid cut used for places, devices and status so they read at 16 px. aliases are extra names that get the same file. places and devices stop at 24 px on purpose: larger sizes fall through to MacTahoe's coloured folders and drives so file views stay Tahoe-like. The places context is intentionally absent: folders, home, desktop and trash stay MacTahoe's coloured Tahoe icons per review. Avoid one-word generic aliases: KIconLoader tries shortened names (user-home -> user) in the current theme before parents, so a generic alias hijacks unrelated icons. Folder, home, desktop, trash and bookmark place names are intentionally absent so MacTahoe's coloured icons show.",
+  "_comment": "Freedesktop / Breeze icon name -> glyph. context selects the icon-theme directory. Material glyphs are wght 700; fill=false is the outlined cut used for actions, fill=true the solid cut used for places, devices and status so they read at 16 px. aliases are extra names that get the same file. places and devices stop at 24 px on purpose: larger sizes fall through to MacTahoe's coloured folders and drives so file views stay Tahoe-like. The places context is intentionally absent: folders, home, desktop and trash stay MacTahoe's coloured Tahoe icons per review. Avoid one-word generic aliases: KIconLoader tries shortened names (user-home -> user) in the current theme before parents, so a generic alias hijacks unrelated icons. Folder, home, desktop, trash and bookmark place names are intentionally absent so MacTahoe's coloured icons show. The places context is written only to the companion theme Tahoe-Material-KDE (Dolphin and other KDE apps read KDE's icon setting), so GNOME keeps MacTahoe's coloured folders.",
   "contexts": {
     "actions": {
       "sizes": [
@@ -35,6 +35,15 @@
         24
       ],
       "fill": false
+    },
+    "places": {
+      "sizes": [
+        16,
+        22,
+        24
+      ],
+      "fill": false,
+      "theme": "kde"
     }
   },
   "actions": {
@@ -4381,6 +4390,265 @@
       },
       "aliases": [
         "x-office-document"
+      ]
+    },
+    "places:user-home": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "house"
+      },
+      "aliases": [
+        "user-home",
+        "folder-home"
+      ]
+    },
+    "places:user-desktop": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "desktopcomputer"
+      },
+      "aliases": [
+        "user-desktop"
+      ]
+    },
+    "places:folder-documents": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "text.document"
+      },
+      "aliases": [
+        "folder-documents",
+        "folder-text"
+      ]
+    },
+    "places:folder-download": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.down.circle"
+      },
+      "aliases": [
+        "folder-download",
+        "folder-downloads"
+      ]
+    },
+    "places:folder-music": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "music.note"
+      },
+      "aliases": [
+        "folder-music",
+        "folder-sound"
+      ]
+    },
+    "places:folder-pictures": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "photo"
+      },
+      "aliases": [
+        "folder-pictures",
+        "folder-image",
+        "folder-images"
+      ]
+    },
+    "places:folder-videos": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "film"
+      },
+      "aliases": [
+        "folder-videos",
+        "folder-video"
+      ]
+    },
+    "places:folder-templates": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "document.on.document"
+      },
+      "aliases": [
+        "folder-templates"
+      ]
+    },
+    "places:folder-publicshare": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "person.2"
+      },
+      "aliases": [
+        "folder-publicshare",
+        "folder-public"
+      ]
+    },
+    "places:folder-remote": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "network"
+      },
+      "aliases": [
+        "folder-remote",
+        "folder-cloud",
+        "folder-network",
+        "network-server",
+        "remote"
+      ]
+    },
+    "places:folder-root": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "server.rack"
+      },
+      "aliases": [
+        "folder-root",
+        "drive-harddisk-root"
+      ]
+    },
+    "places:folder-games": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "gamecontroller"
+      },
+      "aliases": [
+        "folder-games"
+      ]
+    },
+    "places:folder-development": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "chevron.left.forwardslash.chevron.right"
+      },
+      "aliases": [
+        "folder-development",
+        "folder-script",
+        "folder-code"
+      ]
+    },
+    "places:folder-favorites": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "star"
+      },
+      "aliases": [
+        "folder-favorites",
+        "folder-bookmark"
+      ]
+    },
+    "places:folder-recent": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "clock"
+      },
+      "aliases": [
+        "folder-recent",
+        "document-open-recent-symbolic",
+        "folder-temp"
+      ]
+    },
+    "places:folder-tar": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "archivebox"
+      },
+      "aliases": [
+        "folder-tar",
+        "folder-archive"
+      ]
+    },
+    "places:folder-activities": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "square.grid.2x2"
+      },
+      "aliases": [
+        "folder-activities",
+        "activities"
+      ]
+    },
+    "places:folder-tag": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "tag"
+      },
+      "aliases": [
+        "folder-tag",
+        "tag-places",
+        "folder-tags"
+      ]
+    },
+    "places:folder": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "folder"
+      },
+      "aliases": [
+        "folder",
+        "inode-directory",
+        "folder-open"
+      ]
+    },
+    "places:user-trash": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "trash"
+      },
+      "aliases": [
+        "user-trash",
+        "trash-empty"
+      ]
+    },
+    "places:user-trash-full": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "trash"
+      },
+      "aliases": [
+        "user-trash-full",
+        "trash-full"
+      ]
+    },
+    "places:network-workgroup": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "network"
+      },
+      "aliases": [
+        "network-workgroup",
+        "network"
+      ]
+    },
+    "places:search-places": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "magnifyingglass"
+      },
+      "aliases": [
+        "search-places",
+        "baloo",
+        "folder-saved-search"
       ]
     }
   }

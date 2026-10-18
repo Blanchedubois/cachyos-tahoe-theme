@@ -67,7 +67,7 @@ fi
 
 # 3. Core look.
 say "interface"
-gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark'
+gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark-solid'   # GTK3: filled headers; GTK4 uses the blur variant via gtk-4.0 config
 gsettings set org.gnome.desktop.interface icon-theme 'MacTahoe-dark'
 gsettings set org.gnome.desktop.interface cursor-theme 'MacTahoe-dark'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'

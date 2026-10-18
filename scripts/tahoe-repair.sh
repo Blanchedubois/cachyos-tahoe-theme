@@ -98,7 +98,10 @@ if [[ "$changed" == 1 || "$last" == *Adwaita* ]]; then
   gsettings set org.gnome.shell.extensions.user-theme name ''; sleep 1
   gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 fi
-[[ "$(gsettings get org.gnome.desktop.interface gtk-theme)" == "'MacTahoe-Dark'" ]] || gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark'
+# GTK3 apps (pywebview, Electron-with-GTK headers, older apps) use the solid
+# variant: filled header bars. libadwaita apps keep the blur variant through
+# the gtk-4.0 config, which is independent of this setting.
+[[ "$(gsettings get org.gnome.desktop.interface gtk-theme)" == "'MacTahoe-Dark-solid'" ]] || { log "gtk3 theme drifted: resetting to the solid variant"; gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark-solid'; }
 # 5b. shell CSS overrides (quick settings icon size) survive a theme rebuild
 CSS="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
 if [[ -f "$CSS" && -f "$ROOT/config/gnome-shell-overrides.css" ]] && { ! grep -q 'tahoe-overrides' "$CSS" || grep -q '.lightbox { background-color: transparent; }' "$CSS"; }; then

@@ -16,7 +16,7 @@ DisableOutlineMaximize=true
 DisableRoundFullScreen=true
 DisableRoundMaximize=true
 DisableRoundTile=false
-InactiveCornerRadius=16
+InactiveCornerRadius=20
 InactiveOuterOutlineAlpha=40
 InactiveOuterOutlineColor=#ffffff
 InactiveOuterOutlineThickness=0
@@ -47,7 +47,7 @@ SecondOutlineColor=#333333
 SecondOutlineThickness=0
 ShadowColor=#000000
 ShadowSize=48
-Size=16
+Size=20
 UseCustomShadows=false
 UseNativeDecorationShadows=true
 

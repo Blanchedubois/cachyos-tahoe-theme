@@ -1,7 +1,7 @@
 {
   "_comment": "Rounding scale in CSS pixels at 1x. Every generator and config snippet reads from here.",
-  "window": 16,
-  "popup": 16,
+  "window": 20,
+  "popup": 20,
   "widget": 8,
   "menu_item": 6,
   "tooltip": 8,
@@ -10,6 +10,6 @@
   "titlebar_button": 14,
   "titlebar_button_spacing": 8,
   "frame": {
-    "note": "rounding only. 16 px on the Rounded Corners effect (all windows, including client-drawn ones) and on the Darkly decoration. No outline of any kind, no border, no inset. Shadow from the decoration."
+    "note": "rounding only. 20 px on the Rounded Corners effect (all windows, including client-drawn ones) and on the Darkly decoration. No outline of any kind, no border, no inset. Shadow from the decoration."
   }
 }

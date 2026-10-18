@@ -35,8 +35,8 @@ notch at the window level and keeps the ratio.
 
 | Element | Radius | Where it is set |
 |---|---|---|
-| Window frame | 16 px | Darkly `CornerRadius`, Rounded Corners `Size` |
-| Panel popups, Kickoff, tray | 16 px | MacTahoe Plasma style `dialogs/background.svg` |
+| Window frame | 20 px | Darkly `CornerRadius`, Rounded Corners `Size` |
+| Panel popups, Kickoff, tray | 20 px | MacTahoe Plasma style `dialogs/background.svg` |
 | App icons | squircle, Apple superellipse | icon generator |
 | Buttons, inputs, frames, menus | 8 px | Darkly `CornerRadius` |
 | Menu items, list highlights | 6 px | Darkly (follows CornerRadius; override in Phase 4 if it looks heavy) |
@@ -48,7 +48,7 @@ notch at the window level and keeps the ratio.
 
 | Token | Value |
 |---|---|
-| Frame | Rounding only, rebuilt from scratch after review: 16 px on every window through the Rounded Corners effect, which also covers client-drawn apps such as Claude and Discord, matched by Darkly's titlebar radius. No outline, hairline, border or inset. Every variant tried is logged in docs/IMPACT.md Phase E |
+| Frame | Rounding only, rebuilt from scratch after review: 20 px on every window through the Rounded Corners effect, which also covers client-drawn apps such as Claude and Discord, matched by Darkly's titlebar radius. No outline, hairline, border or inset. Every variant tried is logged in docs/IMPACT.md Phase E |
 | Titlebar fill | follows colour scheme window background |
 | Glass surfaces | top panel, dock, popups: MacTahoe blur, tint `#1c1c1e` at 72 percent |
 | Highlight band | 1 px `#ffffff` at 10 percent along the top inside edge of glass surfaces |

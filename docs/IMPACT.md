@@ -65,6 +65,16 @@ window radius.
 | Glass surfaces | panel and dock crops | **pass**. MacTahoe blur and tint intact. |
 | Dark mode | colour scheme, portal `color-scheme=1`, GTK prefer-dark | **pass**. |
 
+## Phase E: review round three
+
+| Check | Evidence | Verdict |
+|---|---|---|
+| Watermark placement | contact sheet, 512 px renders | **fixed**. Glyphs are now oversized (96 percent of the body), tilted 14 degrees, shifted 15 percent toward the bottom-right and clipped by the squircle so they bleed off the corner. Tokens `WATERMARK_SCALE`, `WATERMARK_TILT`, `WATERMARK_SHIFT` in the generator. |
+| Glass overlay on every icon | Firefox at 512 px beside Dolphin | **fixed**. MacTahoe passthrough art is now embedded as the base under the same dome, inner rim, bottom glow and rim as generated icons. |
+| Apps without an assigned icon | contact sheet: Desktop+, SteamVR, VRChat; dock: Claude | **fixed**. Every visible launcher not in the table gets its own mark on a white glass squircle. Marks that already fill their canvas, or are flagged `tile`, become the base under the glass instead of nesting inside a shell. Steam itself stays untouched. |
+| Running-app icons in the dock | SteamVR's monitor window showed its own "VR" icon | **fixed**. `StartupWMClass=vrmonitor` on the SteamVR launcher lets the task manager match the window to the launcher and use the themed tile. The same tag can be added for any other running app that shows a stray icon. |
+| Window outline alignment | corner crops | **fixed** by removal. The effect's 1 px outline sat a pixel off Darkly's anti-aliased corner. The outline is off; rounding and Darkly's shadow are the whole frame styling. |
+
 ## Open items carried forward
 
 1. Verify menus and Plasma popups once a capture path exists, or by eye.

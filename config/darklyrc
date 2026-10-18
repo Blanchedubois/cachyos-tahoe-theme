@@ -15,7 +15,7 @@ WidgetDrawShadow=false
 WidgetToolBarShadow=false
 
 [Windeco]
-BorderSize=BorderNoSides
+BorderSize=BorderLarge
 ButtonSize=ButtonDefault
 CornerRadius=12
 DrawBackgroundGradient=false

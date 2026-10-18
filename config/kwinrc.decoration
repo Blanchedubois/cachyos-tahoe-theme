@@ -1,4 +1,6 @@
 [org.kde.kdecoration2]
+BorderSize=Large
+BorderSizeAuto=false
 ButtonsOnLeft=XIA
 ButtonsOnRight=
 library=org.kde.darkly

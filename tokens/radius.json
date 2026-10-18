@@ -9,15 +9,15 @@
   "titlebar_height": 32,
   "titlebar_button": 14,
   "titlebar_button_spacing": 8,
-  "frame_edge_line": {
-    "thickness": 8,
-    "color": "header background (#333333)",
-    "alpha": 255
-  },
   "frame_outer_line": {
     "thickness": 1,
     "color": "#ffffff",
     "alpha": 46,
     "inactive_alpha": 30
+  },
+  "frame_border": {
+    "size": "Large (6 px as Darkly draws it)",
+    "color": "header background (#333333)",
+    "note": "a real decoration border, so content sits inset inside it; KWin BorderSize=Large, BorderSizeAuto=false, Darkly BorderSize=BorderLarge"
   }
 }

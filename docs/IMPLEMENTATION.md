@@ -48,7 +48,7 @@ notch at the window level and keeps the ratio.
 
 | Token | Value |
 |---|---|
-| Frame outlines | A thick 8 px inset band at the window edge in the header bar colour (`#333333`, opaque), housing the content, plus a faint 1 px light line just outside it (`#ffffff` at 18 percent active, 12 inactive). No inner line. Drawn by the Rounded Corners effect's edge and outer outline layers. Note: the effect re-reads outline colour and width only on a full unload and load, which the installer does |
+| Frame | A real 6 px window border from the Darkly decoration in the header bar colour, so the content sits inset inside a band rather than being painted over by one. KWin's global border size must be set to Large with auto off, or the decoration's border is ignored. A faint 1 px light line from the Rounded Corners effect sits just outside. No edge or inner outline. Thicker steps available: VeryLarge, Huge |
 | Titlebar fill | follows colour scheme window background |
 | Glass surfaces | top panel, dock, popups: MacTahoe blur, tint `#1c1c1e` at 72 percent |
 | Highlight band | 1 px `#ffffff` at 10 percent along the top inside edge of glass surfaces |

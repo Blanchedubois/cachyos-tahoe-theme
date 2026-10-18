@@ -12,7 +12,7 @@
   "frame_border": {
     "size": "Large (6 px as Darkly draws it)",
     "color": "header background (#333333)",
-    "note": "real decoration border; KWin BorderSize=Large, BorderSizeAuto=false, Darkly BorderSize=BorderLarge"
+    "note": "real decoration border; KWin BorderSize=Large, BorderSizeAuto=false, Darkly BorderSize=BorderLarge. Band colour #333333; header colour set to the window colour (36,36,36) so titlebar and content are one inset panel"
   },
   "frame_inner_band": {
     "thickness": 6,

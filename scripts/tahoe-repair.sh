@@ -87,7 +87,8 @@ if [[ "$cur" != "$(tr -d ' ' <<<"$WANT")" ]]; then
 fi
 for e in "${EXTS[@]}"; do
   st="$(gnome-extensions info "$e" 2>/dev/null | awk '/State:/{print $2}')"
-  if [[ "$st" == "INACTIVE" || "$st" == "ERROR" ]]; then log "re-enabling $e ($st)"; gnome-extensions enable "$e" 2>/dev/null; changed=1; fi
+  if [[ "$st" == "INACTIVE" ]]; then log "re-enabling $e"; gnome-extensions enable "$e" 2>/dev/null; changed=1
+  elif [[ "$st" == "ERROR" ]]; then log "$e is in ERROR; its code changed on disk and the shell needs a logout to reload it"; fi
 done
 
 # 5. shell theme applied and loaded

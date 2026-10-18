@@ -9,11 +9,7 @@
   "titlebar_height": 32,
   "titlebar_button": 14,
   "titlebar_button_spacing": 8,
-  "frame_hairline": {
-    "thickness": 1,
-    "color": "#ffffff",
-    "alpha": 50,
-    "inactive_alpha": 30,
-    "note": "the only frame styling: one light hairline on the 16 px rounded edge itself, drawn by the Rounded Corners effect's edge outline so it is anti-aliased with the window curve. The outer-outline layer was too sharp at the corners"
+  "frame": {
+    "note": "rounding only. 16 px on the Rounded Corners effect (all windows, including client-drawn ones) and on the Darkly decoration. No outline of any kind, no border, no inset. Shadow from the decoration."
   }
 }

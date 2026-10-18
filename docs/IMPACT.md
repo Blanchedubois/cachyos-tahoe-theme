@@ -104,6 +104,17 @@ Intent: every window's shadow looks the same, focused or not.
 | Electron, Wayland, client-side frame (Claude, Discord) | Chromium, inside the app's own surface | **deferred to relaunch**. The app's shadow is part of its window, differs between focus states by the app's own rule, and ends in a square corner the effect cannot clip. Claude's launcher now carries `--disable-features=WaylandWindowDecorations` in `~/.config/claude-desktop-flags.conf`; Discord gets the same flag through a desktop-entry override. Both apply on the app's next start. Claude's restart ends the Claude Code session, so it is left to the user. |
 | Steam and Steam games | Steam, or the game | **by design**. Excluded by the Steam rule. |
 
+## Phase H: one shadow source for every app
+
+Question: can a single renderer draw every window's shadow so they all match?
+
+| Candidate | Test | Result |
+|---|---|---|
+| Rounded Corners effect's own shadow, with Klassy's shadow off | `docs/shadow-effect-test.png`: Konsole and Claude bottom corners | **rejected**. KDE-decorated windows ended up with no shadow at all; the effect draws its shadow only into the region a decoration reserves, and Klassy reserves none when its shadow is off. Client-drawn windows kept their own square shadow, untouched. With Klassy's shadow on as well, the effect's shadow adds a square corner (Phase E). |
+| Klassy for KDE windows, apps' own for the rest | current | **accepted** as the best Wayland allows. KDE-decorated windows match each other exactly. Electron windows are told to stop drawing their own frame, which removes the square shadow on their next launch; KWin gives undecorated Wayland windows no shadow, so they will then be shadowless rather than mismatched. |
+
+Why there is no perfect answer on Wayland: a shadow is either drawn by the decoration KWin manages, or by the app inside its own surface. KWin cannot add a shadow to an undecorated client surface and cannot remove one the client painted. The only uniform outcome is to make every app server-decorated, which frameless Electron apps and games do not allow.
+
 ## Open items carried forward
 
 1. Verify menus and Plasma popups once a capture path exists, or by eye.

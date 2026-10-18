@@ -170,7 +170,7 @@ separator, system tray, margins separator, digital clock, show desktop.
 
 | Step | Change | Check |
 |---|---|---|
-| P1 | Height 32 px, floating off so it hugs the top edge like macOS | panel sits flush, no gap |
+| P1 | Height 36 px, floating on. Floating is Plasma's only way to detach popups so they become full cards with every corner rounded; the extra height gives the tray hover highlight room around each glyph |
 | P2 | Kickoff icon: CachyOS mark at 22 px, no label | mark is centred vertically |
 | P3 | App menu: Darkly menubar padding 10 px horizontal, 0 vertical | items do not look stacked |
 | P4 | Remove the second margins separator; tray and clock share one margin | no double gap before the clock |
@@ -241,7 +241,7 @@ These are proposals, not commitments. Each needs a yes before it is built.
 
 | Step | Result |
 |---|---|
-| P1 | Height 36 px, floating on. Floating detaches popups so they become full cards with every corner rounded; the extra height gives the tray hover highlight room around each glyph |
+| P1 | Height 36 px, floating on. Floating is Plasma's only way to detach popups so they become full cards with every corner rounded; the extra height gives the tray hover highlight room around each glyph |
 | P2 | Kickoff shows the CachyOS mark as a symbolic glyph, `assets/cachyos-mark.svg`, generated under the name `cachyos-launcher` and also aliased to `start-here-kde` |
 | P3 | App menu padding is hard-coded in the applet QML. Left as is; revisit only if a patched applet is worth carrying |
 | P4 | Second margins separator removed |
@@ -268,13 +268,13 @@ Before and after: `docs/panel-before.png`, `docs/panel-after.png`.
 - App icons use the watermark glass treatment; brand apps pass through from MacTahoe's Tahoe-style set
 - Acceptance: Dolphin, System Settings, and the Claude app window measured at the same radius; menus and buttons at the widget radius
 
-### Phase 6: Plasma style overlay `[x]`
+### Phase 6: Plasma style overlay `[rejected]`
 
 - [x] `scripts/gen-plasma-style.py` writes `plasma/Tahoe-Material/`, a Plasma style that falls back to MacTahoe-Dark and replaces three assets: `dialogs/background` (popup cards: 20 px, glass tint at 78 percent with blur behind, 1 px light hairline, 12 px padding, gradient shadow), `widgets/tooltip` (same at 8 px) and `widgets/viewitem` (hover and selection highlights at 8 px, no outline)
 - [x] Shadows are gradient tiles because KSvg renders through QtSvg, which has no filters
 - [x] Top panel floated at 36 px so popups detach as full cards
 - [x] Darkly `FancyMargins` on for the application side
-- Evidence: `docs/popup-card.png`
+- Rejected on review: the overlay replaced MacTahoe's assets rather than layering on them and read as a different theme. It stays in the repo as reference only; the installer does not apply it. Popup cards come from MacTahoe's own glass, detached by the floating panel: `docs/popup-options.png`
 
 ### Phase 5: workshop items `[~]`
 

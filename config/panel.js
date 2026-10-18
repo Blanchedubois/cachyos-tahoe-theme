@@ -5,9 +5,9 @@
 for (var p of panels()) {
   if (p.location != "top") continue;
 
-  // P1: 32 px, flush with the top edge like the macOS menu bar.
+  // P1: 36 px, floating so popups detach as full rounded cards.
   p.height = 36;
-  p.floating = false;
+  p.floating = true;
 
   var toRemove = [];
   var separators = 0;

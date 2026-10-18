@@ -74,7 +74,7 @@ window radius.
 | Apps without an assigned icon | contact sheet: Desktop+, SteamVR, VRChat; dock: Claude | **fixed**. Every visible launcher not in the table gets its own mark on a white glass squircle. Marks that already fill their canvas, or are flagged `tile`, become the base under the glass instead of nesting inside a shell. Steam itself stays untouched. |
 | Running-app icons in the dock | SteamVR's monitor window showed its own "VR" icon | **fixed**. `StartupWMClass=vrmonitor` on the SteamVR launcher lets the task manager match the window to the launcher and use the themed tile. The same tag can be added for any other running app that shows a stray icon. |
 | Claude icon fill | 256 px render | **fixed**. The source image carries a white canvas with the orange square inset. `tile_crop` trims a tile to its coloured content before it becomes the base, so it fills the squircle. Any brand mark that does not fill sits on a white glass shell now; the sampled-colour shell is gone. |
-| Window outline alignment | corner crops | **fixed** by removal. The effect's 1 px outline sat a pixel off Darkly's anti-aliased corner. The outline is off; rounding and Darkly's shadow are the whole frame styling. |
+| Window outline alignment | corner crops | **fixed** by removal, then **reworked** on review. A single 1 px edge outline sat a pixel off Darkly's anti-aliased corner. The frame now uses the effect's three concentric layers at different radii, which cannot fight each other: trial variant A is a 3 px dark outer ring outside the frame, a 2 px gap in window colour, and a 1 px light inner line. Mockups of A, B and C in `docs/frame-options.png`. |
 
 ## Open items carried forward
 

@@ -115,13 +115,9 @@ if [[ -d "$EXT_DIR/blur-my-shell@aunetx/schemas" ]]; then
   bs .applications enable-all false; bs .applications static-blur true; bs .applications customize true; bs .applications pipeline 'pipeline_default_rounded'; bs .applications corner-radius 16; bs .applications sigma 30; bs .applications brightness 0.6; bs .applications opacity 215
   bs .applications whitelist "['org.gnome.Nautilus','org.gnome.Settings','gnome-control-center','org.gnome.Console','kgx','org.gnome.TextEditor','org.gnome.Calculator','org.gnome.Loupe','org.gnome.Papers','org.gnome.Characters','org.gnome.clocks','org.gnome.Calendar','org.gnome.Weather','org.gnome.Music','org.gnome.Software','org.gnome.DiskUtility','org.gnome.baobab','org.gnome.SystemMonitor','org.gnome.tweaks','org.gnome.Extensions','org.gnome.Logs','org.gnome.font-viewer','org.kde.dolphin','org.kde.kate','org.kde.konsole']"
   bs .applications blur true
-  # Popup module (quick settings, menus, notifications): static mode renders here; dynamic paints an opaque box.
-  bs .popup static-blur true; bs .popup pipeline 'pipeline_default'; bs .popup override-background true; bs .popup preserve-shell-theme true; bs .popup sigma 30; bs .popup brightness 0.6
-  # Blur corners: 14 px like the dropdowns, 20 px the calendar (this key).
-  bs .popup quick-settings-corner-radius 20; bs .popup menu-corner-radius 14; bs .popup notification-corner-radius 14
-  # Off by default: the shell dropdowns use a plain tint (config/popup-blur).
-  POPUP_BLUR=true; [[ "$(cat "$ROOT/config/popup-blur" 2>/dev/null)" == off ]] && POPUP_BLUR=false
-  bs .popup blur "$POPUP_BLUR"
+  # Popups (quick settings, menus, notifications) are never blurred: they
+  # use the plain tint in the shell overrides.
+  bs .popup blur false
 fi
 # Icons: the Tahoe-Material theme, SF Symbol watermarks on glass squircles.
 say "icons"
@@ -164,17 +160,6 @@ open(p,"w").write(s)
 t=p.replace("blur_surface.js","targets.js"); u=open(t).read()
 u=u.replace("        style_classes: ['modal-dialog', 'run-dialog'],","        style_classes: [],  /* tahoe: modal dialogs are not blurred */")
 open(t,"w").write(u)
-PY
-# Blur my Shell for the Tahoe look: quick settings blurred piece by piece as
-# capsules and circles, and app popup menus blurred with their window.
-python3 "$ROOT/scripts/patch-blur-my-shell.py" "$EXT_DIR/blur-my-shell@aunetx" || echo "    Blur my Shell changed upstream; see the lines above"
-# GTK4 popovers translucent so that blur shows (replace the block).
-GT4="$HOME/.config/gtk-4.0/gtk-Dark.css"
-[[ -f "$GT4" ]] && python3 - "$GT4" "$ROOT/config/gtk4-overrides.css" <<'PY'
-import sys,re
-css=open(sys.argv[1]).read(); ov=open(sys.argv[2]).read()
-css=re.sub(r"\n/\* tahoe-gtk4-overrides:.*?/\* end tahoe-gtk4-overrides \*/\n","\n",css,flags=re.S)
-open(sys.argv[1],"w").write(css.rstrip()+"\n\n"+ov)
 PY
 # Rounded Window Corners: GNOME 51 port of its shader effects, settings.
 RWC="$EXT_DIR/rounded-window-corners@fxgn"

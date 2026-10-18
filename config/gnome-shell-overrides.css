@@ -13,7 +13,8 @@
 .quick-toggle-icon { min-height: 44px !important; min-width: 44px !important; }
 
 /* Top-bar dropdowns (calendar, Now Playing, every panel menu) and
-   notification banners in a grey tint, no blur (config/popup-blur is off):
+   notification banners in a grey tint, never blurred (tahoe-repair keeps
+   Blur my Shell's popup module off):
    warm grey at 80 % with a 1 px white outline at 30 % and a faint inner glow, in
    place of the theme's 92 % dark grey and 75 % black outline. The buttons
    and submenus of quick settings below take the same. */
@@ -24,7 +25,7 @@
   box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.12) !important;
 }
 /* The calendar dropdown at the 20 px popup radius (tokens/radius.json); the
-   theme rounds it at 22 px. Blur my Shell's radius matches if blur is on. */
+   theme rounds it at 22 px. */
 .datemenu-popover { border-radius: 20px !important; }
 /* A step darker than the other dropdowns: it is the largest, and the same
    tint read lighter over that much area. */

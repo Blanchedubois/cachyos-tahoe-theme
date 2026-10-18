@@ -68,13 +68,13 @@ tahoe-repair
 Runs automatically a few seconds after each login and on demand. It checks
 and fixes, in order: theme files, extension folders, extensions loaded and
 enabled, shell theme loaded (falls back to Adwaita after a rebuild), the
-shell CSS overrides, the Blur my Shell patches and module settings, the
+shell CSS overrides, the Blur my Shell modal-dialog patch and module
+settings (popups, the Control Center included, are never blurred), the
 GTK3 solid variant and all-corner rounding, the GNOME 51 port of the corner
 extension, interface settings, dock settings and stylesheet, the icon theme
 link and contents. On a healthy system it prints one line.
 
-Switches: `tahoe-repair --popup-blur off` if the quick settings ever show an
-opaque box; `tahoe-repair --gdm` for the login screen commands.
+Switch: `tahoe-repair --gdm` for the login screen commands.
 
 After a GNOME major update, extensions stay disabled until builds for the
 new version exist; the script reports that and fetches them once published.

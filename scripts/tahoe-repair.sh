@@ -13,7 +13,7 @@
 #   3. extensions loaded in the running shell (else ask it to load them)
 #   4. extensions enabled
 #   5. shell theme is MacTahoe-Dark and actually loaded (else re-apply)
-#   6. Blur my Shell module config: applications on a system-app whitelist, popup per POPUP_BLUR
+#   6. Blur my Shell module config: applications on a system-app whitelist, popups never blurred
 #   7. icon theme is Tahoe-Material and its files are present
 #   8. extension builds match the running GNOME version (else re-fetch)
 #   9. interface drift: GTK theme, cursor, button layout, resize border (never the wallpaper)
@@ -21,8 +21,7 @@
 #  10. dock drift: Dash to Dock back on the theme's own styling
 #  11. dock stylesheet present (the theme's -d tweak deletes it)
 #  5c. Blur my Shell patched so modal dialogs do not blur the whole screen
-#  5c2. Blur my Shell patched: quick settings blurred per piece, app popup menus blurred
-#  5c3. GTK4 popovers translucent so the blur shows
+#  5b2. no popup blur: undo the earlier per-piece and app-popover blur patches and GTK4 popover translucency
 #  5d. GTK3 windows rounded on all four corners
 #  5e. Rounded Window Corners ported to GNOME 51 and configured (24 px, non-libadwaita windows)
 #  12. icon theme contents: regenerate from the repo if the generated set is
@@ -37,12 +36,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
 EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn nowplaying@epogonii.github.io)
-# Popup blur (quick settings, menus, notifications). Static mode renders on
-# this machine where dynamic painted an opaque box. Switch with
-#   tahoe-repair --popup-blur off      (writes config/popup-blur)
-POPUP_FLAG="$ROOT/config/popup-blur"
 case "${1:-}" in
-  --popup-blur) echo "${2:-on}" > "$POPUP_FLAG"; shift 2 ;;
   --gdm)
     # Login screen: needs root, so only print what to run.
     cat <<EOT
@@ -55,7 +49,6 @@ GNOME updates can overwrite the GDM theme; rerun the tweaks command if the login
 EOT
     exit 0 ;;
 esac
-POPUP_BLUR=true; [[ -f "$POPUP_FLAG" && "$(cat "$POPUP_FLAG")" == "off" ]] && POPUP_BLUR=false
 WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn','nowplaying@epogonii.github.io']"
 SHELL_VER="$(gnome-shell --version 2>/dev/null | grep -oE '[0-9]+' | head -1)"
 changed=0
@@ -142,6 +135,34 @@ PY
   gsettings set org.gnome.shell.extensions.user-theme name ''; sleep 1; gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 fi
 
+# 5b2. No popup blur: the Control Center and every dropdown use the plain
+#      tint in the shell overrides. An extension carrying the earlier Tahoe
+#      patches (quick settings blurred per piece, app popovers blurred with
+#      their window) is refetched clean; 5c then re-applies only the modal
+#      dialog patch. The GTK4 popover translucency that let that blur show
+#      comes out of the GTK4 theme.
+BMS="$EXT_DIR/blur-my-shell@aunetx"
+if grep -qs "tahoe: quick settings\|tahoe: a popup menu\|tahoe: fixed radius" "$BMS/components/popup/targets.js" "$BMS/components/popup/blur_surface.js" "$BMS/components/applications.js"; then
+  tag="$(curl -s "https://extensions.gnome.org/extension-info/?uuid=blur-my-shell@aunetx&shell_version=$SHELL_VER" | python3 -c 'import json,sys; print(json.load(sys.stdin)["version_tag"])' 2>/dev/null || true)"
+  if [[ -n "$tag" ]]; then
+    log "Blur my Shell carries the old popup blur patches: refetching a clean build (takes effect at next login)"
+    tmp="$(mktemp -d)"; curl -sL "https://extensions.gnome.org/download-extension/blur-my-shell@aunetx.shell-extension.zip?version_tag=$tag" -o "$tmp/e.zip"
+    rm -rf "${BMS:?}"; mkdir -p "$BMS"; python3 -c 'import zipfile,sys; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])' "$tmp/e.zip" "$BMS"
+    [[ -d "$BMS/schemas" ]] && glib-compile-schemas "$BMS/schemas"; rm -rf "$tmp"; changed=1
+  else
+    log "Blur my Shell carries the old popup blur patches, but no clean build could be fetched; try again online"
+  fi
+fi
+GT4="$HOME/.config/gtk-4.0/gtk-Dark.css"
+if grep -qs "tahoe-gtk4-overrides:" "$GT4"; then
+  log "removing the GTK4 popover translucency (apps pick it up when reopened)"
+  python3 - "$GT4" <<'PY'
+import sys,re
+css=open(sys.argv[1]).read()
+open(sys.argv[1],"w").write(re.sub(r"\n*/\* tahoe-gtk4-overrides:.*?/\* end tahoe-gtk4-overrides \*/\n?","\n",css,flags=re.S))
+PY
+fi
+
 # 5c. Blur my Shell patch: modal dialogs (power off, log out, run) are
 #     full-screen surfaces, so blurring them blurs and darkens the whole
 #     screen. Take them out of the popup module's surface lists. Re-applied
@@ -161,31 +182,6 @@ open(t,"w").write(u)
 PY
   gnome-extensions disable blur-my-shell@aunetx 2>/dev/null; gnome-extensions enable blur-my-shell@aunetx 2>/dev/null
 fi
-# 5c2. Blur my Shell for the Tahoe look (scripts/patch-blur-my-shell.py):
-#      quick settings blurred piece by piece as capsules and circles, app
-#      popup menus blurred with their window. Code changes load at next login.
-if [[ -d "$EXT_DIR/blur-my-shell@aunetx/components/popup" ]]; then
-  out="$(python3 "$ROOT/scripts/patch-blur-my-shell.py" "$EXT_DIR/blur-my-shell@aunetx")"
-  [[ -n "$out" ]] && { while read -r l; do log "Blur my Shell: $l"; done <<<"$out"; log "Blur my Shell patched: takes effect at next login"; }
-fi
-# 5c3. GTK4 popovers translucent so that blur shows; the block survives a
-#      theme rebuild and picks up rules added to the repo copy.
-GT4="$HOME/.config/gtk-4.0/gtk-Dark.css"
-if [[ -f "$GT4" && -f "$ROOT/config/gtk4-overrides.css" ]] && python3 - "$GT4" "$ROOT/config/gtk4-overrides.css" <<'PY'
-import sys,re
-m=re.search(r"/\* tahoe-gtk4-overrides:.*?/\* end tahoe-gtk4-overrides \*/",open(sys.argv[1]).read(),flags=re.S)
-sys.exit(0 if not m or m.group(0).strip()!=open(sys.argv[2]).read().strip() else 1)
-PY
-then
-  log "re-applying GTK4 popover overrides (apps pick them up when reopened)"
-  python3 - "$GT4" "$ROOT/config/gtk4-overrides.css" <<'PY'
-import sys,re
-css=open(sys.argv[1]).read(); ov=open(sys.argv[2]).read()
-css=re.sub(r"\n/\* tahoe-gtk4-overrides:.*?/\* end tahoe-gtk4-overrides \*/\n","\n",css,flags=re.S)
-open(sys.argv[1],"w").write(css.rstrip()+"\n\n"+ov)
-PY
-fi
-
 # 5d. GTK3 windows: the theme rounds only the top corners (24px 24px 0 0).
 #     Round all four so pywebview, Meld and other GTK3 apps match.
 for f in "$HOME"/.themes/MacTahoe-*/gtk-3.0/gtk.css "$HOME"/.themes/MacTahoe-*/gtk-3.0/gtk-dark.css; do
@@ -248,16 +244,9 @@ PY
   bsg .appfolder blur true; bsg .appfolder sigma 30; bsg .appfolder style-dialogs 1
   bsg .dash-to-dock blur true; bsg .dash-to-dock static-blur true; bsg .dash-to-dock pipeline "'pipeline_default_rounded'"
   bsg .dash-to-dock override-background false; bsg .dash-to-dock unblur-in-overview true
-  # Popups: quick settings, menus, notifications. Static only; corner radii
-  # follow the shell theme (14 px menus and banners, 20 px the calendar; quick
-  # settings are not blurred, see 5c2).
-  bsg .popup blur "$POPUP_BLUR"
-  if [[ "$POPUP_BLUR" == true ]]; then
-    bsg .popup static-blur true; bsg .popup pipeline "'pipeline_default'"
-    bsg .popup override-background true; bsg .popup preserve-shell-theme true; bsg .popup style-popup 0
-    bsg .popup sigma 30; bsg .popup brightness 0.6
-    bsg .popup quick-settings-corner-radius 20; bsg .popup menu-corner-radius 14; bsg .popup notification-corner-radius 14
-  fi
+  # Popups (quick settings, menus, notifications) are never blurred: they
+  # use the plain tint in the shell overrides.
+  bsg .popup blur false
 fi
 
 # 6b. desktop-entry overrides (window class for Steam games so the dock matches the running window)

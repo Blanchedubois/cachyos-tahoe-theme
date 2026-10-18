@@ -41,8 +41,8 @@
     "go-previous": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "arrow_back"
+        "set": "sf",
+        "name": "arrow.left"
       },
       "aliases": [
         "draw-arrow-back",
@@ -52,8 +52,8 @@
     "go-next": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "arrow_forward"
+        "set": "sf",
+        "name": "arrow.right"
       },
       "aliases": [
         "draw-arrow-forward",
@@ -63,8 +63,8 @@
     "go-up": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "arrow_upward"
+        "set": "sf",
+        "name": "arrow.up"
       },
       "aliases": [
         "draw-arrow-up"
@@ -73,8 +73,8 @@
     "go-down": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "arrow_downward"
+        "set": "sf",
+        "name": "arrow.down"
       },
       "aliases": [
         "draw-arrow-down"
@@ -83,50 +83,50 @@
     "go-home": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "home"
+        "set": "sf",
+        "name": "house"
       }
     },
     "go-jump": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "arrow_outward"
+        "set": "sf",
+        "name": "arrow.up.forward"
       }
     },
     "go-top": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "vertical_align_top"
+        "set": "sf",
+        "name": "arrow.up.to.line"
       }
     },
     "go-bottom": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "vertical_align_bottom"
+        "set": "sf",
+        "name": "arrow.down.to.line"
       }
     },
     "go-first": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "first_page"
+        "set": "sf",
+        "name": "arrow.left.to.line"
       }
     },
     "go-last": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "last_page"
+        "set": "sf",
+        "name": "arrow.right.to.line"
       }
     },
     "arrow-up": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "keyboard_arrow_up"
+        "set": "sf",
+        "name": "chevron.up"
       },
       "aliases": [
         "go-up-symbolic"
@@ -135,8 +135,8 @@
     "arrow-down": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "keyboard_arrow_down"
+        "set": "sf",
+        "name": "chevron.down"
       },
       "aliases": [
         "go-down-symbolic"
@@ -145,120 +145,120 @@
     "arrow-left": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "keyboard_arrow_left"
+        "set": "sf",
+        "name": "chevron.left"
       }
     },
     "arrow-right": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "keyboard_arrow_right"
+        "set": "sf",
+        "name": "chevron.right"
       }
     },
     "view-list-icons": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "grid_view"
+        "set": "sf",
+        "name": "square.grid.2x2"
       }
     },
     "view-list-details": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "view_list"
+        "set": "sf",
+        "name": "list.bullet"
       }
     },
     "view-list-tree": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "account_tree"
+        "set": "sf",
+        "name": "list.bullet.indent"
       }
     },
     "view-list-text": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "view_headline"
+        "set": "sf",
+        "name": "text.alignleft"
       }
     },
     "view-split-left-right": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "vertical_split"
+        "set": "sf",
+        "name": "rectangle.split.2x1"
       }
     },
     "view-split-top-bottom": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "horizontal_split"
+        "set": "sf",
+        "name": "rectangle.split.1x2"
       }
     },
     "view-right-close": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "close"
+        "set": "sf",
+        "name": "xmark"
       }
     },
     "view-left-close": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "close"
+        "set": "sf",
+        "name": "xmark"
       }
     },
     "view-refresh": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "refresh"
+        "set": "sf",
+        "name": "arrow.clockwise"
       }
     },
     "view-fullscreen": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "fullscreen"
+        "set": "sf",
+        "name": "arrow.up.left.and.arrow.down.right"
       }
     },
     "view-restore": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "fullscreen_exit"
+        "set": "sf",
+        "name": "arrow.down.right.and.arrow.up.left"
       }
     },
     "view-preview": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "preview"
+        "set": "sf",
+        "name": "eye"
       }
     },
     "view-hidden": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "visibility_off"
+        "set": "sf",
+        "name": "eye.slash"
       }
     },
     "view-visible": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "visibility"
+        "set": "sf",
+        "name": "eye"
       }
     },
     "view-sort": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "sort"
+        "set": "sf",
+        "name": "arrow.up.arrow.down"
       },
       "aliases": [
         "view-sort-ascending",
@@ -268,71 +268,71 @@
     "view-filter": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "filter_alt"
+        "set": "sf",
+        "name": "line.3.horizontal.decrease"
       }
     },
     "view-choose": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "dashboard"
+        "set": "sf",
+        "name": "square.grid.3x3"
       }
     },
     "view-grid": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "grid_on"
+        "set": "sf",
+        "name": "grid"
       }
     },
     "view-sidetree": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "side_navigation"
+        "set": "sf",
+        "name": "sidebar.left"
       }
     },
     "view-process-tree": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "account_tree"
+        "set": "sf",
+        "name": "list.bullet.indent"
       }
     },
     "view-pim-calendar": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "calendar_month"
+        "set": "sf",
+        "name": "calendar"
       }
     },
     "view-media-playlist": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "queue_music"
+        "set": "sf",
+        "name": "music.note.list"
       }
     },
     "view-pages-single": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "crop_portrait"
+        "set": "sf",
+        "name": "rectangle.portrait"
       }
     },
     "view-pages-facing": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "auto_stories"
+        "set": "sf",
+        "name": "book"
       }
     },
     "edit-find": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "search"
+        "set": "sf",
+        "name": "magnifyingglass"
       },
       "aliases": [
         "system-search",
@@ -342,29 +342,29 @@
     "edit-find-replace": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "find_replace"
+        "set": "sf",
+        "name": "arrow.left.arrow.right"
       }
     },
     "edit-copy": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "content_copy"
+        "set": "sf",
+        "name": "document.on.document"
       }
     },
     "edit-cut": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "content_cut"
+        "set": "sf",
+        "name": "scissors"
       }
     },
     "edit-paste": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "content_paste"
+        "set": "sf",
+        "name": "document.on.clipboard"
       },
       "aliases": [
         "klipper"
@@ -373,8 +373,8 @@
     "edit-delete": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "delete"
+        "set": "sf",
+        "name": "trash"
       },
       "aliases": [
         "edit-delete-remove",
@@ -384,43 +384,43 @@
     "edit-undo": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "undo"
+        "set": "sf",
+        "name": "arrow.uturn.backward"
       }
     },
     "edit-redo": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "redo"
+        "set": "sf",
+        "name": "arrow.uturn.forward"
       }
     },
     "edit-select-all": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "select_all"
+        "set": "sf",
+        "name": "checkmark.square"
       }
     },
     "edit-select": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "highlight"
+        "set": "sf",
+        "name": "rectangle.dashed"
       }
     },
     "edit-select-none": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "deselect"
+        "set": "sf",
+        "name": "rectangle.dashed"
       }
     },
     "edit-rename": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "edit"
+        "set": "sf",
+        "name": "pencil"
       },
       "aliases": [
         "document-edit",
@@ -430,8 +430,8 @@
     "edit-clear": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "backspace"
+        "set": "sf",
+        "name": "delete.left"
       },
       "aliases": [
         "edit-clear-locationbar-rtl",
@@ -441,8 +441,8 @@
     "edit-clear-all": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "clear_all"
+        "set": "sf",
+        "name": "xmark.circle"
       },
       "aliases": [
         "edit-clear-list",
@@ -452,7 +452,7 @@
     "edit-link": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "link"
       },
       "aliases": [
@@ -462,127 +462,127 @@
     "edit-move": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "drive_file_move"
+        "set": "sf",
+        "name": "folder.badge.minus"
       }
     },
     "edit-duplicate": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "file_copy"
+        "set": "sf",
+        "name": "document.on.document"
       }
     },
     "document-new": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "note_add"
+        "set": "sf",
+        "name": "document.badge.plus"
       }
     },
     "document-open": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "folder_open"
+        "set": "sf",
+        "name": "folder"
       }
     },
     "document-open-folder": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "folder_open"
+        "set": "sf",
+        "name": "folder"
       }
     },
     "document-open-recent": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "history"
+        "set": "sf",
+        "name": "clock.arrow.trianglehead.counterclockwise.rotate.90"
       }
     },
     "document-save": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "save"
+        "set": "sf",
+        "name": "square.and.arrow.down"
       }
     },
     "document-save-as": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "save_as"
+        "set": "sf",
+        "name": "square.and.arrow.down.on.square"
       }
     },
     "document-save-all": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "save"
+        "set": "sf",
+        "name": "square.and.arrow.down"
       }
     },
     "document-print": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "print"
+        "set": "sf",
+        "name": "printer"
       }
     },
     "document-print-preview": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "preview"
+        "set": "sf",
+        "name": "eye"
       }
     },
     "document-properties": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "info"
+        "set": "sf",
+        "name": "info.circle"
       }
     },
     "document-close": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "close"
+        "set": "sf",
+        "name": "xmark"
       }
     },
     "document-revert": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "settings_backup_restore"
+        "set": "sf",
+        "name": "arrow.counterclockwise"
       }
     },
     "document-export": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "upload_file"
+        "set": "sf",
+        "name": "square.and.arrow.up"
       }
     },
     "document-import": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "download"
+        "set": "sf",
+        "name": "arrow.down.circle"
       }
     },
     "document-share": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "share"
+        "set": "sf",
+        "name": "square.and.arrow.up"
       }
     },
     "document-send": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "send"
+        "set": "sf",
+        "name": "paperplane"
       },
       "aliases": [
         "mail-send"
@@ -591,43 +591,43 @@
     "document-encrypt": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "lock"
       }
     },
     "document-decrypt": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "lock_open"
+        "set": "sf",
+        "name": "lock.open"
       }
     },
     "folder-new": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "create_new_folder"
+        "set": "sf",
+        "name": "folder.badge.plus"
       }
     },
     "archive-extract": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "unarchive"
+        "set": "sf",
+        "name": "archivebox"
       }
     },
     "archive-insert": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "archive"
+        "set": "sf",
+        "name": "archivebox"
       }
     },
     "tab-new": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "add_box"
+        "set": "sf",
+        "name": "plus.square"
       },
       "aliases": [
         "tab-new-background"
@@ -636,8 +636,8 @@
     "tab-close": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "close"
+        "set": "sf",
+        "name": "xmark"
       },
       "aliases": [
         "tab-close-other"
@@ -646,71 +646,71 @@
     "tab-duplicate": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "tab_duplicate"
+        "set": "sf",
+        "name": "plus.square.on.square"
       }
     },
     "tab-detach": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "open_in_new"
+        "set": "sf",
+        "name": "arrow.up.right.square"
       }
     },
     "window-new": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "open_in_new"
+        "set": "sf",
+        "name": "arrow.up.right.square"
       }
     },
     "window-close": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "close"
+        "set": "sf",
+        "name": "xmark"
       }
     },
     "window-pin": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "push_pin"
+        "set": "sf",
+        "name": "pin"
       }
     },
     "window-unpin": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "push_pin"
+        "set": "sf",
+        "name": "pin"
       }
     },
     "window-minimize": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "minimize"
+        "set": "sf",
+        "name": "minus"
       }
     },
     "window-maximize": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "crop_square"
+        "set": "sf",
+        "name": "square"
       }
     },
     "application-exit": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "logout"
+        "set": "sf",
+        "name": "rectangle.portrait.and.arrow.right"
       }
     },
     "application-menu": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "menu"
+        "set": "sf",
+        "name": "line.3.horizontal"
       },
       "aliases": [
         "open-menu",
@@ -721,8 +721,8 @@
     "overflow-menu-left": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "more_horiz"
+        "set": "sf",
+        "name": "ellipsis"
       },
       "aliases": [
         "overflow-menu-right",
@@ -732,8 +732,8 @@
     "configure": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "settings"
+        "set": "sf",
+        "name": "gearshape"
       },
       "aliases": [
         "settings-configure",
@@ -746,29 +746,29 @@
     "configure-shortcuts": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "keyboard"
       }
     },
     "configure-toolbars": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "build"
+        "set": "sf",
+        "name": "hammer"
       }
     },
     "preferences-desktop": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "desktop_windows"
+        "set": "sf",
+        "name": "desktopcomputer"
       }
     },
     "preferences-desktop-theme": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "palette"
+        "set": "sf",
+        "name": "paintpalette"
       },
       "aliases": [
         "preferences-desktop-color",
@@ -779,22 +779,22 @@
     "preferences-desktop-font": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "text_fields"
+        "set": "sf",
+        "name": "textformat"
       }
     },
     "preferences-desktop-wallpaper": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "wallpaper"
+        "set": "sf",
+        "name": "photo"
       }
     },
     "preferences-desktop-display": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "monitor"
+        "set": "sf",
+        "name": "display"
       },
       "aliases": [
         "video-display",
@@ -805,8 +805,8 @@
     "preferences-desktop-notification": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "notifications"
+        "set": "sf",
+        "name": "bell"
       },
       "aliases": [
         "preferences-desktop-notification-bell"
@@ -815,7 +815,7 @@
     "preferences-desktop-user": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "person"
       },
       "aliases": [
@@ -826,8 +826,8 @@
     "preferences-desktop-locale": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "language"
+        "set": "sf",
+        "name": "globe"
       },
       "aliases": [
         "preferences-desktop-locale-symbolic"
@@ -836,7 +836,7 @@
     "preferences-desktop-keyboard": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "keyboard"
       },
       "aliases": [
@@ -846,8 +846,8 @@
     "preferences-desktop-mouse": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "mouse"
+        "set": "sf",
+        "name": "computermouse"
       },
       "aliases": [
         "input-mouse"
@@ -856,15 +856,15 @@
     "preferences-desktop-touchpad": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "touchpad_mouse"
+        "set": "sf",
+        "name": "rectangle.and.hand.point.up.left"
       }
     },
     "preferences-desktop-sound": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "volume_up"
+        "set": "sf",
+        "name": "speaker.wave.3"
       },
       "aliases": [
         "preferences-desktop-sound-symbolic",
@@ -874,29 +874,29 @@
     "preferences-desktop-accessibility": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "accessibility"
+        "set": "sf",
+        "name": "figure.stand"
       }
     },
     "preferences-desktop-screensaver": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "screen_lock_portrait"
+        "set": "sf",
+        "name": "lock.display"
       }
     },
     "preferences-desktop-emoticons": {
       "context": "actions",
       "glyph": {
-        "set": "phosphor",
-        "name": "smiley"
+        "set": "sf",
+        "name": "face.smiling"
       }
     },
     "preferences-system-network": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "lan"
+        "set": "sf",
+        "name": "network"
       },
       "aliases": [
         "network-workgroup-symbolic"
@@ -905,7 +905,7 @@
     "preferences-system-power-management": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "bolt"
       },
       "aliases": [
@@ -915,8 +915,8 @@
     "preferences-system-bluetooth": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "bluetooth"
+        "set": "sf",
+        "name": "wave.3.right"
       },
       "aliases": [
         "network-bluetooth"
@@ -925,8 +925,8 @@
     "preferences-system-time": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "schedule"
+        "set": "sf",
+        "name": "clock"
       },
       "aliases": [
         "clock",
@@ -936,8 +936,8 @@
     "preferences-system-windows": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "web_asset"
+        "set": "sf",
+        "name": "macwindow"
       },
       "aliases": [
         "preferences-system-windows-actions",
@@ -947,28 +947,28 @@
     "preferences-system-login": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "login"
+        "set": "sf",
+        "name": "person.crop.circle"
       }
     },
     "preferences-system-startup": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "rocket_launch"
+        "set": "sf",
+        "name": "paperplane"
       }
     },
     "preferences-system-search": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "manage_search"
+        "set": "sf",
+        "name": "text.magnifyingglass"
       }
     },
     "preferences-system-privacy": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "shield"
       },
       "aliases": [
@@ -979,35 +979,35 @@
     "preferences-system-session-services": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "settings_suggest"
+        "set": "sf",
+        "name": "gearshape.2"
       }
     },
     "preferences-devices-printer": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "print"
+        "set": "sf",
+        "name": "printer"
       }
     },
     "preferences-desktop-plasma": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "space_dashboard"
+        "set": "sf",
+        "name": "square.grid.2x2"
       }
     },
     "preferences-desktop-effects": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "auto_awesome"
+        "set": "sf",
+        "name": "sparkles"
       }
     },
     "preferences-desktop-cryptography": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "key"
       },
       "aliases": [
@@ -1020,8 +1020,8 @@
     "preferences-desktop-default-applications": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "apps"
+        "set": "sf",
+        "name": "square.grid.3x3"
       },
       "aliases": [
         "applications-all",
@@ -1031,15 +1031,15 @@
     "preferences-desktop-filetype-association": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "description"
+        "set": "sf",
+        "name": "text.document"
       }
     },
     "help-contents": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "help"
+        "set": "sf",
+        "name": "questionmark.circle"
       },
       "aliases": [
         "help-browser",
@@ -1050,8 +1050,8 @@
     "help-about": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "info"
+        "set": "sf",
+        "name": "info.circle"
       },
       "aliases": [
         "dialog-information",
@@ -1062,50 +1062,50 @@
     "help-whatsthis": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "contact_support"
+        "set": "sf",
+        "name": "questionmark.bubble"
       }
     },
     "help-donate": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "volunteer_activism"
+        "set": "sf",
+        "name": "heart"
       }
     },
     "help-feedback": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "feedback"
+        "set": "sf",
+        "name": "bubble.left"
       }
     },
     "tools-report-bug": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "bug_report"
+        "set": "sf",
+        "name": "ant"
       }
     },
     "tools-check-spelling": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "spellcheck"
+        "set": "sf",
+        "name": "textformat"
       }
     },
     "tools-wizard": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "auto_fix_high"
+        "set": "sf",
+        "name": "wand.and.sparkles"
       }
     },
     "dialog-ok": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "check"
+        "set": "sf",
+        "name": "checkmark"
       },
       "aliases": [
         "dialog-ok-apply",
@@ -1117,8 +1117,8 @@
     "dialog-cancel": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "close"
+        "set": "sf",
+        "name": "xmark"
       },
       "aliases": [
         "dialog-close",
@@ -1130,8 +1130,8 @@
     "dialog-warning": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "warning"
+        "set": "sf",
+        "name": "exclamationmark.triangle"
       },
       "aliases": [
         "emblem-warning",
@@ -1142,8 +1142,8 @@
     "dialog-error": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "error"
+        "set": "sf",
+        "name": "xmark.octagon"
       },
       "aliases": [
         "emblem-error",
@@ -1154,8 +1154,8 @@
     "dialog-question": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "help"
+        "set": "sf",
+        "name": "questionmark.circle"
       },
       "aliases": [
         "emblem-question"
@@ -1164,15 +1164,15 @@
     "dialog-messages": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "chat"
+        "set": "sf",
+        "name": "bubble.left.and.bubble.right"
       }
     },
     "dialog-scripts": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "code"
+        "set": "sf",
+        "name": "chevron.left.forwardslash.chevron.right"
       },
       "aliases": [
         "text-x-script"
@@ -1181,15 +1181,15 @@
     "dialog-layers": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "layers"
+        "set": "sf",
+        "name": "square.3.layers.3d"
       }
     },
     "list-add": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "add"
+        "set": "sf",
+        "name": "plus"
       },
       "aliases": [
         "list-add-symbolic",
@@ -1200,8 +1200,8 @@
     "list-remove": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "remove"
+        "set": "sf",
+        "name": "minus"
       },
       "aliases": [
         "list-remove-symbolic",
@@ -1211,22 +1211,22 @@
     "zoom-in": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "zoom_in"
+        "set": "sf",
+        "name": "plus.magnifyingglass"
       }
     },
     "zoom-out": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "zoom_out"
+        "set": "sf",
+        "name": "minus.magnifyingglass"
       }
     },
     "zoom-original": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "crop_free"
+        "set": "sf",
+        "name": "arrow.up.left.and.down.right.magnifyingglass"
       },
       "aliases": [
         "zoom-fit-best",
@@ -1238,8 +1238,8 @@
     "bookmarks": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "bookmarks"
+        "set": "sf",
+        "name": "bookmark"
       },
       "aliases": [
         "bookmarks-organize",
@@ -1249,21 +1249,21 @@
     "bookmark-new": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "bookmark_add"
+        "set": "sf",
+        "name": "bookmark"
       }
     },
     "bookmark-remove": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "bookmark_remove"
+        "set": "sf",
+        "name": "bookmark.slash"
       }
     },
     "favorite": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "star"
       },
       "aliases": [
@@ -1274,7 +1274,7 @@
     "non-starred": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "star"
       },
       "aliases": [
@@ -1285,22 +1285,22 @@
     "flag": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "flag"
       }
     },
     "mail-mark-important": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "label_important"
+        "set": "sf",
+        "name": "exclamationmark.circle"
       }
     },
     "tag": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "sell"
+        "set": "sf",
+        "name": "tag"
       },
       "aliases": [
         "tag-new",
@@ -1310,162 +1310,162 @@
     "color-picker": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "colorize"
+        "set": "sf",
+        "name": "eyedropper"
       }
     },
     "format-justify-left": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_align_left"
+        "set": "sf",
+        "name": "text.alignleft"
       }
     },
     "format-justify-center": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_align_center"
+        "set": "sf",
+        "name": "text.aligncenter"
       }
     },
     "format-justify-right": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_align_right"
+        "set": "sf",
+        "name": "text.alignright"
       }
     },
     "format-justify-fill": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_align_justify"
+        "set": "sf",
+        "name": "text.justify"
       }
     },
     "format-text-bold": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_bold"
+        "set": "sf",
+        "name": "bold"
       }
     },
     "format-text-italic": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_italic"
+        "set": "sf",
+        "name": "italic"
       }
     },
     "format-text-underline": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_underlined"
+        "set": "sf",
+        "name": "underline"
       }
     },
     "format-text-strikethrough": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_strikethrough"
+        "set": "sf",
+        "name": "strikethrough"
       }
     },
     "format-list-unordered": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_list_bulleted"
+        "set": "sf",
+        "name": "list.bullet"
       }
     },
     "format-list-ordered": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_list_numbered"
+        "set": "sf",
+        "name": "list.number"
       }
     },
     "format-indent-more": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_indent_increase"
+        "set": "sf",
+        "name": "increase.indent"
       }
     },
     "format-indent-less": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "format_indent_decrease"
+        "set": "sf",
+        "name": "decrease.indent"
       }
     },
     "insert-image": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "image"
+        "set": "sf",
+        "name": "photo"
       }
     },
     "insert-text": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "text_fields"
+        "set": "sf",
+        "name": "textformat"
       }
     },
     "insert-table": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "table"
+        "set": "sf",
+        "name": "tablecells"
       }
     },
     "object-rotate-left": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "rotate_left"
+        "set": "sf",
+        "name": "rotate.left"
       }
     },
     "object-rotate-right": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "rotate_right"
+        "set": "sf",
+        "name": "rotate.right"
       }
     },
     "object-flip-horizontal": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "flip"
+        "set": "sf",
+        "name": "arrow.trianglehead.left.and.right.righttriangle.left.righttriangle.right"
       }
     },
     "transform-crop": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "crop"
       }
     },
     "transform-move": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "open_with"
+        "set": "sf",
+        "name": "arrow.up.and.down.and.arrow.left.and.right"
       }
     },
     "transform-scale": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "aspect_ratio"
+        "set": "sf",
+        "name": "aspectratio"
       }
     },
     "media-playback-start": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "play_arrow"
+        "set": "sf",
+        "name": "play"
       },
       "aliases": [
         "media-playback-playing",
@@ -1475,7 +1475,7 @@
     "media-playback-pause": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "pause"
       },
       "aliases": [
@@ -1485,78 +1485,78 @@
     "media-playback-stop": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "stop"
       }
     },
     "media-skip-forward": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "skip_next"
+        "set": "sf",
+        "name": "forward.end"
       }
     },
     "media-skip-backward": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "skip_previous"
+        "set": "sf",
+        "name": "backward.end"
       }
     },
     "media-seek-forward": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "fast_forward"
+        "set": "sf",
+        "name": "forward"
       }
     },
     "media-seek-backward": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "fast_rewind"
+        "set": "sf",
+        "name": "backward"
       }
     },
     "media-record": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "fiber_manual_record"
+        "set": "sf",
+        "name": "record.circle"
       }
     },
     "media-eject": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "eject"
       }
     },
     "media-playlist-shuffle": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "shuffle"
       }
     },
     "media-playlist-repeat": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "repeat"
       }
     },
     "media-default-album": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "album"
+        "set": "sf",
+        "name": "opticaldisc"
       }
     },
     "camera-photo": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "photo_camera"
+        "set": "sf",
+        "name": "camera"
       },
       "aliases": [
         "camera-photo-symbolic"
@@ -1565,8 +1565,8 @@
     "camera-video": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "videocam"
+        "set": "sf",
+        "name": "video"
       },
       "aliases": [
         "camera-web"
@@ -1575,36 +1575,36 @@
     "audio-volume-high": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "volume_up"
+        "set": "sf",
+        "name": "speaker.wave.3"
       }
     },
     "audio-volume-medium": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "volume_down"
+        "set": "sf",
+        "name": "speaker.wave.2"
       }
     },
     "audio-volume-low": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "volume_mute"
+        "set": "sf",
+        "name": "speaker.wave.1"
       }
     },
     "audio-volume-muted": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "volume_off"
+        "set": "sf",
+        "name": "speaker.slash"
       }
     },
     "microphone-sensitivity-high": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "mic"
+        "set": "sf",
+        "name": "microphone"
       },
       "aliases": [
         "microphone-sensitivity-medium",
@@ -1615,8 +1615,8 @@
     "microphone-sensitivity-muted": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "mic_off"
+        "set": "sf",
+        "name": "microphone.slash"
       },
       "aliases": [
         "audio-input-microphone-muted"
@@ -1625,8 +1625,8 @@
     "system-run": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "terminal"
+        "set": "sf",
+        "name": "apple.terminal"
       },
       "aliases": [
         "utilities-terminal",
@@ -1638,22 +1638,22 @@
     "system-shutdown": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "power_settings_new"
+        "set": "sf",
+        "name": "power"
       }
     },
     "system-reboot": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "restart_alt"
+        "set": "sf",
+        "name": "arrow.counterclockwise.circle"
       }
     },
     "system-suspend": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "bedtime"
+        "set": "sf",
+        "name": "moon.zzz"
       },
       "aliases": [
         "system-suspend-hibernate"
@@ -1662,7 +1662,7 @@
     "system-lock-screen": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "lock"
       },
       "aliases": [
@@ -1673,36 +1673,36 @@
     "system-log-out": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "logout"
+        "set": "sf",
+        "name": "rectangle.portrait.and.arrow.right"
       }
     },
     "system-switch-user": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "switch_account"
+        "set": "sf",
+        "name": "person.2"
       }
     },
     "system-file-manager": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "folder"
       }
     },
     "system-search": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "search"
+        "set": "sf",
+        "name": "magnifyingglass"
       }
     },
     "system-software-update": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "update"
+        "set": "sf",
+        "name": "arrow.trianglehead.2.clockwise.rotate.90"
       },
       "aliases": [
         "update-none",
@@ -1715,15 +1715,15 @@
     "system-help": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "help"
+        "set": "sf",
+        "name": "questionmark.circle"
       }
     },
     "download": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "download"
+        "set": "sf",
+        "name": "arrow.down.circle"
       },
       "aliases": [
         "cloud-download",
@@ -1734,8 +1734,8 @@
     "upload": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "upload"
+        "set": "sf",
+        "name": "arrow.up.circle"
       },
       "aliases": [
         "cloud-upload",
@@ -1745,29 +1745,29 @@
     "network-connect": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "link"
       }
     },
     "network-disconnect": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "link_off"
+        "set": "sf",
+        "name": "link.badge.plus"
       }
     },
     "call-start": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "call"
+        "set": "sf",
+        "name": "phone"
       }
     },
     "mail-message-new": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "mail"
+        "set": "sf",
+        "name": "envelope"
       },
       "aliases": [
         "mail-message",
@@ -1779,8 +1779,8 @@
     "im-user": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "chat_bubble"
+        "set": "sf",
+        "name": "bubble.left"
       },
       "aliases": [
         "internet-chat",
@@ -1790,8 +1790,8 @@
     "games-config-options": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "sports_esports"
+        "set": "sf",
+        "name": "gamecontroller"
       },
       "aliases": [
         "input-gaming",
@@ -1801,8 +1801,8 @@
     "code-context": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "code"
+        "set": "sf",
+        "name": "chevron.left.forwardslash.chevron.right"
       },
       "aliases": [
         "code-block",
@@ -1812,22 +1812,22 @@
     "distribute-horizontal": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "horizontal_distribute"
+        "set": "sf",
+        "name": "arrow.left.and.right"
       }
     },
     "distribute-vertical": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "vertical_distribute"
+        "set": "sf",
+        "name": "arrow.up.and.down"
       }
     },
     "visibility": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "visibility"
+        "set": "sf",
+        "name": "eye"
       },
       "aliases": [
         "view-visible-symbolic",
@@ -1837,36 +1837,36 @@
     "hint": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "lightbulb"
       }
     },
     "labplot-auto-scale-all": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "fit_screen"
+        "set": "sf",
+        "name": "arrow.up.left.and.arrow.down.right"
       }
     },
     "edit-image-face-detect": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "face"
+        "set": "sf",
+        "name": "face.smiling"
       }
     },
     "games-highscores": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "emoji_events"
+        "set": "sf",
+        "name": "trophy"
       }
     },
     "clock": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "schedule"
+        "set": "sf",
+        "name": "clock"
       },
       "aliases": [
         "chronometer",
@@ -1876,8 +1876,8 @@
     "calendar": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "calendar_today"
+        "set": "sf",
+        "name": "calendar"
       },
       "aliases": [
         "view-calendar",
@@ -1887,8 +1887,8 @@
     "window": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "web_asset"
+        "set": "sf",
+        "name": "macwindow"
       },
       "aliases": [
         "window-duplicate"
@@ -1897,8 +1897,8 @@
     "desktop": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "desktop_windows"
+        "set": "sf",
+        "name": "desktopcomputer"
       },
       "aliases": [
         "user-desktop-symbolic",
@@ -1908,8 +1908,8 @@
     "virtual-desktops": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "grid_view"
+        "set": "sf",
+        "name": "square.grid.2x2"
       },
       "aliases": [
         "preferences-desktop-virtual"
@@ -1918,8 +1918,8 @@
     "cursor-arrow": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "arrow_selector_tool"
+        "set": "sf",
+        "name": "cursorarrow"
       },
       "aliases": [
         "preferences-desktop-cursors",
@@ -1929,92 +1929,92 @@
     "draw-brush": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "brush"
+        "set": "sf",
+        "name": "paintbrush"
       }
     },
     "draw-text": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "title"
+        "set": "sf",
+        "name": "textformat.size"
       }
     },
     "draw-rectangle": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "rectangle"
       }
     },
     "draw-ellipse": {
       "context": "actions",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "circle"
       }
     },
     "draw-line": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "horizontal_rule"
+        "set": "sf",
+        "name": "minus"
       }
     },
     "draw-arrow": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "north_east"
+        "set": "sf",
+        "name": "arrow.up.right"
       }
     },
     "draw-highlight": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "ink_highlighter"
+        "set": "sf",
+        "name": "highlighter"
       }
     },
     "draw-eraser": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "ink_eraser"
+        "set": "sf",
+        "name": "eraser"
       }
     },
     "draw-freehand": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "gesture"
+        "set": "sf",
+        "name": "scribble"
       }
     },
     "blur": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "blur_on"
+        "set": "sf",
+        "name": "drop"
       }
     },
     "pixelate": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "grid_4x4"
+        "set": "sf",
+        "name": "grid"
       }
     },
     "select-rectangular": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "crop_free"
+        "set": "sf",
+        "name": "arrow.up.left.and.down.right.magnifyingglass"
       }
     },
     "screenshot": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "screenshot_monitor"
+        "set": "sf",
+        "name": "camera.viewfinder"
       },
       "aliases": [
         "spectacle"
@@ -2023,8 +2023,8 @@
     "screen-record": {
       "context": "actions",
       "glyph": {
-        "set": "material",
-        "name": "screen_record"
+        "set": "sf",
+        "name": "record.circle"
       },
       "aliases": [
         "media-record-symbolic"
@@ -2033,8 +2033,8 @@
     "drive-harddisk": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "hard_drive"
+        "set": "sf",
+        "name": "internaldrive"
       },
       "aliases": [
         "drive-harddisk-symbolic",
@@ -2046,8 +2046,8 @@
     "drive-removable-media": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "usb"
+        "set": "sf",
+        "name": "cable.connector"
       },
       "aliases": [
         "drive-removable-media-usb",
@@ -2061,8 +2061,8 @@
     "drive-optical": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "album"
+        "set": "sf",
+        "name": "opticaldisc"
       },
       "aliases": [
         "media-optical",
@@ -2076,8 +2076,8 @@
     "computer": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "computer"
+        "set": "sf",
+        "name": "desktopcomputer"
       },
       "aliases": [
         "computer-laptop",
@@ -2087,8 +2087,8 @@
     "phone": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "smartphone"
+        "set": "sf",
+        "name": "iphone"
       },
       "aliases": [
         "smartphone",
@@ -2101,15 +2101,15 @@
     "tablet": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "tablet"
+        "set": "sf",
+        "name": "ipad"
       }
     },
     "printer": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "print"
+        "set": "sf",
+        "name": "printer"
       },
       "aliases": [
         "printer-symbolic",
@@ -2119,14 +2119,14 @@
     "scanner": {
       "context": "devices",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "scanner"
       }
     },
     "audio-headphones": {
       "context": "devices",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "headphones"
       },
       "aliases": [
@@ -2136,8 +2136,8 @@
     "audio-speakers": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "speaker"
+        "set": "sf",
+        "name": "hifispeaker"
       },
       "aliases": [
         "audio-speakers-symbolic"
@@ -2146,8 +2146,8 @@
     "audio-card-devices": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "music_note"
+        "set": "sf",
+        "name": "music.note"
       },
       "aliases": [
         "audio-card-symbolic"
@@ -2156,8 +2156,8 @@
     "input-mouse-devices": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "mouse"
+        "set": "sf",
+        "name": "computermouse"
       },
       "aliases": [
         "input-mouse-symbolic"
@@ -2166,7 +2166,7 @@
     "input-keyboard-devices": {
       "context": "devices",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "keyboard"
       },
       "aliases": [
@@ -2177,8 +2177,8 @@
     "input-gaming-devices": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "sports_esports"
+        "set": "sf",
+        "name": "gamecontroller"
       },
       "aliases": [
         "input-gamepad",
@@ -2188,8 +2188,8 @@
     "input-tablet": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "draw"
+        "set": "sf",
+        "name": "pencil.tip"
       },
       "aliases": [
         "input-tablet-symbolic"
@@ -2198,8 +2198,8 @@
     "camera-devices": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "photo_camera"
+        "set": "sf",
+        "name": "camera"
       },
       "aliases": [
         "camera-photo-devices",
@@ -2209,7 +2209,7 @@
     "network-wireless-devices": {
       "context": "devices",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "wifi"
       },
       "aliases": [
@@ -2221,8 +2221,8 @@
     "network-wired-devices": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "settings_ethernet"
+        "set": "sf",
+        "name": "cable.connector"
       },
       "aliases": [
         "network-wired",
@@ -2232,8 +2232,8 @@
     "monitor": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "monitor"
+        "set": "sf",
+        "name": "display"
       },
       "aliases": [
         "video-display-devices",
@@ -2243,8 +2243,8 @@
     "cpu": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "memory"
+        "set": "sf",
+        "name": "memorychip"
       },
       "aliases": [
         "cpu-symbolic",
@@ -2254,8 +2254,8 @@
     "battery-devices": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "battery_full"
+        "set": "sf",
+        "name": "battery.100percent"
       },
       "aliases": [
         "battery-symbolic",
@@ -2265,8 +2265,8 @@
     "modem": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "router"
+        "set": "sf",
+        "name": "wifi.router"
       },
       "aliases": [
         "network-modem"
@@ -2275,8 +2275,8 @@
     "media-tape": {
       "context": "devices",
       "glyph": {
-        "set": "material",
-        "name": "save"
+        "set": "sf",
+        "name": "square.and.arrow.down"
       },
       "aliases": [
         "media-floppy"
@@ -2285,7 +2285,7 @@
     "network-wireless-connected-100": {
       "context": "status",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "wifi"
       },
       "aliases": [
@@ -2298,7 +2298,7 @@
     "network-wireless-connected-80": {
       "context": "status",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "wifi"
       },
       "aliases": [
@@ -2309,8 +2309,8 @@
     "network-wireless-connected-60": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "wifi_2_bar"
+        "set": "sf",
+        "name": "wifi"
       },
       "aliases": [
         "network-wireless-60",
@@ -2320,8 +2320,8 @@
     "network-wireless-connected-40": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "wifi_2_bar"
+        "set": "sf",
+        "name": "wifi"
       },
       "aliases": [
         "network-wireless-40",
@@ -2331,8 +2331,8 @@
     "network-wireless-connected-20": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "wifi_1_bar"
+        "set": "sf",
+        "name": "wifi"
       },
       "aliases": [
         "network-wireless-20",
@@ -2344,8 +2344,8 @@
     "network-wireless-disconnected": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "wifi_off"
+        "set": "sf",
+        "name": "wifi.slash"
       },
       "aliases": [
         "network-wireless-off",
@@ -2356,8 +2356,8 @@
     "network-wireless-acquiring": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "wifi_find"
+        "set": "sf",
+        "name": "wifi.exclamationmark"
       },
       "aliases": [
         "network-wireless-connecting"
@@ -2366,15 +2366,15 @@
     "network-wireless-hotspot": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "wifi_tethering"
+        "set": "sf",
+        "name": "personalhotspot"
       }
     },
     "network-wired-activated": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "settings_ethernet"
+        "set": "sf",
+        "name": "cable.connector"
       },
       "aliases": [
         "network-wired-connected",
@@ -2386,8 +2386,8 @@
     "network-wired-unavailable": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "cable"
+        "set": "sf",
+        "name": "cable.connector"
       },
       "aliases": [
         "network-wired-disconnected",
@@ -2399,8 +2399,8 @@
     "network-vpn": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "vpn_lock"
+        "set": "sf",
+        "name": "lock.shield"
       },
       "aliases": [
         "network-vpn-symbolic",
@@ -2410,8 +2410,8 @@
     "network-mobile-100": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "signal_cellular_4_bar"
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right"
       },
       "aliases": [
         "network-mobile-connected",
@@ -2421,22 +2421,22 @@
     "network-flightmode-on": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "airplanemode_active"
+        "set": "sf",
+        "name": "airplane"
       }
     },
     "network-flightmode-off": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "airplanemode_inactive"
+        "set": "sf",
+        "name": "airplane"
       }
     },
     "audio-volume-high-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "volume_up"
+        "set": "sf",
+        "name": "speaker.wave.3"
       },
       "aliases": [
         "audio-volume-high",
@@ -2447,8 +2447,8 @@
     "audio-volume-medium-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "volume_down"
+        "set": "sf",
+        "name": "speaker.wave.2"
       },
       "aliases": [
         "audio-volume-medium",
@@ -2458,8 +2458,8 @@
     "audio-volume-low-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "volume_mute"
+        "set": "sf",
+        "name": "speaker.wave.1"
       },
       "aliases": [
         "audio-volume-low",
@@ -2469,8 +2469,8 @@
     "audio-volume-muted-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "volume_off"
+        "set": "sf",
+        "name": "speaker.slash"
       },
       "aliases": [
         "audio-volume-muted",
@@ -2481,8 +2481,8 @@
     "microphone-sensitivity-high-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "mic"
+        "set": "sf",
+        "name": "microphone"
       },
       "aliases": [
         "microphone-sensitivity-high",
@@ -2495,8 +2495,8 @@
     "microphone-sensitivity-muted-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "mic_off"
+        "set": "sf",
+        "name": "microphone.slash"
       },
       "aliases": [
         "microphone-sensitivity-muted",
@@ -2507,8 +2507,8 @@
     "preferences-system-bluetooth-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "bluetooth"
+        "set": "sf",
+        "name": "wave.3.right"
       },
       "aliases": [
         "preferences-system-bluetooth",
@@ -2521,8 +2521,8 @@
     "preferences-system-bluetooth-inactive": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "bluetooth_disabled"
+        "set": "sf",
+        "name": "wave.3.right.circle"
       },
       "aliases": [
         "bluetooth-disabled",
@@ -2534,8 +2534,8 @@
     "bluetooth-connected-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "bluetooth_connected"
+        "set": "sf",
+        "name": "wave.3.right.circle"
       },
       "aliases": [
         "bluetooth-connected",
@@ -2546,8 +2546,8 @@
     "notifications": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "notifications"
+        "set": "sf",
+        "name": "bell"
       },
       "aliases": [
         "notifications-symbolic",
@@ -2557,8 +2557,8 @@
     "notifications-disabled": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "notifications_off"
+        "set": "sf",
+        "name": "bell.slash"
       },
       "aliases": [
         "notifications-disabled-symbolic",
@@ -2568,8 +2568,8 @@
     "notification-active": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "notifications_active"
+        "set": "sf",
+        "name": "bell.badge"
       },
       "aliases": [
         "notification-new",
@@ -2579,8 +2579,8 @@
     "notification-inactive": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "notifications"
+        "set": "sf",
+        "name": "bell"
       },
       "aliases": [
         "notification-disabled",
@@ -2590,8 +2590,8 @@
     "edit-paste-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "content_paste"
+        "set": "sf",
+        "name": "document.on.clipboard"
       },
       "aliases": [
         "klipper",
@@ -2602,8 +2602,8 @@
     "battery-100-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "battery_full"
+        "set": "sf",
+        "name": "battery.100percent"
       },
       "aliases": [
         "battery-100",
@@ -2617,8 +2617,8 @@
     "battery-080-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "battery_6_bar"
+        "set": "sf",
+        "name": "battery.75percent"
       },
       "aliases": [
         "battery-080",
@@ -2630,8 +2630,8 @@
     "battery-060-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "battery_5_bar"
+        "set": "sf",
+        "name": "battery.75percent"
       },
       "aliases": [
         "battery-060",
@@ -2643,8 +2643,8 @@
     "battery-040-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "battery_3_bar"
+        "set": "sf",
+        "name": "battery.50percent"
       },
       "aliases": [
         "battery-040",
@@ -2656,8 +2656,8 @@
     "battery-020-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "battery_2_bar"
+        "set": "sf",
+        "name": "battery.25percent"
       },
       "aliases": [
         "battery-020",
@@ -2670,8 +2670,8 @@
     "battery-000-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "battery_alert"
+        "set": "sf",
+        "name": "battery.0percent"
       },
       "aliases": [
         "battery-000",
@@ -2686,8 +2686,8 @@
     "battery-charging-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "battery_charging_full"
+        "set": "sf",
+        "name": "battery.100percent.bolt"
       },
       "aliases": [
         "battery-charging",
@@ -2698,8 +2698,8 @@
     "preferences-desktop-display-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "monitor"
+        "set": "sf",
+        "name": "display"
       },
       "aliases": [
         "preferences-desktop-display",
@@ -2713,7 +2713,7 @@
     "input-keyboard-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "keyboard"
       },
       "aliases": [
@@ -2726,8 +2726,8 @@
     "input-keyboard-virtual-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "keyboard_alt"
+        "set": "sf",
+        "name": "keyboard"
       },
       "aliases": [
         "input-keyboard-virtual",
@@ -2740,8 +2740,8 @@
     "device-notifier": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "usb"
+        "set": "sf",
+        "name": "cable.connector"
       },
       "aliases": [
         "device-notifier-symbolic",
@@ -2752,8 +2752,8 @@
     "media-playback-start-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "play_arrow"
+        "set": "sf",
+        "name": "play"
       },
       "aliases": [
         "media-playback-start",
@@ -2765,7 +2765,7 @@
     "media-playback-pause-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "pause"
       },
       "aliases": [
@@ -2777,7 +2777,7 @@
     "media-playback-stop-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "stop"
       },
       "aliases": [
@@ -2788,8 +2788,8 @@
     "redshift-status-on": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "nightlight"
+        "set": "sf",
+        "name": "moon"
       },
       "aliases": [
         "redshift-status-day",
@@ -2802,8 +2802,8 @@
     "redshift-status-off": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "light_mode"
+        "set": "sf",
+        "name": "sun.max"
       },
       "aliases": [
         "preferences-desktop-display-nightcolor-off",
@@ -2813,8 +2813,8 @@
     "brightness-high": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "brightness_7"
+        "set": "sf",
+        "name": "sun.max"
       },
       "aliases": [
         "video-display-brightness",
@@ -2826,8 +2826,8 @@
     "brightness-low": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "brightness_5"
+        "set": "sf",
+        "name": "sun.min"
       },
       "aliases": [
         "low-brightness",
@@ -2837,7 +2837,7 @@
     "keyboard-brightness": {
       "context": "status",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "keyboard"
       },
       "aliases": [
@@ -2848,8 +2848,8 @@
     "update-none-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "task_alt"
+        "set": "sf",
+        "name": "checkmark.circle"
       },
       "aliases": [
         "update-none",
@@ -2860,8 +2860,8 @@
     "update-low-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "update"
+        "set": "sf",
+        "name": "arrow.trianglehead.2.clockwise.rotate.90"
       },
       "aliases": [
         "update-low",
@@ -2877,8 +2877,8 @@
     "security-high": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "verified_user"
+        "set": "sf",
+        "name": "checkmark.shield"
       },
       "aliases": [
         "security-high-symbolic",
@@ -2888,8 +2888,8 @@
     "security-low": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "gpp_maybe"
+        "set": "sf",
+        "name": "exclamationmark.shield"
       },
       "aliases": [
         "security-low-symbolic"
@@ -2898,7 +2898,7 @@
     "object-locked-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "lock"
       },
       "aliases": [
@@ -2911,8 +2911,8 @@
     "object-unlocked-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "lock_open"
+        "set": "sf",
+        "name": "lock.open"
       },
       "aliases": [
         "object-unlocked",
@@ -2924,8 +2924,8 @@
     "dialog-information-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "info"
+        "set": "sf",
+        "name": "info.circle"
       },
       "aliases": [
         "dialog-information",
@@ -2938,8 +2938,8 @@
     "dialog-warning-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "warning"
+        "set": "sf",
+        "name": "exclamationmark.triangle"
       },
       "aliases": [
         "dialog-warning",
@@ -2953,8 +2953,8 @@
     "dialog-error-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "error"
+        "set": "sf",
+        "name": "xmark.octagon"
       },
       "aliases": [
         "dialog-error",
@@ -2968,8 +2968,8 @@
     "dialog-ok-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "check_circle"
+        "set": "sf",
+        "name": "checkmark.circle"
       },
       "aliases": [
         "dialog-ok",
@@ -2983,8 +2983,8 @@
     "dialog-question-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "help"
+        "set": "sf",
+        "name": "questionmark.circle"
       },
       "aliases": [
         "dialog-question",
@@ -2994,8 +2994,8 @@
     "user-available": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "check_circle"
+        "set": "sf",
+        "name": "checkmark.circle"
       },
       "aliases": [
         "user-online",
@@ -3005,8 +3005,8 @@
     "user-away": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "schedule"
+        "set": "sf",
+        "name": "clock"
       },
       "aliases": [
         "user-idle",
@@ -3016,8 +3016,8 @@
     "user-busy": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "do_not_disturb_on"
+        "set": "sf",
+        "name": "minus.circle"
       },
       "aliases": [
         "im-user-busy"
@@ -3026,8 +3026,8 @@
     "user-offline": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "radio_button_unchecked"
+        "set": "sf",
+        "name": "circle"
       },
       "aliases": [
         "im-user-offline",
@@ -3037,8 +3037,8 @@
     "plasma-search": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "search"
+        "set": "sf",
+        "name": "magnifyingglass"
       },
       "aliases": [
         "krunner",
@@ -3048,8 +3048,8 @@
     "vault-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "enhanced_encryption"
+        "set": "sf",
+        "name": "lock.shield"
       },
       "aliases": [
         "plasmavault",
@@ -3059,8 +3059,8 @@
     "weather-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "partly_cloudy_day"
+        "set": "sf",
+        "name": "cloud.sun"
       },
       "aliases": [
         "weather-few-clouds",
@@ -3070,8 +3070,8 @@
     "sync-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "sync"
+        "set": "sf",
+        "name": "arrow.trianglehead.2.clockwise.rotate.90"
       },
       "aliases": [
         "state-sync",
@@ -3082,8 +3082,8 @@
     "printer-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "print"
+        "set": "sf",
+        "name": "printer"
       },
       "aliases": [
         "printer-symbolic",
@@ -3095,8 +3095,8 @@
     "caffeine-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "coffee"
+        "set": "sf",
+        "name": "cup.and.saucer"
       },
       "aliases": [
         "caffeine",
@@ -3109,8 +3109,8 @@
     "nvidia-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "developer_board"
+        "set": "sf",
+        "name": "cpu"
       },
       "aliases": [
         "nvidia-settings-symbolic"
@@ -3119,8 +3119,8 @@
     "kdeconnect-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "devices"
+        "set": "sf",
+        "name": "laptopcomputer"
       },
       "aliases": [
         "kdeconnect",
@@ -3134,8 +3134,8 @@
     "touchpad-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "touchpad_mouse"
+        "set": "sf",
+        "name": "rectangle.and.hand.point.up.left"
       },
       "aliases": [
         "input-touchpad",
@@ -3148,8 +3148,8 @@
     "power-profile-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "speed"
+        "set": "sf",
+        "name": "gauge.with.needle"
       },
       "aliases": [
         "power-profile-performance",
@@ -3160,8 +3160,8 @@
     "camera-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "videocam"
+        "set": "sf",
+        "name": "video"
       },
       "aliases": [
         "camera-on",
@@ -3173,8 +3173,8 @@
     "location-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "location_on"
+        "set": "sf",
+        "name": "location"
       },
       "aliases": [
         "mark-location",
@@ -3184,8 +3184,8 @@
     "cast-status": {
       "context": "status",
       "glyph": {
-        "set": "material",
-        "name": "cast"
+        "set": "sf",
+        "name": "airplay.video"
       },
       "aliases": [
         "screen-share",
@@ -3195,7 +3195,7 @@
     "emblem-symbolic-link": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "link"
       },
       "aliases": [
@@ -3205,7 +3205,7 @@
     "emblem-locked-emblem": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "lock"
       },
       "aliases": [
@@ -3216,8 +3216,8 @@
     "emblem-unlocked-emblem": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "lock_open"
+        "set": "sf",
+        "name": "lock.open"
       },
       "aliases": [
         "emblem-unlocked"
@@ -3226,8 +3226,8 @@
     "emblem-mounted": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "check_circle"
+        "set": "sf",
+        "name": "checkmark.circle"
       },
       "aliases": [
         "emblem-mounted-symbolic",
@@ -3237,7 +3237,7 @@
     "emblem-unmounted": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "eject"
       },
       "aliases": [
@@ -3247,7 +3247,7 @@
     "emblem-favorite-emblem": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "star"
       },
       "aliases": [
@@ -3257,8 +3257,8 @@
     "emblem-shared": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "share"
+        "set": "sf",
+        "name": "square.and.arrow.up"
       },
       "aliases": [
         "emblem-shared-symbolic"
@@ -3267,22 +3267,22 @@
     "emblem-important": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "priority_high"
+        "set": "sf",
+        "name": "exclamationmark"
       }
     },
     "emblem-new": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "fiber_new"
+        "set": "sf",
+        "name": "sparkle"
       }
     },
     "emblem-encrypted": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "enhanced_encryption"
+        "set": "sf",
+        "name": "lock.shield"
       },
       "aliases": [
         "emblem-encrypted-locked",
@@ -3292,15 +3292,15 @@
     "emblem-added": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "add_circle"
+        "set": "sf",
+        "name": "plus.circle"
       }
     },
     "emblem-remove-emblem": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "do_not_disturb_on"
+        "set": "sf",
+        "name": "minus.circle"
       },
       "aliases": [
         "emblem-remove",
@@ -3310,43 +3310,43 @@
     "emblem-downloads": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "download"
+        "set": "sf",
+        "name": "arrow.down.circle"
       }
     },
     "emblem-music-symbolic": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "music_note"
+        "set": "sf",
+        "name": "music.note"
       }
     },
     "emblem-photos-symbolic": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "photo"
       }
     },
     "emblem-videos-symbolic": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "movie"
+        "set": "sf",
+        "name": "film"
       }
     },
     "emblem-documents-symbolic": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "description"
+        "set": "sf",
+        "name": "text.document"
       }
     },
     "emblem-default": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "check"
+        "set": "sf",
+        "name": "checkmark"
       },
       "aliases": [
         "emblem-default-symbolic",
@@ -3356,15 +3356,15 @@
     "emblem-pause": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "pause_circle"
+        "set": "sf",
+        "name": "pause.circle"
       }
     },
     "emblem-synchronizing": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "sync"
+        "set": "sf",
+        "name": "arrow.trianglehead.2.clockwise.rotate.90"
       },
       "aliases": [
         "emblem-synchronizing-symbolic",
@@ -3374,8 +3374,8 @@
     "emblem-unavailable": {
       "context": "emblems",
       "glyph": {
-        "set": "material",
-        "name": "block"
+        "set": "sf",
+        "name": "nosign"
       },
       "aliases": [
         "emblem-unavailable-symbolic",

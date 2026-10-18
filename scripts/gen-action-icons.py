@@ -33,13 +33,22 @@ STYLE = ('<defs><style type="text/css" id="current-color-scheme">'
 
 
 def read_glyph(path):
+    """(viewBox, path d list, inner transform). SF Symbol exports have px
+    width/height instead of a viewBox and a flipped <g>; keep the transform."""
     text = path.read_text()
     vb = re.search(r'viewBox="([^"]+)"', text)
-    vb = tuple(float(v) for v in vb.group(1).split()) if vb else (0, 0, 24, 24)
-    ds = re.findall(r'<path[^>]*\sd="([^"]+)"', text)
+    if vb:
+        vb = tuple(float(v) for v in vb.group(1).split())
+    else:
+        w = re.search(r"width=['\"]([0-9.]+)", text)
+        h = re.search(r"height=['\"]([0-9.]+)", text)
+        vb = (0, 0, float(w.group(1)) if w else 24, float(h.group(1)) if h else 24)
+    ds = re.findall(r"<path[^>]*\sd=['\"]([^'\"]+)['\"]", text, re.S)
     if not ds:
         raise ValueError(f"no path in {path}")
-    return vb, ds
+    ds = [re.sub(r"\s+", " ", d).strip() for d in ds]
+    tr = re.search(r"<g[^>]*transform=['\"]([^'\"]+)['\"]", text)
+    return vb, ds, (tr.group(1) if tr else "")
 
 
 def glyph_path_for(glyph, fill):
@@ -50,7 +59,13 @@ def glyph_path_for(glyph, fill):
     return GLYPHS / set_ / f"{glyph['name']}.svg"
 
 
-def symbolic_svg(vb, ds, size):
+GLYPH_TOKENS = json.load(open(TOKENS / "glyphs.json"))
+# Extra stroke, in source units, added around SF outlines so they hold up at
+# 16 px. SF exports are drawn with a 1 unit stroke on a ~80 unit grid.
+SF_STROKE = float(GLYPH_TOKENS.get("sf_symbolic_stroke", 2.5))
+
+
+def symbolic_svg(vb, ds, size, inner_tr="", stroke=0.0):
     """Wrap the glyph paths in a size-by-size SVG that scales the source grid
     to the icon box. Material's viewBox is 0 -960 960 960; Phosphor's is
     0 0 256 256. Both are designed with their own optical padding."""
@@ -59,9 +74,14 @@ def symbolic_svg(vb, ds, size):
     tx = -x0 * s + (size - w * s) / 2
     ty = -y0 * s + (size - h * s) / 2
     paths = "".join(f'<path d="{d}"/>' for d in ds)
+    if inner_tr:
+        paths = f'<g transform="{inner_tr}">{paths}</g>'
+    # GNOME recolours a symbolic icon by replacing this fill; KDE uses the
+    # stylesheet class. Both are present so one file serves both desktops.
+    stroke_attr = (f' stroke="#bebebe" stroke-width="{stroke}" stroke-linejoin="round"' if stroke else "")
     return (f'<svg xmlns="http://www.w3.org/2000/svg" width="{size}" height="{size}" '
             f'viewBox="0 0 {size} {size}">{STYLE}'
-            f'<g class="ColorScheme-Text" fill="currentColor" '
+            f'<g class="ColorScheme-Text" fill="#bebebe"{stroke_attr} '
             f'transform="translate({tx:.4f},{ty:.4f}) scale({s:.6f})">{paths}</g></svg>\n')
 
 
@@ -83,9 +103,10 @@ def write_index_theme(contexts):
     dirs = [f"apps/{s}" for s in APP_SIZES] + ["apps/scalable"]
     for ctx, cfg in contexts.items():
         dirs += [f"{ctx}/{s}" for s in cfg["sizes"]]
+    dirs += [f"symbolic/{ctx}" for ctx in contexts]
     lines = ["[Icon Theme]", "Name=Tahoe-Material",
              "Comment=macOS Tahoe glass squircles with Material and Phosphor glyphs",
-             "Inherits=MacTahoe-dark,breeze-dark,breeze,hicolor",
+             "Inherits=MacTahoe-dark,Adwaita,breeze-dark,breeze,hicolor",
              "FollowsColorScheme=true",
              "Directories=" + ",".join(dirs), ""]
     for s in APP_SIZES:
@@ -97,6 +118,8 @@ def write_index_theme(contexts):
     for ctx, cfg in contexts.items():
         for s in cfg["sizes"]:
             lines += [f"[{ctx}/{s}]", f"Size={s}", f"Context={ctx_names[ctx]}", "Type=Fixed", ""]
+    for ctx in contexts:
+        lines += [f"[symbolic/{ctx}]", "Size=16", "MinSize=8", "MaxSize=512", f"Context={ctx_names[ctx]}", "Type=Scalable", ""]
     (THEME / "index.theme").write_text("\n".join(lines))
 
 
@@ -118,6 +141,10 @@ def main():
             if not src.exists():
                 missing.append((name, entry["source"]))
                 continue
+            sd = THEME / "symbolic" / ctx
+            sd.mkdir(parents=True, exist_ok=True)
+            for n in names:
+                (sd / f"{n}-symbolic.svg").write_text(asset_svg(src, 16, entry.get("scale", 0.86)))
             for size in cfg["sizes"]:
                 d = THEME / ctx / str(size)
                 d.mkdir(parents=True, exist_ok=True)
@@ -131,11 +158,19 @@ def main():
         if not gpath.exists():
             missing.append((name, str(gpath.relative_to(ROOT))))
             continue
-        vb, ds = read_glyph(gpath)
+        vb, ds, inner_tr = read_glyph(gpath)
+        stroke = SF_STROKE if entry["glyph"]["set"] == "sf" else 0.0
+        # GNOME: one scalable "-symbolic" file per name under symbolic/<ctx>/
+        sd = THEME / "symbolic" / ctx
+        sd.mkdir(parents=True, exist_ok=True)
+        svg16 = symbolic_svg(vb, ds, 16, inner_tr, stroke)
+        for n in names:
+            (sd / f"{n}-symbolic.svg").write_text(svg16)
+            written += 1
         for size in cfg["sizes"]:
             d = THEME / ctx / str(size)
             d.mkdir(parents=True, exist_ok=True)
-            svg = symbolic_svg(vb, ds, size)
+            svg = symbolic_svg(vb, ds, size, inner_tr, stroke)
             for n in names:
                 (d / f"{n}.svg").write_text(svg)
                 written += 1

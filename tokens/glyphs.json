@@ -1,5 +1,6 @@
 {
-  "_comment": "Glyph rendering tokens. material_weight is the Material Symbols variable weight (100 to 700); phosphor_weight is one of thin, light, regular, bold.",
+  "_comment": "Glyph rendering tokens. material_weight is the Material Symbols variable weight (100 to 700); phosphor_weight is one of thin, light, regular, bold. sf_symbolic_stroke is extra stroke in SF source units for symbolic icons so outlines hold at 16 px.",
   "material_weight": 600,
-  "phosphor_weight": "bold"
+  "phosphor_weight": "bold",
+  "sf_symbolic_stroke": 2.5
 }

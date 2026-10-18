@@ -390,3 +390,14 @@ no-op. Root cause of the square quick-settings box: Blur my Shell 75's new
 `popup` module (it blurs quick settings, menus, notifications and OSDs)
 paints an opaque fallback behind the popup on this machine. It and the
 applications module stay off; panel, dock, overview and app folders stay on.
+
+### Phase 14: SF symbolic icons on GNOME `[x]`
+
+All 361 symbolic names remapped from Material to SF Symbols (outlined cut),
+with alternatives checked against the SVG set for 31 names that had no
+direct match. The generator now reads the SF export format, adds a small
+extra stroke (`sf_symbolic_stroke` token) so outlines hold at 16 px, and
+writes GNOME-style `symbolic/<context>/*-symbolic.svg` files alongside the
+KDE sizes. The theme inherits Adwaita after MacTahoe-dark so anything
+unmapped keeps GNOME's own glyph. Verified on the top bar (Wi-Fi, volume,
+power) and in Files (sidebar places, toolbar).

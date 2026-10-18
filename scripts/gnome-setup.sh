@@ -110,6 +110,9 @@ if [[ -d "$EXT_DIR/blur-my-shell@aunetx/schemas" ]]; then
   # behind the quick-settings popup instead of blurring it. The panel, dock,
   # overview and app-folder modules give the look without it.
   bs .applications blur false
+  # The popup module (new in Blur my Shell 75) blurs the quick-settings and
+  # other shell popups and paints an opaque square when its blur fails. Off.
+  bs .popup blur false
 fi
 # Icons: the Tahoe-Material theme, SF Symbol watermarks on glass squircles.
 say "icons"

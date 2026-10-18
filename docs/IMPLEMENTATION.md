@@ -386,6 +386,7 @@ GNOME login from an autostart entry. It checks the seven ways the look has
 broken (theme files, extension folders, extensions not loaded, not enabled,
 shell theme fallen back to Adwaita, Blur my Shell applications module on,
 icon theme) and applies the known fix for each. On a healthy system it is a
-no-op. Root cause of the square quick-settings box: Blur my Shell's
-applications module paints an opaque fallback behind the popup on this
-machine; that module stays off, the others stay on.
+no-op. Root cause of the square quick-settings box: Blur my Shell 75's new
+`popup` module (it blurs quick settings, menus, notifications and OSDs)
+paints an opaque fallback behind the popup on this machine. It and the
+applications module stay off; panel, dock, overview and app folders stay on.

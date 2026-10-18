@@ -87,10 +87,12 @@ fi
 
 # 6. blur: applications module off
 BS="$EXT_DIR/blur-my-shell@aunetx/schemas"
-if [[ -d "$BS" && "$(gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell.applications blur)" == "true" ]]; then
-  log "turning off Blur my Shell applications module (breaks quick settings)"
-  gsettings --schemadir "$BS" set org.gnome.shell.extensions.blur-my-shell.applications blur false
-fi
+for mod in applications popup; do
+  if [[ -d "$BS" && "$(gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell.$mod blur 2>/dev/null)" == "true" ]]; then
+    log "turning off Blur my Shell $mod module (paints an opaque box behind popups here)"
+    gsettings --schemadir "$BS" set org.gnome.shell.extensions.blur-my-shell.$mod blur false
+  fi
+done
 
 # 7. icons
 [[ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Tahoe-Material'" ]] || { [[ -d "$HOME/.local/share/icons/Tahoe-Material" ]] && gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'; }

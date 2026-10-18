@@ -32,7 +32,7 @@ log() { printf '[tahoe-repair] %s\n' "$*"; }
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
-EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn)
+EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn nowplaying@epogonii.github.io)
 # Popup blur (quick settings, menus, notifications). Static mode renders on
 # this machine where dynamic painted an opaque box. Switch with
 #   tahoe-repair --popup-blur off      (writes config/popup-blur)
@@ -52,7 +52,7 @@ EOT
     exit 0 ;;
 esac
 POPUP_BLUR=true; [[ -f "$POPUP_FLAG" && "$(cat "$POPUP_FLAG")" == "off" ]] && POPUP_BLUR=false
-WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn']"
+WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn','nowplaying@epogonii.github.io']"
 SHELL_VER="$(gnome-shell --version 2>/dev/null | grep -oE '[0-9]+' | head -1)"
 changed=0
 
@@ -117,9 +117,17 @@ fi
 # variant: filled header bars. libadwaita apps keep the blur variant through
 # the gtk-4.0 config, which is independent of this setting.
 [[ "$(gsettings get org.gnome.desktop.interface gtk-theme)" == "'MacTahoe-Dark-solid'" ]] || { log "gtk3 theme drifted: resetting to the solid variant"; gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark-solid'; }
-# 5b. shell CSS overrides (quick settings icon size) survive a theme rebuild
+# 5b. shell CSS overrides (quick settings icon size, Now Playing card) survive
+#     a theme rebuild, and pick up rules added to the repo copy since
 CSS="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
-if [[ -f "$CSS" && -f "$ROOT/config/gnome-shell-overrides.css" ]] && { ! grep -q 'tahoe-overrides' "$CSS" || grep -q '.lightbox { background-color: transparent; }' "$CSS"; }; then
+ov_stale() {
+  python3 - "$CSS" "$ROOT/config/gnome-shell-overrides.css" <<'PY'
+import sys,re
+m=re.search(r"/\* tahoe-overrides:.*?/\* end tahoe-overrides \*/",open(sys.argv[1]).read(),flags=re.S)
+sys.exit(0 if not m or m.group(0).strip()!=open(sys.argv[2]).read().strip() else 1)
+PY
+}
+if [[ -f "$CSS" && -f "$ROOT/config/gnome-shell-overrides.css" ]] && { ov_stale || grep -q '.lightbox { background-color: transparent; }' "$CSS"; }; then
   log "re-applying shell CSS overrides"
   python3 - "$CSS" "$ROOT/config/gnome-shell-overrides.css" <<'PY'
 import sys,re

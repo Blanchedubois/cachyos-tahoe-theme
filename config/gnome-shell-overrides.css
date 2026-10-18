@@ -8,4 +8,38 @@
 .quick-settings-system-item .message-close-button > StIcon { icon-size: 20px; }
 .quick-toggle-icon { min-height: 44px !important; min-width: 44px !important; }
 
+/* Now Playing Card (nowplaying@epogonii.github.io) as macOS Tahoe's Now
+   Playing: one glass surface, 12 px artwork, white title over a dimmed
+   artist, a thin white progress line with no knob, bare white transport.
+   The extension's stylesheet loads after the shell theme, so every rule is
+   !important to win over its plain and np-dark rules. */
+.np-card { padding: 14px !important; spacing: 10px !important; border-radius: 20px !important; }
+.np-menu .np-stack-single .np-card { background-color: transparent !important; }
+.np-top-row { spacing: 12px !important; }
+.np-cover, .np-cover-button { border-radius: 12px !important; }
+.np-cover-empty { background-color: rgba(255, 255, 255, 0.10) !important; }
+.np-cover-button:hover .np-cover, .np-cover-button:focus .np-cover { box-shadow: none !important; }
+.np-labels { spacing: 1px !important; }
+.np-title { font-weight: bold !important; color: #ffffff !important; }
+.np-subtitle { color: rgba(255, 255, 255, 0.55) !important; font-size: 0.92em !important; }
+.np-seek, .np-seek:hover, .np-seek:focus,
+.np-volume, .np-volume:hover, .np-volume:focus {
+  -barlevel-height: 4px !important;
+  -slider-handle-radius: 0 !important;
+  -barlevel-border-width: 0 !important;
+  -barlevel-background-color: rgba(255, 255, 255, 0.18) !important;
+  -barlevel-active-background-color: rgba(255, 255, 255, 0.85) !important;
+}
+.np-seek:hover, .np-volume:hover { -barlevel-height: 6px !important; -barlevel-active-background-color: #ffffff !important; }
+.np-time { font-size: 0.7em !important; color: rgba(255, 255, 255, 0.5) !important; font-feature-settings: "tnum" !important; }
+.np-controls { spacing: 6px !important; }
+.np-control, .np-panel-control { color: #ffffff !important; background-color: transparent !important; padding: 6px !important; }
+.np-control:active, .np-panel-control:active { color: rgba(255, 255, 255, 0.55) !important; }
+.np-control:focus { background-color: rgba(255, 255, 255, 0.12) !important; }
+.np-control:insensitive, .np-control-off { color: rgba(255, 255, 255, 0.3) !important; }
+.np-card-expandable:hover, .np-card-expandable:focus,
+.np-stack .np-card-expandable:hover, .np-stack .np-card-expandable:focus { background-color: rgba(255, 255, 255, 0.10) !important; }
+.np-placeholder, .np-volume-icon { color: rgba(255, 255, 255, 0.55) !important; }
+.np-equalizer, .np-card-equalizer { color: #ffffff !important; }
+
 /* end tahoe-overrides */

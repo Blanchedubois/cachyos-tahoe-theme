@@ -9,8 +9,10 @@ something drifts.
 Built on [MacTahoe-gtk-theme](https://github.com/vinceliuice/MacTahoe-gtk-theme)
 and its icon set, with [Dash to Dock](https://github.com/micheleg/dash-to-dock),
 [Blur my Shell](https://github.com/aunetx/blur-my-shell),
-[AppIndicator](https://github.com/ubuntu/gnome-shell-extension-appindicator) and
-[Rounded Window Corners Reborn](https://github.com/flexagoon/rounded-window-corners).
+[AppIndicator](https://github.com/ubuntu/gnome-shell-extension-appindicator),
+[Rounded Window Corners Reborn](https://github.com/flexagoon/rounded-window-corners) and
+[Now Playing Card](https://github.com/epogonii/nowplaying-card), restyled as
+macOS's Now Playing.
 Glyphs from [SF Symbols SVG](https://github.com/brendanballon/sfsymbols-svg).
 
 The full history, decisions and findings are in

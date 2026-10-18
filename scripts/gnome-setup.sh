@@ -11,7 +11,7 @@ say() { printf '\033[1;36m==>\033[0m %s\n' "$*"; }
 SHELL_VER="$(gnome-shell --version | grep -oE '[0-9]+' | head -1)"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
-EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn)
+EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn nowplaying@epogonii.github.io)
 
 # 1. MacTahoe GTK + shell theme, exactly as the README recommends for GNOME:
 #    the blur variant (-b) since Blur my Shell is used, all colour and
@@ -75,7 +75,7 @@ gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,max
 gsettings set org.gnome.mutter draggable-border-width 28   # corners stay grabbable past the 24 px clip
 gsettings set org.gnome.shell disable-user-extensions false
 gsettings set org.gnome.shell enabled-extensions \
-  "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn']"
+  "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn','nowplaying@epogonii.github.io']"
 gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 gsettings set org.gnome.shell favorite-apps \
   "['org.gnome.Nautilus.desktop','firefox.desktop','discord.desktop','steam.desktop','com.anthropic.Claude.desktop','spotify.desktop','org.gnome.Console.desktop','org.gnome.Calculator.desktop','org.gnome.TextEditor.desktop','org.gnome.Settings.desktop']"
@@ -122,13 +122,31 @@ fi
 say "icons"
 mkdir -p "$HOME/.local/share/icons"; ln -sfn "$ROOT/icons/Tahoe-Material" "$HOME/.local/share/icons/Tahoe-Material"
 gtk-update-icon-cache -q -t -f "$HOME/.local/share/icons/Tahoe-Material" 2>/dev/null || true
+# Now Playing Card as macOS's Now Playing: an animated icon in the top bar
+# and no track text, a full card with large artwork, progress line and
+# transport only. The look itself is in gnome-shell-overrides.css.
+say "now playing"
+np() { gsettings --schemadir "$EXT_DIR/nowplaying@epogonii.github.io/schemas" set org.gnome.shell.extensions.nowplaying "$1" "$2"; }
+if [[ -d "$EXT_DIR/nowplaying@epogonii.github.io/schemas" ]]; then
+  np location 'panel'; np panel-box 'right'; np panel-text 'none'; np panel-icon true; np panel-controls false
+  np indicator-visibility 'active'; np hide-builtin-media true
+  np card-layout 'full'; np cover-size 'large'; np show-artwork true; np show-progress true
+  np show-volume false; np show-loop-shuffle false; np show-spectrum false
+  np equalizer-style 'rounded'; np equalizer-accent false; np animate-icon true
+fi
 # Desktop-entry overrides: launchers whose icon name or window class needs fixing (Steam games, HP tools).
 if compgen -G "$ROOT/overrides/*.desktop" >/dev/null; then mkdir -p "$HOME/.local/share/applications"; cp "$ROOT"/overrides/*.desktop "$HOME/.local/share/applications/"; update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true; fi
 gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'
 ln -sfn "$ROOT/icons/Tahoe-Material-KDE" "$HOME/.local/share/icons/Tahoe-Material-KDE"
 kwriteconfig6 --file kdeglobals --group Icons --key Theme Tahoe-Material-KDE
 CSS="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
-grep -q 'tahoe-overrides' "$CSS" || { printf '\n' >> "$CSS"; cat "$ROOT/config/gnome-shell-overrides.css" >> "$CSS"; }
+# Replace the block, not append once, so a rerun picks up new rules.
+python3 - "$CSS" "$ROOT/config/gnome-shell-overrides.css" <<'PY'
+import sys,re
+css=open(sys.argv[1]).read(); ov=open(sys.argv[2]).read()
+css=re.sub(r"\n/\* tahoe-overrides:.*?/\* end tahoe-overrides \*/\n","\n",css,flags=re.S)
+open(sys.argv[1],"w").write(css.rstrip()+"\n\n"+ov)
+PY
 # GTK3: round the bottom corners too (theme ships 24px 24px 0 0).
 for f in "$HOME"/.themes/MacTahoe-*/gtk-3.0/gtk.css "$HOME"/.themes/MacTahoe-*/gtk-3.0/gtk-dark.css; do [[ -f "$f" ]] && sed -i 's/border-radius: 24px 24px 0 0/border-radius: 24px/g' "$f"; done
 # Modal dialogs out of Blur my Shell's popup surfaces (whole-screen blur otherwise).

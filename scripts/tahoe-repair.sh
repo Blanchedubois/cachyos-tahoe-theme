@@ -16,7 +16,8 @@
 #   6. Blur my Shell module config: applications on a system-app whitelist, popup per POPUP_BLUR
 #   7. icon theme is Tahoe-Material and its files are present
 #   8. extension builds match the running GNOME version (else re-fetch)
-#   9. interface drift: GTK theme, cursor, button layout (never the wallpaper)
+#   9. interface drift: GTK theme, cursor, button layout, resize border (never the wallpaper)
+#  --gdm prints the root commands for the MacTahoe login screen
 #  10. dock drift: Dash to Dock back on the theme's own styling
 #  11. dock stylesheet present (the theme's -d tweak deletes it)
 #  5c. Blur my Shell patched so modal dialogs do not blur the whole screen
@@ -38,6 +39,17 @@ EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgc
 POPUP_FLAG="$ROOT/config/popup-blur"
 case "${1:-}" in
   --popup-blur) echo "${2:-on}" > "$POPUP_FLAG"; shift 2 ;;
+  --gdm)
+    # Login screen: needs root, so only print what to run.
+    cat <<EOT
+The login screen is GDM's own shell; it is themed by the MacTahoe tweaks script (root):
+  sudo systemctl disable plasmalogin.service && sudo systemctl enable gdm.service   # once, if still on Plasma's login
+  cd ~/.local/src/MacTahoe-gtk-theme && sudo ./tweaks.sh -g -i apple -c Dark
+Options after -g: -b IMAGE (own background), -nb (no blur), -nd (no darken), -p 45 (panel opacity).
+Undo: sudo ./tweaks.sh -g -r
+GNOME updates can overwrite the GDM theme; rerun the tweaks command if the login screen reverts.
+EOT
+    exit 0 ;;
 esac
 POPUP_BLUR=true; [[ -f "$POPUP_FLAG" && "$(cat "$POPUP_FLAG")" == "off" ]] && POPUP_BLUR=false
 WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn']"
@@ -247,6 +259,9 @@ gs() { [[ "$(gsettings get "$1" "$2")" == "$3" ]] || { log "$2 drifted: resettin
 gs org.gnome.desktop.interface cursor-theme "'MacTahoe-dark'"
 gs org.gnome.desktop.interface color-scheme "'prefer-dark'"
 gs org.gnome.desktop.wm.preferences button-layout "'close,minimize,maximize:'"
+# Resize handles: Mutter's default 10 px grab area falls inside the 24 px
+# rounded-corner clip, so corners cannot be grabbed. Widen it past the radius.
+gs org.gnome.mutter draggable-border-width 28
 # Wallpaper is deliberately not touched: the user picks it.
 
 # 10. dock drift: the theme styles the dock; Dash to Dock must not override it

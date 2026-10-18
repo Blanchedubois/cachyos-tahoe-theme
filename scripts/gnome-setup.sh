@@ -72,6 +72,7 @@ gsettings set org.gnome.desktop.interface icon-theme 'MacTahoe-dark'
 gsettings set org.gnome.desktop.interface cursor-theme 'MacTahoe-dark'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
+gsettings set org.gnome.mutter draggable-border-width 28   # corners stay grabbable past the 24 px clip
 gsettings set org.gnome.shell disable-user-extensions false
 gsettings set org.gnome.shell enabled-extensions \
   "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn']"

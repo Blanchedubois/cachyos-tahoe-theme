@@ -82,7 +82,9 @@ if [[ -d "$EXT_DIR/dash-to-dock@micxgx.gmail.com/schemas" ]]; then
   dd dash-max-icon-size 48; dd icon-size-fixed true
   dd show-trash true; dd show-mounts false; dd show-show-apps-button true; dd show-apps-at-top false
   dd apply-custom-theme false; dd custom-theme-shrink true
-  dd transparency-mode 'FIXED'; dd background-opacity 0.35
+  # Theme's own dock styling: default transparency, no custom colour, let
+  # the shell theme and Blur my Shell draw the backing.
+  dd transparency-mode 'DEFAULT'; dd custom-background-color false
   dd running-indicator-style 'DOTS'; dd click-action 'minimize-or-previews'; dd scroll-action 'cycle-windows'
   dd multi-monitor false; dd extend-height false
 fi

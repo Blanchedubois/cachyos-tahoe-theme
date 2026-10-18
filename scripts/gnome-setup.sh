@@ -13,14 +13,30 @@ EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
 EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com)
 
-# 1. MacTahoe GTK + shell theme, full install (needs a pseudo-terminal).
-if [[ ! -d "$HOME/.themes/MacTahoe-Dark/gnome-shell" ]]; then
-  say "MacTahoe GTK and shell theme"
-  [[ -d "$SRC" ]] || git clone -q --depth 1 https://github.com/vinceliuice/MacTahoe-gtk-theme "$SRC"
-  rm -rf /tmp/MacTahoe.lock
-  ( cd "$SRC" && TERM=xterm-256color script -qfec "./install.sh" /dev/null >/dev/null 2>&1 ) || true
-  ( cd "$SRC" && ./install.sh -l >/dev/null 2>&1 ) || true
+# 1. MacTahoe GTK + shell theme, exactly as the README recommends for GNOME:
+#    the blur variant (-b) since Blur my Shell is used, all colour and
+#    opacity variants, the libadwaita link, the Dash to Dock fix, and the
+#    bundled day/night wallpaper. The installer needs a pseudo-terminal.
+say "MacTahoe GTK and shell theme (blur variant)"
+[[ -d "$SRC" ]] || git clone -q --depth 1 https://github.com/vinceliuice/MacTahoe-gtk-theme "$SRC"
+rm -rf /tmp/MacTahoe.lock
+( cd "$SRC" && TERM=xterm-256color script -qfec "./install.sh -b" /dev/null >/dev/null 2>&1 ) || true
+( cd "$SRC" && ./install.sh -b -l >/dev/null 2>&1 ) || true
+( cd "$SRC" && ./tweaks.sh -d >/dev/null 2>&1 ) || true
+# The wallpaper installer writes its properties file where a directory should
+# be when run as a user; create the directory first.
+PROPS="$HOME/.local/share/gnome-background-properties"
+[[ -f "$PROPS" ]] && rm -f "$PROPS"; mkdir -p "$PROPS"
+( cd "$SRC/wallpaper" && ./install-gnome-backgrounds.sh >/dev/null 2>&1 ) || true
+BG="$HOME/.local/share/backgrounds/MacTahoe"
+if [[ -f "$BG/MacTahoe-night.jpeg" ]]; then
+  gsettings set org.gnome.desktop.background picture-uri "file://$BG/MacTahoe-day.jpeg"
+  gsettings set org.gnome.desktop.background picture-uri-dark "file://$BG/MacTahoe-night.jpeg"
+  gsettings set org.gnome.desktop.background picture-options 'zoom'
+  gsettings set org.gnome.desktop.screensaver picture-uri "file://$BG/MacTahoe-night.jpeg"
 fi
+# Firefox theme from the same repo, only when Firefox is closed.
+pgrep -x firefox >/dev/null || ( cd "$SRC" && ./tweaks.sh -f >/dev/null 2>&1 ) || true
 
 # 2. Extensions from extensions.gnome.org for this shell version.
 say "extensions for GNOME $SHELL_VER"
@@ -65,15 +81,22 @@ if [[ -d "$EXT_DIR/dash-to-dock@micxgx.gmail.com/schemas" ]]; then
   dd multi-monitor false; dd extend-height false
 fi
 
-# 5. Blur: panel, dock and overview.
-say "blur"
-bs() { gsettings --schemadir "$EXT_DIR/blur-my-shell@aunetx/schemas" set "$1" "$2" "$3"; }
+# 5. Blur my Shell, key for key from the author's screenshot in the README
+#    (blur-my-shell.png): panel off, overview on with unstyled components,
+#    app folders on, dock on with the rounded pipeline, applications on for all.
+say "blur (author's settings)"
+bs() { gsettings --schemadir "$EXT_DIR/blur-my-shell@aunetx/schemas" set "org.gnome.shell.extensions.blur-my-shell$1" "$2" "$3"; }
 if [[ -d "$EXT_DIR/blur-my-shell@aunetx/schemas" ]]; then
-  bs org.gnome.shell.extensions.blur-my-shell.panel blur true
-  bs org.gnome.shell.extensions.blur-my-shell.panel static-blur true
-  bs org.gnome.shell.extensions.blur-my-shell.dash-to-dock blur true
-  bs org.gnome.shell.extensions.blur-my-shell.dash-to-dock style-dash-to-dock 0
-  bs org.gnome.shell.extensions.blur-my-shell.overview blur true
+  bs .panel blur false; bs .panel override-background true; bs .panel unblur-in-overview true
+  bs .overview blur true; bs .overview style-components 0; bs .overview pipeline 'pipeline_default'
+  bs .appfolder blur true; bs .appfolder sigma 30; bs .appfolder brightness 1.0; bs .appfolder style-dialogs 1
+  bs .dash-to-dock blur true; bs .dash-to-dock static-blur true; bs .dash-to-dock pipeline 'pipeline_default_rounded'
+  bs .dash-to-dock override-background false; bs .dash-to-dock unblur-in-overview true
+  bs .applications blur true; bs .applications sigma 50; bs .applications brightness 1.0; bs .applications opacity 255
+  bs .applications blur-on-overview false; bs .applications enable-all true
+  bs .applications blacklist "['Plank','com.desktop.ding','Conky']"
 fi
+# Reload the shell theme so a reinstalled stylesheet is picked up.
+gsettings set org.gnome.shell.extensions.user-theme name ''; gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 
 say "done. Log out and choose GNOME; extensions load on that login."

@@ -350,7 +350,8 @@ blur. User Themes comes bundled with gnome-shell-extensions.
 
 - [x] GNOME installed, extensions in place with GNOME 51 builds
 - [x] Settings pre-seeded: MacTahoe-Dark GTK and shell, MacTahoe-dark icons and cursor, dark style, buttons on the left, dock at the bottom with intellihide
-- [ ] First GNOME login and visual check against the reference screenshot
+- [x] First GNOME login: all four extensions active, shell theme loaded, tray working
+- [x] README recipe applied exactly: blur variant of the theme, Dash to Dock fix, the author's Blur my Shell settings key for key, bundled day/night wallpaper, Firefox theme when Firefox is closed
 - [ ] Display manager: switch to GDM so the login screen is GNOME's (root, user runs it)
 - [ ] GDM theme via the MacTahoe tweaks script (root)
 - [ ] Icon rework against this base

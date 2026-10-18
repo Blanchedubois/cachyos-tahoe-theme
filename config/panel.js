@@ -21,6 +21,10 @@ for (var p of panels()) {
       w.currentConfigGroup = ["General"];
       w.writeConfig("icon", "cachyos-launcher");
       w.reloadConfig();
+      // Smaller launcher card.
+      w.currentConfigGroup = [];
+      w.writeConfig("popupWidth", 540);
+      w.writeConfig("popupHeight", 440);
     }
 
     // P6: 24 hour clock, no date, semibold 13.
@@ -35,8 +39,12 @@ for (var p of panels()) {
       w.reloadConfig();
       // Calendar card: narrower than Plasma's default.
       w.currentConfigGroup = [];
-      w.writeConfig("popupWidth", 380);
-      w.writeConfig("popupHeight", 420);
+      w.writeConfig("popupWidth", 300);
+      w.writeConfig("popupHeight", 330);
+      // Compact month grid: no events pane, no week numbers.
+      w.currentConfigGroup = ["Appearance"];
+      w.writeConfig("enabledCalendarPlugins", "");
+      w.writeConfig("showWeekNumbers", false);
       w.reloadConfig();
     }
 

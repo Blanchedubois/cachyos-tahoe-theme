@@ -246,7 +246,7 @@ These are proposals, not commitments. Each needs a yes before it is built.
 | P3 | App menu padding is hard-coded in the applet QML. Left as is; revisit only if a patched applet is worth carrying |
 | P4 | Second margins separator removed |
 | P5 | Tray icons come from the symbolic set; spacing set to large so one item's hover highlight no longer bleeds into its neighbours |
-| P6 | Clock: 24 hour, no date, Noto Sans Semibold 13. Calendar card narrowed to 380 by 420 |
+| P6 | Clock: 24 hour, no date, Noto Sans Semibold 13. Calendar card is a compact month grid at 300 by 330 with the events pane and week numbers off; Kickoff's card is 540 by 440 instead of 671 by 517 |
 | P7 | Show desktop removed; Overview on the top-left hot corner instead |
 
 Before and after: `docs/panel-before.png`, `docs/panel-after.png`.

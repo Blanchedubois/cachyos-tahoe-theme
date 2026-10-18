@@ -8,6 +8,12 @@
 .quick-settings-system-item .message-close-button > StIcon { icon-size: 20px; }
 .quick-toggle-icon { min-height: 44px !important; min-width: 44px !important; }
 
+/* Top-bar dropdowns (quick settings, calendar, Now Playing, every panel
+   menu): the theme's 1 px 75 % black outline becomes macOS's faint light
+   hairline. St rounds border widths to whole pixels, so 1 px is the floor
+   at 1x; the low alpha is what makes it read thin. */
+.popup-menu-content { border: 1px solid rgba(255, 255, 255, 0.12) !important; }
+
 /* Now Playing Card (nowplaying@epogonii.github.io) as macOS Tahoe's Now
    Playing: one glass surface, 12 px artwork, white title over a dimmed
    artist, a thin white progress line with no knob, bare white transport.

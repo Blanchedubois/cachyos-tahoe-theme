@@ -22,24 +22,25 @@
 /* The calendar dropdown at the 20 px popup radius (tokens/radius.json); the
    theme rounds it at 22 px. Blur my Shell's radius matches if blur is on. */
 .datemenu-popover { border-radius: 20px !important; }
-/* Its cards (events, world clocks, weather) and the notifications in it: a
-   light step on the tint with the same outline, in place of the theme's
-   opaque greys with no outline. Stacked notifications step back. */
+/* Its cards (events, world clocks, weather) and the notifications in it:
+   outline only, on the dropdown's own tint, in place of the theme's opaque
+   greys. A fill of their own stacked up and washed the dropdown out; it
+   shows only under the pointer. Stacked notifications draw nothing. */
 .events-button, .world-clocks-button, .weather-button,
 .popup-menu .message {
-  background-color: rgba(255, 255, 255, 0.08) !important;
+  background-color: transparent !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   box-shadow: none !important;
 }
 .events-button:hover, .world-clocks-button:hover, .weather-button:hover,
 .events-button:focus, .world-clocks-button:focus, .weather-button:focus,
-.popup-menu .message:hover, .popup-menu .message:focus { background-color: rgba(255, 255, 255, 0.12) !important; }
+.popup-menu .message:hover, .popup-menu .message:focus { background-color: rgba(255, 255, 255, 0.06) !important; }
 .events-button:active, .world-clocks-button:active, .weather-button:active,
-.popup-menu .message:active { background-color: rgba(255, 255, 255, 0.16) !important; }
-.message:second-in-stack { background-color: rgba(255, 255, 255, 0.06) !important; box-shadow: none !important; }
-.message:lower-in-stack { background-color: rgba(255, 255, 255, 0.04) !important; box-shadow: none !important; }
-.datemenu-today-button:hover, .datemenu-today-button:focus { background-color: rgba(255, 255, 255, 0.12) !important; }
-.datemenu-today-button:active { background-color: rgba(255, 255, 255, 0.16) !important; }
+.popup-menu .message:active { background-color: rgba(255, 255, 255, 0.1) !important; }
+.message:second-in-stack { background-color: transparent !important; box-shadow: none !important; }
+.message:lower-in-stack { background-color: transparent !important; box-shadow: none !important; }
+.datemenu-today-button:hover, .datemenu-today-button:focus { background-color: rgba(255, 255, 255, 0.06) !important; }
+.datemenu-today-button:active { background-color: rgba(255, 255, 255, 0.1) !important; }
 
 /* Quick settings (the Control Center): no card behind the panel, so the
    toggles, sliders and system buttons stand on their own. Two classes to

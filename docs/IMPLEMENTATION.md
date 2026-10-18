@@ -360,5 +360,7 @@ blur. User Themes comes bundled with gnome-shell-extensions.
 
 - [x] App icons rebuilt with SF Symbols (brendanballon/sfsymbols-svg, outlined cut) as tilted bottom-right watermarks on the glass squircle; GNOME core apps added to the table; Tahoe-Material is the GNOME icon theme
 - [x] One window radius: the theme's `$wm_radius` patched from 24 to 14 px before building, and Rounded Window Corners Reborn clips non-libadwaita windows at 14 px
+- Note: GNOME Shell only scans for new extensions at startup. Rounded Window Corners needs one logout after install. Its GNOME 51 build is still tagged 50, so version validation is off
+- Note: Blur my Shell blurs the panel, dock, overview, app folders and application windows. It has no module for the quick-settings or calendar popups; their glass look comes from the theme's blur variant making them translucent over the wallpaper
 - [ ] Symbolic (action, status) icons from SF for GNOME's own UI
 - [ ] Push once GitHub auth is restored in the GNOME session

@@ -65,6 +65,8 @@ gsettings set org.gnome.desktop.interface cursor-theme 'MacTahoe-dark'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
 gsettings set org.gnome.shell disable-user-extensions false
+# Rounded Window Corners Reborn ships marked for GNOME 50 but runs on 51.
+gsettings set org.gnome.shell disable-extension-version-validation true
 gsettings set org.gnome.shell enabled-extensions \
   "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn']"
 gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'

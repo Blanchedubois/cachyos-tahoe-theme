@@ -105,7 +105,7 @@ def write_index_theme(contexts):
     all_ctx = dict(contexts)
     contexts = {c: cfg for c, cfg in contexts.items() if cfg.get("theme") != "kde"}
     write_kde_index(kde_ctx)
-    dirs = [f"apps/{s}" for s in APP_SIZES] + ["apps/scalable"]
+    dirs = [f"apps/{s}" for s in APP_SIZES] + ["apps/scalable", "places/scalable"]
     for ctx, cfg in contexts.items():
         dirs += [f"{ctx}/{s}" for s in cfg["sizes"]]
     dirs += [f"symbolic/{ctx}" for ctx in all_ctx]
@@ -118,6 +118,8 @@ def write_index_theme(contexts):
         lines += [f"[apps/{s}]", f"Size={s}", "Context=Applications", "Type=Fixed", ""]
     lines += ["[apps/scalable]", "Size=48", "MinSize=16", "MaxSize=512",
               "Context=Applications", "Type=Scalable", ""]
+    lines += ["[places/scalable]", "Size=48", "MinSize=8", "MaxSize=512",
+              "Context=Places", "Type=Scalable", ""]
     ctx_names = {"actions": "Actions", "status": "Status", "places": "Places",
                  "devices": "Devices", "emblems": "Emblems"}
     ctx_names.setdefault("places", "Places")
@@ -127,6 +129,34 @@ def write_index_theme(contexts):
     for ctx in all_ctx:
         lines += [f"[symbolic/{ctx}]", "Size=16", "MinSize=8", "MaxSize=512", f"Context={ctx_names.get(ctx, ctx.title())}", "Type=Scalable", ""]
     (THEME / "index.theme").write_text("\n".join(lines))
+
+
+MACTAHOE_PLACES = Path.home() / ".local/share/icons/MacTahoe-dark/places/scalable"
+
+
+def passthrough_places():
+    """Copy MacTahoe's coloured place icons under their plain names. GTK tries
+    a theme's own "-symbolic" variant before consulting parent themes, so
+    without these Files' grid would show the SF sidebar glyphs for folders."""
+    if not MACTAHOE_PLACES.is_dir():
+        return 0
+    dest = THEME / "places" / "scalable"
+    dest.mkdir(parents=True, exist_ok=True)
+    n = 0
+    for f in MACTAHOE_PLACES.glob("*.svg"):
+        if f.name.endswith("-symbolic.svg"):
+            continue
+        target = dest / f.name
+        if f.is_symlink():
+            # keep the set self-contained: resolve to real content
+            try:
+                target.write_bytes(f.resolve().read_bytes())
+            except OSError:
+                continue
+        else:
+            target.write_bytes(f.read_bytes())
+        n += 1
+    return n
 
 
 def write_kde_index(kde_ctx):
@@ -199,7 +229,8 @@ def main():
                 (d / f"{n}.svg").write_text(svg)
                 written += 1
     write_index_theme(contexts)
-    print(f"wrote {written} files for {len(spec['actions'])} entries")
+    print(f"wrote {written} files for {len(spec['actions'])} entries; "
+          f"{passthrough_places()} coloured place icons carried from MacTahoe")
     if missing:
         print(f"{len(missing)} entries skipped, glyph missing:", file=sys.stderr)
         for n, p in missing:

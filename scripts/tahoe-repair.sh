@@ -160,7 +160,7 @@ fi
 # 12. icon theme contents: the generated set must exist and carry the current
 #     layout (symbolic places for Files' sidebar, KDE companion). Regenerate
 #     from the repo tokens when it does not; glyphs are fetched if missing.
-if [[ -d "$ROOT/scripts" ]] && { [[ ! -f "$ROOT/icons/Tahoe-Material/symbolic/places/user-home-symbolic.svg" ]] || [[ ! -f "$ROOT/icons/Tahoe-Material-KDE/index.theme" ]] || [[ ! -f "$ROOT/icons/Tahoe-Material/apps/scalable/org.gnome.Nautilus.svg" ]]; }; then
+if [[ -d "$ROOT/scripts" ]] && { [[ ! -f "$ROOT/icons/Tahoe-Material/symbolic/places/user-home-symbolic.svg" ]] || [[ ! -f "$ROOT/icons/Tahoe-Material-KDE/index.theme" ]] || [[ ! -f "$ROOT/icons/Tahoe-Material/apps/scalable/org.gnome.Nautilus.svg" ]] || [[ ! -f "$ROOT/icons/Tahoe-Material/places/scalable/folder-documents.svg" ]]; }; then
   log "icon theme incomplete: regenerating from tokens"
   ( cd "$ROOT" && python3 scripts/fetch-glyphs.py >/dev/null 2>&1; python3 scripts/gen-action-icons.py >/dev/null 2>&1; python3 -W ignore scripts/gen-app-icons.py --no-sheet >/dev/null 2>&1 )
   gtk-update-icon-cache -q -t -f "$HOME/.local/share/icons/Tahoe-Material" 2>/dev/null || true

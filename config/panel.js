@@ -8,9 +8,7 @@ for (var p of panels()) {
   // P1: 36 px, floating so popups detach as full rounded cards.
   p.height = 36;
   p.floating = true;
-  // Match the dock: a centred glass pill that fits its contents.
-  p.lengthMode = "fit";
-  p.alignment = "center";
+  p.lengthMode = "fill";
   p.opacity = "adaptive";
 
   var toRemove = [];
@@ -42,15 +40,6 @@ for (var p of panels()) {
     if (w.type == "org.kde.plasma.systemtray") {
       w.currentConfigGroup = ["General"];
       w.writeConfig("iconSpacing", 2);
-      w.reloadConfig();
-    }
-
-    // Spacer: fixed 24 px gap between the app menu and the tray so the
-    // pill does not stretch to the screen edges.
-    if (w.type == "org.kde.plasma.panelspacer") {
-      w.currentConfigGroup = ["General"];
-      w.writeConfig("expanding", false);
-      w.writeConfig("length", 24);
       w.reloadConfig();
     }
 

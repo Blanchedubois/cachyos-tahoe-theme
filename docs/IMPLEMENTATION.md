@@ -268,13 +268,14 @@ Before and after: `docs/panel-before.png`, `docs/panel-after.png`.
 - App icons use the watermark glass treatment; brand apps pass through from MacTahoe's Tahoe-style set
 - Acceptance: Dolphin, System Settings, and the Claude app window measured at the same radius; menus and buttons at the widget radius
 
-### Phase 6: Plasma style overlay `[rejected]`
+### Phase 6: Plasma style overlay `[x]`
 
-- [x] `scripts/gen-plasma-style.py` writes `plasma/Tahoe-Material/`, a Plasma style that falls back to MacTahoe-Dark and replaces three assets: `dialogs/background` (popup cards: 20 px, glass tint at 78 percent with blur behind, 1 px light hairline, 12 px padding, gradient shadow), `widgets/tooltip` (same at 8 px) and `widgets/viewitem` (hover and selection highlights at 8 px, no outline)
-- [x] Shadows are gradient tiles because KSvg renders through QtSvg, which has no filters
-- [x] Top panel floated at 36 px so popups detach as full cards
-- [x] Darkly `FancyMargins` on for the application side
-- Rejected on review: the overlay replaced MacTahoe's assets rather than layering on them and read as a different theme. It stays in the repo as reference only; the installer does not apply it. Popup cards come from MacTahoe's own glass, detached by the floating panel: `docs/popup-options.png`
+- [x] `plasma/Tahoe-Material/` falls back to MacTahoe-Dark and replaces two files, both copies of MacTahoe's own with only the tint changed: `dialogs/background` (popup cards) and `widgets/tooltip`
+- [x] Tint: the panel uses the colour-scheme background at 15 percent over blur, so it takes on the wallpaper; cards used a fixed near-black at 65 percent and read as a different material. Cards now use the scheme colour at 30 percent, tooltips 35, so bar and cards are one glass
+- [x] Floating panel detaches popups into full rounded cards
+- [x] A first attempt that generated new card assets from scratch was rejected for replacing the glass look; this pass layers on MacTahoe's files instead
+- Card internals are Plasma's own QML; the theme controls only the card and its 8 px padding, which stays
+- Evidence: `docs/popup-card.png`, `docs/cards-survey.png`
 
 ### Phase 5: workshop items `[~]`
 

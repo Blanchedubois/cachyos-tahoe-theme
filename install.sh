@@ -14,6 +14,11 @@ mkdir -p "$DATA/icons"
 ln -sfn "$ROOT/icons/Tahoe-Material" "$DATA/icons/Tahoe-Material"
 gtk-update-icon-cache -q -t -f "$DATA/icons/Tahoe-Material" 2>/dev/null || true
 
+# 1b. Plasma style overlay: MacTahoe-Dark with popup cards and tooltips on the panel's glass.
+say "plasma style"
+mkdir -p "$DATA/plasma/desktoptheme"
+ln -sfn "$ROOT/plasma/Tahoe-Material" "$DATA/plasma/desktoptheme/Tahoe-Material"
+
 # 2. Desktop entry overrides for apps whose Icon= is an absolute path or shared.
 if compgen -G "$ROOT/overrides/*.desktop" >/dev/null; then
   say "desktop entry overrides"
@@ -82,6 +87,7 @@ qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$(ca
 say "apply"
 /usr/lib/plasma-changeicons Tahoe-Material 2>/dev/null || kwriteconfig6 --file kdeglobals --group Icons --key Theme Tahoe-Material
 kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle Darkly
+plasma-apply-desktoptheme Tahoe-Material >/dev/null 2>&1 || kwriteconfig6 --file plasmarc --group Theme --key name Tahoe-Material
 qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
 # The Rounded Corners effect only re-reads outline colours and widths on a
 # full reload, not on reconfigure.

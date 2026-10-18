@@ -1,9 +1,9 @@
 [Desktop Entry]
 Name=Tahoe-Material
-Comment=CachyOS Tahoe theme: Material-weight cards over the MacTahoe glass shell
+Comment=MacTahoe-Dark with popup cards and tooltips on the same glass as the panel
 X-KDE-PluginInfo-Author=CachyOS Tahoe theme
 X-KDE-PluginInfo-Name=Tahoe-Material
-X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Version=1.1
 X-KDE-PluginInfo-License=GPL-3.0
 X-KDE-PluginInfo-EnabledByDefault=true
 X-Plasma-API=5.0

@@ -120,6 +120,8 @@ Why there is no perfect answer on Wayland: a shadow is either drawn by the decor
 | Check | Evidence | Verdict |
 |---|---|---|
 | Tray spacing and hover room | panel at 36 px, tray spacing large | **pass** by configuration. Hover itself cannot be captured without pointer control. |
+| Popup card glass | `docs/popup-card.png`, Kickoff; pixel samples of panel, card and wallpaper | **fixed**. Cards used a fixed near-black at 65 percent; the panel uses the scheme colour at 15 percent over blur. Cards now use the scheme colour at 30 percent, so both pick up the wallpaper the same way. |
+| Card layout | `docs/cards-survey.png`, every tray plasmoid opened standalone | **by design**. Spacing inside each card is Plasma's QML, not themeable. Padding stays at MacTahoe's 8 px. |
 | Popup card corners | `docs/popup-options.png`, Kickoff with floating and flush panel on MacTahoe's glass | **fixed** by floating the panel. Attached popups square the edge touching the panel by Plasma's rule; floating detaches them so MacTahoe's own card shows all four corners. The custom overlay card was rejected for replacing the glass look. |
 | Hover highlight in popups | same capture, Favorites row | **pass**. 8 px rounded highlight from the overlay's viewitem asset. |
 | List highlight inset inside app windows | System Settings sidebar | **deferred**. Darkly's `FancyMargins` is on, but the Kirigami sidebar draws its own delegates and a hover could not be captured to confirm the inset. Needs a look by eye. |

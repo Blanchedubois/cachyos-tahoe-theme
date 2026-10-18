@@ -112,7 +112,7 @@ if [[ -d "$BS" ]]; then
   bsg() { [[ "$(gsettings --schemadir "$BS" get "org.gnome.shell.extensions.blur-my-shell$1" "$2" | tr -d ' ')" == "$(tr -d ' ' <<<"$3")" ]] || { log "blur$1 $2 drifted: resetting"; gsettings --schemadir "$BS" set "org.gnome.shell.extensions.blur-my-shell$1" "$2" "$3"; }; }
   bsg .applications blur true
   bsg .applications enable-all false
-  bsg .applications static-blur false   # dynamic: blurs windows behind, not just the wallpaper
+  bsg .applications static-blur true    # dynamic mode paints the window opaque on this GPU; static shows what is behind, blurred
   bsg .applications corner-radius 24
   bsg .applications whitelist "['org.gnome.Nautilus','org.gnome.Settings','gnome-control-center','org.gnome.Console','kgx','org.gnome.TextEditor','org.gnome.Calculator','org.gnome.Loupe','org.gnome.Papers','org.gnome.Characters','org.gnome.clocks','org.gnome.Calendar','org.gnome.Weather','org.gnome.Music','org.gnome.Software','org.gnome.DiskUtility','org.gnome.baobab','org.gnome.SystemMonitor','org.gnome.tweaks','org.gnome.Extensions','org.gnome.Logs','org.gnome.font-viewer','org.kde.dolphin','org.kde.kate','org.kde.konsole']"
   bsg .popup blur "$POPUP_BLUR"

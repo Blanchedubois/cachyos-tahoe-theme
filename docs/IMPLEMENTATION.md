@@ -419,10 +419,11 @@ settings drift, and the Dash to Dock stylesheet the theme tweak deletes.
 
 ### Phase 16: blurred translucency for apps and shell popups `[~]`
 
-Blur my Shell's applications module is back on, dynamic (blurs windows
-behind, not only the wallpaper), on a whitelist of system apps so Discord,
+Blur my Shell's applications module is back on, static mode, on a whitelist of system apps so Discord,
 Steam and browsers keep their own look, with a 24 px corner to match the
-theme's window radius. Verified on Files over another window. The popup
+theme's window radius. Verified on Files over another window: static mode
+shows the window behind, blurred; dynamic mode paints the app opaque on this
+GPU and driver, so it is not used. The popup
 module (quick settings, menus, notifications) is on in static mode with
 override-background and theme-matched corner radii; its dynamic mode is what
 painted the opaque box earlier. Not yet verified on screen: the capture loop

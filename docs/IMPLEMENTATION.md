@@ -170,7 +170,7 @@ separator, system tray, margins separator, digital clock, show desktop.
 
 | Step | Change | Check |
 |---|---|---|
-| P1 | Height 36 px, floating on. Floating is Plasma's only way to detach popups so they become full cards with every corner rounded; the extra height gives the tray hover highlight room around each glyph |
+| P1 | Height 36 px, floating, fit-to-content and centred, adaptive opacity: the same pill treatment as MacTahoe's dock. Floating also detaches popups into full rounded cards |
 | P2 | Kickoff icon: CachyOS mark at 22 px, no label | mark is centred vertically |
 | P3 | App menu: Darkly menubar padding 10 px horizontal, 0 vertical | items do not look stacked |
 | P4 | Remove the second margins separator; tray and clock share one margin | no double gap before the clock |
@@ -241,7 +241,7 @@ These are proposals, not commitments. Each needs a yes before it is built.
 
 | Step | Result |
 |---|---|
-| P1 | Height 36 px, floating on. Floating is Plasma's only way to detach popups so they become full cards with every corner rounded; the extra height gives the tray hover highlight room around each glyph |
+| P1 | Height 36 px, floating, fit-to-content and centred, adaptive opacity: the same pill treatment as MacTahoe's dock. Floating also detaches popups into full rounded cards |
 | P2 | Kickoff shows the CachyOS mark as a symbolic glyph, `assets/cachyos-mark.svg`, generated under the name `cachyos-launcher` and also aliased to `start-here-kde` |
 | P3 | App menu padding is hard-coded in the applet QML. Left as is; revisit only if a patched applet is worth carrying |
 | P4 | Second margins separator removed |

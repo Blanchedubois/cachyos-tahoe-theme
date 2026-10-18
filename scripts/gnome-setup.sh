@@ -11,8 +11,7 @@ say() { printf '\033[1;36m==>\033[0m %s\n' "$*"; }
 SHELL_VER="$(gnome-shell --version | grep -oE '[0-9]+' | head -1)"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
-EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn)
-WINDOW_RADIUS=14   # px; the theme ships 24, which reads as Finder-heavy
+EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com)
 
 # 1. MacTahoe GTK + shell theme, exactly as the README recommends for GNOME:
 #    the blur variant (-b) since Blur my Shell is used, all colour and
@@ -20,12 +19,11 @@ WINDOW_RADIUS=14   # px; the theme ships 24, which reads as Finder-heavy
 #    bundled day/night wallpaper. The installer needs a pseudo-terminal.
 say "MacTahoe GTK and shell theme (blur variant)"
 [[ -d "$SRC" ]] || git clone -q --depth 1 https://github.com/vinceliuice/MacTahoe-gtk-theme "$SRC"
-# One window radius for everything: patch the theme's Sass variable before
-# building, and clip non-GTK windows at the same value with the extension.
-sed -i "s/^\$wm_radius: .*/\$wm_radius: ${WINDOW_RADIUS}px;/" "$SRC/src/sass/_variables.scss"
 rm -rf /tmp/MacTahoe.lock
-( cd "$SRC" && TERM=xterm-256color script -qfec "./install.sh -b" /dev/null >/dev/null 2>&1 ) || true
-( cd "$SRC" && ./install.sh -b -l >/dev/null 2>&1 ) || true
+# ONE run installs the themes and the libadwaita link. Running "-l" as a
+# second pass cleans every MacTahoe theme first and writes only the gtk-4.0
+# config, which is how the themes kept vanishing.
+( cd "$SRC" && TERM=xterm-256color script -qfec "./install.sh -b -l" /dev/null >/dev/null 2>&1 ) || true
 # Not run: tweaks.sh -d renames Dash to Dock's stylesheet.css, which breaks
 # Dash to Dock 110 on GNOME 51 (it fails to load without it). With "use
 # built-in theme" off the shell theme styles the dock anyway.
@@ -67,10 +65,8 @@ gsettings set org.gnome.desktop.interface cursor-theme 'MacTahoe-dark'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,maximize:'
 gsettings set org.gnome.shell disable-user-extensions false
-# Rounded Window Corners Reborn ships marked for GNOME 50 but runs on 51.
-gsettings set org.gnome.shell disable-extension-version-validation true
 gsettings set org.gnome.shell enabled-extensions \
-  "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn']"
+  "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com']"
 gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 gsettings set org.gnome.shell favorite-apps \
   "['org.gnome.Nautilus.desktop','firefox.desktop','discord.desktop','steam.desktop','com.anthropic.Claude.desktop','org.gnome.Console.desktop','org.gnome.Calculator.desktop','org.gnome.TextEditor.desktop','org.gnome.Settings.desktop']"
@@ -105,15 +101,6 @@ if [[ -d "$EXT_DIR/blur-my-shell@aunetx/schemas" ]]; then
   bs .applications blur true; bs .applications sigma 50; bs .applications brightness 1.0; bs .applications opacity 255
   bs .applications blur-on-overview false; bs .applications enable-all true
   bs .applications blacklist "['Plank','com.desktop.ding','Conky']"
-fi
-# 6. Rounded corners for windows that do not draw their own (Electron, Firefox,
-#    Steam, Qt). libadwaita apps are skipped: the theme already rounds them.
-say "window corners"
-RW="$EXT_DIR/rounded-window-corners@fxgn/schemas"; RS=org.gnome.shell.extensions.rounded-window-corners-reborn
-if [[ -d "$RW" ]]; then
-  gsettings --schemadir "$RW" set $RS skip-libadwaita-app true
-  gsettings --schemadir "$RW" set $RS border-width 0
-  gsettings --schemadir "$RW" set $RS global-rounded-corner-settings "{'padding': <{'left': uint32 0, 'right': uint32 0, 'top': uint32 0, 'bottom': uint32 0}>, 'keepRoundedCorners': <{'maximized': false, 'fullscreen': false}>, 'borderRadius': <uint32 $WINDOW_RADIUS>, 'smoothing': <0.0>, 'borderColor': <(0.5, 0.5, 0.5, 1.0)>, 'enabled': <true>}"
 fi
 # Icons: the Tahoe-Material theme, SF Symbol watermarks on glass squircles.
 say "icons"

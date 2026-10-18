@@ -364,3 +364,17 @@ blur. User Themes comes bundled with gnome-shell-extensions.
 - Note: Blur my Shell blurs the panel, dock, overview, app folders and application windows. It has no module for the quick-settings or calendar popups; their glass look comes from the theme's blur variant making them translucent over the wallpaper
 - [ ] Symbolic (action, status) icons from SF for GNOME's own UI
 - [ ] Push once GitHub auth is restored in the GNOME session
+
+### Phase 12: clean reinstall, README-faithful `[x]`
+
+The incremental GNOME work left the shell in half-states (theme folder
+rebuilt under a running shell, Dash to Dock's stylesheet renamed by a tweak
+for an older version, an extension that needs a restart). Everything was
+removed and reinstalled exactly as the MacTahoe README describes, in one
+installer run. Root cause of the vanishing themes: a second `install.sh -l`
+pass cleans all MacTahoe themes before writing only the gtk-4.0 config.
+
+Dropped for now: the 14 px window radius patch and Rounded Window Corners,
+to be reconsidered once the stock look is confirmed on screen. KDE-only
+tools (Spectacle, Info Center, Partition Manager, Kvantum Manager) do not
+run under GNOME by design; GNOME's own equivalents replace them.

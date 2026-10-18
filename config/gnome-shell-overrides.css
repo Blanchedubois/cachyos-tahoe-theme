@@ -45,12 +45,27 @@
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   box-shadow: none !important;
 }
+/* Capsules and circles, set outright: 9999 px rounds each to its shorter
+   side (the theme's slider stopped at 24 px). */
+.quick-toggle,
+.quick-toggle-has-menu,
+.quick-slider,
+.quick-settings-system-item .icon-button,
+.quick-toggle-has-menu .quick-toggle .quick-toggle-icon,
+.quick-toggle-has-menu .quick-toggle-menu-button,
+.quick-toggle-menu .header .icon { border-radius: 9999px !important; }
 .quick-toggle:hover,
 .quick-toggle-has-menu:hover,
 .quick-settings-system-item .icon-button:hover { background-color: rgba(96, 96, 100, 0.55) !important; }
 .quick-toggle:active,
 .quick-toggle-has-menu:active,
 .quick-settings-system-item .icon-button:active { background-color: rgba(112, 112, 116, 0.6) !important; }
+/* Split toggles that are on (Wi-Fi, Bluetooth, power mode): the theme's
+   :checked rule outweighs the glass and put the 15 % white back. The pill
+   stays glass; the white icon circle shows the state. */
+.quick-toggle-has-menu:checked { background-color: rgba(72, 72, 76, 0.5) !important; }
+.quick-toggle-has-menu:checked:hover { background-color: rgba(96, 96, 100, 0.55) !important; }
+.quick-toggle-has-menu:checked:active { background-color: rgba(112, 112, 116, 0.6) !important; }
 .quick-toggle-has-menu .quick-toggle { border: none !important; }
 /* The round icon inside a split toggle (Wi-Fi, Bluetooth), its arrow button
    and a submenu's header icon: a lighter step of the same glass with the
@@ -71,6 +86,16 @@
 .quick-toggle-menu {
   background-color: rgba(72, 72, 76, 0.5) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  /* The dropdowns' card, not the theme's own submenu card: 14 px corners and
+     4 px padding like .popup-menu-content, items at its 6 px by 8 px. */
+  border-radius: 14px !important;
+  padding: 4px !important;
+}
+.quick-toggle-menu .header { padding: 6px 8px !important; }
+.quick-toggle-menu .popup-menu-item { padding: 6px 8px !important; }
+.quick-toggle-menu .header .icon.active {
+  background-color: -st-accent-color !important;
+  border-color: transparent !important;
 }
 .quick-toggle-menu .popup-menu-item:focus,
 .quick-toggle-menu .popup-menu-item:hover,

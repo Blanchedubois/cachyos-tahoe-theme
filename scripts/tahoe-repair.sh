@@ -28,6 +28,7 @@
 #      missing or stale (symbolic places for Files, apps, KDE companion)
 #  12b. symbolic icons regenerated when their tokens change (stamp)
 #  13. Now Playing Card settings drift
+#  14. Vitals settings drift
 set -uo pipefail
 log() { printf '[tahoe-repair] %s\n' "$*"; }
 
@@ -35,7 +36,7 @@ log() { printf '[tahoe-repair] %s\n' "$*"; }
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
-EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn nowplaying@epogonii.github.io)
+EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn nowplaying@epogonii.github.io Vitals@CoreCoding.com)
 case "${1:-}" in
   --gdm)
     # Login screen: needs root, so only print what to run.
@@ -49,7 +50,7 @@ GNOME updates can overwrite the GDM theme; rerun the tweaks command if the login
 EOT
     exit 0 ;;
 esac
-WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn','nowplaying@epogonii.github.io']"
+WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn','nowplaying@epogonii.github.io','Vitals@CoreCoding.com']"
 SHELL_VER="$(gnome-shell --version 2>/dev/null | grep -oE '[0-9]+' | head -1)"
 changed=0
 
@@ -338,6 +339,14 @@ if [[ -d "$NPS" ]]; then
   npg location "'panel'"; npg panel-box "'right'"; npg panel-text "'none'"; npg panel-icon true
   npg card-layout "'full'"; npg cover-size "'large'"; npg show-progress true
   npg show-volume false; npg show-loop-shuffle false; npg equalizer-accent false
+fi
+
+# 14. Vitals settings drift (the top-bar readings set by gnome-setup.sh)
+VTS="$EXT_DIR/Vitals@CoreCoding.com/schemas"
+if [[ -d "$VTS" ]]; then
+  vtg() { [[ "$(gsettings --schemadir "$VTS" get org.gnome.shell.extensions.vitals "$1")" == "$2" ]] || { log "vitals $1 drifted: resetting"; gsettings --schemadir "$VTS" set org.gnome.shell.extensions.vitals "$1" "$3"; }; }
+  vtg hot-sensors "['__temperature_max__', '_processor_usage_', '_gpu#1_utilization_', '_memory_usage_']" "['__temperature_max__', '_processor_usage_', '_gpu#1_utilization_', '_memory_usage_']"
+  vtg show-gpu true true; vtg include-public-ip false false
 fi
 
 log "done"

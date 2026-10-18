@@ -12,7 +12,8 @@ and its icon set, with [Dash to Dock](https://github.com/micheleg/dash-to-dock),
 [AppIndicator](https://github.com/ubuntu/gnome-shell-extension-appindicator),
 [Rounded Window Corners Reborn](https://github.com/flexagoon/rounded-window-corners) and
 [Now Playing Card](https://github.com/epogonii/nowplaying-card), restyled as
-macOS's Now Playing.
+macOS's Now Playing, and [Vitals](https://github.com/corecoding/Vitals) for system
+stats in the top bar.
 Glyphs from [SF Symbols SVG](https://github.com/brendanballon/sfsymbols-svg).
 
 The full history, decisions and findings are in

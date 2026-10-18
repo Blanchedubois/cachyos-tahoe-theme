@@ -12,7 +12,7 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SHELL_VER="$(gnome-shell --version | grep -oE '[0-9]+' | head -1)"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
-EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn nowplaying@epogonii.github.io)
+EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn nowplaying@epogonii.github.io Vitals@CoreCoding.com)
 
 # 1. MacTahoe GTK + shell theme, exactly as the README recommends for GNOME:
 #    the blur variant (-b) since Blur my Shell is used, all colour and
@@ -76,7 +76,7 @@ gsettings set org.gnome.desktop.wm.preferences button-layout 'close,minimize,max
 gsettings set org.gnome.mutter draggable-border-width 28   # corners stay grabbable past the 24 px clip
 gsettings set org.gnome.shell disable-user-extensions false
 gsettings set org.gnome.shell enabled-extensions \
-  "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn','nowplaying@epogonii.github.io']"
+  "['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn','nowplaying@epogonii.github.io','Vitals@CoreCoding.com']"
 gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 gsettings set org.gnome.shell favorite-apps \
   "['org.gnome.Nautilus.desktop','firefox.desktop','discord.desktop','steam.desktop','com.anthropic.Claude.desktop','spotify.desktop','org.gnome.Console.desktop','org.gnome.Calculator.desktop','org.gnome.TextEditor.desktop','org.gnome.Settings.desktop']"
@@ -134,6 +134,14 @@ if [[ -d "$EXT_DIR/nowplaying@epogonii.github.io/schemas" ]]; then
   np card-layout 'full'; np cover-size 'large'; np show-artwork true; np show-progress true
   np show-volume false; np show-loop-shuffle false; np show-spectrum false
   np equalizer-style 'rounded'; np equalizer-accent false; np animate-icon true
+fi
+# Vitals: a system monitor dropdown in the top bar, like iStat Menus. The
+# bar shows the hottest sensor, CPU, GPU (nvidia-smi) and memory; voltage
+# and the public IP lookup (an outside service) are off.
+vt() { gsettings --schemadir "$EXT_DIR/Vitals@CoreCoding.com/schemas" set org.gnome.shell.extensions.vitals "$1" "$2"; }
+if [[ -d "$EXT_DIR/Vitals@CoreCoding.com/schemas" ]]; then
+  vt hot-sensors "['__temperature_max__', '_processor_usage_', '_gpu#1_utilization_', '_memory_usage_']"
+  vt show-gpu true; vt show-voltage false; vt show-battery false; vt include-public-ip false; vt position-in-panel 2
 fi
 # Desktop-entry overrides: launchers whose icon name or window class needs fixing (Steam games, HP tools).
 if compgen -G "$ROOT/overrides/*.desktop" >/dev/null; then mkdir -p "$HOME/.local/share/applications"; cp "$ROOT"/overrides/*.desktop "$HOME/.local/share/applications/"; update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true; fi

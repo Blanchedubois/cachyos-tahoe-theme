@@ -19,6 +19,7 @@
 #   9. interface drift: GTK theme, cursor, button layout (never the wallpaper)
 #  10. dock drift: Dash to Dock back on the theme's own styling
 #  11. dock stylesheet present (the theme's -d tweak deletes it)
+#  5c. Blur my Shell patched so modal dialogs do not blur the whole screen
 #  12. icon theme contents: regenerate from the repo if the generated set is
 #      missing or stale (symbolic places for Files, apps, KDE companion)
 set -uo pipefail
@@ -100,9 +101,32 @@ fi
 [[ "$(gsettings get org.gnome.desktop.interface gtk-theme)" == "'MacTahoe-Dark'" ]] || gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark'
 # 5b. shell CSS overrides (quick settings icon size) survive a theme rebuild
 CSS="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
-if [[ -f "$CSS" && -f "$ROOT/config/gnome-shell-overrides.css" ]] && ! grep -q 'tahoe-overrides' "$CSS"; then
-  log "re-appending shell CSS overrides"; printf '\n' >> "$CSS"; cat "$ROOT/config/gnome-shell-overrides.css" >> "$CSS"
+if [[ -f "$CSS" && -f "$ROOT/config/gnome-shell-overrides.css" ]] && { ! grep -q 'tahoe-overrides' "$CSS" || ! grep -q '.lightbox { background-color: transparent; }' "$CSS"; }; then
+  log "re-applying shell CSS overrides"
+  python3 - "$CSS" "$ROOT/config/gnome-shell-overrides.css" <<'PY'
+import sys,re
+css=open(sys.argv[1]).read(); ov=open(sys.argv[2]).read()
+css=re.sub(r"\n/\* tahoe-overrides:.*?/\* end tahoe-overrides \*/\n","\n",css,flags=re.S)
+open(sys.argv[1],"w").write(css.rstrip()+"\n"+ov)
+PY
   gsettings set org.gnome.shell.extensions.user-theme name ''; sleep 1; gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
+fi
+
+# 5c. Blur my Shell patch: modal dialogs (power off, log out, run) are
+#     full-screen surfaces, so blurring them blurs and darkens the whole
+#     screen. Take them out of the popup module's surface lists. Re-applied
+#     after any refetch of the extension.
+BSF="$EXT_DIR/blur-my-shell@aunetx/components/popup/blur_surface.js"
+if [[ -f "$BSF" ]] && grep -q "'modal-dialog'" "$BSF"; then
+  log "patching Blur my Shell: modal dialogs out of the blur surface lists"
+  python3 - "$BSF" <<'PY'
+import sys
+p=sys.argv[1]; s=open(p).read()
+s=s.replace("    'modal-dialog', 'run-dialog',\n","")
+s=s.replace("    'datemenu-popover', 'quick-settings', 'modal-dialog',","    'datemenu-popover', 'quick-settings',")
+open(p,"w").write(s)
+PY
+  gnome-extensions disable blur-my-shell@aunetx 2>/dev/null; gnome-extensions enable blur-my-shell@aunetx 2>/dev/null
 fi
 
 # 6. blur: the exact Blur my Shell module config. Applications blur on a

@@ -126,6 +126,14 @@ ln -sfn "$ROOT/icons/Tahoe-Material-KDE" "$HOME/.local/share/icons/Tahoe-Materia
 kwriteconfig6 --file kdeglobals --group Icons --key Theme Tahoe-Material-KDE
 CSS="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
 grep -q 'tahoe-overrides' "$CSS" || { printf '\n' >> "$CSS"; cat "$ROOT/config/gnome-shell-overrides.css" >> "$CSS"; }
+# Modal dialogs out of Blur my Shell's popup surfaces (whole-screen blur otherwise).
+BSF="$EXT_DIR/blur-my-shell@aunetx/components/popup/blur_surface.js"
+[[ -f "$BSF" ]] && python3 - "$BSF" <<'PY'
+import sys
+p=sys.argv[1]; s=open(p).read()
+s=s.replace("    'modal-dialog', 'run-dialog',\n","").replace("    'datemenu-popover', 'quick-settings', 'modal-dialog',","    'datemenu-popover', 'quick-settings',")
+open(p,"w").write(s)
+PY
 # Reload the shell theme so a reinstalled stylesheet is picked up. The theme
 # build deletes and recreates ~/.themes/MacTahoe-Dark; a running shell falls
 # back to Adwaita (square, opaque popups) until the name is set again.

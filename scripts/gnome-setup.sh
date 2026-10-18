@@ -106,9 +106,10 @@ if [[ -d "$EXT_DIR/blur-my-shell@aunetx/schemas" ]]; then
   bs .appfolder blur true; bs .appfolder sigma 30; bs .appfolder brightness 1.0; bs .appfolder style-dialogs 1
   bs .dash-to-dock blur true; bs .dash-to-dock static-blur true; bs .dash-to-dock pipeline 'pipeline_default_rounded'
   bs .dash-to-dock override-background false; bs .dash-to-dock unblur-in-overview true
-  bs .applications blur true; bs .applications sigma 50; bs .applications brightness 1.0; bs .applications opacity 255
-  bs .applications blur-on-overview false; bs .applications enable-all true
-  bs .applications blacklist "['Plank','com.desktop.ding','Conky']"
+  # Applications blur is OFF: on this machine it paints an opaque square
+  # behind the quick-settings popup instead of blurring it. The panel, dock,
+  # overview and app-folder modules give the look without it.
+  bs .applications blur false
 fi
 # Icons: the Tahoe-Material theme, SF Symbol watermarks on glass squircles.
 say "icons"
@@ -121,3 +122,9 @@ gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'
 gsettings set org.gnome.shell.extensions.user-theme name ''; gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 
 say "done. Log out and choose GNOME; extensions load on that login."
+
+# 7. Repair command and login hook.
+say "repair hook"
+mkdir -p "$HOME/.local/bin" "$HOME/.config/autostart"
+ln -sfn "$ROOT/scripts/tahoe-repair.sh" "$HOME/.local/bin/tahoe-repair"
+sed "s|@ROOT@|$ROOT|" "$ROOT/config/tahoe-repair.desktop.in" > "$HOME/.config/autostart/tahoe-repair.desktop"

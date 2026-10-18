@@ -378,3 +378,14 @@ Dropped for now: the 14 px window radius patch and Rounded Window Corners,
 to be reconsidered once the stock look is confirmed on screen. KDE-only
 tools (Spectacle, Info Center, Partition Manager, Kvantum Manager) do not
 run under GNOME by design; GNOME's own equivalents replace them.
+
+### Phase 13: repair script `[x]`
+
+`scripts/tahoe-repair.sh`, also installed as `tahoe-repair` and run once per
+GNOME login from an autostart entry. It checks the seven ways the look has
+broken (theme files, extension folders, extensions not loaded, not enabled,
+shell theme fallen back to Adwaita, Blur my Shell applications module on,
+icon theme) and applies the known fix for each. On a healthy system it is a
+no-op. Root cause of the square quick-settings box: Blur my Shell's
+applications module paints an opaque fallback behind the popup on this
+machine; that module stays off, the others stay on.

@@ -133,6 +133,9 @@ import sys
 p=sys.argv[1]; s=open(p).read()
 s=s.replace("    'modal-dialog', 'run-dialog',\n","").replace("    'datemenu-popover', 'quick-settings', 'modal-dialog',","    'datemenu-popover', 'quick-settings',")
 open(p,"w").write(s)
+t=p.replace("blur_surface.js","targets.js"); u=open(t).read()
+u=u.replace("        style_classes: ['modal-dialog', 'run-dialog'],","        style_classes: [],  /* tahoe: modal dialogs are not blurred */")
+open(t,"w").write(u)
 PY
 # Reload the shell theme so a reinstalled stylesheet is picked up. The theme
 # build deletes and recreates ~/.themes/MacTahoe-Dark; a running shell falls

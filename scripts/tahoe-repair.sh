@@ -117,7 +117,7 @@ fi
 #     screen. Take them out of the popup module's surface lists. Re-applied
 #     after any refetch of the extension.
 BSF="$EXT_DIR/blur-my-shell@aunetx/components/popup/blur_surface.js"
-if [[ -f "$BSF" ]] && grep -q "'modal-dialog'" "$BSF"; then
+if [[ -f "$BSF" ]] && { grep -q "'modal-dialog'" "$BSF" || grep -q "\['modal-dialog', 'run-dialog'\]" "${BSF%blur_surface.js}targets.js"; }; then
   log "patching Blur my Shell: modal dialogs out of the blur surface lists"
   python3 - "$BSF" <<'PY'
 import sys
@@ -125,6 +125,9 @@ p=sys.argv[1]; s=open(p).read()
 s=s.replace("    'modal-dialog', 'run-dialog',\n","")
 s=s.replace("    'datemenu-popover', 'quick-settings', 'modal-dialog',","    'datemenu-popover', 'quick-settings',")
 open(p,"w").write(s)
+t=p.replace("blur_surface.js","targets.js"); u=open(t).read()
+u=u.replace("        style_classes: ['modal-dialog', 'run-dialog'],","        style_classes: [],  /* tahoe: modal dialogs are not blurred */")
+open(t,"w").write(u)
 PY
   gnome-extensions disable blur-my-shell@aunetx 2>/dev/null; gnome-extensions enable blur-my-shell@aunetx 2>/dev/null
 fi

@@ -160,6 +160,17 @@ t=p.replace("blur_surface.js","targets.js"); u=open(t).read()
 u=u.replace("        style_classes: ['modal-dialog', 'run-dialog'],","        style_classes: [],  /* tahoe: modal dialogs are not blurred */")
 open(t,"w").write(u)
 PY
+# Quick settings out of Blur my Shell's popup targets: they stand on the
+# desktop with no card (shell overrides), so no blurred backing either.
+BST="$EXT_DIR/blur-my-shell@aunetx/components/popup/targets.js"
+[[ -f "$BST" ]] && ! grep -q "tahoe: quick settings" "$BST" && python3 - "$BST" <<'PY'
+import sys
+p=sys.argv[1]; s=open(p).read()
+a="        const targets = this.create_targets();\n        const delegate = this.actor.get_actor_delegate(actor);\n"
+b=a+"        /* tahoe: quick settings stand on the desktop, unblurred */\n        if (this.has_style_class(delegate?.box, 'quick-settings') || this.has_style_class(actor, 'quick-settings'))\n            return [];\n"
+if a in s: open(p,"w").write(s.replace(a,b,1))
+else: print("    Blur my Shell targets.js changed upstream; quick-settings patch not applied")
+PY
 # Rounded Window Corners: GNOME 51 port of its shader effects, settings.
 RWC="$EXT_DIR/rounded-window-corners@fxgn"
 [[ -d "$RWC/effect" ]] && { cp "$ROOT"/config/rwc-gnome51/*.js "$RWC/effect/"; python3 -c "import json,sys; p=sys.argv[1]; m=json.load(open(p)); m['shell-version']=['51']; json.dump(m,open(p,'w'),indent=4)" "$RWC/metadata.json"; }

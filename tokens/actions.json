@@ -4744,6 +4744,1559 @@
         "network-cellular-offline",
         "network-cellular-hardware-disabled"
       ]
+    },
+    "action-unavailable": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "nosign"
+      },
+      "aliases": []
+    },
+    "call-stop": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "phone.down"
+      },
+      "aliases": []
+    },
+    "camera-switch": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "camera"
+      },
+      "aliases": []
+    },
+    "color-select": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "eyedropper"
+      },
+      "aliases": []
+    },
+    "document-page-setup": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "document"
+      },
+      "aliases": []
+    },
+    "error-correct": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "checkmark.circle"
+      },
+      "aliases": []
+    },
+    "font-select": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "textformat"
+      },
+      "aliases": []
+    },
+    "format-text-direction-ltr": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "text.alignleft"
+      },
+      "aliases": []
+    },
+    "format-text-direction": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "text.alignleft"
+      },
+      "aliases": []
+    },
+    "format-text-plaintext": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "text.document"
+      },
+      "aliases": []
+    },
+    "format-text-rich": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "textformat"
+      },
+      "aliases": []
+    },
+    "insert-object": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "plus.square.on.square"
+      },
+      "aliases": []
+    },
+    "list-remove-all": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "trash"
+      },
+      "aliases": []
+    },
+    "mail-forward": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "arrowshape.turn.up.right"
+      },
+      "aliases": []
+    },
+    "mail-mark-junk": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "xmark.bin"
+      },
+      "aliases": []
+    },
+    "mail-mark-notjunk": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "tray"
+      },
+      "aliases": []
+    },
+    "mail-reply-all": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "arrowshape.turn.up.left.2"
+      },
+      "aliases": []
+    },
+    "mail-reply-sender": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "arrowshape.turn.up.left"
+      },
+      "aliases": []
+    },
+    "mail-send-receive": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.up.arrow.down"
+      },
+      "aliases": []
+    },
+    "media-view-subtitles": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "captions.bubble"
+      },
+      "aliases": []
+    },
+    "object-flip-vertical": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.up.and.down"
+      },
+      "aliases": []
+    },
+    "selection-mode": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "checkmark.circle"
+      },
+      "aliases": []
+    },
+    "send-to": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "paperplane"
+      },
+      "aliases": []
+    },
+    "star-new": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "star"
+      },
+      "aliases": []
+    },
+    "value-decrease": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "minus"
+      },
+      "aliases": []
+    },
+    "value-increase": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "plus"
+      },
+      "aliases": []
+    },
+    "view-app-grid": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "square.grid.3x3"
+      },
+      "aliases": []
+    },
+    "view-continuous": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.split.1x2"
+      },
+      "aliases": []
+    },
+    "view-dual": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.split.2x1"
+      },
+      "aliases": []
+    },
+    "view-list-bullet": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "list.bullet"
+      },
+      "aliases": []
+    },
+    "view-list-ordered": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "list.number"
+      },
+      "aliases": []
+    },
+    "view-mirror": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.left.and.right"
+      },
+      "aliases": []
+    },
+    "view-paged": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "book"
+      },
+      "aliases": []
+    },
+    "view-wrapped": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "text.word.spacing"
+      },
+      "aliases": []
+    },
+    "emoji-activities": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "figure.walk"
+      },
+      "aliases": []
+    },
+    "emoji-body": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "hand.raised"
+      },
+      "aliases": []
+    },
+    "emoji-flags": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "flag"
+      },
+      "aliases": []
+    },
+    "emoji-food": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "fork.knife"
+      },
+      "aliases": []
+    },
+    "emoji-nature": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "leaf"
+      },
+      "aliases": []
+    },
+    "emoji-objects": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "lightbulb"
+      },
+      "aliases": []
+    },
+    "emoji-people": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "person"
+      },
+      "aliases": []
+    },
+    "emoji-recent": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "clock"
+      },
+      "aliases": []
+    },
+    "emoji-symbols": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "heart"
+      },
+      "aliases": []
+    },
+    "emoji-travel": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "car"
+      },
+      "aliases": []
+    },
+    "auth-face": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "faceid"
+      },
+      "aliases": []
+    },
+    "auth-fingerprint": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "touchid"
+      },
+      "aliases": []
+    },
+    "auth-sim": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "simcard"
+      },
+      "aliases": []
+    },
+    "auth-smartcard": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "creditcard"
+      },
+      "aliases": []
+    },
+    "bluetooth": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "wave.3.right"
+      },
+      "aliases": []
+    },
+    "colorimeter-colorhug": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "eyedropper.halffull"
+      },
+      "aliases": []
+    },
+    "computer-apple-ipad": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "ipad"
+      },
+      "aliases": []
+    },
+    "display-projector": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "videoprojector"
+      },
+      "aliases": []
+    },
+    "drive-harddisk-ieee1394": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "externaldrive"
+      },
+      "aliases": []
+    },
+    "drive-harddisk-solidstate": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "internaldrive"
+      },
+      "aliases": []
+    },
+    "drive-harddisk-system": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "internaldrive"
+      },
+      "aliases": []
+    },
+    "drive-multidisk": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "externaldrive.connected.to.line.below"
+      },
+      "aliases": []
+    },
+    "input-dialpad": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "circle.grid.3x3"
+      },
+      "aliases": []
+    },
+    "media-optical-cd-audio": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "opticaldisc"
+      },
+      "aliases": []
+    },
+    "media-optical-cd": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "opticaldisc"
+      },
+      "aliases": []
+    },
+    "media-zip": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "externaldrive"
+      },
+      "aliases": []
+    },
+    "multimedia-player-apple-ipod-touch": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "ipod.touch"
+      },
+      "aliases": []
+    },
+    "pda": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "candybarphone"
+      },
+      "aliases": []
+    },
+    "phone-apple-iphone": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "iphone"
+      },
+      "aliases": []
+    },
+    "phone-old": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "phone"
+      },
+      "aliases": []
+    },
+    "tv": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "tv"
+      },
+      "aliases": []
+    },
+    "uninterruptible-power-supply": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "powerplug"
+      },
+      "aliases": []
+    },
+    "accessories-calculator": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "plus.forwardslash.minus"
+      },
+      "aliases": []
+    },
+    "accessories-character-map": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "character"
+      },
+      "aliases": []
+    },
+    "accessories-dictionary": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "character.book.closed"
+      },
+      "aliases": []
+    },
+    "accessories-text-editor": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "text.document"
+      },
+      "aliases": []
+    },
+    "text-editor": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "text.document"
+      },
+      "aliases": []
+    },
+    "gnome-power-manager": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "bolt"
+      },
+      "aliases": []
+    },
+    "goa-panel": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "person.crop.circle"
+      },
+      "aliases": []
+    },
+    "preferences-desktop-keyboard-shortcuts": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "command"
+      },
+      "aliases": []
+    },
+    "preferences-desktop-multitasking": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.on.rectangle"
+      },
+      "aliases": []
+    },
+    "preferences-system-details": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "info.circle"
+      },
+      "aliases": []
+    },
+    "preferences-system-network-proxy": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "network"
+      },
+      "aliases": []
+    },
+    "preferences-system-parental-controls": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "figure.and.child.holdinghands"
+      },
+      "aliases": []
+    },
+    "web-browser": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "safari"
+      },
+      "aliases": []
+    },
+    "application-rss+xml": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "dot.radiowaves.up.forward"
+      },
+      "aliases": []
+    },
+    "application-x-appliance": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "shippingbox"
+      },
+      "aliases": []
+    },
+    "application-x-firmware": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "cpu"
+      },
+      "aliases": []
+    },
+    "application-x-sharedlib": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "books.vertical"
+      },
+      "aliases": []
+    },
+    "font-x-generic": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "textformat"
+      },
+      "aliases": []
+    },
+    "x-office-address-book": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "person.crop.rectangle.stack"
+      },
+      "aliases": []
+    },
+    "x-office-calendar": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "calendar"
+      },
+      "aliases": []
+    },
+    "x-office-drawing": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "paintbrush"
+      },
+      "aliases": []
+    },
+    "x-office-presentation": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.on.rectangle.angled"
+      },
+      "aliases": []
+    },
+    "x-office-spreadsheet": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "tablecells"
+      },
+      "aliases": []
+    },
+    "folder-drag-accept": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "folder.badge.plus"
+      },
+      "aliases": []
+    },
+    "folder-projects": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "folder.badge.gearshape"
+      },
+      "aliases": []
+    },
+    "user-bookmarks": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "bookmark"
+      },
+      "aliases": []
+    },
+    "folder-visiting": {
+      "context": "places",
+      "glyph": {
+        "set": "sf",
+        "name": "folder"
+      },
+      "aliases": []
+    },
+    "airplane-mode-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "airplane"
+      },
+      "aliases": []
+    },
+    "appointment-missed": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "calendar.badge.exclamationmark"
+      },
+      "aliases": []
+    },
+    "battery-action": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.100percent.bolt"
+      },
+      "aliases": []
+    },
+    "call-incoming": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "phone.arrow.down.left"
+      },
+      "aliases": []
+    },
+    "call-missed": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "phone.badge.plus"
+      },
+      "aliases": []
+    },
+    "call-outgoing": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "phone.arrow.up.right"
+      },
+      "aliases": []
+    },
+    "camera-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "video.slash"
+      },
+      "aliases": []
+    },
+    "camera-hardware-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "video.slash"
+      },
+      "aliases": []
+    },
+    "content-loading": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "ellipsis"
+      },
+      "aliases": []
+    },
+    "daytime-sunrise": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "sunrise"
+      },
+      "aliases": []
+    },
+    "daytime-sunset": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "sunset"
+      },
+      "aliases": []
+    },
+    "image-loading": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "photo"
+      },
+      "aliases": []
+    },
+    "mail-attachment": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "paperclip"
+      },
+      "aliases": []
+    },
+    "mail-replied": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "arrowshape.turn.up.left"
+      },
+      "aliases": []
+    },
+    "media-playlist-consecutive": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.right.to.line"
+      },
+      "aliases": []
+    },
+    "media-playlist-repeat-song": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "repeat.1"
+      },
+      "aliases": []
+    },
+    "microphone-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "microphone.slash"
+      },
+      "aliases": []
+    },
+    "microphone-hardware-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "microphone.slash"
+      },
+      "aliases": []
+    },
+    "network-cellular-2g": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right"
+      },
+      "aliases": []
+    },
+    "network-cellular-3g": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right"
+      },
+      "aliases": []
+    },
+    "network-cellular-4g": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right"
+      },
+      "aliases": []
+    },
+    "network-cellular-5g": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right"
+      },
+      "aliases": []
+    },
+    "network-cellular-edge": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right"
+      },
+      "aliases": []
+    },
+    "network-cellular-gprs": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right"
+      },
+      "aliases": []
+    },
+    "network-cellular-hspa": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right"
+      },
+      "aliases": []
+    },
+    "network-cellular-no-route": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right.slash"
+      },
+      "aliases": []
+    },
+    "network-idle": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.up.arrow.down"
+      },
+      "aliases": []
+    },
+    "network-no-route": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "network.slash"
+      },
+      "aliases": []
+    },
+    "network-receive": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.down"
+      },
+      "aliases": []
+    },
+    "network-transmit-receive": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.up.arrow.down"
+      },
+      "aliases": []
+    },
+    "network-transmit": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.up"
+      },
+      "aliases": []
+    },
+    "network-vpn-disconnected": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "lock.slash"
+      },
+      "aliases": []
+    },
+    "network-vpn-no-route": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "lock.slash"
+      },
+      "aliases": []
+    },
+    "network-wireless-hardware-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "wifi.slash"
+      },
+      "aliases": []
+    },
+    "orientation-landscape-inverse": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.landscape.rotate"
+      },
+      "aliases": []
+    },
+    "orientation-landscape": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.landscape.rotate"
+      },
+      "aliases": []
+    },
+    "orientation-portrait-left": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.portrait.rotate"
+      },
+      "aliases": []
+    },
+    "orientation-portrait-right": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.portrait.rotate"
+      },
+      "aliases": []
+    },
+    "printer-warning": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "printer"
+      },
+      "aliases": []
+    },
+    "screen-shared": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.on.rectangle"
+      },
+      "aliases": []
+    },
+    "semi-starred": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "star.leadinghalf.filled"
+      },
+      "aliases": []
+    },
+    "software-update-urgent": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "exclamationmark.shield"
+      },
+      "aliases": []
+    },
+    "starred": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "star.fill"
+      },
+      "aliases": []
+    },
+    "task-due": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "checklist"
+      },
+      "aliases": []
+    },
+    "task-past-due": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "exclamationmark.circle"
+      },
+      "aliases": []
+    },
+    "thunderbolt-acquiring": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "bolt"
+      },
+      "aliases": []
+    },
+    "touch-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "hand.raised.slash"
+      },
+      "aliases": []
+    },
+    "user-not-tracked": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "eye.slash"
+      },
+      "aliases": []
+    },
+    "user-status-pending": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "clock"
+      },
+      "aliases": []
+    },
+    "weather-few-clouds-night": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "cloud.moon"
+      },
+      "aliases": []
+    },
+    "weather-severe-alert": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "exclamationmark.triangle"
+      },
+      "aliases": []
+    },
+    "weather-showers-scattered": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "cloud.drizzle"
+      },
+      "aliases": []
+    },
+    "weather-tornado": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "tornado"
+      },
+      "aliases": []
+    },
+    "weather-windy": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "wind"
+      },
+      "aliases": []
+    },
+    "battery-level-0": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.0percent"
+      },
+      "aliases": []
+    },
+    "battery-level-10": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.25percent"
+      },
+      "aliases": []
+    },
+    "battery-level-20": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.25percent"
+      },
+      "aliases": []
+    },
+    "battery-level-30": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.25percent"
+      },
+      "aliases": []
+    },
+    "battery-level-40": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.50percent"
+      },
+      "aliases": []
+    },
+    "battery-level-50": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.50percent"
+      },
+      "aliases": []
+    },
+    "battery-level-60": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.50percent"
+      },
+      "aliases": []
+    },
+    "battery-level-70": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.75percent"
+      },
+      "aliases": []
+    },
+    "battery-level-80": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.75percent"
+      },
+      "aliases": []
+    },
+    "battery-level-90": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.100percent"
+      },
+      "aliases": []
+    },
+    "battery-level-100": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.100percent"
+      },
+      "aliases": []
+    },
+    "battery-level-100-charged": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.100percent.bolt"
+      },
+      "aliases": [
+        "battery-level-0-charging",
+        "battery-level-10-charging",
+        "battery-level-20-charging",
+        "battery-level-30-charging",
+        "battery-level-40-charging",
+        "battery-level-50-charging",
+        "battery-level-60-charging",
+        "battery-level-70-charging",
+        "battery-level-80-charging",
+        "battery-level-90-charging",
+        "battery-level-0-plugged-in",
+        "battery-level-10-plugged-in",
+        "battery-level-20-plugged-in",
+        "battery-level-30-plugged-in",
+        "battery-level-40-plugged-in",
+        "battery-level-50-plugged-in",
+        "battery-level-60-plugged-in",
+        "battery-level-70-plugged-in",
+        "battery-level-80-plugged-in",
+        "battery-level-90-plugged-in",
+        "battery-level-100-plugged-in",
+        "battery-empty-charging"
+      ]
+    },
+    "accessibility-menu": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "accessibility"
+      },
+      "aliases": []
+    },
+    "accessibility-zoom": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "plus.magnifyingglass"
+      },
+      "aliases": []
+    },
+    "accessibility-screen-reader": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "ear"
+      },
+      "aliases": []
+    },
+    "accessibility-large-text": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "textformat.size"
+      },
+      "aliases": []
+    },
+    "accessibility-high-contrast": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "circle.lefthalf.filled"
+      },
+      "aliases": []
+    },
+    "accessibility-visual-alerts": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "bell.badge"
+      },
+      "aliases": []
+    },
+    "accessibility-sticky-keys": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "keyboard.badge.ellipsis"
+      },
+      "aliases": []
+    },
+    "accessibility-slow-keys": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "tortoise"
+      },
+      "aliases": []
+    },
+    "accessibility-bounce-keys": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "keyboard"
+      },
+      "aliases": []
+    },
+    "accessibility-mouse-keys": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "computermouse"
+      },
+      "aliases": []
+    },
+    "carousel-arrow-next": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "chevron.right"
+      },
+      "aliases": []
+    },
+    "carousel-arrow-previous": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "chevron.left"
+      },
+      "aliases": []
+    },
+    "cog-wheel": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "gearshape"
+      },
+      "aliases": []
+    },
+    "fingerprint-auth": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "touchid"
+      },
+      "aliases": []
+    },
+    "group-collapse": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "chevron.up"
+      },
+      "aliases": []
+    },
+    "message-indicator": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "bubble.left"
+      },
+      "aliases": []
+    },
+    "notification-expand": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "chevron.down"
+      },
+      "aliases": []
+    },
+    "preview-close": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "xmark"
+      },
+      "aliases": []
+    },
+    "record-screen": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "record.circle"
+      },
+      "aliases": []
+    },
+    "screencast-stop": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "stop.circle"
+      },
+      "aliases": []
+    },
+    "screenshot-ui-area": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.dashed"
+      },
+      "aliases": []
+    },
+    "screenshot-ui-display": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "display"
+      },
+      "aliases": []
+    },
+    "screenshot-ui-show-pointer": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "cursorarrow"
+      },
+      "aliases": []
+    },
+    "screenshot-ui-window": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "macwindow"
+      },
+      "aliases": []
+    },
+    "shell-display-built-in-only": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "laptopcomputer"
+      },
+      "aliases": []
+    },
+    "shell-display-extend-all": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.split.2x1"
+      },
+      "aliases": []
+    },
+    "shell-display-external-only": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "display"
+      },
+      "aliases": []
+    },
+    "shell-display-mirror": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "rectangle.on.rectangle"
+      },
+      "aliases": []
+    },
+    "vcard": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "person.text.rectangle"
+      },
+      "aliases": []
+    },
+    "battery-device": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.100percent"
+      },
+      "aliases": [
+        "battery"
+      ]
+    },
+    "check": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "checkmark"
+      },
+      "aliases": []
+    },
+    "window-restore": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.down.right.and.arrow.up.left"
+      },
+      "aliases": []
     }
   }
 }

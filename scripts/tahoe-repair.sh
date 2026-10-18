@@ -27,6 +27,8 @@
 #  5e. Rounded Window Corners ported to GNOME 51 and configured (24 px, non-libadwaita windows)
 #  12. icon theme contents: regenerate from the repo if the generated set is
 #      missing or stale (symbolic places for Files, apps, KDE companion)
+#  12b. symbolic icons regenerated when their tokens change (stamp)
+#  13. Now Playing Card settings drift
 set -uo pipefail
 log() { printf '[tahoe-repair] %s\n' "$*"; }
 
@@ -323,6 +325,30 @@ if [[ -d "$ROOT/scripts" ]] && { [[ ! -f "$ROOT/icons/Tahoe-Material/symbolic/pl
   ( cd "$ROOT" && python3 scripts/fetch-glyphs.py >/dev/null 2>&1; python3 scripts/gen-action-icons.py >/dev/null 2>&1; python3 -W ignore scripts/gen-app-icons.py --no-sheet >/dev/null 2>&1 )
   gtk-update-icon-cache -q -t -f "$HOME/.local/share/icons/Tahoe-Material" 2>/dev/null || true
   gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'; sleep 1; gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'
+fi
+
+
+# 12b. symbolic icons current with their tokens: gen-action-icons.py stamps
+#      the hash of tokens/actions.json, tokens/glyphs.json and itself into
+#      icons/Tahoe-Material/.generated-from. A changed SF mapping, stroke or
+#      weight regenerates the set (new glyphs are fetched first).
+STAMP="$ROOT/icons/Tahoe-Material/.generated-from"
+want_hash="$(cd "$ROOT" && python3 -c 'import importlib.util,sys; s=importlib.util.spec_from_file_location("g","scripts/gen-action-icons.py"); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); print(m.inputs_hash())' 2>/dev/null)"
+if [[ -n "$want_hash" && "$(cat "$STAMP" 2>/dev/null)" != "$want_hash" ]]; then
+  log "symbolic icons out of date with their tokens: regenerating"
+  ( cd "$ROOT" && python3 scripts/fetch-glyphs.py >/dev/null 2>&1; python3 scripts/gen-action-icons.py >/dev/null 2>&1 )
+  gtk-update-icon-cache -q -t -f "$HOME/.local/share/icons/Tahoe-Material" 2>/dev/null || true
+  gsettings set org.gnome.desktop.interface icon-theme 'Adwaita'; sleep 1; gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'
+fi
+
+# 13. Now Playing Card settings drift (the macOS Now Playing layout set by
+#     gnome-setup.sh); its look is in the shell overrides.
+NPS="$EXT_DIR/nowplaying@epogonii.github.io/schemas"
+if [[ -d "$NPS" ]]; then
+  npg() { [[ "$(gsettings --schemadir "$NPS" get org.gnome.shell.extensions.nowplaying "$1")" == "$2" ]] || { log "now playing $1 drifted: resetting"; gsettings --schemadir "$NPS" set org.gnome.shell.extensions.nowplaying "$1" "${2//\'/}"; }; }
+  npg location "'panel'"; npg panel-box "'right'"; npg panel-text "'none'"; npg panel-icon true
+  npg card-layout "'full'"; npg cover-size "'large'"; npg show-progress true
+  npg show-volume false; npg show-loop-shuffle false; npg equalizer-accent false
 fi
 
 log "done"

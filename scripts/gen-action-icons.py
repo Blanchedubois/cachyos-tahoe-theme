@@ -10,6 +10,7 @@ the built-in 2 dp optical padding is preserved at every size.
 
 Usage: gen-action-icons.py [--only NAME]
 """
+import hashlib
 import json
 import re
 import sys
@@ -180,6 +181,15 @@ def write_kde_index(kde_ctx):
     (THEME_KDE / "index.theme").write_text("\n".join(lines))
 
 
+def inputs_hash():
+    """Hash of what the symbolic set is generated from. Written next to the
+    icons; tahoe-repair regenerates when it no longer matches."""
+    h = hashlib.sha256()
+    for f in (TOKENS / "actions.json", TOKENS / "glyphs.json", Path(__file__)):
+        h.update(f.read_bytes())
+    return h.hexdigest()
+
+
 def main():
     args = sys.argv[1:]
     only = args[args.index("--only") + 1] if "--only" in args else None
@@ -236,6 +246,7 @@ def main():
                 (d / f"{n}.svg").write_text(svg)
                 written += 1
     write_index_theme(contexts)
+    (THEME / ".generated-from").write_text(inputs_hash() + "\n")
     print(f"wrote {written} files for {len(spec['actions'])} entries; "
           f"{passthrough_places()} coloured place icons carried from MacTahoe")
     if missing:

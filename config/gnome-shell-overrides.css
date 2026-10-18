@@ -90,6 +90,12 @@
 .quick-toggle-has-menu:checked:hover { background-color: rgba(84, 84, 88, 0.84) !important; }
 .quick-toggle-has-menu:checked:active { background-color: rgba(100, 100, 104, 0.88) !important; }
 .quick-toggle-has-menu .quick-toggle { border: none !important; }
+/* Plain toggles (Dark Style, Night Light, Do Not Disturb) start their icon
+   where a split toggle starts its circle, 12 px in: the theme put 12 px of
+   padding plus a 20 px indent before it, 32 px in. */
+.quick-toggle { padding-left: 0 !important; padding-right: 0 !important; }
+.quick-toggle:ltr > StBoxLayout { padding-left: 12px !important; }
+.quick-toggle:rtl > StBoxLayout { padding-right: 12px !important; }
 /* The round icon inside a split toggle (Wi-Fi, Bluetooth), its arrow button
    and a submenu's header icon: a light step on the pill so they read.
    An icon that is on stays white. */

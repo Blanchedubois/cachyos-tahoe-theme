@@ -131,6 +131,8 @@ Why there is no perfect answer on Wayland: a shadow is either drawn by the decor
 | Dock and bar went opaque | dock and bar crops after the overlay | **fixed**. The fallback-only overlay lost MacTahoe's translucent panel. The overlay is now a full copy with three files swapped; both panels are glass again and the bar is set to always-translucent. |
 | Calendar card width | clock applet popup size | **fixed** by configuration, 380 by 420 instead of 560 by 451. |
 
+| Settings reset mid-session | kwinrc, klassyrc, kdeglobals | **fixed**. Decoration, icon theme and Plasma style all reverted to MacTahoe's global-theme defaults at once, which is what applying a global theme from Quick Settings does. Restored from the repo; the installer is the recovery path. Also found: setting the decoration `theme` without `library` in the same pass makes KWin drop both keys, so the installer writes them together. |
+
 ## Open items carried forward
 
 1. Verify menus and Plasma popups once a capture path exists, or by eye.

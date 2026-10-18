@@ -8,6 +8,7 @@
 set -euo pipefail
 say() { printf '\033[1;36m==>\033[0m %s\n' "$*"; }
 
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SHELL_VER="$(gnome-shell --version | grep -oE '[0-9]+' | head -1)"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
@@ -118,7 +119,9 @@ if [[ -d "$EXT_DIR/blur-my-shell@aunetx/schemas" ]]; then
   bs .popup static-blur true; bs .popup pipeline 'pipeline_default'; bs .popup override-background true; bs .popup preserve-shell-theme true; bs .popup sigma 30; bs .popup brightness 0.6
   # Blur corners: 14 px like the dropdowns, 20 px the calendar (this key).
   bs .popup quick-settings-corner-radius 20; bs .popup menu-corner-radius 14; bs .popup notification-corner-radius 14
-  bs .popup blur true
+  # Off by default: the shell dropdowns use a plain tint (config/popup-blur).
+  POPUP_BLUR=true; [[ "$(cat "$ROOT/config/popup-blur" 2>/dev/null)" == off ]] && POPUP_BLUR=false
+  bs .popup blur "$POPUP_BLUR"
 fi
 # Icons: the Tahoe-Material theme, SF Symbol watermarks on glass squircles.
 say "icons"

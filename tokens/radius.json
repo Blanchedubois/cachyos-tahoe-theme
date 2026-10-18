@@ -10,7 +10,7 @@
   "titlebar_button": 14,
   "titlebar_button_spacing": 8,
   "frame_edge_line": {
-    "thickness": 2,
+    "thickness": 8,
     "color": "header background (#333333)",
     "alpha": 255
   },

@@ -48,7 +48,7 @@ notch at the window level and keeps the ratio.
 
 | Token | Value |
 |---|---|
-| Frame outlines | Variant A as revised: a 2 px edge line in the header bar colour (`#333333`, opaque) that reads as an inset border housing the content, and a faint 1 px light line just outside it (`#ffffff` at 18 percent active, 12 inactive). No inner line. Drawn by the Rounded Corners effect's edge and outer outline layers. Earlier mockups remain in `docs/frame-options.png` |
+| Frame outlines | A thick 8 px inset band at the window edge in the header bar colour (`#333333`, opaque), housing the content, plus a faint 1 px light line just outside it (`#ffffff` at 18 percent active, 12 inactive). No inner line. Drawn by the Rounded Corners effect's edge and outer outline layers. Note: the effect re-reads outline colour and width only on a full unload and load, which the installer does |
 | Titlebar fill | follows colour scheme window background |
 | Glass surfaces | top panel, dock, popups: MacTahoe blur, tint `#1c1c1e` at 72 percent |
 | Highlight band | 1 px `#ffffff` at 10 percent along the top inside edge of glass surfaces |

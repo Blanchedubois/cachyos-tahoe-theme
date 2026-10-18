@@ -73,6 +73,10 @@ say "apply"
 /usr/lib/plasma-changeicons Tahoe-Material 2>/dev/null || kwriteconfig6 --file kdeglobals --group Icons --key Theme Tahoe-Material
 kwriteconfig6 --file kdeglobals --group KDE --key widgetStyle Darkly
 qdbus6 org.kde.KWin /KWin reconfigure >/dev/null 2>&1 || true
+# The Rounded Corners effect only re-reads outline colours and widths on a
+# full reload, not on reconfigure.
+qdbus6 org.kde.KWin /Effects org.kde.kwin.Effects.unloadEffect kwin4_effect_shapecorners >/dev/null 2>&1 || true
+qdbus6 org.kde.KWin /Effects org.kde.kwin.Effects.loadEffect kwin4_effect_shapecorners >/dev/null 2>&1 || true
 dbus-send --session --type=signal /KGlobalSettings org.kde.KGlobalSettings.notifyChange int32:2 int32:0 2>/dev/null || true
 
 say "done. Apps opened before this run pick up the style when relaunched."

@@ -94,6 +94,16 @@ Intent: the light hairline must sit exactly on the window's corner curve on ever
 
 Rule recorded in the plan: the effect owns every pixel of the corner, including the line. The decoration draws a square titlebar and never rounds.
 
+## Phase G: shadows per app
+
+Intent: every window's shadow looks the same, focused or not.
+
+| Window type | Who draws the shadow | State |
+|---|---|---|
+| KDE-decorated (Dolphin, Konsole, System Settings, kcalc) | Klassy | **pass**. Active and inactive shadows are now identical, so the corner reads the same either way. |
+| Electron, Wayland, client-side frame (Claude, Discord) | Chromium, inside the app's own surface | **deferred to relaunch**. The app's shadow is part of its window, differs between focus states by the app's own rule, and ends in a square corner the effect cannot clip. Claude's launcher now carries `--disable-features=WaylandWindowDecorations` in `~/.config/claude-desktop-flags.conf`; Discord gets the same flag through a desktop-entry override. Both apply on the app's next start. Claude's restart ends the Claude Code session, so it is left to the user. |
+| Steam and Steam games | Steam, or the game | **by design**. Excluded by the Steam rule. |
+
 ## Open items carried forward
 
 1. Verify menus and Plasma popups once a capture path exists, or by eye.

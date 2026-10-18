@@ -1,13 +1,13 @@
 {
-  "_comment": "One entry per visible desktop entry. 'icon' is the Icon= name the generated theme must provide. 'glyph' is {set, name}: set is material (Material Symbols Rounded, wght 700, fill 1) or phosphor (bold). brand=true keeps the app's own mark on the shell; brand_icon names the installed icon to sample. skip=true leaves the app untouched. Apps not listed here fall back to their own icon on a white glass squircle. Steam itself is always left alone; Steam game shortcuts (steam_icon_*) get the white squircle. tile=true forces a brand mark to be used as the full base under the glass instead of a glyph on a shell. tile_crop=true trims a tile to its coloured content first. Brand marks that do not fill the squircle sit on a white glass shell.",
+  "_comment": "One entry per visible desktop entry. 'icon' is the Icon= name the generated theme must provide. 'glyph' is {set, name}: set is material (Material Symbols Rounded, wght 700, fill 1) or phosphor (bold). brand=true keeps the app's own mark on the shell; brand_icon names the installed icon to sample. skip=true leaves the app untouched. Apps not listed here fall back to their own icon on a white glass squircle. Steam itself is always left alone; Steam game shortcuts (steam_icon_*) get the white squircle. tile=true forces a brand mark to be used as the full base under the glass instead of a glyph on a shell. tile_crop=true trims a tile to its coloured content first. Brand marks that do not fill the squircle sit on a white glass shell. Glyph set 'sf' names an SF Symbol from brendanballon/sfsymbols-svg (fetched at build time, not committed). SF glyphs use the outlined (non .fill) cut per review.",
   "apps": {
     "Alacritty.desktop": {
       "name": "Alacritty",
       "icon": "Alacritty",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "terminal"
+        "set": "sf",
+        "name": "apple.terminal"
       }
     },
     "arch-update.desktop": {
@@ -15,8 +15,8 @@
       "icon": "cachy-update-blue",
       "category": "cachyos",
       "glyph": {
-        "set": "material",
-        "name": "update"
+        "set": "sf",
+        "name": "arrow.trianglehead.2.clockwise.rotate.90"
       }
     },
     "assistant.desktop": {
@@ -24,8 +24,8 @@
       "icon": "assistant",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "help"
+        "set": "sf",
+        "name": "questionmark.circle"
       }
     },
     "avahi-discover.desktop": {
@@ -33,8 +33,8 @@
       "icon": "network-wired",
       "category": "utilities",
       "glyph": {
-        "set": "material",
-        "name": "hub"
+        "set": "sf",
+        "name": "point.3.connected.trianglepath.dotted"
       },
       "icon_override": "tahoe-avahi-discover"
     },
@@ -50,8 +50,8 @@
       "icon": "network-wired",
       "category": "utilities",
       "glyph": {
-        "set": "material",
-        "name": "dns"
+        "set": "sf",
+        "name": "server.rack"
       },
       "icon_override": "tahoe-avahi-ssh"
     },
@@ -60,8 +60,8 @@
       "icon": "btop",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "monitoring"
+        "set": "sf",
+        "name": "chart.line.uptrend.xyaxis"
       }
     },
     "btrfs-assistant.desktop": {
@@ -69,8 +69,8 @@
       "icon": "btrfs-assistant",
       "category": "system",
       "glyph": {
-        "set": "material",
-        "name": "storage"
+        "set": "sf",
+        "name": "externaldrive"
       }
     },
     "bvnc.desktop": {
@@ -78,8 +78,8 @@
       "icon": "network-wired",
       "category": "utilities",
       "glyph": {
-        "set": "material",
-        "name": "cast"
+        "set": "sf",
+        "name": "airplay.video"
       },
       "icon_override": "tahoe-avahi-vnc"
     },
@@ -88,8 +88,8 @@
       "icon": "org.cachyos.hello",
       "category": "cachyos",
       "glyph": {
-        "set": "material",
-        "name": "waving_hand"
+        "set": "sf",
+        "name": "hand.wave"
       }
     },
     "cachyos-pi.desktop": {
@@ -97,8 +97,8 @@
       "icon": "cachyos-pi",
       "category": "cachyos",
       "glyph": {
-        "set": "material",
-        "name": "package_2"
+        "set": "sf",
+        "name": "shippingbox"
       }
     },
     "chromium.desktop": {
@@ -113,8 +113,8 @@
       "icon": "CMakeSetup",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "build"
+        "set": "sf",
+        "name": "hammer"
       }
     },
     "com.anthropic.Claude.desktop": {
@@ -145,8 +145,8 @@
       "icon": "shelly",
       "category": "cachyos",
       "glyph": {
-        "set": "phosphor",
-        "name": "terminal-window"
+        "set": "sf",
+        "name": "apple.terminal"
       }
     },
     "cups.desktop": {
@@ -154,8 +154,8 @@
       "icon": "cups",
       "category": "hardware",
       "glyph": {
-        "set": "material",
-        "name": "print"
+        "set": "sf",
+        "name": "printer"
       }
     },
     "designer.desktop": {
@@ -163,8 +163,8 @@
       "icon": "designer",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "design_services"
+        "set": "sf",
+        "name": "pencil.and.ruler"
       }
     },
     "discord.desktop": {
@@ -186,7 +186,7 @@
       "icon": "tahoe-hp-scan",
       "category": "hardware",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "scanner"
       },
       "desktop_override": true
@@ -196,8 +196,8 @@
       "icon": "tahoe-hp-device-manager",
       "category": "hardware",
       "glyph": {
-        "set": "material",
-        "name": "print"
+        "set": "sf",
+        "name": "printer"
       },
       "desktop_override": true
     },
@@ -206,8 +206,8 @@
       "icon": "io.github.Faugus.faugus-launcher",
       "category": "games",
       "glyph": {
-        "set": "material",
-        "name": "sports_esports"
+        "set": "sf",
+        "name": "gamecontroller"
       }
     },
     "io.github.benjamimgois.goverlay.desktop": {
@@ -215,8 +215,8 @@
       "icon": "io.github.benjamimgois.goverlay",
       "category": "games",
       "glyph": {
-        "set": "material",
-        "name": "layers"
+        "set": "sf",
+        "name": "square.3.layers.3d"
       }
     },
     "kdesystemsettings.desktop": {
@@ -224,8 +224,8 @@
       "icon": "preferences-system",
       "category": "system",
       "glyph": {
-        "set": "material",
-        "name": "settings"
+        "set": "sf",
+        "name": "gearshape"
       }
     },
     "kvantummanager.desktop": {
@@ -233,8 +233,8 @@
       "icon": "kvantum",
       "category": "system",
       "glyph": {
-        "set": "material",
-        "name": "palette"
+        "set": "sf",
+        "name": "paintpalette"
       }
     },
     "limine-snapper-restore.desktop": {
@@ -242,8 +242,8 @@
       "icon": "LimineSnapperSync",
       "category": "security",
       "glyph": {
-        "set": "material",
-        "name": "history"
+        "set": "sf",
+        "name": "clock.arrow.trianglehead.counterclockwise.rotate.90"
       }
     },
     "linguist.desktop": {
@@ -251,8 +251,8 @@
       "icon": "linguist",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "translate"
+        "set": "sf",
+        "name": "character.bubble"
       }
     },
     "lstopo.desktop": {
@@ -260,8 +260,8 @@
       "icon": "hwloc",
       "category": "hardware",
       "glyph": {
-        "set": "material",
-        "name": "memory"
+        "set": "sf",
+        "name": "memorychip"
       }
     },
     "micro.desktop": {
@@ -269,8 +269,8 @@
       "icon": "micro",
       "category": "utilities",
       "glyph": {
-        "set": "material",
-        "name": "edit_note"
+        "set": "sf",
+        "name": "square.and.pencil"
       }
     },
     "mpv.desktop": {
@@ -278,8 +278,8 @@
       "icon": "mpv",
       "category": "media",
       "glyph": {
-        "set": "material",
-        "name": "play_circle"
+        "set": "sf",
+        "name": "play.circle"
       }
     },
     "net.lutris.Lutris.desktop": {
@@ -294,8 +294,8 @@
       "icon": "nvidia-settings",
       "category": "hardware",
       "glyph": {
-        "set": "material",
-        "name": "developer_board"
+        "set": "sf",
+        "name": "cpu"
       }
     },
     "org.cachyos.KernelManager.desktop": {
@@ -303,8 +303,8 @@
       "icon": "org.cachyos.KernelManager",
       "category": "cachyos",
       "glyph": {
-        "set": "material",
-        "name": "tune"
+        "set": "sf",
+        "name": "slider.horizontal.3"
       }
     },
     "org.cachyos.scx-manager.desktop": {
@@ -312,8 +312,8 @@
       "icon": "org.cachyos.scx-manager",
       "category": "cachyos",
       "glyph": {
-        "set": "material",
-        "name": "schedule"
+        "set": "sf",
+        "name": "clock"
       }
     },
     "org.gnome.Meld.desktop": {
@@ -321,8 +321,8 @@
       "icon": "org.gnome.Meld",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "difference"
+        "set": "sf",
+        "name": "arrow.left.arrow.right"
       }
     },
     "org.kde.ark.desktop": {
@@ -330,8 +330,8 @@
       "icon": "ark",
       "category": "files",
       "glyph": {
-        "set": "material",
-        "name": "folder_zip"
+        "set": "sf",
+        "name": "archivebox"
       }
     },
     "org.kde.dolphin.desktop": {
@@ -339,7 +339,7 @@
       "icon": "org.kde.dolphin",
       "category": "files",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "folder"
       }
     },
@@ -348,8 +348,8 @@
       "icon": "filelight",
       "category": "files",
       "glyph": {
-        "set": "material",
-        "name": "pie_chart"
+        "set": "sf",
+        "name": "chart.pie"
       }
     },
     "org.kde.gwenview.desktop": {
@@ -357,8 +357,8 @@
       "icon": "gwenview",
       "category": "media",
       "glyph": {
-        "set": "material",
-        "name": "image"
+        "set": "sf",
+        "name": "photo"
       }
     },
     "org.kde.haruna.desktop": {
@@ -366,8 +366,8 @@
       "icon": "haruna",
       "category": "media",
       "glyph": {
-        "set": "material",
-        "name": "movie"
+        "set": "sf",
+        "name": "film"
       }
     },
     "org.kde.kate.desktop": {
@@ -375,8 +375,8 @@
       "icon": "kate",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "code"
+        "set": "sf",
+        "name": "chevron.left.forwardslash.chevron.right"
       }
     },
     "org.kde.kcalc.desktop": {
@@ -384,8 +384,8 @@
       "icon": "accessories-calculator",
       "category": "utilities",
       "glyph": {
-        "set": "material",
-        "name": "calculate"
+        "set": "sf",
+        "name": "plus.forwardslash.minus"
       }
     },
     "org.kde.kdeconnect.app.desktop": {
@@ -393,8 +393,8 @@
       "icon": "kdeconnect",
       "category": "comms",
       "glyph": {
-        "set": "material",
-        "name": "devices"
+        "set": "sf",
+        "name": "macbook.and.iphone"
       }
     },
     "org.kde.kdeconnect.nonplasma.desktop": {
@@ -402,8 +402,8 @@
       "icon": "kdeconnect",
       "category": "comms",
       "glyph": {
-        "set": "material",
-        "name": "devices"
+        "set": "sf",
+        "name": "macbook.and.iphone"
       }
     },
     "org.kde.kdeconnect.sms.desktop": {
@@ -411,8 +411,8 @@
       "icon": "kdeconnect",
       "category": "comms",
       "glyph": {
-        "set": "material",
-        "name": "devices"
+        "set": "sf",
+        "name": "macbook.and.iphone"
       }
     },
     "org.kde.kinfocenter.desktop": {
@@ -420,8 +420,8 @@
       "icon": "hwinfo",
       "category": "system",
       "glyph": {
-        "set": "material",
-        "name": "info"
+        "set": "sf",
+        "name": "info.circle"
       }
     },
     "org.kde.kmenuedit.desktop": {
@@ -429,8 +429,8 @@
       "icon": "kmenuedit",
       "category": "system",
       "glyph": {
-        "set": "material",
-        "name": "list_alt"
+        "set": "sf",
+        "name": "list.bullet.rectangle"
       }
     },
     "org.kde.konsole.desktop": {
@@ -438,8 +438,8 @@
       "icon": "utilities-terminal",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "terminal"
+        "set": "sf",
+        "name": "apple.terminal"
       }
     },
     "org.kde.kwalletmanager.desktop": {
@@ -447,7 +447,7 @@
       "icon": "kwalletmanager",
       "category": "security",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "key"
       }
     },
@@ -456,8 +456,8 @@
       "icon": "kwrite",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "description"
+        "set": "sf",
+        "name": "text.document"
       }
     },
     "org.kde.partitionmanager.desktop": {
@@ -465,8 +465,8 @@
       "icon": "partitionmanager",
       "category": "security",
       "glyph": {
-        "set": "material",
-        "name": "hard_drive"
+        "set": "sf",
+        "name": "internaldrive"
       }
     },
     "org.kde.plasma-systemmonitor.desktop": {
@@ -474,8 +474,8 @@
       "icon": "utilities-system-monitor",
       "category": "system",
       "glyph": {
-        "set": "material",
-        "name": "query_stats"
+        "set": "sf",
+        "name": "waveform.path.ecg"
       }
     },
     "org.kde.plasma.emojier.desktop": {
@@ -483,8 +483,8 @@
       "icon": "preferences-desktop-emoticons",
       "category": "utilities",
       "glyph": {
-        "set": "phosphor",
-        "name": "smiley"
+        "set": "sf",
+        "name": "face.smiling"
       }
     },
     "org.kde.spectacle.desktop": {
@@ -492,8 +492,8 @@
       "icon": "spectacle",
       "category": "utilities",
       "glyph": {
-        "set": "material",
-        "name": "photo_camera"
+        "set": "sf",
+        "name": "camera"
       }
     },
     "org.pulseaudio.pavucontrol.desktop": {
@@ -501,8 +501,8 @@
       "icon": "org.pulseaudio.pavucontrol",
       "category": "media",
       "glyph": {
-        "set": "material",
-        "name": "volume_up"
+        "set": "sf",
+        "name": "speaker.wave.3"
       }
     },
     "org.telegram.desktop.desktop": {
@@ -517,8 +517,8 @@
       "icon": "wine",
       "category": "games",
       "glyph": {
-        "set": "material",
-        "name": "wine_bar"
+        "set": "sf",
+        "name": "wineglass"
       }
     },
     "qdbusviewer.desktop": {
@@ -526,8 +526,8 @@
       "icon": "qdbusviewer",
       "category": "dev",
       "glyph": {
-        "set": "material",
-        "name": "cable"
+        "set": "sf",
+        "name": "cable.connector"
       }
     },
     "qv4l2.desktop": {
@@ -535,8 +535,8 @@
       "icon": "qv4l2",
       "category": "media",
       "glyph": {
-        "set": "material",
-        "name": "videocam"
+        "set": "sf",
+        "name": "video"
       }
     },
     "qvidcap.desktop": {
@@ -544,8 +544,8 @@
       "icon": "qvidcap",
       "category": "media",
       "glyph": {
-        "set": "material",
-        "name": "videocam"
+        "set": "sf",
+        "name": "video"
       }
     },
     "scrcpy-console.desktop": {
@@ -553,8 +553,8 @@
       "icon": "scrcpy",
       "category": "utilities",
       "glyph": {
-        "set": "material",
-        "name": "smartphone"
+        "set": "sf",
+        "name": "iphone"
       }
     },
     "scrcpy.desktop": {
@@ -562,8 +562,8 @@
       "icon": "scrcpy",
       "category": "utilities",
       "glyph": {
-        "set": "material",
-        "name": "smartphone"
+        "set": "sf",
+        "name": "iphone"
       }
     },
     "smplayer.desktop": {
@@ -571,8 +571,8 @@
       "icon": "smplayer",
       "category": "media",
       "glyph": {
-        "set": "material",
-        "name": "smart_display"
+        "set": "sf",
+        "name": "play.rectangle"
       }
     },
     "steam.desktop": {
@@ -586,8 +586,8 @@
       "icon": "printer",
       "category": "hardware",
       "glyph": {
-        "set": "material",
-        "name": "print"
+        "set": "sf",
+        "name": "printer"
       }
     },
     "systemsettings.desktop": {
@@ -595,8 +595,8 @@
       "icon": "preferences-system",
       "category": "system",
       "glyph": {
-        "set": "material",
-        "name": "settings"
+        "set": "sf",
+        "name": "gearshape"
       }
     },
     "vim.desktop": {
@@ -604,7 +604,7 @@
       "icon": "gvim",
       "category": "utilities",
       "glyph": {
-        "set": "material",
+        "set": "sf",
         "name": "keyboard"
       }
     },
@@ -620,8 +620,8 @@
       "icon": "winetricks",
       "category": "games",
       "glyph": {
-        "set": "material",
-        "name": "wine_bar"
+        "set": "sf",
+        "name": "wineglass"
       }
     },
     "org.gnome.GTK4ThemeSwitcher.desktop": {
@@ -629,8 +629,305 @@
       "icon": "preferences-desktop-theme",
       "category": "system",
       "glyph": {
-        "set": "material",
-        "name": "format_paint"
+        "set": "sf",
+        "name": "paintbrush"
+      }
+    },
+    "org.gnome.Nautilus.desktop": {
+      "name": "Files",
+      "icon": "org.gnome.Nautilus",
+      "category": "files",
+      "glyph": {
+        "set": "sf",
+        "name": "folder"
+      }
+    },
+    "org.gnome.Calculator.desktop": {
+      "name": "Calculator",
+      "icon": "org.gnome.Calculator",
+      "category": "utilities",
+      "glyph": {
+        "set": "sf",
+        "name": "plus.forwardslash.minus"
+      }
+    },
+    "org.gnome.Calendar.desktop": {
+      "name": "Calendar",
+      "icon": "org.gnome.Calendar",
+      "category": "utilities",
+      "glyph": {
+        "set": "sf",
+        "name": "calendar"
+      }
+    },
+    "org.gnome.Characters.desktop": {
+      "name": "Characters",
+      "icon": "org.gnome.Characters",
+      "category": "utilities",
+      "glyph": {
+        "set": "sf",
+        "name": "character"
+      }
+    },
+    "org.gnome.clocks.desktop": {
+      "name": "Clocks",
+      "icon": "org.gnome.clocks",
+      "category": "utilities",
+      "glyph": {
+        "set": "sf",
+        "name": "clock"
+      }
+    },
+    "org.gnome.Console.desktop": {
+      "name": "Console",
+      "icon": "org.gnome.Console",
+      "category": "dev",
+      "glyph": {
+        "set": "sf",
+        "name": "apple.terminal"
+      }
+    },
+    "org.gnome.Contacts.desktop": {
+      "name": "Contacts",
+      "icon": "org.gnome.Contacts",
+      "category": "comms",
+      "glyph": {
+        "set": "sf",
+        "name": "person.crop.circle"
+      }
+    },
+    "org.gnome.Connections.desktop": {
+      "name": "Connections",
+      "icon": "org.gnome.Connections",
+      "category": "utilities",
+      "glyph": {
+        "set": "sf",
+        "name": "display.2"
+      }
+    },
+    "org.gnome.DiskUtility.desktop": {
+      "name": "Disks",
+      "icon": "org.gnome.DiskUtility",
+      "category": "security",
+      "glyph": {
+        "set": "sf",
+        "name": "internaldrive"
+      }
+    },
+    "org.gnome.baobab.desktop": {
+      "name": "Disk Usage Analyzer",
+      "icon": "org.gnome.baobab",
+      "category": "security",
+      "glyph": {
+        "set": "sf",
+        "name": "chart.pie"
+      }
+    },
+    "org.gnome.font-viewer.desktop": {
+      "name": "Fonts",
+      "icon": "org.gnome.font-viewer",
+      "category": "utilities",
+      "glyph": {
+        "set": "sf",
+        "name": "textformat"
+      }
+    },
+    "org.gnome.Loupe.desktop": {
+      "name": "Image Viewer",
+      "icon": "org.gnome.Loupe",
+      "category": "media",
+      "glyph": {
+        "set": "sf",
+        "name": "photo"
+      }
+    },
+    "org.gnome.Maps.desktop": {
+      "name": "Maps",
+      "icon": "org.gnome.Maps",
+      "category": "internet",
+      "glyph": {
+        "set": "sf",
+        "name": "map"
+      }
+    },
+    "org.gnome.Music.desktop": {
+      "name": "Music",
+      "icon": "org.gnome.Music",
+      "category": "media",
+      "glyph": {
+        "set": "sf",
+        "name": "music.note"
+      }
+    },
+    "org.gnome.Settings.desktop": {
+      "name": "Settings",
+      "icon": "org.gnome.Settings",
+      "category": "system",
+      "glyph": {
+        "set": "sf",
+        "name": "gearshape"
+      }
+    },
+    "org.gnome.Snapshot.desktop": {
+      "name": "Camera",
+      "icon": "org.gnome.Snapshot",
+      "category": "media",
+      "glyph": {
+        "set": "sf",
+        "name": "camera"
+      }
+    },
+    "org.gnome.Software.desktop": {
+      "name": "Software",
+      "icon": "org.gnome.Software",
+      "category": "cachyos",
+      "glyph": {
+        "set": "sf",
+        "name": "shippingbox"
+      }
+    },
+    "org.gnome.SystemMonitor.desktop": {
+      "name": "GNOME System Monitor",
+      "icon": "org.gnome.SystemMonitor",
+      "category": "system",
+      "glyph": {
+        "set": "sf",
+        "name": "waveform.path.ecg"
+      }
+    },
+    "org.gnome.TextEditor.desktop": {
+      "name": "Text Editor",
+      "icon": "org.gnome.TextEditor",
+      "category": "dev",
+      "glyph": {
+        "set": "sf",
+        "name": "text.document"
+      }
+    },
+    "org.gnome.Weather.desktop": {
+      "name": "Weather",
+      "icon": "org.gnome.Weather",
+      "category": "internet",
+      "glyph": {
+        "set": "sf",
+        "name": "cloud.sun"
+      }
+    },
+    "org.gnome.Epiphany.desktop": {
+      "name": "Web",
+      "icon": "org.gnome.Epiphany",
+      "category": "internet",
+      "glyph": {
+        "set": "sf",
+        "name": "globe"
+      }
+    },
+    "org.gnome.Tour.desktop": {
+      "name": "Tour",
+      "icon": "org.gnome.Tour",
+      "category": "utilities",
+      "glyph": {
+        "set": "sf",
+        "name": "sparkles"
+      }
+    },
+    "org.gnome.tweaks.desktop": {
+      "name": "Tweaks",
+      "icon": "org.gnome.tweaks",
+      "category": "system",
+      "glyph": {
+        "set": "sf",
+        "name": "slider.horizontal.3"
+      }
+    },
+    "org.gnome.Decibels.desktop": {
+      "name": "Audio Player",
+      "icon": "org.gnome.Decibels",
+      "category": "media",
+      "glyph": {
+        "set": "sf",
+        "name": "waveform"
+      }
+    },
+    "org.gnome.Showtime.desktop": {
+      "name": "Video Player",
+      "icon": "org.gnome.Showtime",
+      "category": "media",
+      "glyph": {
+        "set": "sf",
+        "name": "play.rectangle"
+      }
+    },
+    "yelp.desktop": {
+      "name": "Help",
+      "icon": "yelp",
+      "category": "utilities",
+      "glyph": {
+        "set": "sf",
+        "name": "questionmark.circle"
+      }
+    },
+    "simple-scan.desktop": {
+      "name": "Document Scanner",
+      "icon": "simple-scan",
+      "category": "hardware",
+      "glyph": {
+        "set": "sf",
+        "name": "scanner"
+      }
+    },
+    "org.gnome.ColorProfileViewer.desktop": {
+      "name": "Color Profile Viewer",
+      "icon": "gnome-color-manager",
+      "category": "hardware",
+      "glyph": {
+        "set": "sf",
+        "name": "paintpalette"
+      }
+    },
+    "rygel-preferences.desktop": {
+      "name": "Rygel Preferences",
+      "icon": "rygel",
+      "category": "utilities",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right"
+      }
+    },
+    "org.freedesktop.IBus.Setup.desktop": {
+      "name": "IBus Preferences",
+      "icon": "ibus-setup",
+      "category": "system",
+      "glyph": {
+        "set": "sf",
+        "name": "keyboard"
+      }
+    },
+    "org.freedesktop.MalcontentControl.desktop": {
+      "name": "Parental Controls",
+      "icon": "org.freedesktop.MalcontentControl",
+      "category": "security",
+      "glyph": {
+        "set": "sf",
+        "name": "figure.and.child.holdinghands"
+      }
+    },
+    "org.gnome.Logs.desktop": {
+      "name": "Logs",
+      "icon": "org.gnome.Logs",
+      "category": "system",
+      "glyph": {
+        "set": "sf",
+        "name": "list.bullet.rectangle.portrait"
+      }
+    },
+    "org.gnome.Papers.desktop": {
+      "name": "Document Viewer",
+      "icon": "org.gnome.Papers",
+      "category": "utilities",
+      "glyph": {
+        "set": "sf",
+        "name": "document"
       }
     }
   },

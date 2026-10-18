@@ -19,6 +19,7 @@ GLYPHS = ROOT / "glyphs"
 MATERIAL = ("https://raw.githubusercontent.com/google/material-design-icons/master/"
             "symbols/web/{name}/materialsymbolsrounded/{name}_wght{weight}{fill}_48px.svg")
 PHOSPHOR = "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/{weight}/{name}-{weight}.svg"
+SF = "https://raw.githubusercontent.com/brendanballon/sfsymbols-svg/master/symbols/{name}.svg"
 GLYPH_TOKENS = json.load(open(ROOT / "tokens" / "glyphs.json"))
 MATERIAL_WEIGHT = int(GLYPH_TOKENS.get("material_weight", 700))
 PHOSPHOR_WEIGHT = GLYPH_TOKENS.get("phosphor_weight", "bold")
@@ -54,11 +55,13 @@ def url_for(set_, name, fill):
         return MATERIAL.format(name=name, weight=MATERIAL_WEIGHT, fill="fill1" if fill else "").replace(f"wght{MATERIAL_WEIGHT}", w)
     if set_ == "phosphor":
         return PHOSPHOR.format(name=name, weight=PHOSPHOR_WEIGHT)
+    if set_ == "sf":
+        return SF.format(name=name)
     raise ValueError(f"unknown glyph set {set_}")
 
 
 def dest_for(set_, name, fill):
-    suffix = "" if set_ == "phosphor" or fill else "-outline"
+    suffix = "" if set_ in ("phosphor", "sf") or fill else "-outline"
     return GLYPHS / set_ / f"{name}{suffix}.svg"
 
 

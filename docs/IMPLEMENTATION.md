@@ -355,3 +355,10 @@ blur. User Themes comes bundled with gnome-shell-extensions.
 - [ ] Display manager: switch to GDM so the login screen is GNOME's (root, user runs it)
 - [ ] GDM theme via the MacTahoe tweaks script (root)
 - [ ] Icon rework against this base
+
+### Phase 11: icons and corners on GNOME `[~]`
+
+- [x] App icons rebuilt with SF Symbols (brendanballon/sfsymbols-svg, outlined cut) as tilted bottom-right watermarks on the glass squircle; GNOME core apps added to the table; Tahoe-Material is the GNOME icon theme
+- [x] One window radius: the theme's `$wm_radius` patched from 24 to 14 px before building, and Rounded Window Corners Reborn clips non-libadwaita windows at 14 px
+- [ ] Symbolic (action, status) icons from SF for GNOME's own UI
+- [ ] Push once GitHub auth is restored in the GNOME session

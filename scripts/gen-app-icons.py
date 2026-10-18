@@ -88,14 +88,23 @@ def rotate_hue(rgb, deg):
 # ---------------------------------------------------------------- glyph parsing
 
 def read_glyph(path):
-    """Return (viewBox tuple, list of path d strings) from a simple SVG."""
+    """Return (viewBox tuple, list of path d strings, transform) from a simple
+    SVG. SF Symbol exports have width/height in px and a flipped <g>; the
+    transform is returned so the caller can keep it."""
     text = path.read_text()
     vb = re.search(r'viewBox="([^"]+)"', text)
-    vb = tuple(float(v) for v in vb.group(1).split()) if vb else (0, 0, 24, 24)
-    ds = re.findall(r'<path[^>]*\sd="([^"]+)"', text)
+    if vb:
+        vb = tuple(float(v) for v in vb.group(1).split())
+    else:
+        w = re.search(r"width=['\"]([0-9.]+)", text)
+        h = re.search(r"height=['\"]([0-9.]+)", text)
+        vb = (0, 0, float(w.group(1)) if w else 24, float(h.group(1)) if h else 24)
+    ds = re.findall(r"<path[^>]*\sd=['\"]([^'\"]+)['\"]", text, re.S)
     if not ds:
         raise ValueError(f"no path in {path}")
-    return vb, ds
+    ds = [re.sub(r"\s+", " ", d).strip() for d in ds]
+    tr = re.search(r"<g[^>]*transform=['\"]([^'\"]+)['\"]", text)
+    return vb, ds, (tr.group(1) if tr else "")
 
 
 def glyph_group(path, scale_pct, extra_class=""):
@@ -103,7 +112,7 @@ def glyph_group(path, scale_pct, extra_class=""):
     clipped by the squircle so it bleeds off the edge like a pressed mark.
     Stacked copies give the frosted read: inner glow, pressed shadow, lit
     edge, translucent body."""
-    vb, ds = read_glyph(path)
+    vb, ds, inner_tr = read_glyph(path)
     x0, y0, w, h = vb
     target = BODY * scale_pct
     s = target / max(w, h)
@@ -111,11 +120,15 @@ def glyph_group(path, scale_pct, extra_class=""):
     ty = (GRID - h * s) / 2 - y0 * s + BODY * WATERMARK_SHIFT
     cx, cy = GRID / 2 + BODY * WATERMARK_SHIFT, GRID / 2 + BODY * WATERMARK_SHIFT
     paths = "".join(f'<path d="{d}"/>' for d in ds)
+    if inner_tr:
+        paths = f'<g transform="{inner_tr}">{paths}</g>'
 
     def layer(dx, dy, fill, op, extra=""):
+        # SF exports draw with a 1-unit stroke on top of the fill; keep that
+        # weight by stroking in the same colour.
         return (f'<g transform="rotate({WATERMARK_TILT} {cx:.1f} {cy:.1f}) '
                 f'translate({tx + dx:.2f},{ty + dy:.2f}) scale({s:.5f})" '
-                f'fill="{fill}" fill-opacity="{op}" {extra}>{paths}</g>')
+                f'fill="{fill}" fill-opacity="{op}" stroke="{fill}" stroke-opacity="{op}" stroke-width="1" {extra}>{paths}</g>')
 
     return ('<g clip-path="url(#clip)">'
             + layer(0, 0, "#ffffff", 0.40, 'filter="url(#glow)"')

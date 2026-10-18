@@ -364,7 +364,7 @@ def main():
         base, top = hex_to_rgb(cat["base"]), hex_to_rgb(cat["top"])
 
         if app.get("brand"):
-            tahoe = None if app.get("shell") else find_tahoe_icon(app["brand_icon"])
+            tahoe = None if (app.get("shell") or app.get("brand_file")) else find_tahoe_icon(app["brand_icon"])
             if tahoe:
                 # MacTahoe already draws this brand in Tahoe style: use its art
                 # as the base and lay the same glass overlay on top.
@@ -375,8 +375,8 @@ def main():
                 (scalable / f"{icon}.svg").write_text(svg)
                 produced[icon] = app["name"]
                 continue
-            src = find_brand_icon(app["brand_icon"])
-            if not src:
+            src = (ROOT / app["brand_file"]) if app.get("brand_file") else find_brand_icon(app["brand_icon"])
+            if not src or not src.exists():
                 print(f"brand mark not found for {app['name']} ({app['brand_icon']}), skipping", file=sys.stderr)
                 continue
             if not app.get("shell") and (app.get("tile") or is_full_tile(src)):

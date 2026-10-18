@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=VRMonitor
+Comment=URI handler for vrmonitor://
+Exec="/home/blanched/.local/share/Steam/steamapps/common/SteamVR/bin/linux64/../vrmonitor.sh" %U
+Terminal=false
+Type=Application
+Categories=Game;
+MimeType=x-scheme-handler/vrmonitor
+Icon=steam_icon_250820
+NoDisplay=true
+StartupWMClass=vrmonitor

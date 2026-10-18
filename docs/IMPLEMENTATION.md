@@ -170,11 +170,11 @@ separator, system tray, margins separator, digital clock, show desktop.
 
 | Step | Change | Check |
 |---|---|---|
-| P1 | Height 30 px, floating, full width, always translucent. Adaptive opacity turned the bar opaque whenever a window touched it, which read as a separate slab. Floating detaches popups into full rounded cards |
+| P1 | MacTahoe's own bar, per review: 32 px, flush to the top edge, adaptive opacity. The floating and pill variants were tried and reverted. Popups attached to a flush bar square their top edge, which is Plasma's rule and accepted |
 | P2 | Kickoff icon: CachyOS mark at 22 px, no label | mark is centred vertically |
 | P3 | App menu: Darkly menubar padding 10 px horizontal, 0 vertical | items do not look stacked |
 | P4 | Remove the second margins separator; tray and clock share one margin | no double gap before the clock |
-| P5 | Tray icon spacing 6 px, icons from the new symbolic set at 22 px | all tray glyphs same weight |
+| P5 | Tray icons come from the symbolic set; spacing medium |
 | P6 | Clock: Noto Sans Semibold 13, 24 hour, no date on panel | no clipping at 32 px |
 | P7 | Remove show desktop; its role moves to a hot corner | nothing dangling on the right |
 
@@ -241,11 +241,11 @@ These are proposals, not commitments. Each needs a yes before it is built.
 
 | Step | Result |
 |---|---|
-| P1 | Height 30 px, floating, full width, always translucent. Adaptive opacity turned the bar opaque whenever a window touched it, which read as a separate slab. Floating detaches popups into full rounded cards |
+| P1 | MacTahoe's own bar, per review: 32 px, flush to the top edge, adaptive opacity. The floating and pill variants were tried and reverted. Popups attached to a flush bar square their top edge, which is Plasma's rule and accepted |
 | P2 | Kickoff shows the CachyOS mark as a symbolic glyph, `assets/cachyos-mark.svg`, generated under the name `cachyos-launcher` and also aliased to `start-here-kde` |
 | P3 | App menu padding is hard-coded in the applet QML. Left as is; revisit only if a patched applet is worth carrying |
 | P4 | Second margins separator removed |
-| P5 | Tray icons come from the symbolic set; spacing set to large so one item's hover highlight no longer bleeds into its neighbours |
+| P5 | Tray icons come from the symbolic set; spacing medium |
 | P6 | Clock: 24 hour, no date, Noto Sans Semibold 13. Calendar card is a compact month grid at 300 by 330 with the events pane and week numbers off; Kickoff's card is 540 by 440 instead of 671 by 517 |
 | P7 | Show desktop removed; Overview on the top-left hot corner instead |
 

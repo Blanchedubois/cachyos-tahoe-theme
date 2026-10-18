@@ -5,11 +5,11 @@
 for (var p of panels()) {
   if (p.location != "top") continue;
 
-  // P1: 36 px, floating so popups detach as full rounded cards.
-  p.height = 30;
-  p.floating = true;
+  // P1: MacTahoe's own bar: 32 px, flush to the top edge, adaptive opacity.
+  p.height = 32;
+  p.floating = false;
   p.lengthMode = "fill";
-  p.opacity = "translucent";
+  p.opacity = "adaptive";
 
   var toRemove = [];
   var separators = 0;
@@ -52,7 +52,7 @@ for (var p of panels()) {
     // item does not bleed into its neighbours.
     if (w.type == "org.kde.plasma.systemtray") {
       w.currentConfigGroup = ["General"];
-      w.writeConfig("iconSpacing", 2);
+      w.writeConfig("iconSpacing", 1);
       w.reloadConfig();
     }
 

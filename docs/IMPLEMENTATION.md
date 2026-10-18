@@ -268,14 +268,9 @@ Before and after: `docs/panel-before.png`, `docs/panel-after.png`.
 - App icons use the watermark glass treatment; brand apps pass through from MacTahoe's Tahoe-style set
 - Acceptance: Dolphin, System Settings, and the Claude app window measured at the same radius; menus and buttons at the widget radius
 
-### Phase 6: Plasma style overlay `[x]`
+### Phase 6: Plasma style overlay `[rejected]`
 
-- [x] `plasma/Tahoe-Material/` falls back to MacTahoe-Dark and replaces two files, both copies of MacTahoe's own with only the tint changed: `dialogs/background` (popup cards) and `widgets/tooltip`
-- [x] Tint: the panel uses the colour-scheme background at 15 percent over blur, so it takes on the wallpaper; cards used a fixed near-black at 65 percent and read as a different material. Cards now use the scheme colour at 30 percent, tooltips 35, so bar and cards are one glass
-- [x] Floating panel detaches popups into full rounded cards
-- [x] A first attempt that generated new card assets from scratch was rejected for replacing the glass look; this pass layers on MacTahoe's files instead
-- Card internals are Plasma's own QML; the theme controls only the card and its 8 px padding, which stays
-- Evidence: `docs/popup-card.png`, `docs/cards-survey.png`
+Two attempts to restyle the popup cards were made and both were rejected on review: a card generated from scratch replaced the glass look, and retinting MacTahoe's own card to the panel's recipe read worse than the original. The Plasma style is MacTahoe-Dark unchanged. Popups detach into full rounded cards through the floating panel. Card internals are Plasma's own QML and are not themeable.
 
 ### Phase 5: workshop items `[~]`
 

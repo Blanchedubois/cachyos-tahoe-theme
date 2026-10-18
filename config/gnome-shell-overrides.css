@@ -9,16 +9,20 @@
 .quick-toggle-icon { min-height: 44px !important; min-width: 44px !important; }
 
 /* Top-bar dropdowns (quick settings, calendar, Now Playing, every panel
-   menu) in the dock's glass: its 1 px white hairline at 20 % in place of the
+   menu) and notification banners in the dock's glass: its 1 px white hairline at 20 % in place of the
    theme's 75 % black outline, and a light fill over Blur my Shell's popup
    blur in place of the near-opaque 92 % dark grey. The dock's fill is white
    at 10 %; a grey base under the same lightness keeps menu text readable if
    the blur is ever off. St rounds border widths to whole pixels, so 1 px is
    the floor at 1x. */
-.popup-menu-content {
+.popup-menu-content,
+.notification-banner {
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   background-color: rgba(72, 72, 76, 0.5) !important;
 }
+/* The calendar dropdown: the theme rounds it at 22 px, well past the 14 px
+   of every other dropdown. */
+.datemenu-popover { border-radius: 14px !important; }
 
 /* Now Playing Card (nowplaying@epogonii.github.io) as macOS Tahoe's Now
    Playing: one glass surface, 12 px artwork, white title over a dimmed

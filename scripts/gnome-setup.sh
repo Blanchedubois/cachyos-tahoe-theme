@@ -122,6 +122,8 @@ fi
 say "icons"
 mkdir -p "$HOME/.local/share/icons"; ln -sfn "$ROOT/icons/Tahoe-Material" "$HOME/.local/share/icons/Tahoe-Material"
 gtk-update-icon-cache -q -t -f "$HOME/.local/share/icons/Tahoe-Material" 2>/dev/null || true
+# Desktop-entry overrides: launchers whose icon name or window class needs fixing (Steam games, HP tools).
+if compgen -G "$ROOT/overrides/*.desktop" >/dev/null; then mkdir -p "$HOME/.local/share/applications"; cp "$ROOT"/overrides/*.desktop "$HOME/.local/share/applications/"; update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true; fi
 gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'
 ln -sfn "$ROOT/icons/Tahoe-Material-KDE" "$HOME/.local/share/icons/Tahoe-Material-KDE"
 kwriteconfig6 --file kdeglobals --group Icons --key Theme Tahoe-Material-KDE

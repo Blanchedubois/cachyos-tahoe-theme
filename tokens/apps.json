@@ -953,6 +953,18 @@
         "top": "#3a3d42"
       },
       "scale": 0.8
+    },
+    "VRChat.desktop": {
+      "name": "VRChat",
+      "icon": "steam_icon_438100",
+      "category": "games",
+      "brand": true,
+      "brand_icon": "steam_icon_438100",
+      "shell": {
+        "base": "#1f2124",
+        "top": "#3a3d42"
+      },
+      "scale": 0.78
     }
   },
   "skip_patterns": [

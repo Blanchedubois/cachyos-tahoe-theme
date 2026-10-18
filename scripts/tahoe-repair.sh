@@ -223,6 +223,9 @@ PY
   fi
 fi
 
+# 6b. desktop-entry overrides (window class for Steam games so the dock matches the running window)
+for f in "$ROOT"/overrides/*.desktop; do [[ -f "$f" ]] || continue; d="$HOME/.local/share/applications/$(basename "$f")"; cmp -s "$f" "$d" || { log "restoring $(basename "$f")"; cp "$f" "$d"; update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true; }; done
+
 # 7. icons: theme selected and present (it is a symlink into the repo)
 if [[ ! -f "$HOME/.local/share/icons/Tahoe-Material/index.theme" && -d "$ROOT/icons/Tahoe-Material" ]]; then
   log "icon theme link missing: restoring"; mkdir -p "$HOME/.local/share/icons"

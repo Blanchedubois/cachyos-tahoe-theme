@@ -33,16 +33,16 @@
   box-shadow: none !important;
 }
 /* Its toggles, sliders and system buttons in the dropdowns' glass: the same
-   fill, hairline and 14 px corners, in place of the theme's 15 % white pills
-   with an inner glow. A toggle that is on keeps the theme's white fill; the
-   halves inside a split toggle keep drawing nothing of their own. */
+   fill and hairline in place of the theme's 15 % white with an inner glow.
+   The theme's pill and circle shapes stay. A toggle that is on keeps the
+   theme's white fill; the halves inside a split toggle draw nothing of their
+   own. */
 .quick-toggle,
 .quick-toggle-has-menu,
 .quick-slider,
 .quick-settings-system-item .icon-button {
   background-color: rgba(72, 72, 76, 0.5) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 14px !important;
   box-shadow: none !important;
 }
 .quick-toggle:hover,
@@ -52,7 +52,30 @@
 .quick-toggle-has-menu:active,
 .quick-settings-system-item .icon-button:active { background-color: rgba(112, 112, 116, 0.6) !important; }
 .quick-toggle-has-menu .quick-toggle { border: none !important; }
-.quick-toggle-has-menu .quick-toggle .quick-toggle-icon { border-radius: 10px !important; }
+/* The round icon inside a split toggle (Wi-Fi, Bluetooth), its arrow button
+   and a submenu's header icon: a lighter step of the same glass with the
+   hairline, so they read on the pill. An icon that is on stays white. */
+.quick-toggle-has-menu .quick-toggle .quick-toggle-icon,
+.quick-toggle-menu .header .icon {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.quick-toggle-has-menu .quick-toggle:hover .quick-toggle-icon,
+.quick-toggle-has-menu .quick-toggle-menu-button:hover { background-color: rgba(255, 255, 255, 0.14) !important; }
+.quick-toggle-has-menu .quick-toggle:active .quick-toggle-icon,
+.quick-toggle-has-menu .quick-toggle-menu-button:active { background-color: rgba(255, 255, 255, 0.2) !important; }
+.quick-toggle-has-menu .quick-toggle:checked .quick-toggle-icon { background-color: white !important; }
+/* Submenus (power off, Wi-Fi, Bluetooth, power mode, volume output): the
+   dropdowns' glass in place of the theme's 25 % white card. GNOME gives the
+   power submenu no class of its own, so they all change together. */
+.quick-toggle-menu {
+  background-color: rgba(72, 72, 76, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.quick-toggle-menu .popup-menu-item:focus,
+.quick-toggle-menu .popup-menu-item:hover,
+.quick-toggle-menu .popup-menu-item:selected { background-color: rgba(255, 255, 255, 0.12) !important; }
+.quick-toggle-menu .popup-menu-item:active { background-color: rgba(255, 255, 255, 0.18) !important; }
 
 /* Now Playing Card (nowplaying@epogonii.github.io) as macOS Tahoe's Now
    Playing: one glass surface, 12 px artwork, white title over a dimmed

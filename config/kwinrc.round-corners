@@ -48,6 +48,6 @@ SecondOutlineThickness=0
 ShadowColor=#000000
 ShadowSize=40
 Size=20
-UseCustomShadows=true
+UseCustomShadows=false
 UseNativeDecorationShadows=true
 

@@ -78,6 +78,8 @@ window radius.
 
 | Frame, final | Dolphin corner crops | **settled**. A 6 px header-coloured border, then an inset panel with rounded corners, were built and rejected on review as heavy and odd. Final: 12 px rounding, Darkly titlebar, one faint light hairline outside the edge. |
 
+| Shadows | Konsole and Claude corner crops | **settled**. The effect's own shadow draws a square corner on every window, so it stays off; Klassy's shadow follows the 20 px curve. Client-drawn Electron windows carry their own square shadow margin, which only the app can drop: Claude is launched with Chromium's Wayland decorations disabled via its flags file, effective on its next start. |
+
 ## Open items carried forward
 
 1. Verify menus and Plasma popups once a capture path exists, or by eye.

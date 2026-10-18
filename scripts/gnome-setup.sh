@@ -26,7 +26,9 @@ sed -i "s/^\$wm_radius: .*/\$wm_radius: ${WINDOW_RADIUS}px;/" "$SRC/src/sass/_va
 rm -rf /tmp/MacTahoe.lock
 ( cd "$SRC" && TERM=xterm-256color script -qfec "./install.sh -b" /dev/null >/dev/null 2>&1 ) || true
 ( cd "$SRC" && ./install.sh -b -l >/dev/null 2>&1 ) || true
-( cd "$SRC" && ./tweaks.sh -d >/dev/null 2>&1 ) || true
+# Not run: tweaks.sh -d renames Dash to Dock's stylesheet.css, which breaks
+# Dash to Dock 110 on GNOME 51 (it fails to load without it). With "use
+# built-in theme" off the shell theme styles the dock anyway.
 # The wallpaper installer writes its properties file where a directory should
 # be when run as a user; create the directory first.
 PROPS="$HOME/.local/share/gnome-background-properties"
@@ -118,7 +120,9 @@ say "icons"
 mkdir -p "$HOME/.local/share/icons"; ln -sfn "$ROOT/icons/Tahoe-Material" "$HOME/.local/share/icons/Tahoe-Material"
 gtk-update-icon-cache -q -t -f "$HOME/.local/share/icons/Tahoe-Material" 2>/dev/null || true
 gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'
-# Reload the shell theme so a reinstalled stylesheet is picked up.
+# Reload the shell theme so a reinstalled stylesheet is picked up. The theme
+# build deletes and recreates ~/.themes/MacTahoe-Dark; a running shell falls
+# back to Adwaita (square, opaque popups) until the name is set again.
 gsettings set org.gnome.shell.extensions.user-theme name ''; gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
 
 say "done. Log out and choose GNOME; extensions load on that login."

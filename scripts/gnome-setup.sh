@@ -56,6 +56,14 @@ for e in "${EXTS[@]}"; do
   [[ -d "$EXT_DIR/$e/schemas" ]] && glib-compile-schemas "$EXT_DIR/$e/schemas"
 done
 rm -rf "$tmp"
+# A running shell only scans for extensions at startup. Ask it to load them
+# in place through its own installer so no logout is needed.
+if pgrep -x gnome-shell >/dev/null; then
+  for e in "${EXTS[@]}"; do
+    gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell \
+      --method org.gnome.Shell.Extensions.InstallRemoteExtension "$e" >/dev/null 2>&1 || true
+  done
+fi
 
 # 3. Core look.
 say "interface"

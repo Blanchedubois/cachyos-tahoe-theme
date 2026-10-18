@@ -76,6 +76,8 @@ window radius.
 | Claude icon fill | 256 px render | **fixed**. The source image carries a white canvas with the orange square inset. `tile_crop` trims a tile to its coloured content before it becomes the base, so it fills the squircle. Any brand mark that does not fill sits on a white glass shell now; the sampled-colour shell is gone. |
 | Window outline alignment | corner crops | **fixed** by removal, then **reworked** on review. A single 1 px edge outline sat a pixel off Darkly's anti-aliased corner. The frame now uses the effect's three concentric layers at different radii, which cannot fight each other: trial variant A is a 3 px dark outer ring outside the frame, a 2 px gap in window colour, and a 1 px light inner line. Mockups of A, B and C in `docs/frame-options.png`. |
 
+| Frame, final | Dolphin corner crops | **settled**. A 6 px header-coloured border, then an inset panel with rounded corners, were built and rejected on review as heavy and odd. Final: 12 px rounding, Darkly titlebar, one faint light hairline outside the edge. |
+
 ## Open items carried forward
 
 1. Verify menus and Plasma popups once a capture path exists, or by eye.

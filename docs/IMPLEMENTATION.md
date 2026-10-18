@@ -48,7 +48,7 @@ notch at the window level and keeps the ratio.
 
 | Token | Value |
 |---|---|
-| Frame | A real 6 px Darkly border in `#333333` houses an inset panel made of the titlebar and content together: the header colour is set to the window colour so they read as one surface, and the Rounded Corners effect paints a 6 px inner band in the border colour whose rounded inner edge gives that panel 6 px corners at all four corners. A faint 1 px light line sits on the frame edge. KWin's global border size must be Large with auto off |
+| Frame | Kept light, per review: a 12 px rounded window with Darkly's titlebar as shipped and one faint 1 px light hairline just outside the edge, drawn by the Rounded Corners effect. No decoration border, no band, no inset. The border and inset experiments are recorded in docs/IMPACT.md Phase E and rejected as looking heavy |
 | Titlebar fill | follows colour scheme window background |
 | Glass surfaces | top panel, dock, popups: MacTahoe blur, tint `#1c1c1e` at 72 percent |
 | Highlight band | 1 px `#ffffff` at 10 percent along the top inside edge of glass surfaces |

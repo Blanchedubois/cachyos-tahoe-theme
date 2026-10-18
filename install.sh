@@ -41,12 +41,8 @@ kwriteconfig6 --file kwinrc --group Plugins --key shapecornersEnabled true
 kwriteconfig6 --file kwinrc --group Effect-overview --key BorderActivate 7
 
 # 5. Accent colour, header colour and Konsole profile (Phase 5).
-say "accent, header and konsole"
+say "accent and konsole"
 kwriteconfig6 --file kdeglobals --group General --key AccentColor "10,132,255"
-# Header (titlebar) colour equals the window colour so the titlebar and content
-# form one rounded panel inset inside the frame border.
-kwriteconfig6 --file kdeglobals --group "Colors:Header" --key BackgroundNormal "36,36,36"
-kwriteconfig6 --file kdeglobals --group "Colors:Header" --key BackgroundAlternate "42,42,42"
 mkdir -p "$DATA/konsole"
 cp "$ROOT"/config/konsole/Tahoe.colorscheme "$ROOT"/config/konsole/Tahoe.profile "$DATA/konsole/"
 kwriteconfig6 --file konsolerc --group "Desktop Entry" --key DefaultProfile Tahoe.profile

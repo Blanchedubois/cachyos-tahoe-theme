@@ -1,5 +1,5 @@
 [org.kde.kdecoration2]
-BorderSize=Large
+BorderSize=None
 BorderSizeAuto=false
 ButtonsOnLeft=XIA
 ButtonsOnRight=

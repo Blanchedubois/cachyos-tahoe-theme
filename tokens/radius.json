@@ -9,22 +9,11 @@
   "titlebar_height": 32,
   "titlebar_button": 14,
   "titlebar_button_spacing": 8,
-  "frame_border": {
-    "size": "Large (6 px as Darkly draws it)",
-    "color": "header background (#333333)",
-    "note": "real decoration border; KWin BorderSize=Large, BorderSizeAuto=false, Darkly BorderSize=BorderLarge. Band colour #333333; header colour set to the window colour (36,36,36) so titlebar and content are one inset panel"
-  },
-  "frame_inner_band": {
-    "thickness": 6,
-    "color": "#333333",
-    "alpha": 255,
-    "note": "effect second outline painted over the border from the inside; its rounded inner edge gives the content a 6 px corner radius (window 12 minus band 6)"
-  },
-  "frame_edge_line": {
+  "frame_outer_hairline": {
     "thickness": 1,
     "color": "#ffffff",
-    "alpha": 46,
-    "inactive_alpha": 30,
-    "note": "effect edge outline at the frame radius, so it follows the corner exactly"
+    "alpha": 70,
+    "inactive_alpha": 40,
+    "note": "the only frame styling: one light hairline outside the 12 px rounded edge, drawn by the Rounded Corners effect's outer outline. No decoration border, no edge or inner outline"
   }
 }

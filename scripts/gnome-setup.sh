@@ -162,16 +162,16 @@ t=p.replace("blur_surface.js","targets.js"); u=open(t).read()
 u=u.replace("        style_classes: ['modal-dialog', 'run-dialog'],","        style_classes: [],  /* tahoe: modal dialogs are not blurred */")
 open(t,"w").write(u)
 PY
-# Quick settings out of Blur my Shell's popup targets: they stand on the
-# desktop with no card (shell overrides), so no blurred backing either.
-BST="$EXT_DIR/blur-my-shell@aunetx/components/popup/targets.js"
-[[ -f "$BST" ]] && ! grep -q "tahoe: quick settings" "$BST" && python3 - "$BST" <<'PY'
-import sys
-p=sys.argv[1]; s=open(p).read()
-a="        const targets = this.create_targets();\n        const delegate = this.actor.get_actor_delegate(actor);\n"
-b=a+"        /* tahoe: quick settings stand on the desktop, unblurred */\n        if (this.has_style_class(delegate?.box, 'quick-settings') || this.has_style_class(actor, 'quick-settings'))\n            return [];\n"
-if a in s: open(p,"w").write(s.replace(a,b,1))
-else: print("    Blur my Shell targets.js changed upstream; quick-settings patch not applied")
+# Blur my Shell for the Tahoe look: quick settings blurred piece by piece as
+# capsules and circles, and app popup menus blurred with their window.
+python3 "$ROOT/scripts/patch-blur-my-shell.py" "$EXT_DIR/blur-my-shell@aunetx" || echo "    Blur my Shell changed upstream; see the lines above"
+# GTK4 popovers translucent so that blur shows (replace the block).
+GT4="$HOME/.config/gtk-4.0/gtk-Dark.css"
+[[ -f "$GT4" ]] && python3 - "$GT4" "$ROOT/config/gtk4-overrides.css" <<'PY'
+import sys,re
+css=open(sys.argv[1]).read(); ov=open(sys.argv[2]).read()
+css=re.sub(r"\n/\* tahoe-gtk4-overrides:.*?/\* end tahoe-gtk4-overrides \*/\n","\n",css,flags=re.S)
+open(sys.argv[1],"w").write(css.rstrip()+"\n\n"+ov)
 PY
 # Rounded Window Corners: GNOME 51 port of its shader effects, settings.
 RWC="$EXT_DIR/rounded-window-corners@fxgn"

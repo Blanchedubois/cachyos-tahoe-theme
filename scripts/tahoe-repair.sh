@@ -21,7 +21,8 @@
 #  10. dock drift: Dash to Dock back on the theme's own styling
 #  11. dock stylesheet present (the theme's -d tweak deletes it)
 #  5c. Blur my Shell patched so modal dialogs do not blur the whole screen
-#  5c2. Blur my Shell patched so quick settings get no blurred backing
+#  5c2. Blur my Shell patched: quick settings blurred per piece, app popup menus blurred
+#  5c3. GTK4 popovers translucent so the blur shows
 #  5d. GTK3 windows rounded on all four corners
 #  5e. Rounded Window Corners ported to GNOME 51 and configured (24 px, non-libadwaita windows)
 #  12. icon theme contents: regenerate from the repo if the generated set is
@@ -158,19 +159,28 @@ open(t,"w").write(u)
 PY
   gnome-extensions disable blur-my-shell@aunetx 2>/dev/null; gnome-extensions enable blur-my-shell@aunetx 2>/dev/null
 fi
-# 5c2. Quick settings stand on the desktop with no card (shell overrides), so
-#      the popup module must not blur a backing behind them either. Its
-#      submenus are found through the same panel and go unblurred with it.
-BST="$EXT_DIR/blur-my-shell@aunetx/components/popup/targets.js"
-if [[ -f "$BST" ]] && ! grep -q "tahoe: quick settings" "$BST"; then
-  log "patching Blur my Shell: no blur behind quick settings (takes effect at next login)"
-  python3 - "$BST" <<'PY'
-import sys
-p=sys.argv[1]; s=open(p).read()
-a="        const targets = this.create_targets();\n        const delegate = this.actor.get_actor_delegate(actor);\n"
-b=a+"        /* tahoe: quick settings stand on the desktop, unblurred */\n        if (this.has_style_class(delegate?.box, 'quick-settings') || this.has_style_class(actor, 'quick-settings'))\n            return [];\n"
-if a in s: open(p,"w").write(s.replace(a,b,1))
-else: print("[tahoe-repair] Blur my Shell targets.js changed upstream; quick-settings patch not applied")
+# 5c2. Blur my Shell for the Tahoe look (scripts/patch-blur-my-shell.py):
+#      quick settings blurred piece by piece as capsules and circles, app
+#      popup menus blurred with their window. Code changes load at next login.
+if [[ -d "$EXT_DIR/blur-my-shell@aunetx/components/popup" ]]; then
+  out="$(python3 "$ROOT/scripts/patch-blur-my-shell.py" "$EXT_DIR/blur-my-shell@aunetx")"
+  [[ -n "$out" ]] && { while read -r l; do log "Blur my Shell: $l"; done <<<"$out"; log "Blur my Shell patched: takes effect at next login"; }
+fi
+# 5c3. GTK4 popovers translucent so that blur shows; the block survives a
+#      theme rebuild and picks up rules added to the repo copy.
+GT4="$HOME/.config/gtk-4.0/gtk-Dark.css"
+if [[ -f "$GT4" && -f "$ROOT/config/gtk4-overrides.css" ]] && python3 - "$GT4" "$ROOT/config/gtk4-overrides.css" <<'PY'
+import sys,re
+m=re.search(r"/\* tahoe-gtk4-overrides:.*?/\* end tahoe-gtk4-overrides \*/",open(sys.argv[1]).read(),flags=re.S)
+sys.exit(0 if not m or m.group(0).strip()!=open(sys.argv[2]).read().strip() else 1)
+PY
+then
+  log "re-applying GTK4 popover overrides (apps pick them up when reopened)"
+  python3 - "$GT4" "$ROOT/config/gtk4-overrides.css" <<'PY'
+import sys,re
+css=open(sys.argv[1]).read(); ov=open(sys.argv[2]).read()
+css=re.sub(r"\n/\* tahoe-gtk4-overrides:.*?/\* end tahoe-gtk4-overrides \*/\n","\n",css,flags=re.S)
+open(sys.argv[1],"w").write(css.rstrip()+"\n\n"+ov)
 PY
 fi
 

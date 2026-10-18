@@ -1,0 +1,13 @@
+/* tahoe-gtk4-overrides: appended to ~/.config/gtk-4.0/gtk-Dark.css by
+   gnome-setup.sh and tahoe-repair.sh (replaced as a block, keyed on this
+   header). Popovers (menus and dropdowns in Files, Settings and the other
+   whitelisted apps) at 60 % instead of 96 %, so Blur my Shell's blur behind
+   them shows like the shell dropdowns' glass. */
+popover > arrow,
+popover > contents,
+popover.menu > arrow,
+popover.menu.background > contents {
+  background-color: color-mix(in srgb, @popover_bg_color 60%, transparent);
+}
+
+/* end tahoe-gtk4-overrides */

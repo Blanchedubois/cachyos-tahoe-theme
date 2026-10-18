@@ -430,3 +430,13 @@ painted the opaque box earlier. Not yet verified on screen: the capture loop
 never caught the menu open. If the box returns, `tahoe-repair --popup-blur
 off` turns the module off and the repair keeps it off; the setting lives in
 `config/popup-blur`.
+
+Finding, 2026-10-18: Blur my Shell's dynamic blur (live blur of windows
+behind a surface) renders the surface opaque on this machine at every hack
+level, for both the applications and popup modules. GNOME 51.1, Blur my
+Shell 75, NVIDIA 615. Static blur works and shows what was behind the
+surface when it appeared, blurred, but does not update as windows beneath
+move. All blur stays static until a Blur my Shell or driver update changes
+that; `tahoe-repair` pins static mode so an extension update cannot flip it.
+The applications blur uses the rounded pipeline at 16 px so its edge follows
+the window corner.

@@ -110,7 +110,7 @@ if [[ -d "$EXT_DIR/blur-my-shell@aunetx/schemas" ]]; then
   # behind the quick-settings popup instead of blurring it. The panel, dock,
   # overview and app-folder modules give the look without it.
   # Applications blur on a whitelist of system apps, static pipeline.
-  bs .applications enable-all false; bs .applications static-blur true; bs .applications corner-radius 24; bs .applications sigma 30; bs .applications brightness 0.6; bs .applications opacity 215
+  bs .applications enable-all false; bs .applications static-blur true; bs .applications customize true; bs .applications pipeline 'pipeline_default_rounded'; bs .applications corner-radius 16; bs .applications sigma 30; bs .applications brightness 0.6; bs .applications opacity 215
   bs .applications whitelist "['org.gnome.Nautilus','org.gnome.Settings','gnome-control-center','org.gnome.Console','kgx','org.gnome.TextEditor','org.gnome.Calculator','org.gnome.Loupe','org.gnome.Papers','org.gnome.Characters','org.gnome.clocks','org.gnome.Calendar','org.gnome.Weather','org.gnome.Music','org.gnome.Software','org.gnome.DiskUtility','org.gnome.baobab','org.gnome.SystemMonitor','org.gnome.tweaks','org.gnome.Extensions','org.gnome.Logs','org.gnome.font-viewer','org.kde.dolphin','org.kde.kate','org.kde.konsole']"
   bs .applications blur true
   # Popup module (quick settings, menus, notifications): static mode renders here; dynamic paints an opaque box.

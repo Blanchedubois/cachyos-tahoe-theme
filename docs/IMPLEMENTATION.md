@@ -307,3 +307,29 @@ Mystical Blue (MIT, juxtopposed) is a Kvantum setup: its widget style is NoMansS
 2. Is the repo public? It will contain brand marks for Firefox, Discord and others, which is normal for icon themes but worth a conscious yes.
 3. Should Flatpak apps be included if any are installed later? The generator can scan Flatpak export directories; off by default.
 4. Any of the section 5 proposals you want folded into Phase 1 so they land early?
+
+### Phase 9: full reset to MacTahoe dark `[x]`
+
+Per review on 2026-10-18 the live desktop is reset to the KDE Store global
+theme **Apple MacOS Tahoe Dark** by vinceliuice (the MacTahoe-kde package,
+`com.github.vinceliuice.MacTahoe-Dark`), applied with its own panel layout.
+Everything built in Phases 3 to 8 that touched the frame, the panel, the
+widget style or app chrome is retired from the live desktop; the scripts
+stay in the repo for reference. The Tahoe-Material icon theme is not applied
+yet: icons are to be re-implemented against this base as the next step.
+
+What the theme sets: colour scheme MacTahoeDark, icons MacTahoe-dark,
+cursors MacTahoe-dark, Kvantum widget style, Aurorae decoration MacTahoe-Dark
+with close, maximise, minimise on the left and Tiny borders, Plasma style
+MacTahoe-Dark, its own 44 px top bar (launcher, global menu, tray, clock,
+show desktop) and an icon-tasks dock. The Kvantum theme is set to
+MacTahoeDark because the package leaves it unset.
+
+What the reset removed: the Rounded Corners effect (disabled), the Overview
+hot corner, the Klassy and Darkly decorations, the Firefox user.js and
+userChrome.css, the Konsole default profile, the custom top panel. GTK stays
+on Graphite-Dark since the theme does not set one.
+
+An intermediate reset to the zayronxio "Apple Tahoe Dark" package was applied
+by mistake and replaced within the same session; its Panel Colorizer widget
+remains installed per-user and is harmless.

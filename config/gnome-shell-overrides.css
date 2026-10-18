@@ -8,7 +8,4 @@
 .quick-settings-system-item .message-close-button > StIcon { icon-size: 20px; }
 .quick-toggle-icon { min-height: 44px !important; min-width: 44px !important; }
 
-
-/* Modal dialogs (power off, log out, run): no full-screen dimming. */
-.lightbox { background-color: transparent; }
 /* end tahoe-overrides */

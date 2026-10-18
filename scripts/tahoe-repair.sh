@@ -101,7 +101,7 @@ fi
 [[ "$(gsettings get org.gnome.desktop.interface gtk-theme)" == "'MacTahoe-Dark'" ]] || gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark'
 # 5b. shell CSS overrides (quick settings icon size) survive a theme rebuild
 CSS="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
-if [[ -f "$CSS" && -f "$ROOT/config/gnome-shell-overrides.css" ]] && { ! grep -q 'tahoe-overrides' "$CSS" || ! grep -q '.lightbox { background-color: transparent; }' "$CSS"; }; then
+if [[ -f "$CSS" && -f "$ROOT/config/gnome-shell-overrides.css" ]] && { ! grep -q 'tahoe-overrides' "$CSS" || grep -q '.lightbox { background-color: transparent; }' "$CSS"; }; then
   log "re-applying shell CSS overrides"
   python3 - "$CSS" "$ROOT/config/gnome-shell-overrides.css" <<'PY'
 import sys,re

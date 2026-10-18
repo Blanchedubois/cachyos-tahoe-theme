@@ -6,6 +6,8 @@
 .quick-toggle-menu .header .icon,
 .quick-settings-system-item .icon-button StIcon,
 .quick-settings-system-item .message-close-button > StIcon { icon-size: 24px; }
+/* Toggle icons fill more of their 44 px circle: 28 px, about two thirds. */
+.quick-toggle .quick-toggle-icon { icon-size: 28px !important; }
 /* Dropdown menu icons a step up from the theme's 16 px. */
 .popup-menu-item .popup-menu-icon { icon-size: 18px !important; }
 .quick-toggle-icon { min-height: 44px !important; min-width: 44px !important; }
@@ -66,6 +68,21 @@
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.12) !important;
 }
+/* One height for every piece: the Wi-Fi capsule's, 68 px (the theme's 4 px
+   around an 8 px inset around the 44 px icon circle). Split toggles keep
+   the theme's padding and set it; plain toggles (12 px around the 44 px
+   icon), sliders, the background-apps toggle and the system circles are
+   held to the same 68 px. */
+.quick-toggle, .quick-toggle-has-menu, .quick-slider,
+.background-apps-quick-toggle { min-height: 68px !important; max-height: 68px !important; }
+.quick-toggle-has-menu .quick-toggle { min-height: 0 !important; max-height: none !important; }
+.quick-slider { padding-top: 14px !important; padding-bottom: 14px !important; }
+.background-apps-quick-toggle { padding: 12px !important; }
+.quick-settings-system-item .icon-button {
+  min-width: 68px !important; min-height: 68px !important;
+  max-width: 68px !important; max-height: 68px !important;
+  padding: 0 !important;
+}
 /* Capsules and circles, set outright: 9999 px rounds each to its shorter
    side (the theme's slider stopped at 24 px). */
 .quick-toggle,
@@ -108,10 +125,10 @@
   background-color: rgba(64, 64, 68, 0.8) !important;
   border: 1px solid rgba(255, 255, 255, 0.3) !important;
   box-shadow: inset 0 0 4px rgba(255, 255, 255, 0.12) !important;
-  /* The curve of the toggles beside them: a 64 px toggle is a capsule with
-     32 px ends. 12 px padding keeps the items clear of those corners; items
+  /* The curve of the toggles beside them: a 68 px toggle is a capsule with
+     34 px ends. 12 px padding keeps the items clear of those corners; items
      at 6 px by 8 px like the other dropdowns. */
-  border-radius: 32px !important;
+  border-radius: 34px !important;
   padding: 12px !important;
 }
 .quick-toggle-menu .header { padding: 6px 8px !important; }

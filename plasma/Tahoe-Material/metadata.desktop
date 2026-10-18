@@ -1,0 +1,25 @@
+[Desktop Entry]
+Name=Tahoe-Material
+Comment=MacTahoe-Dark with lighter frosted popup cards
+X-KDE-PluginInfo-Name=Tahoe-Material
+X-KDE-PluginInfo-Version=1.2
+X-KDE-PluginInfo-License=GPL-3.0
+X-Plasma-API=5.0
+
+[Settings]
+FallbackTheme=MacTahoe-Dark
+
+[ContrastEffect]
+enabled=false
+
+[BlurBehindEffect]
+enabled=true
+
+[AdaptiveTransparency]
+enabled=true
+
+[Wallpaper]
+defaultWallpaperTheme=MacTahoe-Dark
+defaultFileSuffix=.jpeg
+defaultWidth=3840
+defaultHeight=2160

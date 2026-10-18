@@ -6,7 +6,7 @@ for (var p of panels()) {
   if (p.location != "top") continue;
 
   // P1: 36 px, floating so popups detach as full rounded cards.
-  p.height = 36;
+  p.height = 30;
   p.floating = true;
   p.lengthMode = "fill";
   p.opacity = "adaptive";

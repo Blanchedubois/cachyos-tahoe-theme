@@ -401,3 +401,18 @@ writes GNOME-style `symbolic/<context>/*-symbolic.svg` files alongside the
 KDE sizes. The theme inherits Adwaita after MacTahoe-dark so anything
 unmapped keeps GNOME's own glyph. Verified on the top bar (Wi-Fi, volume,
 power) and in Files (sidebar places, toolbar).
+
+### Phase 15: full SF coverage for shell, Settings, Files and KDE apps `[x]`
+
+Audited the icon names GNOME Settings and Files actually request (strings
+in their binaries, filtered to real icon names) and added a curated list for
+the shell's quick settings, calendar and notification area. 118 names added
+to the table under a `gnome:` prefix, all mapped to SF Symbols and emitted as
+`-symbolic` files. KDE apps such as Dolphin read the same table through the
+sized directories, so they change with it. Verified on the top bar: Wi-Fi,
+volume, power profile and power now SF.
+
+`tahoe-repair` grew from seven checks to eleven: icon theme link, extension
+builds that no longer match the running GNOME (re-fetched when a build
+exists), interface drift (cursor, dark style, buttons, wallpaper), dock
+settings drift, and the Dash to Dock stylesheet the theme tweak deletes.

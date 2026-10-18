@@ -14,7 +14,11 @@
 #   4. extensions enabled
 #   5. shell theme is MacTahoe-Dark and actually loaded (else re-apply)
 #   6. Blur my Shell applications module off (it breaks the quick settings)
-#   7. icon theme is Tahoe-Material
+#   7. icon theme is Tahoe-Material and its files are present
+#   8. extension builds match the running GNOME version (else re-fetch)
+#   9. interface drift: GTK theme, cursor, button layout, wallpaper
+#  10. dock drift: Dash to Dock back on the theme's own styling
+#  11. dock stylesheet present (the theme's -d tweak deletes it)
 set -uo pipefail
 log() { printf '[tahoe-repair] %s\n' "$*"; }
 
@@ -94,7 +98,51 @@ for mod in applications popup; do
   fi
 done
 
-# 7. icons
-[[ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Tahoe-Material'" ]] || { [[ -d "$HOME/.local/share/icons/Tahoe-Material" ]] && gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'; }
+# 7. icons: theme selected and present (it is a symlink into the repo)
+if [[ ! -f "$HOME/.local/share/icons/Tahoe-Material/index.theme" && -d "$ROOT/icons/Tahoe-Material" ]]; then
+  log "icon theme link missing: restoring"; mkdir -p "$HOME/.local/share/icons"
+  ln -sfn "$ROOT/icons/Tahoe-Material" "$HOME/.local/share/icons/Tahoe-Material"; changed=1
+fi
+[[ "$(gsettings get org.gnome.desktop.interface icon-theme)" == "'Tahoe-Material'" ]] || { [[ -d "$HOME/.local/share/icons/Tahoe-Material" ]] && { log "icon theme not set: applying"; gsettings set org.gnome.desktop.interface icon-theme 'Tahoe-Material'; }; }
+
+# 8. extension builds vs running shell: after a GNOME major update the old
+#    build is refused; fetch the one for this version when it exists.
+for e in "${EXTS[@]}"; do
+  m="$EXT_DIR/$e/metadata.json"; [[ -f "$m" ]] || continue
+  if ! python3 -c 'import json,sys; sys.exit(0 if sys.argv[2] in json.load(open(sys.argv[1]))["shell-version"] else 1)' "$m" "$SHELL_VER" 2>/dev/null; then
+    tag="$(curl -s "https://extensions.gnome.org/extension-info/?uuid=$e&shell_version=$SHELL_VER" | python3 -c 'import json,sys; print(json.load(sys.stdin)["version_tag"])' 2>/dev/null || true)"
+    if [[ -n "$tag" ]]; then
+      log "$e is built for another GNOME; fetching the GNOME $SHELL_VER build"
+      tmp="$(mktemp -d)"; curl -sL "https://extensions.gnome.org/download-extension/$e.shell-extension.zip?version_tag=$tag" -o "$tmp/e.zip"
+      rm -rf "${EXT_DIR:?}/${e:?}"; mkdir -p "$EXT_DIR/$e"; python3 -c 'import zipfile,sys; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])' "$tmp/e.zip" "$EXT_DIR/$e"
+      [[ -d "$EXT_DIR/$e/schemas" ]] && glib-compile-schemas "$EXT_DIR/$e/schemas"; rm -rf "$tmp"
+      gdbus call --session --dest org.gnome.Shell --object-path /org/gnome/Shell --method org.gnome.Shell.Extensions.InstallRemoteExtension "$e" >/dev/null 2>&1 || true
+      changed=1
+    else
+      log "$e has no GNOME $SHELL_VER build yet; it stays disabled until one is published"
+    fi
+  fi
+done
+
+# 9. interface drift
+gs() { [[ "$(gsettings get "$1" "$2")" == "$3" ]] || { log "$2 drifted: resetting"; gsettings set "$1" "$2" "${3//\'/}"; }; }
+gs org.gnome.desktop.interface cursor-theme "'MacTahoe-dark'"
+gs org.gnome.desktop.interface color-scheme "'prefer-dark'"
+gs org.gnome.desktop.wm.preferences button-layout "'close,minimize,maximize:'"
+BG="$HOME/.local/share/backgrounds/MacTahoe"
+[[ -f "$BG/MacTahoe-night.jpeg" ]] && gs org.gnome.desktop.background picture-uri-dark "'file://$BG/MacTahoe-night.jpeg'"
+
+# 10. dock drift: the theme styles the dock; Dash to Dock must not override it
+DD="$EXT_DIR/dash-to-dock@micxgx.gmail.com/schemas"
+if [[ -d "$DD" ]]; then
+  ddg() { [[ "$(gsettings --schemadir "$DD" get org.gnome.shell.extensions.dash-to-dock "$1")" == "$2" ]] || { log "dock $1 drifted: resetting"; gsettings --schemadir "$DD" set org.gnome.shell.extensions.dash-to-dock "$1" "${2//\'/}"; }; }
+  ddg apply-custom-theme false; ddg transparency-mode "'DEFAULT'"; ddg custom-background-color false; ddg dock-position "'BOTTOM'"
+fi
+
+# 11. dock stylesheet: the theme's "tweaks.sh -d" renames it, which breaks Dash to Dock 110
+if [[ -f "$EXT_DIR/dash-to-dock@micxgx.gmail.com/stylesheet.css.bak" && ! -f "$EXT_DIR/dash-to-dock@micxgx.gmail.com/stylesheet.css" ]]; then
+  log "restoring Dash to Dock stylesheet"; mv "$EXT_DIR/dash-to-dock@micxgx.gmail.com/stylesheet.css.bak" "$EXT_DIR/dash-to-dock@micxgx.gmail.com/stylesheet.css"
+  gnome-extensions disable dash-to-dock@micxgx.gmail.com; gnome-extensions enable dash-to-dock@micxgx.gmail.com
+fi
 
 log "done"

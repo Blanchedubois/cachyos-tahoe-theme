@@ -53,7 +53,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "arrow.right"
+        "name": "chevron.right"
       },
       "aliases": [
         "draw-arrow-forward",
@@ -283,7 +283,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "grid"
+        "name": "square.grid.2x2"
       }
     },
     "view-sidetree": {
@@ -431,7 +431,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "delete.left"
+        "name": "xmark.circle"
       },
       "aliases": [
         "edit-clear-locationbar-rtl",
@@ -661,7 +661,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "arrow.up.right.square"
+        "name": "macwindow.badge.plus"
       }
     },
     "window-close": {
@@ -733,7 +733,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "gearshape"
+        "name": "gearshape.2"
       },
       "aliases": [
         "settings-configure",
@@ -816,7 +816,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "person"
+        "name": "person.2"
       },
       "aliases": [
         "user-identity",
@@ -864,7 +864,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "speaker.wave.3"
+        "name": "waveform"
       },
       "aliases": [
         "preferences-desktop-sound-symbolic",
@@ -962,14 +962,14 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "text.magnifyingglass"
+        "name": "magnifyingglass"
       }
     },
     "preferences-system-privacy": {
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "shield"
+        "name": "hand.raised"
       },
       "aliases": [
         "security-high",
@@ -1039,7 +1039,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "questionmark.circle"
+        "name": "book"
       },
       "aliases": [
         "help-browser",
@@ -1226,7 +1226,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "arrow.up.left.and.down.right.magnifyingglass"
+        "name": "1.magnifyingglass"
       },
       "aliases": [
         "zoom-fit-best",
@@ -1566,7 +1566,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "video"
+        "name": "web.camera"
       },
       "aliases": [
         "camera-web"
@@ -1646,7 +1646,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "arrow.counterclockwise.circle"
+        "name": "arrow.counterclockwise"
       }
     },
     "system-suspend": {
@@ -1767,7 +1767,7 @@
       "context": "actions",
       "glyph": {
         "set": "sf",
-        "name": "envelope"
+        "name": "envelope.open"
       },
       "aliases": [
         "mail-message",
@@ -2047,7 +2047,7 @@
       "context": "devices",
       "glyph": {
         "set": "sf",
-        "name": "cable.connector"
+        "name": "sdcard"
       },
       "aliases": [
         "drive-removable-media-usb",
@@ -2189,7 +2189,7 @@
       "context": "devices",
       "glyph": {
         "set": "sf",
-        "name": "pencil.tip"
+        "name": "ipad"
       },
       "aliases": [
         "input-tablet-symbolic"
@@ -2387,7 +2387,7 @@
       "context": "status",
       "glyph": {
         "set": "sf",
-        "name": "cable.connector"
+        "name": "cable.connector.slash"
       },
       "aliases": [
         "network-wired-disconnected",
@@ -2603,7 +2603,7 @@
       "context": "status",
       "glyph": {
         "set": "sf",
-        "name": "battery.100percent"
+        "name": "battery.100percent.bolt"
       },
       "aliases": [
         "battery-100",
@@ -2969,7 +2969,7 @@
       "context": "status",
       "glyph": {
         "set": "sf",
-        "name": "checkmark.circle"
+        "name": "checkmark"
       },
       "aliases": [
         "dialog-ok",
@@ -3174,7 +3174,7 @@
       "context": "status",
       "glyph": {
         "set": "sf",
-        "name": "location"
+        "name": "mappin"
       },
       "aliases": [
         "mark-location",
@@ -3258,7 +3258,7 @@
       "context": "emblems",
       "glyph": {
         "set": "sf",
-        "name": "square.and.arrow.up"
+        "name": "person.2"
       },
       "aliases": [
         "emblem-shared-symbolic"
@@ -3390,6 +3390,1190 @@
         "start-here-cachyos",
         "start-here-kde",
         "start-here"
+      ],
+      "glyph": {
+        "set": "sf",
+        "name": "apple.logo"
+      }
+    },
+    "gnome:network-wireless-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "wifi.slash"
+      },
+      "aliases": [
+        "network-wireless-disabled"
+      ]
+    },
+    "gnome:network-wireless-offline": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "wifi.slash"
+      },
+      "aliases": [
+        "network-wireless-offline"
+      ]
+    },
+    "gnome:network-wireless-no-route": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "wifi.exclamationmark"
+      },
+      "aliases": [
+        "network-wireless-no-route"
+      ]
+    },
+    "gnome:network-offline": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "wifi.slash"
+      },
+      "aliases": [
+        "network-offline"
+      ]
+    },
+    "gnome:network-error": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "wifi.exclamationmark"
+      },
+      "aliases": [
+        "network-error"
+      ]
+    },
+    "gnome:network-cellular-offline": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "antenna.radiowaves.left.and.right.slash"
+      },
+      "aliases": [
+        "network-cellular-offline"
+      ]
+    },
+    "gnome:network-server": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "server.rack"
+      },
+      "aliases": [
+        "network-server"
+      ]
+    },
+    "gnome:network-manager": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "network"
+      },
+      "aliases": [
+        "network-manager"
+      ]
+    },
+    "gnome:airplane-mode": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "airplane"
+      },
+      "aliases": [
+        "airplane-mode"
+      ]
+    },
+    "gnome:bluetooth-hardware-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "wave.3.right.circle"
+      },
+      "aliases": [
+        "bluetooth-hardware-disabled"
+      ]
+    },
+    "gnome:power-profile-power-saver": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "leaf"
+      },
+      "aliases": [
+        "power-profile-power-saver"
+      ]
+    },
+    "gnome:night-light": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "moon"
+      },
+      "aliases": [
+        "night-light"
+      ]
+    },
+    "gnome:night-light-disabled": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "moon"
+      },
+      "aliases": [
+        "night-light-disabled"
+      ]
+    },
+    "gnome:dark-mode": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "circle.lefthalf.filled"
+      },
+      "aliases": [
+        "dark-mode"
+      ]
+    },
+    "gnome:weather-clear-night": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "moon.stars"
+      },
+      "aliases": [
+        "weather-clear-night"
+      ]
+    },
+    "gnome:org.gnome.Settings": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "gearshape"
+      },
+      "aliases": [
+        "org.gnome.Settings"
+      ]
+    },
+    "gnome:applications-system": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "gearshape"
+      },
+      "aliases": [
+        "applications-system"
+      ]
+    },
+    "gnome:preferences-system": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "gearshape"
+      },
+      "aliases": [
+        "preferences-system"
+      ]
+    },
+    "gnome:preferences-system-devices": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "display.and.arrow.down"
+      },
+      "aliases": [
+        "preferences-system-devices"
+      ]
+    },
+    "gnome:screenshot-recorded": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "record.circle"
+      },
+      "aliases": [
+        "screenshot-recorded"
+      ]
+    },
+    "gnome:background-app-ghost": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "app.badge"
+      },
+      "aliases": [
+        "background-app-ghost"
+      ]
+    },
+    "gnome:audio-volume-overamplified": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "speaker.wave.3"
+      },
+      "aliases": [
+        "audio-volume-overamplified"
+      ]
+    },
+    "gnome:multimedia-volume-control": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "speaker.wave.2"
+      },
+      "aliases": [
+        "multimedia-volume-control"
+      ]
+    },
+    "gnome:battery-good": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.75percent"
+      },
+      "aliases": [
+        "battery-good"
+      ]
+    },
+    "gnome:battery-medium": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.50percent"
+      },
+      "aliases": [
+        "battery-medium"
+      ]
+    },
+    "gnome:battery-good-charging": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.100percent.bolt"
+      },
+      "aliases": [
+        "battery-good-charging"
+      ]
+    },
+    "gnome:battery-medium-charging": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.100percent.bolt"
+      },
+      "aliases": [
+        "battery-medium-charging"
+      ]
+    },
+    "gnome:battery-low-charging": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.100percent.bolt"
+      },
+      "aliases": [
+        "battery-low-charging"
+      ]
+    },
+    "gnome:battery-caution-charging": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "battery.100percent.bolt"
+      },
+      "aliases": [
+        "battery-caution-charging"
+      ]
+    },
+    "gnome:pan-down": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "chevron.down"
+      },
+      "aliases": [
+        "pan-down"
+      ]
+    },
+    "gnome:pan-up": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "chevron.up"
+      },
+      "aliases": [
+        "pan-up"
+      ]
+    },
+    "gnome:pan-start": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "chevron.left"
+      },
+      "aliases": [
+        "pan-start"
+      ]
+    },
+    "gnome:pan-end": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "chevron.right"
+      },
+      "aliases": [
+        "pan-end"
+      ]
+    },
+    "gnome:object-select": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "checkmark"
+      },
+      "aliases": [
+        "object-select"
+      ]
+    },
+    "gnome:edit-symbolic": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "pencil"
+      },
+      "aliases": [
+        "edit-symbolic"
+      ]
+    },
+    "gnome:view-more": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "ellipsis"
+      },
+      "aliases": [
+        "view-more"
+      ]
+    },
+    "gnome:view-more-horizontal": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "ellipsis"
+      },
+      "aliases": [
+        "view-more-horizontal"
+      ]
+    },
+    "gnome:view-list": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "list.bullet"
+      },
+      "aliases": [
+        "view-list"
+      ]
+    },
+    "gnome:view-reveal": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "eye"
+      },
+      "aliases": [
+        "view-reveal"
+      ]
+    },
+    "gnome:view-conceal": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "eye.slash"
+      },
+      "aliases": [
+        "view-conceal"
+      ]
+    },
+    "gnome:view-pin": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "pin"
+      },
+      "aliases": [
+        "view-pin"
+      ]
+    },
+    "gnome:sidebar-show": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "sidebar.left"
+      },
+      "aliases": [
+        "sidebar-show"
+      ]
+    },
+    "gnome:sidebar-show-right": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "sidebar.right"
+      },
+      "aliases": [
+        "sidebar-show-right"
+      ]
+    },
+    "gnome:external-link": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.up.right.square"
+      },
+      "aliases": [
+        "external-link"
+      ]
+    },
+    "gnome:list-drag-handle": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "line.3.horizontal"
+      },
+      "aliases": [
+        "list-drag-handle"
+      ]
+    },
+    "gnome:emblem-system": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "gearshape"
+      },
+      "aliases": [
+        "emblem-system"
+      ]
+    },
+    "gnome:help-faq": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "questionmark.circle"
+      },
+      "aliases": [
+        "help-faq"
+      ]
+    },
+    "gnome:channel-secure": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "lock"
+      },
+      "aliases": [
+        "channel-secure"
+      ]
+    },
+    "gnome:channel-insecure": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "lock.open"
+      },
+      "aliases": [
+        "channel-insecure"
+      ]
+    },
+    "gnome:face-sad": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "face.dashed"
+      },
+      "aliases": [
+        "face-sad"
+      ]
+    },
+    "gnome:face-smile": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "face.smiling"
+      },
+      "aliases": [
+        "face-smile"
+      ]
+    },
+    "gnome:computer-fail": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "desktopcomputer.trianglebadge.exclamationmark"
+      },
+      "aliases": [
+        "computer-fail"
+      ]
+    },
+    "gnome:image-missing": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "photo.badge.exclamationmark"
+      },
+      "aliases": [
+        "image-missing"
+      ]
+    },
+    "gnome:audio-x-generic": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "music.note"
+      },
+      "aliases": [
+        "audio-x-generic"
+      ]
+    },
+    "gnome:address-book-new": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "person.crop.rectangle.badge.plus"
+      },
+      "aliases": [
+        "address-book-new"
+      ]
+    },
+    "gnome:ebook-reader": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "book"
+      },
+      "aliases": [
+        "ebook-reader"
+      ]
+    },
+    "gnome:auth-sim-locked": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "simcard"
+      },
+      "aliases": [
+        "auth-sim-locked"
+      ]
+    },
+    "gnome:auth-sim-missing": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "simcard"
+      },
+      "aliases": [
+        "auth-sim-missing"
+      ]
+    },
+    "gnome:thunderbolt": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "bolt"
+      },
+      "aliases": [
+        "thunderbolt"
+      ]
+    },
+    "gnome:region": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "globe"
+      },
+      "aliases": [
+        "region"
+      ]
+    },
+    "gnome:video-joined-displays": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "display.2"
+      },
+      "aliases": [
+        "video-joined-displays"
+      ]
+    },
+    "gnome:video-single-display": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "display"
+      },
+      "aliases": [
+        "video-single-display"
+      ]
+    },
+    "gnome:user-info": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "person.crop.circle"
+      },
+      "aliases": [
+        "user-info"
+      ]
+    },
+    "gnome:avatar-default": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "person.crop.circle"
+      },
+      "aliases": [
+        "avatar-default"
+      ]
+    },
+    "gnome:preferences-desktop-appearance": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "paintpalette"
+      },
+      "aliases": [
+        "preferences-desktop-appearance"
+      ]
+    },
+    "gnome:preferences-desktop-remote-desktop": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "display.2"
+      },
+      "aliases": [
+        "preferences-desktop-remote-desktop"
+      ]
+    },
+    "gnome:preferences-system-notifications": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "bell"
+      },
+      "aliases": [
+        "preferences-system-notifications"
+      ]
+    },
+    "gnome:preferences-system-sharing": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "square.and.arrow.up"
+      },
+      "aliases": [
+        "preferences-system-sharing"
+      ]
+    },
+    "gnome:preferences-desktop-online-accounts": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "person.crop.circle.badge.checkmark"
+      },
+      "aliases": [
+        "preferences-desktop-online-accounts"
+      ]
+    },
+    "gnome:preferences-desktop-apps": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "square.grid.2x2"
+      },
+      "aliases": [
+        "preferences-desktop-apps"
+      ]
+    },
+    "gnome:preferences-color": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "paintpalette"
+      },
+      "aliases": [
+        "preferences-color"
+      ]
+    },
+    "gnome:software-update-available": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "arrow.trianglehead.2.clockwise.rotate.90"
+      },
+      "aliases": [
+        "software-update-available"
+      ]
+    },
+    "gnome:system-software-install": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "shippingbox"
+      },
+      "aliases": [
+        "system-software-install"
+      ]
+    },
+    "gnome:application-x-addon": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "puzzlepiece"
+      },
+      "aliases": [
+        "application-x-addon"
+      ]
+    },
+    "gnome:applications-multimedia": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "play.rectangle"
+      },
+      "aliases": [
+        "applications-multimedia"
+      ]
+    },
+    "gnome:applications-graphics": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "paintbrush"
+      },
+      "aliases": [
+        "applications-graphics"
+      ]
+    },
+    "gnome:applications-internet": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "globe"
+      },
+      "aliases": [
+        "applications-internet"
+      ]
+    },
+    "gnome:applications-science": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "testtube.2"
+      },
+      "aliases": [
+        "applications-science"
+      ]
+    },
+    "gnome:applications-utilities": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "wrench.and.screwdriver"
+      },
+      "aliases": [
+        "applications-utilities"
+      ]
+    },
+    "gnome:applications-engineering": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "hammer"
+      },
+      "aliases": [
+        "applications-engineering"
+      ]
+    },
+    "gnome:applications-development": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "chevron.left.forwardslash.chevron.right"
+      },
+      "aliases": [
+        "applications-development"
+      ]
+    },
+    "gnome:applications-accessories": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "paperclip"
+      },
+      "aliases": [
+        "applications-accessories"
+      ]
+    },
+    "gnome:folder": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "folder"
+      },
+      "aliases": [
+        "folder"
+      ]
+    },
+    "gnome:folder-open": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "folder"
+      },
+      "aliases": [
+        "folder-open"
+      ]
+    },
+    "gnome:folder-music": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "music.note"
+      },
+      "aliases": [
+        "folder-music"
+      ]
+    },
+    "gnome:folder-pictures": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "photo"
+      },
+      "aliases": [
+        "folder-pictures"
+      ]
+    },
+    "gnome:folder-videos": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "film"
+      },
+      "aliases": [
+        "folder-videos"
+      ]
+    },
+    "gnome:folder-publicshare": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "person.2"
+      },
+      "aliases": [
+        "folder-publicshare"
+      ]
+    },
+    "gnome:folder-remote": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "network"
+      },
+      "aliases": [
+        "folder-remote"
+      ]
+    },
+    "gnome:folder-saved-search": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "magnifyingglass"
+      },
+      "aliases": [
+        "folder-saved-search"
+      ]
+    },
+    "gnome:folder-recent": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "clock"
+      },
+      "aliases": [
+        "folder-recent"
+      ]
+    },
+    "gnome:user-home": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "house"
+      },
+      "aliases": [
+        "user-home"
+      ]
+    },
+    "gnome:user-desktop": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "desktopcomputer"
+      },
+      "aliases": [
+        "user-desktop"
+      ]
+    },
+    "gnome:user-trash": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "trash"
+      },
+      "aliases": [
+        "user-trash"
+      ]
+    },
+    "gnome:user-trash-full": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "trash"
+      },
+      "aliases": [
+        "user-trash-full"
+      ]
+    },
+    "gnome:user-bookmarks": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "bookmark"
+      },
+      "aliases": [
+        "user-bookmarks"
+      ]
+    },
+    "gnome:starred": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "star"
+      },
+      "aliases": [
+        "starred"
+      ]
+    },
+    "gnome:network-workgroup": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "network"
+      },
+      "aliases": [
+        "network-workgroup"
+      ]
+    },
+    "gnome:inode-directory": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "folder"
+      },
+      "aliases": [
+        "inode-directory"
+      ]
+    },
+    "gnome:image-x-generic": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "photo"
+      },
+      "aliases": [
+        "image-x-generic"
+      ]
+    },
+    "gnome:video-x-generic": {
+      "context": "devices",
+      "glyph": {
+        "set": "sf",
+        "name": "film"
+      },
+      "aliases": [
+        "video-x-generic"
+      ]
+    },
+    "gnome:package-x-generic": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "shippingbox"
+      },
+      "aliases": [
+        "package-x-generic"
+      ]
+    },
+    "gnome:application-certificate": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "checkmark.seal"
+      },
+      "aliases": [
+        "application-certificate"
+      ]
+    },
+    "gnome:chat-message-new": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "bubble.left"
+      },
+      "aliases": [
+        "chat-message-new"
+      ]
+    },
+    "gnome:appointment-soon": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "calendar"
+      },
+      "aliases": [
+        "appointment-soon"
+      ]
+    },
+    "gnome:alarm": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "alarm"
+      },
+      "aliases": [
+        "alarm"
+      ]
+    },
+    "gnome:weather-clear": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "sun.max"
+      },
+      "aliases": [
+        "weather-clear"
+      ]
+    },
+    "gnome:weather-overcast": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "cloud"
+      },
+      "aliases": [
+        "weather-overcast"
+      ]
+    },
+    "gnome:weather-showers": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "cloud.rain"
+      },
+      "aliases": [
+        "weather-showers"
+      ]
+    },
+    "gnome:weather-snow": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "cloud.snow"
+      },
+      "aliases": [
+        "weather-snow"
+      ]
+    },
+    "gnome:weather-storm": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "cloud.bolt"
+      },
+      "aliases": [
+        "weather-storm"
+      ]
+    },
+    "gnome:weather-fog": {
+      "context": "status",
+      "glyph": {
+        "set": "sf",
+        "name": "cloud.fog"
+      },
+      "aliases": [
+        "weather-fog"
+      ]
+    },
+    "gnome:application-x-executable": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "apple.terminal"
+      },
+      "aliases": [
+        "application-x-executable"
+      ]
+    },
+    "gnome:applications-office": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "text.document"
+      },
+      "aliases": [
+        "applications-office"
+      ]
+    },
+    "gnome:folder-documents": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "text.document"
+      },
+      "aliases": [
+        "folder-documents"
+      ]
+    },
+    "gnome:folder-templates": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "document.on.document"
+      },
+      "aliases": [
+        "folder-templates"
+      ]
+    },
+    "gnome:text-x-generic": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "text.document"
+      },
+      "aliases": [
+        "text-x-generic"
+      ]
+    },
+    "gnome:x-office-document": {
+      "context": "actions",
+      "glyph": {
+        "set": "sf",
+        "name": "text.document"
+      },
+      "aliases": [
+        "x-office-document"
       ]
     }
   }

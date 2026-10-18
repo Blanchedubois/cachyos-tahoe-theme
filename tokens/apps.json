@@ -1,5 +1,5 @@
 {
-  "_comment": "One entry per visible desktop entry. 'icon' is the Icon= name the generated theme must provide. 'glyph' is {set, name}: set is material (Material Symbols Rounded, wght 700, fill 1) or phosphor (bold). brand=true keeps the app's own mark on the shell; brand_icon names the installed icon to sample. skip=true leaves the app untouched. Apps not listed here fall back to their own icon on a white glass squircle. Steam itself is always left alone; Steam game shortcuts (steam_icon_*) get the white squircle. tile=true forces a brand mark to be used as the full base under the glass instead of a glyph on a shell. tile_crop=true trims a tile to its coloured content first. Brand marks that do not fill the squircle sit on a white glass shell. Glyph set 'sf' names an SF Symbol from brendanballon/sfsymbols-svg (fetched at build time, not committed). SF glyphs use the outlined (non .fill) cut per review.",
+  "_comment": "One entry per visible desktop entry. 'icon' is the Icon= name the generated theme must provide. 'glyph' is {set, name}: set is material (Material Symbols Rounded, wght 700, fill 1) or phosphor (bold). brand=true keeps the app's own mark on the shell; brand_icon names the installed icon to sample. skip=true leaves the app untouched. Apps not listed here fall back to their own icon on a white glass squircle. Steam itself is always left alone; Steam game shortcuts (steam_icon_*) get the white squircle. tile=true forces a brand mark to be used as the full base under the glass instead of a glyph on a shell. tile_crop=true trims a tile to its coloured content first. Brand marks that do not fill the squircle sit on a white glass shell. Glyph set 'sf' names an SF Symbol from brendanballon/sfsymbols-svg (fetched at build time, not committed). SF glyphs use the outlined (non .fill) cut per review. shell={base,top} sets a brand app's squircle colour explicitly; scale sets the mark size as a fraction of the body.",
   "apps": {
     "Alacritty.desktop": {
       "name": "Alacritty",
@@ -935,14 +935,24 @@
       "icon": "spotify-launcher",
       "category": "media",
       "brand": true,
-      "brand_icon": "spotify"
+      "brand_icon": "spotify-launcher",
+      "shell": {
+        "base": "#1f2124",
+        "top": "#3a3d42"
+      },
+      "scale": 0.66
     },
     "spotify.desktop": {
       "name": "Spotify (client)",
       "icon": "spotify",
       "category": "media",
       "brand": true,
-      "brand_icon": "spotify"
+      "brand_icon": "spotify-launcher",
+      "shell": {
+        "base": "#1f2124",
+        "top": "#3a3d42"
+      },
+      "scale": 0.66
     }
   },
   "skip_patterns": [

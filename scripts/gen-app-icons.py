@@ -364,7 +364,7 @@ def main():
         base, top = hex_to_rgb(cat["base"]), hex_to_rgb(cat["top"])
 
         if app.get("brand"):
-            tahoe = find_tahoe_icon(app["brand_icon"])
+            tahoe = None if app.get("shell") else find_tahoe_icon(app["brand_icon"])
             if tahoe:
                 # MacTahoe already draws this brand in Tahoe style: use its art
                 # as the base and lay the same glass overlay on top.
@@ -379,14 +379,18 @@ def main():
             if not src:
                 print(f"brand mark not found for {app['name']} ({app['brand_icon']}), skipping", file=sys.stderr)
                 continue
-            if app.get("tile") or is_full_tile(src):
+            if not app.get("shell") and (app.get("tile") or is_full_tile(src)):
                 svg = compose(base, top, "", base_image=tile_base(src, crop=app.get("tile_crop", False)))
                 (scalable / f"{icon}.svg").write_text(svg)
                 produced[icon] = app["name"]
                 continue
-            # a mark that does not fill the squircle sits on a white glass shell
-            base, top = hex_to_rgb("#e9e9ee"), hex_to_rgb("#ffffff")
-            body = brand_group(src, 0.62)
+            # a mark that does not fill the squircle sits on a white glass shell,
+            # unless the table names a shell colour for it
+            if app.get("shell"):
+                base, top = hex_to_rgb(app["shell"]["base"]), hex_to_rgb(app["shell"]["top"])
+            else:
+                base, top = hex_to_rgb("#e9e9ee"), hex_to_rgb("#ffffff")
+            body = brand_group(src, app.get("scale", 0.62))
         else:
             g = app["glyph"]
             gpath = GLYPHS / g["set"] / (f"{g['name']}-outline.svg" if g["set"] == "material" else f"{g['name']}.svg")

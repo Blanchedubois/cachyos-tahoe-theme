@@ -55,6 +55,11 @@ if ! fc-list | grep -qi 'Inter'; then
   echo "    note: the Inter font is not installed; 'sudo pacman -S inter-font' then set it under Fonts if you want it"
 fi
 
+# 5a. Electron apps: drop Chromium's client-side shadow so KWin's rounding and
+# shadow apply cleanly. Takes effect on the app's next launch.
+say "electron flags"
+cp "$ROOT/config/electron/claude-desktop-flags.conf" "$CONF/claude-desktop-flags.conf"
+
 # 5b. Firefox chrome (default-release profile from profiles.ini). Skipped while Firefox runs.
 say "firefox"
 FFDIR="$CONF/mozilla/firefox"; [[ -d "$FFDIR" ]] || FFDIR="$HOME/.mozilla/firefox"

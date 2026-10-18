@@ -929,6 +929,20 @@
         "set": "sf",
         "name": "document"
       }
+    },
+    "spotify-launcher.desktop": {
+      "name": "Spotify",
+      "icon": "spotify-launcher",
+      "category": "media",
+      "brand": true,
+      "brand_icon": "spotify"
+    },
+    "spotify.desktop": {
+      "name": "Spotify (client)",
+      "icon": "spotify",
+      "category": "media",
+      "brand": true,
+      "brand_icon": "spotify"
     }
   },
   "skip_patterns": [

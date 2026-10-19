@@ -279,7 +279,16 @@ PY
     bsg "" hacks-level 0
   fi
   bsg .applications whitelist "['org.gnome.Nautilus','org.gnome.Settings','gnome-control-center','org.gnome.Console','kgx','org.gnome.TextEditor','org.gnome.Calculator','org.gnome.Loupe','org.gnome.Papers','org.gnome.Characters','org.gnome.clocks','org.gnome.Calendar','org.gnome.Weather','org.gnome.Music','org.gnome.Software','org.gnome.DiskUtility','org.gnome.baobab','org.gnome.SystemMonitor','org.gnome.tweaks','org.gnome.Extensions','org.gnome.Logs','org.gnome.font-viewer','org.kde.dolphin','org.kde.kate','org.kde.konsole']"
-  bsg .applications opacity 215
+  if [[ "$GLASS" == 1 && "$(glass_state apps)" == on ]]; then
+    # glass apps: GTK4 backgrounds are translucent (glass block in the GTK4 stylesheet), so
+    # windows stay fully opaque; put the block back if a theme rebuild dropped it
+    bsg .applications opacity 255
+    if [[ -f "$HOME/.config/gtk-4.0/gtk-Dark.css" ]] && ! grep -q "tahoe-glass-gtk4" "$HOME/.config/gtk-4.0/gtk-Dark.css"; then
+      log "GTK4 glass block missing: re-applying"; bash "$ROOT/scripts/glass-bar.sh" apps on >/dev/null
+    fi
+  else
+    bsg .applications opacity 215
+  fi
   [[ "$GLASS" == 1 ]] || { bsg .applications sigma 30; bsg .applications brightness 0.6; }
   # Shell surfaces, per the theme author's Blur my Shell screenshot.
   if [[ "$GLASS" == 1 ]]; then

@@ -222,6 +222,92 @@ dock() { # on | off : the dock in live Liquid Glass, its own theme background cl
   echo "  dock: $1"
 }
 
+# GTK4 (libadwaita) apps in glass: a marked block appended to the theme's GTK4 stylesheet
+# makes window, header bar, sidebar and view backgrounds translucent, so the window's live
+# Liquid Glass shows through like the menus', with the same edge; buttons get the glass edge
+# and a light translucent fill (no blur of their own: they sit on the window's live blur).
+GTK4_CSS="$HOME/.config/gtk-4.0/gtk-Dark.css"
+GTK_BEGIN='/* tahoe-glass-gtk4: managed by glass-bar.sh */'
+GTK_END='/* end tahoe-glass-gtk4 */'
+gtk_glass_block() { # light | dark
+  local edge fill hover press card sidebar window
+  if [ "$1" = dark ]; then
+    window='rgba(0, 0, 0, 0.30)'; sidebar='rgba(0, 0, 0, 0.12)'; card='rgba(255, 255, 255, 0.04)'
+    edge='rgba(255, 255, 255, 0.08)'; fill='rgba(255, 255, 255, 0.05)'; hover='rgba(255, 255, 255, 0.09)'; press='rgba(255, 255, 255, 0.13)'
+  else
+    window='rgba(0, 0, 0, 0.12)'; sidebar='rgba(255, 255, 255, 0.04)'; card='rgba(255, 255, 255, 0.06)'
+    edge='rgba(255, 255, 255, 0.12)'; fill='rgba(255, 255, 255, 0.08)'; hover='rgba(255, 255, 255, 0.14)'; press='rgba(255, 255, 255, 0.2)'
+  fi
+  cat <<CSS
+$GTK_BEGIN
+:root {
+  --window-bg-color: $window;
+  --view-bg-color: transparent;
+  --headerbar-bg-color: transparent;
+  --headerbar-backdrop-color: transparent;
+  --sidebar-bg-color: $sidebar;
+  --sidebar-backdrop-color: $sidebar;
+  --secondary-sidebar-bg-color: $sidebar;
+  --secondary-sidebar-backdrop-color: $sidebar;
+  --card-bg-color: $card;
+  --dialog-bg-color: $window;
+}
+@define-color window_bg_color $window;
+@define-color view_bg_color transparent;
+@define-color headerbar_bg_color transparent;
+@define-color headerbar_backdrop_color transparent;
+@define-color sidebar_bg_color $sidebar;
+@define-color card_bg_color $card;
+window.csd, window.csd:backdrop { outline: 1px solid $edge; outline-offset: -1px; }
+window.csd.maximized, window.csd.fullscreen, window.csd.tiled { outline: none; }
+button:not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action),
+headerbar button:not(.titlebutton):not(.close):not(.minimize):not(.maximize), .linked > button:not(.close):not(.minimize):not(.maximize) {
+  background-color: $fill; background-image: none;
+  box-shadow: inset 0 0 0 1px $edge;
+}
+button:not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action):hover,
+headerbar button:not(.titlebutton):not(.close):not(.minimize):not(.maximize):hover { background-color: $hover; }
+button:not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action):active,
+button:not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action):checked,
+headerbar button:not(.titlebutton):not(.close):not(.minimize):not(.maximize):active, headerbar button:not(.titlebutton):not(.close):not(.minimize):not(.maximize):checked { background-color: $press; }
+$GTK_END
+CSS
+}
+gtk_glass() { # light | dark | off
+  [ -f "$GTK4_CSS" ] || return 0
+  python3 - "$GTK4_CSS" "$GTK_BEGIN" "$GTK_END" <<'PY'
+import sys
+p, b, e = sys.argv[1:4]
+s = open(p).read()
+while b in s and e in s:
+    s = s[:s.index(b)].rstrip('\n') + '\n' + s[s.index(e) + len(e):].lstrip('\n')
+open(p, 'w').write(s)
+PY
+  [ "$1" = off ] || gtk_glass_block "$1" >> "$GTK4_CSS"
+}
+
+# The glass edge follows the tint: light glass a white line at 12 %, dark glass a quieter 8 %.
+glass_edge_alpha() { [ "$(sed -n 's/^tint=//p' "$STATE" 2>/dev/null | tail -1)" = dark ] && echo 0.08 || echo 0.12; }
+
+# shell_edges: set the edge in the installed Blur My Shell glass stylesheet (menus, quick settings
+# pieces, dock) and on the top bar (Open Bar's border); only the glass part of the stylesheet changes
+shell_edges() {
+  local a; a=$(glass_edge_alpha)
+  python3 - "$EXT/$BMS_UUID/stylesheet.css" "$a" <<'PY'
+import re, sys
+p, a = sys.argv[1], sys.argv[2]
+s = open(p).read()
+marker = '/* tahoe glass (cachyos-tahoe-theme)'
+if marker in s:
+    i = s.index(marker)
+    glass = re.sub(r'border(-color)?: (1px solid )?rgba\(255, 255, 255, 0\.(12|08)\)',
+                   lambda m: f"border{m.group(1) or ''}: {m.group(2) or ''}rgba(255, 255, 255, {a})", s[i:])
+    open(p, 'w').write(s[:i] + glass)
+PY
+  local OBS="$EXT/openbar@neuromorph/schemas"
+  [ -d "$OBS" ] && gsettings --schemadir "$OBS" set org.gnome.shell.extensions.openbar balpha "$a"
+}
+
 apps() { # on | off : live Liquid Glass behind the whitelisted app windows (Files, Settings, ...)
   local BS="$EXT/$BMS_UUID/schemas" S=org.gnome.shell.extensions.blur-my-shell.applications
   if [ "$1" = on ]; then
@@ -235,8 +321,13 @@ apps() { # on | off : live Liquid Glass behind the whitelisted app windows (File
     gsettings --schemadir "$BS" set $S corner-radius 24
     gsettings --schemadir "$BS" set $S rounded-corners 0
     gsettings --schemadir "$BS" set $S corner-when-maximized false
+    # the GTK4 glass block makes the backgrounds translucent, so the window itself stays fully
+    # opaque and its text crisp, as on the menus (Blur My Shell's 215 dimmed everything)
+    gsettings --schemadir "$BS" set $S opacity 255
+    gtk_glass "$(sed -n 's/^tint=//p' "$STATE" 2>/dev/null | tail -1 | grep -x dark || echo light)"
   else
     restore_bms_section applications
+    gtk_glass off
   fi
   echo "  apps: $1"
 }
@@ -322,6 +413,7 @@ m['tahoe-glass-built-from'] = m.get('version')
 m['version'] = v
 json.dump(m, open(p, 'w'), indent=2)
 PY
+    shell_edges
     echo "  built from v76 + $(basename "$BMS_PATCH"), labelled v$ego_ver (extensions.gnome.org's current) so GNOME does not swap it"
     if [ "$ego_ver" -ge 76 ]; then
       echo "  note: extensions.gnome.org now has v$ego_ver; GNOME may replace this build with it (dropping the patch)"
@@ -434,6 +526,7 @@ PY
   dconf dump "$EXT_PATH" > "$cur"
   dconf_apply "$EXT_PATH" "$b/extensions.dconf" "$cur"
   rm -f "$cur"
+  gtk_glass off   # the GTK4 glass block, if 'apps on' added one
   rm -f "$STATE"
   step "Done. LOG OUT AND BACK IN to finish going back."
 }
@@ -460,7 +553,10 @@ case "${1:-}" in
         [ "$(sed -n 's/^bar=//p' "$STATE" | tail -1)" = plain ] || bar_blur glass
         if [ "$(sed -n 's/^menus=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_menus 'Glass menus' 18.0; fi
         if [ "$(sed -n 's/^dock=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_dock 'Glass dock' 18.0; fi
-        if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_apps 'Glass apps' 24.0; fi
+        if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_apps 'Glass apps' 24.0; gtk_glass "$2"; fi
+        shell_edges
+        # reload Blur My Shell so its stylesheet (the edges) is read again
+        gnome-extensions disable "$BMS_UUID"; sleep 1; gnome-extensions enable "$BMS_UUID"
         echo "  tint: $2" ;;
       *) echo "usage: tint light|dark"; exit 1 ;;
     esac ;;

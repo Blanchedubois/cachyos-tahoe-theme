@@ -14,6 +14,7 @@
 #                                OSDs and dialogs such as Power Off, as in the Tahoe VM (instant)
 #   bash glass-bar.sh menus off  menus back to how they were before 'apply' (instant)
 #   bash glass-bar.sh rebuild    rebuild and reinstall the patched Blur My Shell, then log out and back in
+#   bash glass-bar.sh status     whether the patched Blur My Shell is the one installed
 #   bash glass-bar.sh undo       put everything back exactly as before 'apply', then log out and back in
 set -euo pipefail
 
@@ -213,7 +214,37 @@ build_bms() {
   git -C "$SRC/blur-my-shell" clean -fdq
   git -C "$SRC/blur-my-shell" apply "$BMS_PATCH"
   /usr/bin/make -C "$SRC/blur-my-shell" install >/dev/null
-  echo "  installed version $(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["version"])' "$EXT/$BMS_UUID/metadata.json") with $(basename "$BMS_PATCH")"
+  # GNOME's update check sends each extension's version to extensions.gnome.org and installs
+  # whatever it answers "upgrade" or "downgrade" with at the next login. Version 76 is not
+  # published there, so it answers "downgrade" and the patched build is swapped for v75.
+  # Labelled with the published version, the answer is "current" and the build stays.
+  local shell_major ego_ver
+  shell_major=$(gnome-shell --version | grep -oE '[0-9]+' | head -1)
+  ego_ver=$(curl -sf "https://extensions.gnome.org/extension-info/?uuid=$BMS_UUID&shell_version=$shell_major" |
+            python3 -c 'import json,sys;print(json.load(sys.stdin).get("version",""))' || true)
+  if [ -n "$ego_ver" ]; then
+    python3 - "$EXT/$BMS_UUID/metadata.json" "$ego_ver" <<'PY'
+import json, sys
+p, v = sys.argv[1], int(sys.argv[2])
+m = json.load(open(p))
+m['tahoe-glass-built-from'] = m.get('version')
+m['version'] = v
+json.dump(m, open(p, 'w'), indent=2)
+PY
+    echo "  built from v76 + $(basename "$BMS_PATCH"), labelled v$ego_ver (extensions.gnome.org's current) so GNOME does not swap it"
+    if [ "$ego_ver" -ge 76 ]; then
+      echo "  note: extensions.gnome.org now has v$ego_ver; GNOME may replace this build with it (dropping the patch)"
+    fi
+  else
+    echo "  warning: could not read extensions.gnome.org; GNOME's update check may swap this build for the published one"
+  fi
+}
+
+# a build GNOME replaced with the published version has no patch in it
+check_bms() {
+  if ! grep -q QUICK_SETTINGS_PIECE "$EXT/$BMS_UUID/components/popup/targets.js" 2>/dev/null; then
+    echo "  Blur My Shell is not the patched build (GNOME's update check may have replaced it): run 'bash $0 rebuild'"
+  fi
 }
 
 apply() {
@@ -314,6 +345,7 @@ PY
 case "${1:-}" in
   apply) apply ;;
   undo) undo ;;
+  status) check_bms; echo "  installed: $(python3 -c 'import json,sys;m=json.load(open(sys.argv[1]));print("v%s (built from v%s)" % (m["version"], m.get("tahoe-glass-built-from", m["version"])))' "$EXT/$BMS_UUID/metadata.json")" ;;
   rebuild) step "Blur My Shell v76, patched"; build_bms; step "Done. LOG OUT AND BACK IN to load it." ;;
   menus)
     case "${2:-}" in
@@ -326,5 +358,5 @@ case "${1:-}" in
       off) bar_blur plain ;;
       *) echo "usage: glass on|off"; exit 1 ;;
     esac ;;
-  *) sed -n '2,17p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+  *) sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac

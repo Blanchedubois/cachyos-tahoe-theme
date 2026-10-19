@@ -418,6 +418,7 @@ if [[ "$GLASS" == 1 && -d "$OBS" ]]; then
   obg apply-menu-shell false; obg apply-menu-notif false; obg apply-all-shell false; obg apply-accent-shell false
   obg apply-gtk false; obg apply-flatpak false; obg gtk-popover false; obg set-yarutheme false
   obg set-notifications false; obg set-notif-position false; obg set-overview false
+  obg wmaxbar false   # the bar stays a floating capsule when a window is maximised
 fi
 
 log "done"

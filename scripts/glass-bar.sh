@@ -299,6 +299,7 @@ d = Pango.FontDescription.from_string(sys.argv[1]); d.set_weight(Pango.Weight.BO
       -e "s|^gtk-popover=.*|gtk-popover=false|" -e "s|^set-yarutheme=.*|set-yarutheme=false|" \
       -e "s|^set-notifications=.*|set-notifications=false|" -e "s|^set-notif-position=.*|set-notif-position=false|" \
       -e "s|^set-overview=.*|set-overview=false|" \
+      -e "s|^wmaxbar=.*|wmaxbar=false|" \
       "$tmp/preset.dconf" > "$tmp/openbar.dconf"
   dconf_apply "${EXT_PATH}openbar/" "$tmp/openbar.dconf"
   # the preset was exported with import-export=true, which pauses Open Bar's restyling; clear it and reload

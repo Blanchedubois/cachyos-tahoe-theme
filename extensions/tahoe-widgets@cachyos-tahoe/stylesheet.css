@@ -1,0 +1,27 @@
+/* Tahoe Widgets: the glass itself comes from Blur My Shell; this draws the rim and the text */
+
+.tahoe-widget { border-radius: 24px; }
+
+/* the rim sits on the content, which is drawn over the glass */
+.tahoe-widget-content {
+  padding: 16px 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+}
+.tahoe-widget-light .tahoe-widget-content { border-color: rgba(255, 255, 255, 0.25); }
+.tahoe-widget-milky .tahoe-widget-content { border-color: rgba(255, 255, 255, 0.12); }
+
+/* no Blur My Shell: a plain translucent card */
+.tahoe-widget-fallback { background-color: rgba(34, 34, 38, 0.55); }
+.tahoe-widget-fallback.tahoe-widget-light { background-color: rgba(255, 255, 255, 0.35); }
+
+.tahoe-widget-date {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff453a;
+}
+.tahoe-widget-time {
+  font-size: 46px;
+  font-weight: 300;
+  color: #ffffff;
+}

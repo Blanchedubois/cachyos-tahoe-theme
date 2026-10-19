@@ -89,6 +89,8 @@ EOT
 esac
 WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn','nowplaying@epogonii.github.io','Vitals@CoreCoding.com']"
 [[ "$GLASS" == 1 ]] && WANT="${WANT%]},'openbar@neuromorph']"
+# desktop widgets (scripts/tahoe-widgets.sh): kept on while installed and switched on
+[[ -d "$EXT_DIR/tahoe-widgets@cachyos-tahoe" && "$(glass_state widgets)" == on ]] && WANT="${WANT%]},'tahoe-widgets@cachyos-tahoe']"
 SHELL_VER="$(gnome-shell --version 2>/dev/null | grep -oE '[0-9]+' | head -1)"
 changed=0
 

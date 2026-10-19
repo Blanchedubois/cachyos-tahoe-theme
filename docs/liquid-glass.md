@@ -45,3 +45,20 @@ toggle) adds no blur of its own, only a translucent fill and the rim.
 system colour scheme); `milky` keeps dark apps under the milky glass shell.
 
 Files (Nautilus) keeps the theme's own look in every mode.
+
+## Switching modes
+
+```bash
+bash scripts/glass-bar.sh mode light   # Tahoe light: light glass and dark text, light apps
+bash scripts/glass-bar.sh mode dark    # Tahoe dark: smoky glass and white text, dark apps
+bash scripts/glass-bar.sh mode milky   # the pre-mode look: milky glass over dark apps
+```
+
+The mode applies at once; apps opened before the switch pick it up when reopened.
+tahoe-repair keeps the chosen mode at every login: the shell theme (MacTahoe Light in light
+mode, with the Dark theme's overrides carried over), the GTK theme and colour scheme, which
+GTK4 stylesheet `gtk.css` points at, Blur My Shell's menu style, window opacity and the
+GTK4 glass block.
+
+In light mode Tahoe puts dark text on light glass; the light shell theme, dark top-bar
+text and Blur My Shell's light menu style do that here.

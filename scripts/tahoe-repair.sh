@@ -49,6 +49,16 @@ GLASS_STATE="$HOME/.config/tahoe-glass/state"
 glass_state() { sed -n "s/^$1=//p" "$GLASS_STATE" 2>/dev/null | tail -1; }
 GLASS=0; [[ "$(glass_state enabled)" == 1 ]] && GLASS=1
 GLASS_BAR="$(glass_state bar)"; GLASS_MENUS="$(glass_state menus)"
+# glass mode (docs/liquid-glass.md): light uses MacTahoe Light (shell and GTK) and the light colour
+# scheme; dark and milky MacTahoe Dark. Older state files said tint=dark|light.
+GLASS_MODE="$(glass_state mode)"
+[[ -z "$GLASS_MODE" ]] && { [[ "$(glass_state tint)" == dark ]] && GLASS_MODE=dark || GLASS_MODE=milky; }
+[[ "$GLASS" == 1 ]] || GLASS_MODE=milky
+if [[ "$GLASS_MODE" == light ]]; then
+  SHELL_THEME=MacTahoe-Light; GTK3_THEME=MacTahoe-Light-solid; COLOR_SCHEME=default
+else
+  SHELL_THEME=MacTahoe-Dark; GTK3_THEME=MacTahoe-Dark-solid; COLOR_SCHEME=prefer-dark
+fi
 [[ "$GLASS" == 1 ]] && EXTS+=(openbar@neuromorph)
 case "${1:-}" in
   --gdm)
@@ -116,19 +126,28 @@ for e in "${EXTS[@]}"; do
 done
 
 # 5. shell theme applied and loaded
-if [[ "$(gsettings get org.gnome.shell.extensions.user-theme name)" != "'MacTahoe-Dark'" ]]; then
+if [[ "$(gsettings get org.gnome.shell.extensions.user-theme name)" != "'$SHELL_THEME'" ]]; then
   log "shell theme not set: applying"; changed=1
 fi
 last="$(journalctl --user -b --no-pager -o cat 2>/dev/null | grep -E 'loading (user|default) theme' | tail -1)"
 if [[ "$changed" == 1 || "$last" == *Adwaita* ]]; then
   log "re-applying shell theme (last load: ${last:-unknown})"
   gsettings set org.gnome.shell.extensions.user-theme name ''; sleep 1
-  gsettings set org.gnome.shell.extensions.user-theme name 'MacTahoe-Dark'
+  gsettings set org.gnome.shell.extensions.user-theme name "$SHELL_THEME"
 fi
 # GTK3 apps (pywebview, Electron-with-GTK headers, older apps) use the solid
 # variant: filled header bars. libadwaita apps keep the blur variant through
 # the gtk-4.0 config, which is independent of this setting.
-[[ "$(gsettings get org.gnome.desktop.interface gtk-theme)" == "'MacTahoe-Dark-solid'" ]] || { log "gtk3 theme drifted: resetting to the solid variant"; gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark-solid'; }
+[[ "$(gsettings get org.gnome.desktop.interface gtk-theme)" == "'$GTK3_THEME'" ]] || { log "gtk3 theme drifted: resetting to $GTK3_THEME"; gsettings set org.gnome.desktop.interface gtk-theme "$GTK3_THEME"; }
+# libadwaita apps read ~/.config/gtk-4.0/gtk.css: the Light file in light mode, Dark otherwise
+gtk4_want="$HOME/.config/gtk-4.0/gtk-$([[ "$GLASS_MODE" == light ]] && echo Light || echo Dark).css"
+if [[ -f "$gtk4_want" && "$(readlink -f "$HOME/.config/gtk-4.0/gtk.css")" != "$gtk4_want" ]]; then
+  log "gtk4 stylesheet drifted: pointing gtk.css at $(basename "$gtk4_want")"; ln -sfn "$gtk4_want" "$HOME/.config/gtk-4.0/gtk.css"
+fi
+# light mode carries the shell overrides over to MacTahoe Light too (glass-bar.sh does it)
+if [[ "$GLASS_MODE" == light ]] && ! grep -qs "tahoe-overrides:" "$HOME/.themes/MacTahoe-Light/gnome-shell/gnome-shell.css"; then
+  log "shell overrides missing from MacTahoe Light: re-applying the light mode"; bash "$ROOT/scripts/glass-bar.sh" mode light >/dev/null
+fi
 # 5b. shell CSS overrides (quick settings icon size, Now Playing card) survive
 #     a theme rebuild, and pick up rules added to the repo copy since
 CSS="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
@@ -280,11 +299,19 @@ PY
   fi
   bsg .applications whitelist "['org.gnome.Nautilus','org.gnome.Settings','gnome-control-center','org.gnome.Console','kgx','org.gnome.TextEditor','org.gnome.Calculator','org.gnome.Loupe','org.gnome.Papers','org.gnome.Characters','org.gnome.clocks','org.gnome.Calendar','org.gnome.Weather','org.gnome.Music','org.gnome.Software','org.gnome.DiskUtility','org.gnome.baobab','org.gnome.SystemMonitor','org.gnome.tweaks','org.gnome.Extensions','org.gnome.Logs','org.gnome.font-viewer','org.kde.dolphin','org.kde.kate','org.kde.konsole']"
   if [[ "$GLASS" == 1 && "$(glass_state apps)" == on ]]; then
-    # glass apps: GTK4 backgrounds are translucent (glass block in the GTK4 stylesheet), so
-    # windows stay fully opaque; put the block back if a theme rebuild dropped it
-    bsg .applications opacity 255
-    if [[ "$(glass_state gtk)" == on && -f "$HOME/.config/gtk-4.0/gtk-Dark.css" ]] && ! grep -q "tahoe-glass-gtk4" "$HOME/.config/gtk-4.0/gtk-Dark.css"; then
-      log "GTK4 glass block missing: re-applying"; bash "$ROOT/scripts/glass-bar.sh" apps on >/dev/null
+    # glass apps. light/dark: GTK4 backgrounds are translucent (the glass block in the mode's
+    # GTK4 stylesheet), so windows stay fully opaque. milky: windows at 215, no block.
+    if [[ "$GLASS_MODE" == milky ]]; then
+      bsg .applications opacity 215
+      if grep -qs "tahoe-glass-gtk4" "$HOME/.config/gtk-4.0/gtk-Dark.css" "$HOME/.config/gtk-4.0/gtk-Light.css"; then
+        log "GTK4 glass block present in milky mode: removing"; bash "$ROOT/scripts/glass-bar.sh" apps on >/dev/null
+      fi
+    else
+      bsg .applications opacity 255
+      gtk4_css="$HOME/.config/gtk-4.0/gtk-$([[ "$GLASS_MODE" == light ]] && echo Light || echo Dark).css"
+      if [[ -f "$gtk4_css" ]] && ! grep -q "mode: $GLASS_MODE;" "$gtk4_css"; then
+        log "GTK4 glass block missing or for another mode: re-applying"; bash "$ROOT/scripts/glass-bar.sh" apps on >/dev/null
+      fi
     fi
   else
     bsg .applications opacity 215
@@ -328,7 +355,8 @@ PY
   if [[ "$GLASS" == 1 && "$GLASS_MENUS" == on ]]; then
     # glass menus: live blur on each menu and each quick settings piece, the top bar's Liquid Glass
     bsg .popup blur true; bsg .popup static-blur false; bsg .popup override-background true
-    bsg .popup preserve-shell-theme false; bsg .popup style-popup 3
+    bsg .popup preserve-shell-theme false
+    if [[ "$GLASS_MODE" == light ]]; then bsg .popup style-popup 1; else bsg .popup style-popup 3; fi
     if [[ "$(gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell.popup pipeline)" != "'pipeline_glassbar_menus'" ]] \
        || ! gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell pipelines | grep -q pipeline_glassbar_menus; then
       log "glass menus drifted: re-applying"; bash "$ROOT/scripts/glass-bar.sh" menus on >/dev/null
@@ -379,7 +407,7 @@ done
 # 9. interface drift
 gs() { [[ "$(gsettings get "$1" "$2")" == "$3" ]] || { log "$2 drifted: resetting"; gsettings set "$1" "$2" "${3//\'/}"; }; }
 gs org.gnome.desktop.interface cursor-theme "'MacTahoe-dark'"
-gs org.gnome.desktop.interface color-scheme "'prefer-dark'"
+gs org.gnome.desktop.interface color-scheme "'$COLOR_SCHEME'"
 gs org.gnome.desktop.wm.preferences button-layout "'close,minimize,maximize:'"
 # Resize handles: Mutter's default 10 px grab area falls inside the 24 px
 # rounded-corner clip, so corners cannot be grabbed. Widen it past the radius.

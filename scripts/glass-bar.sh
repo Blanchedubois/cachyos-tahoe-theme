@@ -651,7 +651,10 @@ case "${1:-}" in
         if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then apps on; fi
         shell_edges
         # reload Blur My Shell so its stylesheet (the edges) is read again
+        # (and put the extension list back in its order, which disable/enable changes)
+        order=$(gsettings get org.gnome.shell enabled-extensions)
         gnome-extensions disable "$BMS_UUID"; sleep 1; gnome-extensions enable "$BMS_UUID"
+        sleep 1; gsettings set org.gnome.shell enabled-extensions "$order"
         echo "  mode: $m (apps opened before this pick it up when reopened)" ;;
       *) echo "usage: mode light|dark|milky"; exit 1 ;;
     esac ;;

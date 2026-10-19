@@ -42,10 +42,36 @@ index 4d16af5..bd4ca91 100644
          if (!this.enabled) {
              this._log("blur already removed");
 diff --git a/src/components/popup/surface/blur_surface.js b/src/components/popup/surface/blur_surface.js
-index 5a891b9..a329690 100644
+index 5a891b9..6db7c7d 100644
 --- a/src/components/popup/surface/blur_surface.js
 +++ b/src/components/popup/surface/blur_surface.js
-@@ -332,7 +332,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
+@@ -10,8 +10,12 @@ import { PopupBlurSurfaceStyle } from './style.js';
+ import { PopupBlurSurfaceTransitions } from './transitions.js';
+ import { PopupBlurStaticActor } from '../static_actor.js';
+ import { getSurfaceSibling, registerSurface, unregisterSurface } from './stack.js';
++import { QuickMenuToggle } from 'resource:///org/gnome/shell/ui/quickSettings.js';
+ 
+ const NOTIFICATION_STYLE_CLASSES = ['notification-banner'];
++const QUICK_SETTINGS_PIECE_GEOMETRY_CLASSES = [
++    'quick-toggle', 'quick-toggle-has-menu', 'quick-slider', 'icon-button', 'power-item',
++];
+ const FULL_GEOMETRY_STYLE_CLASSES = [
+     'popup-menu-content', 'candidate-popup-content',
+     'quick-settings', 'quick-toggle-menu', 'screenshot-ui-panel',
+@@ -174,7 +178,11 @@ export const PopupBlurSurface = class PopupBlurSurface {
+     }
+ 
+     uses_full_actor_geometry() {
+-        return this.matches_any_style_class(FULL_GEOMETRY_STYLE_CLASSES);
++        // quick settings pieces: the blur fills the button's own box, the box its outline is
++        // drawn on, not the box of its icon and padding (which sits smaller and off centre)
++        return this.matches_any_style_class(FULL_GEOMETRY_STYLE_CLASSES)
++            || has_any_style_class(this.target, QUICK_SETTINGS_PIECE_GEOMETRY_CLASSES)
++            || this.target instanceof QuickMenuToggle;
+     }
+ 
+     update() {
+@@ -332,7 +340,7 @@ export const PopupBlurSurface = class PopupBlurSurface {
      }
  
      get_corner_radius() {

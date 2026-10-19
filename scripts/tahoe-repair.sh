@@ -273,7 +273,15 @@ PY
     then log "blur$1 $2 drifted: resetting"; gsettings --schemadir "$BS" set "org.gnome.shell.extensions.blur-my-shell$1" "$2" "$3"; fi
   }
   bsg .applications blur true
-  bsg .applications enable-all false
+  if [[ "$GLASS" == 1 && "$(glass_state apps)" == on && "$GLASS_MODE" != milky ]]; then
+    # light/dark: the GTK4 glass reaches every GTK4 app, so every window gets the live blur
+    # (games and VR left out, none in fullscreen); see glass-bar.sh apps()
+    bsg .applications enable-all true
+    bsg .applications unblur-when-fullscreen true
+    bsg .applications blacklist "['Plank','com.desktop.ding','Conky','steam','steamwebhelper','VRChat.exe','vrmonitor','vrcompositor','vrwebhelper']"
+  else
+    bsg .applications enable-all false
+  fi
   if [[ "$GLASS" == 1 && "$(glass_state apps)" == on ]]; then
     # glass apps: live blur with the shared Liquid Glass (v76's blur engine draws it fine on
     # this GPU), rounded like the windows: 24 px, square when maximised

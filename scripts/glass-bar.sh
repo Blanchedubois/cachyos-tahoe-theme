@@ -239,6 +239,7 @@ dock() { # on | off : the dock in live Liquid Glass, its own theme background cl
 # Files (which keeps the theme's own look), with the mode's values substituted, plus libadwaita's
 # colour variables on the same windows. The block is marked so it can be replaced or removed.
 GTK4_DIR="$HOME/.config/gtk-4.0"
+APPS_BLUR_EXCLUDED="['Plank', 'com.desktop.ding', 'Conky', 'steam', 'steamwebhelper', 'VRChat.exe', 'vrmonitor', 'vrcompositor', 'vrwebhelper']"
 GTK_BEGIN='/* tahoe-glass-gtk4: managed by glass-bar.sh */'
 GTK_END='/* end tahoe-glass-gtk4 */'
 gtk_strip() { # FILE: remove the marked block
@@ -267,12 +268,12 @@ T = {  # docs/liquid-glass.md, "Tokens used here"
                 sidebar='rgba(255, 255, 255, 0.30)', card='rgba(255, 255, 255, 0.55)',
                 dialog='rgba(250, 250, 252, 0.96)', popover='rgba(250, 250, 252, 0.97)',
                 fill='rgba(255, 255, 255, 0.45)', hover='rgba(255, 255, 255, 0.65)', press='rgba(255, 255, 255, 0.8)',
-                rim='rgba(255, 255, 255, 0.6)', outline='rgba(255, 255, 255, 0.35)'),
+                rim='rgba(255, 255, 255, 0.6)', outline='rgba(255, 255, 255, 0.35)', hairline='rgba(0, 0, 0, 0.08)'),
   'dark':  dict(window='rgba(36, 36, 40, 0.62)', view='rgba(30, 30, 33, 0.90)',
                 sidebar='rgba(0, 0, 0, 0.12)', card='rgba(255, 255, 255, 0.06)',
                 dialog='rgba(40, 40, 44, 0.94)', popover='rgba(44, 44, 48, 0.97)',
                 fill='rgba(255, 255, 255, 0.10)', hover='rgba(255, 255, 255, 0.16)', press='rgba(255, 255, 255, 0.22)',
-                rim='rgba(255, 255, 255, 0.14)', outline='rgba(255, 255, 255, 0.12)'),
+                rim='rgba(255, 255, 255, 0.14)', outline='rgba(255, 255, 255, 0.12)', hairline='rgba(255, 255, 255, 0.08)'),
 }[mode]
 COLORS = {
   'window_bg_color': T['window'], 'view_bg_color': T['view'],
@@ -319,6 +320,7 @@ W = 'window' + NOT_FILES
 extra = f"""{W} {{ {vars_} }}
 window.csd{NOT_FILES}, window.csd{NOT_FILES}:backdrop {{ outline: 1px solid {T['outline']}; outline-offset: -1px; }}
 window.csd.maximized, window.csd.fullscreen, window.csd.tiled {{ outline: none; }}
+{W} headerbar, {W} .top-bar headerbar {{ background-color: transparent; background-image: none; box-shadow: inset 0 -1px {T['hairline']}; }}
 {W} button{B} {{ background-color: {T['fill']}; background-image: none; box-shadow: inset 0 0 0 1px {T['rim']}; }}
 {W} button{B}:hover {{ background-color: {T['hover']}; }}
 {W} button{B}:active, {W} button{B}:checked {{ background-color: {T['press']}; }}"""
@@ -410,9 +412,17 @@ apps() { # on | off : live Liquid Glass behind the whitelisted app windows (File
     local mode; mode=$(glass_mode)
     if [ "$mode" = milky ]; then
       gsettings --schemadir "$BS" set $S opacity 215
+      gsettings --schemadir "$BS" set $S enable-all false
       gtk_glass off
     else
       gsettings --schemadir "$BS" set $S opacity 255
+      # the GTK4 glass reaches every GTK4 app (Files aside), so every window gets the live blur:
+      # an app missing from a list would show the bare desktop through its header bar. Opaque
+      # windows (browsers, Electron, games) look the same either way; games and VR are left out
+      # and fullscreen windows lose the blur.
+      gsettings --schemadir "$BS" set $S enable-all true
+      gsettings --schemadir "$BS" set $S blacklist "$APPS_BLUR_EXCLUDED"
+      gsettings --schemadir "$BS" set $S unblur-when-fullscreen true
       gtk_glass "$mode"
     fi
   else

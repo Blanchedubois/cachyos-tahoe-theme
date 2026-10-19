@@ -48,6 +48,27 @@ Files (Nautilus) keeps the theme's own look in every mode.
 
 ## Switching modes
 
+GNOME's own Light/Dark switch picks the mode, so there is nothing to run: Settings →
+Appearance or the Dark Style toggle in quick settings. Both set
+`org.gnome.desktop.interface color-scheme`.
+
+| Colour scheme | Glass mode |
+|---|---|
+| Light (`default` or `prefer-light`) | `light` |
+| Dark (`prefer-dark`) | the last dark look used: `dark`, or `milky` once you have run `mode milky` |
+
+A systemd user service, `tahoe-glass-follow.service`, watches the colour scheme. It runs
+`glass-bar.sh watch`. `apply` installs it and `undo` removes it. A quick double toggle
+settles first, and then the current value wins. A switch made while the service was not
+running is caught up by tahoe-repair at the next login. With follow on, the colour scheme is
+the source of truth, and tahoe-repair never resets it.
+
+```bash
+bash scripts/glass-bar.sh follow off   # the switch leaves the glass mode alone ('follow on' again)
+```
+
+The mode can still be set by hand. Doing so moves the colour scheme to the matching side:
+
 ```bash
 bash scripts/glass-bar.sh mode light   # Tahoe light: light glass and dark text, light apps
 bash scripts/glass-bar.sh mode dark    # Tahoe dark: smoky glass and white text, dark apps
@@ -55,7 +76,7 @@ bash scripts/glass-bar.sh mode milky   # the pre-mode look: milky glass over dar
 ```
 
 The mode applies at once; apps opened before the switch pick it up when reopened.
-tahoe-repair keeps the chosen mode at every login: the shell theme (MacTahoe Light in light
+tahoe-repair keeps the mode at every login: the shell theme (MacTahoe Light in light
 mode, with the Dark theme's overrides carried over), the GTK theme and colour scheme, which
 GTK4 stylesheet `gtk.css` points at, Blur My Shell's menu style, window opacity and the
 GTK4 glass block.

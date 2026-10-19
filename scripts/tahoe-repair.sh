@@ -34,7 +34,9 @@
 # Glass mode (scripts/glass-bar.sh): a patched Blur My Shell v76, Open Bar's
 # floating pill, a Liquid Glass top bar and glass menus. glass-bar.sh records
 # its choices in ~/.config/tahoe-glass/state (enabled=1, bar=glass|plain,
-# menus=on|off, dock=on|off, apps=on|off) and 'glass-bar.sh undo' deletes it; this enforces exactly that.
+# menus=on|off, dock=on|off, apps=on|off, mode=light|dark|milky, follow=on|off) and 'glass-bar.sh undo'
+# deletes it; this enforces exactly that. With follow on (the default) GNOME's Light/Dark switch
+# picks the mode, so the colour scheme is the source of truth and is never reset.
 # The Blur My Shell build is labelled with extensions.gnome.org's version so
 # GNOME's updater leaves it alone, so the version number is no switch.
 set -uo pipefail
@@ -54,6 +56,18 @@ GLASS_BAR="$(glass_state bar)"; GLASS_MENUS="$(glass_state menus)"
 GLASS_MODE="$(glass_state mode)"
 [[ -z "$GLASS_MODE" ]] && { [[ "$(glass_state tint)" == dark ]] && GLASS_MODE=dark || GLASS_MODE=milky; }
 [[ "$GLASS" == 1 ]] || GLASS_MODE=milky
+# GNOME's Light/Dark switch picks the mode (glass-bar.sh follow): a switch made while the follow
+# service was not running (before login finished, or stopped) is caught up here
+GLASS_FOLLOW=0; [[ "$GLASS" == 1 && "$(glass_state follow)" != off ]] && GLASS_FOLLOW=1
+if [[ "$GLASS_FOLLOW" == 1 ]]; then
+  scheme_dark=0; [[ "$(gsettings get org.gnome.desktop.interface color-scheme)" == "'prefer-dark'" ]] && scheme_dark=1
+  mode_dark=0; [[ "$GLASS_MODE" != light ]] && mode_dark=1
+  if [[ "$scheme_dark" != "$mode_dark" ]]; then
+    log "glass mode is not the one GNOME's Light/Dark switch asks for: switching"
+    bash "$ROOT/scripts/glass-bar.sh" sync >/dev/null
+    GLASS_MODE="$(glass_state mode)"
+  fi
+fi
 if [[ "$GLASS_MODE" == light ]]; then
   SHELL_THEME=MacTahoe-Light; GTK3_THEME=MacTahoe-Light-solid; COLOR_SCHEME=default
 else
@@ -376,6 +390,16 @@ PY
   fi
 fi
 
+# 6a. GNOME's Light/Dark switch drives the glass mode: the follow service installed, enabled, running
+if [[ "$GLASS_FOLLOW" == 1 ]]; then
+  unit="$HOME/.config/systemd/user/tahoe-glass-follow.service"
+  if ! grep -qsF "ExecStart=/usr/bin/bash $ROOT/scripts/glass-bar.sh watch" "$unit" \
+     || ! systemctl --user -q is-enabled tahoe-glass-follow.service 2>/dev/null \
+     || ! systemctl --user -q is-active tahoe-glass-follow.service; then
+    log "Light/Dark follow service missing or stopped: installing it"; bash "$ROOT/scripts/glass-bar.sh" follow on >/dev/null
+  fi
+fi
+
 # 6b. desktop-entry overrides (window class for Steam games so the dock matches the running window)
 for f in "$ROOT"/overrides/*.desktop; do [[ -f "$f" ]] || continue; d="$HOME/.local/share/applications/$(basename "$f")"; cmp -s "$f" "$d" || { log "restoring $(basename "$f")"; cp "$f" "$d"; update-desktop-database "$HOME/.local/share/applications" 2>/dev/null || true; }; done
 
@@ -415,7 +439,8 @@ done
 # 9. interface drift
 gs() { [[ "$(gsettings get "$1" "$2")" == "$3" ]] || { log "$2 drifted: resetting"; gsettings set "$1" "$2" "${3//\'/}"; }; }
 gs org.gnome.desktop.interface cursor-theme "'MacTahoe-dark'"
-gs org.gnome.desktop.interface color-scheme "'$COLOR_SCHEME'"
+# with follow on the scheme is yours (step 0 made the mode agree); otherwise it follows the mode
+[[ "$GLASS_FOLLOW" == 1 ]] || gs org.gnome.desktop.interface color-scheme "'$COLOR_SCHEME'"
 gs org.gnome.desktop.wm.preferences button-layout "'close,minimize,maximize:'"
 # Resize handles: Mutter's default 10 px grab area falls inside the 24 px
 # rounded-corner clip, so corners cannot be grabbed. Widen it past the radius.

@@ -19,6 +19,10 @@
 #   bash glass-bar.sh apps off   app windows back to how they were before 'apply' (instant)
 #   bash glass-bar.sh mode light Tahoe light (light apps), 'mode dark' Tahoe dark, 'mode milky' the
 #                                pre-mode look: milky glass over dark apps (docs/liquid-glass.md)
+#   bash glass-bar.sh follow on  GNOME's own Light/Dark switch (Settings > Appearance, quick settings
+#                                Dark Style) picks the mode: Light gives light, Dark the last dark look
+#                                (dark, or milky after 'mode milky'); 'apply' turns this on (instant)
+#   bash glass-bar.sh follow off the switch leaves the glass mode alone
 #   bash glass-bar.sh rebuild    rebuild and reinstall the patched Blur My Shell, then log out and back in
 #   bash glass-bar.sh status     whether the patched Blur My Shell is the one installed
 #   bash glass-bar.sh undo       put everything back exactly as before 'apply', then log out and back in
@@ -29,7 +33,8 @@ OPENBAR_UUID=openbar@neuromorph
 BMS_UUID=blur-my-shell@aunetx
 BACKUP_ROOT="$HOME/.local/share/glass-backup"
 BACKUP="$BACKUP_ROOT/original"
-# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off, dock=on|off, apps=on|off, mode=light|dark|milky
+# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off, dock=on|off, apps=on|off, mode=light|dark|milky,
+# dark=dark|milky (the last dark look, for the Dark switch), follow=on|off (missing means on)
 STATE="$HOME/.config/tahoe-glass/state"
 SRC="$HOME/.local/src"
 EXT="$HOME/.local/share/gnome-shell/extensions"
@@ -359,16 +364,19 @@ PY
   fi
 }
 
-# gtk_theme MODE: the theme pair and colour scheme for the mode (light: MacTahoe Light)
+# gtk_theme MODE: the theme pair and colour scheme for the mode (light: MacTahoe Light). The
+# scheme is only written when it is on the other side, so a Light/Dark switch is never undone
+# (Settings' Light can be 'default' or 'prefer-light') and the follow service sees no echo.
 gtk_theme() {
+  local cs; cs=$(gsettings get org.gnome.desktop.interface color-scheme)
   if [ "$1" = light ]; then
     ln -sfn "$GTK4_DIR/gtk-Light.css" "$GTK4_DIR/gtk.css"
     gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Light-solid'
-    gsettings set org.gnome.desktop.interface color-scheme 'default'
+    [ "$cs" != "'prefer-dark'" ] || gsettings set org.gnome.desktop.interface color-scheme 'default'
   else
     ln -sfn "$GTK4_DIR/gtk-Dark.css" "$GTK4_DIR/gtk.css"
     gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark-solid'
-    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+    [ "$cs" = "'prefer-dark'" ] || gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
   fi
 }
 
@@ -531,6 +539,100 @@ check_bms() {
   fi
 }
 
+# set_mode MODE: the themes, the colour scheme and every glass surface that is on, from the one recipe
+set_mode() {
+  local m=$1 order
+  set_state mode "$m"
+  [ "$m" = light ] || set_state dark "$m"
+  gtk_theme "$([ "$m" = light ] && echo light || echo dark)"
+  shell_theme "$m"
+  [ "$(sed -n 's/^bar=//p' "$STATE" | tail -1)" = plain ] || bar_blur glass
+  if [ "$(sed -n 's/^menus=//p' "$STATE" | tail -1)" = on ]; then menus on >/dev/null; fi
+  if [ "$(sed -n 's/^dock=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_dock 'Glass dock' 18.0; fi
+  if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then apps on; fi
+  shell_edges
+  # reload Blur My Shell so its stylesheet (the edges) is read again
+  # (and put the extension list back in its order, which disable/enable changes)
+  order=$(gsettings get org.gnome.shell enabled-extensions)
+  gnome-extensions disable "$BMS_UUID"; sleep 1; gnome-extensions enable "$BMS_UUID"
+  sleep 1; gsettings set org.gnome.shell enabled-extensions "$order"
+  echo "  mode: $m (apps opened before this pick it up when reopened)"
+}
+
+# GNOME's Light/Dark switch (Settings > Appearance, quick settings Dark Style) drives the mode:
+# a systemd user service runs 'watch', which follows org.gnome.desktop.interface color-scheme.
+SELF="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+LOCK="${XDG_RUNTIME_DIR:-/tmp}/tahoe-glass-mode.lock"   # one mode switch at a time (watch, repair, you)
+UNIT=tahoe-glass-follow.service
+UNIT_FILE="$HOME/.config/systemd/user/$UNIT"
+
+# scheme_mode: the mode the colour scheme asks for. Light: light; Dark: the last dark look used.
+scheme_mode() {
+  local d
+  if [ "$(gsettings get org.gnome.desktop.interface color-scheme)" = "'prefer-dark'" ]; then
+    d=$(sed -n 's/^dark=//p' "$STATE" 2>/dev/null | tail -1)
+    [ -n "$d" ] || { d=$(glass_mode); [ "$d" != light ] || d=dark; }
+    echo "$d"
+  else
+    echo light
+  fi
+}
+
+# sync_scheme: switch the mode when the colour scheme is on the other side (light vs dark/milky).
+# A mode that already agrees is left alone, so the scheme set_mode writes is no loop and milky stays milky.
+sync_scheme() {
+  local want side_now side_want
+  exec 9>>"$LOCK"; flock 9
+  if [ "$(sed -n 's/^enabled=//p' "$STATE" 2>/dev/null | tail -1)" = 1 ]; then
+    want=$(scheme_mode)
+    side_now=$([ "$(glass_mode)" = light ] && echo light || echo dark)
+    side_want=$([ "$want" = light ] && echo light || echo dark)
+    if [ "$side_now" != "$side_want" ]; then
+      echo "  colour scheme is $side_want: mode $want"
+      set_mode "$want"
+    fi
+  fi
+  flock -u 9
+}
+
+# watch: sync now, then at every colour scheme change (the follow service runs this)
+watch_scheme() {
+  sync_scheme
+  gsettings monitor org.gnome.desktop.interface color-scheme | while read -r _; do
+    while read -r -t 1 _; do :; done   # let a quick double toggle settle; then the current value wins
+    sync_scheme
+  done
+}
+
+follow() { # on | off : the follow service, started with the session
+  if [ "$1" = on ]; then
+    mkdir -p "$(dirname "$UNIT_FILE")"
+    cat > "$UNIT_FILE" <<EOF
+[Unit]
+Description=Tahoe glass: follow GNOME's Light/Dark switch
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/bash $SELF watch
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target
+EOF
+    systemctl --user daemon-reload
+    systemctl --user enable "$UNIT" 2>/dev/null
+    systemctl --user restart "$UNIT"
+    echo "  following GNOME's Light/Dark switch ($UNIT)"
+  else
+    systemctl --user disable --now "$UNIT" 2>/dev/null || true
+    rm -f "$UNIT_FILE"
+    systemctl --user daemon-reload
+    echo "  GNOME's Light/Dark switch no longer changes the glass mode"
+  fi
+}
+
 apply() {
   step "1/5 Backup of your current settings and Blur My Shell"
   ensure_backup
@@ -588,6 +690,7 @@ d = Pango.FontDescription.from_string(sys.argv[1]); d.set_weight(Pango.Weight.BO
   set_state enabled 1
   set_state bar glass
   grep -q '^menus=' "$STATE" || set_state menus off
+  follow on; set_state follow on
 
   step "Done. LOG OUT AND BACK IN now (the new Blur My Shell and Open Bar load at login)."
   echo "  To undo everything: bash $0 undo"
@@ -628,6 +731,7 @@ PY
   dconf_apply "$EXT_PATH" "$b/extensions.dconf" "$cur"
   rm -f "$cur"
   gtk_glass off   # the GTK4 glass block, if 'apps on' added one
+  follow off
   rm -f "$STATE"
   step "Done. LOG OUT AND BACK IN to finish going back."
 }
@@ -650,24 +754,17 @@ case "${1:-}" in
     m="${2:-}"
     [ "$1" = tint ] && [ "$m" = light ] && m=milky   # 'tint light' was the milky look
     case "$m" in
-      light|dark|milky)
-        set_state mode "$m"
-        gtk_theme "$([ "$m" = light ] && echo light || echo dark)"
-        shell_theme "$m"
-        # every glass surface that is on, from the one recipe
-        [ "$(sed -n 's/^bar=//p' "$STATE" | tail -1)" = plain ] || bar_blur glass
-        if [ "$(sed -n 's/^menus=//p' "$STATE" | tail -1)" = on ]; then menus on >/dev/null; fi
-        if [ "$(sed -n 's/^dock=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_dock 'Glass dock' 18.0; fi
-        if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then apps on; fi
-        shell_edges
-        # reload Blur My Shell so its stylesheet (the edges) is read again
-        # (and put the extension list back in its order, which disable/enable changes)
-        order=$(gsettings get org.gnome.shell enabled-extensions)
-        gnome-extensions disable "$BMS_UUID"; sleep 1; gnome-extensions enable "$BMS_UUID"
-        sleep 1; gsettings set org.gnome.shell enabled-extensions "$order"
-        echo "  mode: $m (apps opened before this pick it up when reopened)" ;;
+      light|dark|milky) exec 9>>"$LOCK"; flock 9; set_mode "$m" ;;
       *) echo "usage: mode light|dark|milky"; exit 1 ;;
     esac ;;
+  follow)
+    case "${2:-}" in
+      on) follow on; set_state follow on; sync_scheme ;;
+      off) follow off; set_state follow off ;;
+      *) echo "usage: follow on|off"; exit 1 ;;
+    esac ;;
+  sync) sync_scheme ;;              # the mode the colour scheme asks for (tahoe-repair, the service)
+  watch) watch_scheme; exit ;;      # the follow service; exit here, as the file may change under it
   rebuild) step "Blur My Shell v76, patched"; build_bms; step "Done. LOG OUT AND BACK IN to load it." ;;
   menus)
     case "${2:-}" in
@@ -680,5 +777,5 @@ case "${1:-}" in
       off) bar_blur plain; set_state bar plain ;;
       *) echo "usage: glass on|off"; exit 1 ;;
     esac ;;
-  *) sed -n '2,24p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+  *) sed -n '2,28p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac

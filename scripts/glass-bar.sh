@@ -177,9 +177,10 @@ PY
   dconf_apply "${EXT_PATH}blur-my-shell/" "$cur.new" "$cur"
   rm -f "$cur" "$cur.new"
   if [ "$mode" = on ]; then
-    # the VM's menu blur (radius 12) a step stronger at 18, full brightness, as its own pipeline so the
-    # shared default (used by windows and the dock) stays as it is
-    python3 - "$EXT/$BMS_UUID/schemas" <<'PY'
+    # the top bar's Liquid Glass (same tint, rim and gloss, so menus and bar match), its blur a
+    # step stronger at 18; a pipeline of its own so the shared default (windows, dock) stays as it is
+    local bar_blur="'blur_radius': <12.0>" menu_blur="'blur_radius': <18.0>"
+    python3 - "$EXT/$BMS_UUID/schemas" "${BAR_GLASS_PARAMS/"$bar_blur"/"$menu_blur"}" <<'PY'
 import sys
 from gi.repository import Gio, GLib
 src = Gio.SettingsSchemaSource.new_from_directory(sys.argv[1], Gio.SettingsSchemaSource.get_default(), False)
@@ -194,7 +195,7 @@ for i in range(old.n_children()):
         f.get_child_value(j).get_child_value(0).get_string(): f.get_child_value(j).get_child_value(1).get_variant()
         for j in range(f.n_children())}
 effect = GLib.Variant.parse(GLib.VariantType('a{sv}'),
-    "{'type': <'dual_kawase_blur'>, 'id': <'effect_glassbar_menus'>, 'params': <{'unscaled_radius': <18.0>, 'brightness': <1.0>}>}", None, None)
+    "{'type': <'refraction'>, 'id': <'effect_glassbar_menus'>, 'params': <%s>}" % sys.argv[2], None, None)
 pipelines['pipeline_glassbar_menus'] = {'name': GLib.Variant('s', 'Glass menus'), 'effects': GLib.Variant('av', [effect])}
 root.set_value('pipelines', GLib.Variant('a{sa{sv}}', pipelines))
 popup.set_string('pipeline', 'pipeline_glassbar_menus')

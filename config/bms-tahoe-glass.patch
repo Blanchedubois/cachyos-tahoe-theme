@@ -149,160 +149,187 @@ index 0dce45a..a18dd65 100644
              || has_any_style_class(root_actor, radius.style_classes)
 diff --git a/src/styles/tahoe-glass.css b/src/styles/tahoe-glass.css
 new file mode 100644
-index 0000000..4d053df
+index 0000000..e1ececd
 --- /dev/null
 +++ b/src/styles/tahoe-glass.css
-@@ -0,0 +1,187 @@
-+/* tahoe glass (cachyos-tahoe-theme): blurred menus and each quick settings piece, which
-+   is blurred on its own with no card behind it, edged like the top bar's capsule:
-+   a thin white line at 12 %, no glow. */
-+.bms-popup-background-transparent .popup-menu-content,
-+.bms-popup-background-transparent .notification-banner,
-+.bms-popup-background-transparent .quick-toggle-menu,
-+.bms-popup-background-transparent .modal-dialog,
-+.bms-popup-background-transparent .quick-toggle,
-+.bms-popup-background-transparent .quick-toggle-has-menu,
-+.bms-popup-background-transparent .quick-slider,
-+.bms-popup-background-transparent .quick-settings-system-item .icon-button,
-+.bms-popup-background-dark .popup-menu-content,
-+.bms-popup-background-dark .notification-banner,
-+.bms-popup-background-dark .quick-toggle-menu,
-+.bms-popup-background-dark .modal-dialog,
-+.bms-popup-background-dark .quick-toggle,
-+.bms-popup-background-dark .quick-toggle-has-menu,
-+.bms-popup-background-dark .quick-slider,
-+.bms-popup-background-dark .quick-settings-system-item .icon-button,
-+.bms-popup-background-light .popup-menu-content,
-+.bms-popup-background-light .notification-banner,
-+.bms-popup-background-light .quick-toggle-menu,
-+.bms-popup-background-light .modal-dialog,
-+.bms-popup-background-light .quick-toggle,
-+.bms-popup-background-light .quick-toggle-has-menu,
-+.bms-popup-background-light .quick-slider,
-+.bms-popup-background-light .quick-settings-system-item .icon-button {
-+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-+  box-shadow: none !important;
-+}
-+
-+/* a split toggle draws one outline, not one per half */
-+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle,
-+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button,
-+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle,
-+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
-+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle,
-+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button {
-+  border-color: transparent !important;
-+  box-shadow: none !important;
-+}
-+
-+/* one glass tint for every menu, dropdown, notification, dialog and quick settings piece:
-+   the theme's warm grey at 40 %, so the blur behind reads the same everywhere. A split
-+   toggle that is on keeps the tint too; its white icon circle shows the state. */
+@@ -0,0 +1,214 @@
++/* tahoe glass (cachyos-tahoe-theme): blurred menus and each quick settings piece (blurred
++   on its own, no card behind it) look like the top bar's capsule. The tint comes from the
++   same Liquid Glass effect as the bar, so nothing here paints a fill of its own, and every
++   edge is the bar's: a thin white line at 12 %, no glow. The pieces are matched with extra
++   specificity too, since some of Blur My Shell's quick settings rules outweigh two classes. */
 +.bms-popup-background-transparent .popup-menu-content,
 +.bms-popup-background-transparent .popup-menu-content.datemenu-popover,
 +.bms-popup-background-transparent .notification-banner,
 +.bms-popup-background-transparent .quick-toggle-menu,
 +.bms-popup-background-transparent .modal-dialog,
-+.bms-popup-background-transparent .quick-toggle,
-+.bms-popup-background-transparent .quick-toggle-has-menu,
-+.bms-popup-background-transparent .quick-toggle-has-menu:checked,
-+.bms-popup-background-transparent .quick-slider,
-+.bms-popup-background-transparent .quick-settings-system-item .icon-button,
-+.bms-popup-background-transparent .quick-settings-system-item .power-item,
 +.bms-popup-background-dark .popup-menu-content,
 +.bms-popup-background-dark .popup-menu-content.datemenu-popover,
 +.bms-popup-background-dark .notification-banner,
 +.bms-popup-background-dark .quick-toggle-menu,
 +.bms-popup-background-dark .modal-dialog,
-+.bms-popup-background-dark .quick-toggle,
-+.bms-popup-background-dark .quick-toggle-has-menu,
-+.bms-popup-background-dark .quick-toggle-has-menu:checked,
-+.bms-popup-background-dark .quick-slider,
-+.bms-popup-background-dark .quick-settings-system-item .icon-button,
-+.bms-popup-background-dark .quick-settings-system-item .power-item,
 +.bms-popup-background-light .popup-menu-content,
 +.bms-popup-background-light .popup-menu-content.datemenu-popover,
 +.bms-popup-background-light .notification-banner,
 +.bms-popup-background-light .quick-toggle-menu,
 +.bms-popup-background-light .modal-dialog,
++.bms-popup-background-transparent .quick-toggle,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle,
++.bms-popup-background-transparent .quick-toggle-has-menu,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu,
++.bms-popup-background-transparent .quick-toggle-has-menu:checked,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu:checked,
++.bms-popup-background-transparent .quick-slider,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-slider,
++.bms-popup-background-transparent .quick-settings-system-item .icon-button,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-settings-system-item .icon-button,
++.bms-popup-background-transparent .quick-settings-system-item .power-item,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-settings-system-item .power-item,
++.bms-popup-background-dark .quick-toggle,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle,
++.bms-popup-background-dark .quick-toggle-has-menu,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu,
++.bms-popup-background-dark .quick-toggle-has-menu:checked,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu:checked,
++.bms-popup-background-dark .quick-slider,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-slider,
++.bms-popup-background-dark .quick-settings-system-item .icon-button,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-settings-system-item .icon-button,
++.bms-popup-background-dark .quick-settings-system-item .power-item,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-settings-system-item .power-item,
 +.bms-popup-background-light .quick-toggle,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle,
 +.bms-popup-background-light .quick-toggle-has-menu,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu,
 +.bms-popup-background-light .quick-toggle-has-menu:checked,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu:checked,
 +.bms-popup-background-light .quick-slider,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-slider,
 +.bms-popup-background-light .quick-settings-system-item .icon-button,
-+.bms-popup-background-light .quick-settings-system-item .power-item {
-+  background-color: rgba(70, 65, 66, 0.4) !important;
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-settings-system-item .icon-button,
++.bms-popup-background-light .quick-settings-system-item .power-item,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-settings-system-item .power-item {
++  background-color: transparent !important;
++  border: 1px solid rgba(255, 255, 255, 0.12) !important;
++  box-shadow: none !important;
++}
++
++/* cards inside the calendar and its notifications: the same edge, no fill */
++.bms-popup-background-transparent .events-button,
++.bms-popup-background-transparent .world-clocks-button,
++.bms-popup-background-transparent .weather-button,
++.bms-popup-background-transparent .popup-menu .message,
++.bms-popup-background-dark .events-button,
++.bms-popup-background-dark .world-clocks-button,
++.bms-popup-background-dark .weather-button,
++.bms-popup-background-dark .popup-menu .message,
++.bms-popup-background-light .events-button,
++.bms-popup-background-light .world-clocks-button,
++.bms-popup-background-light .weather-button,
++.bms-popup-background-light .popup-menu .message {
++  background-color: transparent !important;
++  border: 1px solid rgba(255, 255, 255, 0.12) !important;
++  box-shadow: none !important;
++}
++
++/* a split toggle draws one outline and no fill, not one per half */
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button {
++  background-color: transparent !important;
++  border-color: transparent !important;
++  box-shadow: none !important;
 +}
 +
 +/* a toggle that is on keeps the theme's white fill and accent-coloured label */
 +.bms-popup-background-transparent .quick-toggle:checked,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle:checked,
 +.bms-popup-background-dark .quick-toggle:checked,
-+.bms-popup-background-light .quick-toggle:checked {
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle:checked,
++.bms-popup-background-light .quick-toggle:checked,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle:checked {
 +  background-color: white !important;
 +  color: -st-accent-color !important;
 +}
 +.bms-popup-background-transparent .quick-toggle:checked:hover,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle:checked:hover,
 +.bms-popup-background-dark .quick-toggle:checked:hover,
-+.bms-popup-background-light .quick-toggle:checked:hover {
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle:checked:hover,
++.bms-popup-background-light .quick-toggle:checked:hover,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle:checked:hover {
 +  background-color: st-mix(#dadada, white, 6%) !important;
 +  color: -st-accent-color !important;
 +}
 +.bms-popup-background-transparent .quick-toggle:checked:active,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle:checked:active,
 +.bms-popup-background-dark .quick-toggle:checked:active,
-+.bms-popup-background-light .quick-toggle:checked:active {
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle:checked:active,
++.bms-popup-background-light .quick-toggle:checked:active,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle:checked:active {
 +  background-color: st-mix(#dadada, white, 15%) !important;
 +  color: -st-accent-color !important;
-+}
-+
-+/* the halves of a split toggle draw no fill of their own over the toggle's */
-+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle,
-+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle:checked,
-+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle:hover,
-+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle:active,
-+.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button,
-+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle,
-+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle:checked,
-+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle:hover,
-+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle:active,
-+.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
-+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle,
-+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:checked,
-+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:hover,
-+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:active,
-+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button {
-+  background-color: transparent !important;
 +}
 +
 +/* a split toggle that is on (Wi-Fi, Bluetooth, power mode): white label and a clear arrow,
 +   as the theme draws them, in place of Blur My Shell's accent-coloured ones. The white icon
 +   circle shows the state. */
 +.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle:checked,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle:checked,
 +.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button,
 +.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:checked,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:checked,
 +.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle:checked,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle:checked,
 +.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button,
 +.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:checked,
 +.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:checked,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle:checked,
 +.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button,
-+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked {
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:checked {
 +  background-color: transparent !important;
 +  color: white !important;
 +}
 +.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:hover,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:hover,
 +.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover,
 +.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:hover,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:hover,
 +.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover,
 +.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:hover,
-+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:hover,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
 +  background-color: rgba(255, 255, 255, 0.14) !important;
 +  color: white !important;
 +}
 +.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:active,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:active,
 +.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:checked:active,
++.bms-popup-background-transparent .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:checked:active,
 +.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:active,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:active,
 +.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked:active,
++.bms-popup-background-dark .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:checked:active,
 +.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:active,
-+.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:active {
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:active,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:active,
++.bms-popup-background-light .popup-menu-content.quick-settings .quick-toggle-has-menu .quick-toggle-menu-button:checked:active {
 +  background-color: rgba(255, 255, 255, 0.2) !important;
 +  color: white !important;
 +}

@@ -29,6 +29,12 @@
 #  12b. symbolic icons regenerated when their tokens change (stamp)
 #  13. Now Playing Card settings drift
 #  14. Vitals settings drift
+#  15. glass bar mode: Open Bar keeps to the bar shape (no menu/notification/GTK styling)
+#
+# Glass bar mode (scripts/glass-bar.sh): Blur My Shell v76, Open Bar's floating
+# pill and a Liquid Glass top bar. 'glass-bar.sh apply' installs Blur My Shell
+# v76 and 'glass-bar.sh undo' puts v75 back, so the installed Blur My Shell
+# version is the switch: v76 or newer enforces the glass bar, older the plain bar.
 set -uo pipefail
 log() { printf '[tahoe-repair] %s\n' "$*"; }
 
@@ -37,6 +43,9 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
 EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn nowplaying@epogonii.github.io Vitals@CoreCoding.com)
+BMS_VER="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$EXT_DIR/blur-my-shell@aunetx/metadata.json" 2>/dev/null || echo 0)"
+GLASS=0; [[ "$BMS_VER" =~ ^[0-9]+$ && "$BMS_VER" -ge 76 ]] && GLASS=1
+[[ "$GLASS" == 1 ]] && EXTS+=(openbar@neuromorph)
 case "${1:-}" in
   --gdm)
     # Login screen: needs root, so only print what to run.
@@ -51,6 +60,7 @@ EOT
     exit 0 ;;
 esac
 WANT="['user-theme@gnome-shell-extensions.gcampax.github.com','dash-to-dock@micxgx.gmail.com','blur-my-shell@aunetx','appindicatorsupport@rgcjonas.gmail.com','rounded-window-corners@fxgn','nowplaying@epogonii.github.io','Vitals@CoreCoding.com']"
+[[ "$GLASS" == 1 ]] && WANT="${WANT%]},'openbar@neuromorph']"
 SHELL_VER="$(gnome-shell --version 2>/dev/null | grep -oE '[0-9]+' | head -1)"
 changed=0
 
@@ -234,16 +244,37 @@ PY
   bsg .applications enable-all false
   bsg .applications static-blur true    # dynamic mode paints the window opaque on this GPU; static shows what is behind, blurred
   bsg .applications corner-radius 16
-  bsg .applications pipeline "'pipeline_default_rounded'"
   bsg .applications customize true
-  bsg "" hacks-level 0
+  if [[ "$GLASS" == 1 ]]; then
+    # v76 rounds corners per component, so its upgrade folds "Default rounded" into "Default";
+    # hacks-level and the per-component sigma/brightness are gone (kept only for migration)
+    bsg .applications pipeline "'pipeline_default'"
+  else
+    bsg .applications pipeline "'pipeline_default_rounded'"
+    bsg "" hacks-level 0
+  fi
   bsg .applications whitelist "['org.gnome.Nautilus','org.gnome.Settings','gnome-control-center','org.gnome.Console','kgx','org.gnome.TextEditor','org.gnome.Calculator','org.gnome.Loupe','org.gnome.Papers','org.gnome.Characters','org.gnome.clocks','org.gnome.Calendar','org.gnome.Weather','org.gnome.Music','org.gnome.Software','org.gnome.DiskUtility','org.gnome.baobab','org.gnome.SystemMonitor','org.gnome.tweaks','org.gnome.Extensions','org.gnome.Logs','org.gnome.font-viewer','org.kde.dolphin','org.kde.kate','org.kde.konsole']"
-  bsg .applications sigma 30; bsg .applications brightness 0.6; bsg .applications opacity 215
+  bsg .applications opacity 215
+  [[ "$GLASS" == 1 ]] || { bsg .applications sigma 30; bsg .applications brightness 0.6; }
   # Shell surfaces, per the theme author's Blur my Shell screenshot.
-  bsg .panel blur false; bsg .panel override-background true; bsg .panel unblur-in-overview true
+  if [[ "$GLASS" == 1 ]]; then
+    # glass bar: rounded static blur of the wallpaper with Liquid Glass (or plain, after 'glass-bar.sh glass off')
+    bsg .panel blur true; bsg .panel static-blur true; bsg .panel override-background true
+    bsg .panel style-panel 0; bsg .panel corner-radius 50; bsg .panel rounded-corners 0
+    bsg .panel unblur-in-overview true
+    bar_pipe="$(gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell.panel pipeline)"
+    if [[ "$bar_pipe" != "'pipeline_glassbar_glass'" && "$bar_pipe" != "'pipeline_glassbar_plain'" ]] \
+       || ! gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell pipelines | grep -q "${bar_pipe//\'/}"; then
+      log "glass bar pipeline missing: recreating"; bash "$ROOT/scripts/glass-bar.sh" glass on >/dev/null
+    fi
+  else
+    bsg .panel blur false; bsg .panel override-background true; bsg .panel unblur-in-overview true
+  fi
   bsg .overview blur true; bsg .overview style-components 0
-  bsg .appfolder blur true; bsg .appfolder sigma 30; bsg .appfolder style-dialogs 1
-  bsg .dash-to-dock blur true; bsg .dash-to-dock static-blur true; bsg .dash-to-dock pipeline "'pipeline_default_rounded'"
+  bsg .appfolder blur true; bsg .appfolder style-dialogs 1
+  [[ "$GLASS" == 1 ]] || bsg .appfolder sigma 30
+  bsg .dash-to-dock blur true; bsg .dash-to-dock static-blur true
+  if [[ "$GLASS" == 1 ]]; then bsg .dash-to-dock pipeline "'pipeline_default'"; else bsg .dash-to-dock pipeline "'pipeline_default_rounded'"; fi
   bsg .dash-to-dock override-background false; bsg .dash-to-dock unblur-in-overview true
   # Popups (quick settings, menus, notifications) are never blurred: they
   # use the plain tint in the shell overrides.
@@ -268,6 +299,8 @@ fi
 # 8. extension builds vs running shell: after a GNOME major update the old
 #    build is refused; fetch the one for this version when it exists.
 for e in "${EXTS[@]}"; do
+  # Open Bar's newest build stops at GNOME 49; it loads here because version validation is off (5e)
+  [[ "$e" == openbar@neuromorph ]] && continue
   m="$EXT_DIR/$e/metadata.json"; [[ -f "$m" ]] || continue
   if ! python3 -c 'import json,sys; sys.exit(0 if sys.argv[2] in json.load(open(sys.argv[1]))["shell-version"] else 1)' "$m" "$SHELL_VER" 2>/dev/null; then
     tag="$(curl -s "https://extensions.gnome.org/extension-info/?uuid=$e&shell_version=$SHELL_VER" | python3 -c 'import json,sys; print(json.load(sys.stdin)["version_tag"])' 2>/dev/null || true)"
@@ -347,6 +380,17 @@ if [[ -d "$VTS" ]]; then
   vtg() { [[ "$(gsettings --schemadir "$VTS" get org.gnome.shell.extensions.vitals "$1")" == "$2" ]] || { log "vitals $1 drifted: resetting"; gsettings --schemadir "$VTS" set org.gnome.shell.extensions.vitals "$1" "$3"; }; }
   vtg hot-sensors "['__temperature_max__', '_processor_usage_', '_gpu#1_utilization_', '_memory_usage_']" "['__temperature_max__', '_processor_usage_', '_gpu#1_utilization_', '_memory_usage_']"
   vtg show-gpu true true; vtg include-public-ip false false
+fi
+
+# 15. glass bar mode: Open Bar draws only the floating pill. Its menu, notification,
+#     GTK and font styling stay off so MacTahoe keeps styling everything else.
+OBS="$EXT_DIR/openbar@neuromorph/schemas"
+if [[ "$GLASS" == 1 && -d "$OBS" ]]; then
+  obg() { [[ "$(gsettings --schemadir "$OBS" get org.gnome.shell.extensions.openbar "$1")" == "$2" ]] || { log "open bar $1 drifted: resetting"; gsettings --schemadir "$OBS" set org.gnome.shell.extensions.openbar "$1" "${2//\'/}"; }; }
+  obg bartype "'Floating'"; obg menustyle false
+  obg apply-menu-shell false; obg apply-menu-notif false; obg apply-all-shell false; obg apply-accent-shell false
+  obg apply-gtk false; obg apply-flatpak false; obg gtk-popover false; obg set-yarutheme false
+  obg set-notifications false; obg set-notif-position false; obg set-overview false
 fi
 
 log "done"

@@ -10,6 +10,9 @@
 #   bash glass-bar.sh apply      install and configure, then LOG OUT AND BACK IN
 #   bash glass-bar.sh glass off  keep the floating bar, plain blur instead of Liquid Glass (instant)
 #   bash glass-bar.sh glass on   Liquid Glass back on (instant)
+#   bash glass-bar.sh menus on   live blur behind quick settings, dropdowns, calendar, notifications,
+#                                OSDs and dialogs such as Power Off, as in the Tahoe VM (instant)
+#   bash glass-bar.sh menus off  menus back to how they were before 'apply' (instant)
 #   bash glass-bar.sh undo       put everything back exactly as before 'apply', then log out and back in
 set -euo pipefail
 
@@ -124,6 +127,79 @@ print(f"  top bar: {mode}, pipeline={panel.get_string('pipeline')}")
 PY
 }
 
+menus() { # on | off : Blur My Shell's popup module
+  local mode=$1 b cur
+  b=$(readlink -f "$BACKUP")
+  cur=$(mktemp)
+  dconf dump "${EXT_PATH}blur-my-shell/" > "$cur"
+  if [ "$mode" = on ]; then
+    # the Tahoe VM's popup settings: v76 defaults (live blur, its own see-through menu style,
+    # corner radii per surface), keeping every other Blur My Shell setting as it is
+    python3 - "$cur" > "$cur.new" <<'PY'
+import sys
+out, sec = [], None
+for line in open(sys.argv[1]):
+    line = line.rstrip('\n')
+    if line.startswith('['):
+        sec = line
+    elif sec == '[popup]':
+        continue
+    out.append(line)
+out += ['', '[popup]', 'blur=true', 'static-blur=false', "pipeline='pipeline_default'",
+        'override-background=true', 'preserve-shell-theme=false', 'style-popup=3']
+print('\n'.join(out))
+PY
+  else
+    # popup section from the backup taken before 'apply'
+    python3 - "$cur" "$b/extensions.dconf" > "$cur.new" <<'PY'
+import sys
+def sections(f, prefix=''):
+    out, sec = {}, None
+    for line in open(f):
+        line = line.rstrip('\n')
+        if line.startswith('['):
+            sec = line
+            out.setdefault(sec, [])
+        elif sec and '=' in line:
+            out[sec].append(line)
+    return out
+cur = sections(sys.argv[1])
+old = sections(sys.argv[2])
+cur['[popup]'] = old.get('[blur-my-shell/popup]', [])
+for sec, lines in cur.items():
+    print(sec); print('\n'.join(lines)); print()
+PY
+  fi
+  dconf_apply "${EXT_PATH}blur-my-shell/" "$cur.new" "$cur"
+  rm -f "$cur" "$cur.new"
+  if [ "$mode" = on ]; then
+    # the VM's menu blur: radius 12 at full brightness, as its own pipeline so the
+    # shared default (used by windows and the dock) stays as it is
+    python3 - "$EXT/$BMS_UUID/schemas" <<'PY'
+import sys
+from gi.repository import Gio, GLib
+src = Gio.SettingsSchemaSource.new_from_directory(sys.argv[1], Gio.SettingsSchemaSource.get_default(), False)
+def settings(sub=''):
+    return Gio.Settings.new_full(src.lookup('org.gnome.shell.extensions.blur-my-shell' + sub, False), None, None)
+root, popup = settings(), settings('.popup')
+pipelines = {}
+old = root.get_value('pipelines')
+for i in range(old.n_children()):
+    e = old.get_child_value(i); f = e.get_child_value(1)
+    pipelines[e.get_child_value(0).get_string()] = {
+        f.get_child_value(j).get_child_value(0).get_string(): f.get_child_value(j).get_child_value(1).get_variant()
+        for j in range(f.n_children())}
+effect = GLib.Variant.parse(GLib.VariantType('a{sv}'),
+    "{'type': <'dual_kawase_blur'>, 'id': <'effect_glassbar_menus'>, 'params': <{'unscaled_radius': <12.0>, 'brightness': <1.0>}>}", None, None)
+pipelines['pipeline_glassbar_menus'] = {'name': GLib.Variant('s', 'Glass menus'), 'effects': GLib.Variant('av', [effect])}
+root.set_value('pipelines', GLib.Variant('a{sa{sv}}', pipelines))
+popup.set_string('pipeline', 'pipeline_glassbar_menus')
+Gio.Settings.sync()
+PY
+  fi
+  echo "  menus: $mode"
+}
+
 apply() {
   step "1/5 Backup of your current settings and Blur My Shell"
   ensure_backup
@@ -228,11 +304,16 @@ PY
 case "${1:-}" in
   apply) apply ;;
   undo) undo ;;
+  menus)
+    case "${2:-}" in
+      on|off) menus "$2" ;;
+      *) echo "usage: menus on|off"; exit 1 ;;
+    esac ;;
   glass)
     case "${2:-}" in
       on) bar_blur glass ;;
       off) bar_blur plain ;;
       *) echo "usage: glass on|off"; exit 1 ;;
     esac ;;
-  *) sed -n '2,13p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+  *) sed -n '2,16p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac

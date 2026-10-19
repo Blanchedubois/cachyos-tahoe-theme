@@ -31,10 +31,12 @@
 #  14. Vitals settings drift
 #  15. glass bar mode: Open Bar keeps to the bar shape (no menu/notification/GTK styling)
 #
-# Glass bar mode (scripts/glass-bar.sh): Blur My Shell v76, Open Bar's floating
-# pill and a Liquid Glass top bar. 'glass-bar.sh apply' installs Blur My Shell
-# v76 and 'glass-bar.sh undo' puts v75 back, so the installed Blur My Shell
-# version is the switch: v76 or newer enforces the glass bar, older the plain bar.
+# Glass mode (scripts/glass-bar.sh): a patched Blur My Shell v76, Open Bar's
+# floating pill, a Liquid Glass top bar and glass menus. glass-bar.sh records
+# its choices in ~/.config/tahoe-glass/state (enabled=1, bar=glass|plain,
+# menus=on|off) and 'glass-bar.sh undo' deletes it; this enforces exactly that.
+# The Blur My Shell build is labelled with extensions.gnome.org's version so
+# GNOME's updater leaves it alone, so the version number is no switch.
 set -uo pipefail
 log() { printf '[tahoe-repair] %s\n' "$*"; }
 
@@ -43,8 +45,10 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SRC="$HOME/.local/src/MacTahoe-gtk-theme"
 EXT_DIR="$HOME/.local/share/gnome-shell/extensions"
 EXTS=(dash-to-dock@micxgx.gmail.com blur-my-shell@aunetx appindicatorsupport@rgcjonas.gmail.com rounded-window-corners@fxgn nowplaying@epogonii.github.io Vitals@CoreCoding.com)
-BMS_VER="$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["version"])' "$EXT_DIR/blur-my-shell@aunetx/metadata.json" 2>/dev/null || echo 0)"
-GLASS=0; [[ "$BMS_VER" =~ ^[0-9]+$ && "$BMS_VER" -ge 76 ]] && GLASS=1
+GLASS_STATE="$HOME/.config/tahoe-glass/state"
+glass_state() { sed -n "s/^$1=//p" "$GLASS_STATE" 2>/dev/null | tail -1; }
+GLASS=0; [[ "$(glass_state enabled)" == 1 ]] && GLASS=1
+GLASS_BAR="$(glass_state bar)"; GLASS_MENUS="$(glass_state menus)"
 [[ "$GLASS" == 1 ]] && EXTS+=(openbar@neuromorph)
 case "${1:-}" in
   --gdm)
@@ -221,6 +225,15 @@ if [[ -d "$RWS" ]]; then
   gsettings --schemadir "$RWS" set $RS global-rounded-corner-settings "{'padding': <{'left': uint32 0, 'right': uint32 0, 'top': uint32 0, 'bottom': uint32 0}>, 'keepRoundedCorners': <{'maximized': false, 'fullscreen': false}>, 'borderRadius': <uint32 24>, 'smoothing': <0.0>, 'borderColor': <(0.5, 0.5, 0.5, 1.0)>, 'enabled': <true>}"
 fi
 
+# 5f. glass mode needs the patched Blur My Shell (per-piece quick settings blur, glass
+#     stylesheet). GNOME's updater or step 8 can replace it with a published build:
+#     rebuild the patched one (it loads at the next login).
+if [[ "$GLASS" == 1 ]] && ! grep -qs QUICK_SETTINGS_PIECE "$EXT_DIR/blur-my-shell@aunetx/components/popup/targets.js"; then
+  log "Blur My Shell is not the patched glass build: rebuilding it (logout to activate)"
+  bash "$ROOT/scripts/glass-bar.sh" rebuild >/dev/null 2>&1 || log "rebuild failed; run: bash $ROOT/scripts/glass-bar.sh rebuild"
+  changed=1
+fi
+
 # 6. blur: the exact Blur my Shell module config. Applications blur on a
 #    whitelist of system apps (static pipeline, works here); enable-all off.
 BS="$EXT_DIR/blur-my-shell@aunetx/schemas"
@@ -265,7 +278,11 @@ PY
     bar_pipe="$(gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell.panel pipeline)"
     if [[ "$bar_pipe" != "'pipeline_glassbar_glass'" && "$bar_pipe" != "'pipeline_glassbar_plain'" ]] \
        || ! gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell pipelines | grep -q "${bar_pipe//\'/}"; then
-      log "glass bar pipeline missing: recreating"; bash "$ROOT/scripts/glass-bar.sh" glass on >/dev/null
+      log "glass bar pipeline missing: recreating"
+      if [[ "$GLASS_BAR" == plain ]]; then bash "$ROOT/scripts/glass-bar.sh" glass off >/dev/null; else bash "$ROOT/scripts/glass-bar.sh" glass on >/dev/null; fi
+    elif [[ "$GLASS_BAR" == plain && "$bar_pipe" != "'pipeline_glassbar_plain'" ]] || [[ "$GLASS_BAR" != plain && "$bar_pipe" != "'pipeline_glassbar_glass'" ]]; then
+      log "glass bar drifted from '$GLASS_BAR': resetting"
+      if [[ "$GLASS_BAR" == plain ]]; then bash "$ROOT/scripts/glass-bar.sh" glass off >/dev/null; else bash "$ROOT/scripts/glass-bar.sh" glass on >/dev/null; fi
     fi
   else
     bsg .panel blur false; bsg .panel override-background true; bsg .panel unblur-in-overview true
@@ -276,9 +293,19 @@ PY
   bsg .dash-to-dock blur true; bsg .dash-to-dock static-blur true
   if [[ "$GLASS" == 1 ]]; then bsg .dash-to-dock pipeline "'pipeline_default'"; else bsg .dash-to-dock pipeline "'pipeline_default_rounded'"; fi
   bsg .dash-to-dock override-background false; bsg .dash-to-dock unblur-in-overview true
-  # Popups (quick settings, menus, notifications) are never blurred: they
-  # use the plain tint in the shell overrides.
-  bsg .popup blur false
+  if [[ "$GLASS" == 1 && "$GLASS_MENUS" == on ]]; then
+    # glass menus: live blur on each menu and each quick settings piece, the top bar's Liquid Glass
+    bsg .popup blur true; bsg .popup static-blur false; bsg .popup override-background true
+    bsg .popup preserve-shell-theme false; bsg .popup style-popup 3
+    if [[ "$(gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell.popup pipeline)" != "'pipeline_glassbar_menus'" ]] \
+       || ! gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell pipelines | grep -q pipeline_glassbar_menus; then
+      log "glass menus drifted: re-applying"; bash "$ROOT/scripts/glass-bar.sh" menus on >/dev/null
+    fi
+  else
+    # Popups (quick settings, menus, notifications) are not blurred: they
+    # use the plain tint in the shell overrides.
+    bsg .popup blur false
+  fi
 fi
 
 # 6b. desktop-entry overrides (window class for Steam games so the dock matches the running window)

@@ -23,6 +23,8 @@ OPENBAR_UUID=openbar@neuromorph
 BMS_UUID=blur-my-shell@aunetx
 BACKUP_ROOT="$HOME/.local/share/glass-backup"
 BACKUP="$BACKUP_ROOT/original"
+# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off
+STATE="$HOME/.config/tahoe-glass/state"
 SRC="$HOME/.local/src"
 EXT="$HOME/.local/share/gnome-shell/extensions"
 EXT_PATH=/org/gnome/shell/extensions/
@@ -67,6 +69,12 @@ for i in range(0, len(writes), 100):
     subprocess.run(['dconf', 'load', base], input='\n'.join(chunk) + '\n', text=True, check=True)
 print(f'  {len(writes)} settings written, {len(resets)} reset')
 PY
+}
+
+set_state() { # key value
+  mkdir -p "$(dirname "$STATE")"
+  touch "$STATE"
+  if grep -q "^$1=" "$STATE"; then sed -i "s|^$1=.*|$1=$2|" "$STATE"; else echo "$1=$2" >> "$STATE"; fi
 }
 
 ensure_backup() {
@@ -301,6 +309,9 @@ d = Pango.FontDescription.from_string(sys.argv[1]); d.set_weight(Pango.Weight.BO
 
   step "5/5 Top bar: rounded static blur with Liquid Glass"
   bar_blur glass
+  set_state enabled 1
+  set_state bar glass
+  grep -q '^menus=' "$STATE" || set_state menus off
 
   step "Done. LOG OUT AND BACK IN now (the new Blur My Shell and Open Bar load at login)."
   echo "  To undo everything: bash $0 undo"
@@ -340,6 +351,7 @@ PY
   dconf dump "$EXT_PATH" > "$cur"
   dconf_apply "$EXT_PATH" "$b/extensions.dconf" "$cur"
   rm -f "$cur"
+  rm -f "$STATE"
   step "Done. LOG OUT AND BACK IN to finish going back."
 }
 
@@ -350,13 +362,13 @@ case "${1:-}" in
   rebuild) step "Blur My Shell v76, patched"; build_bms; step "Done. LOG OUT AND BACK IN to load it." ;;
   menus)
     case "${2:-}" in
-      on|off) menus "$2" ;;
+      on|off) menus "$2"; set_state menus "$2" ;;
       *) echo "usage: menus on|off"; exit 1 ;;
     esac ;;
   glass)
     case "${2:-}" in
-      on) bar_blur glass ;;
-      off) bar_blur plain ;;
+      on) bar_blur glass; set_state bar glass ;;
+      off) bar_blur plain; set_state bar plain ;;
       *) echo "usage: glass on|off"; exit 1 ;;
     esac ;;
   *) sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;

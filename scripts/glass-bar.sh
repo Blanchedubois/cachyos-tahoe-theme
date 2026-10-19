@@ -329,6 +329,34 @@ print(f'  GTK4 glass ({mode}): {len(out)} theme rules scoped, Files excluded')
 PY
 }
 
+# shell_theme MODE: Tahoe puts dark text on light glass, so light mode uses the MacTahoe Light
+# shell theme (with the same overrides as Dark: quick settings icon sizes, pill shapes, ...)
+# and dark text on the top bar; dark and milky keep MacTahoe Dark and white text.
+shell_theme() {
+  local dark_css="$HOME/.themes/MacTahoe-Dark/gnome-shell/gnome-shell.css"
+  local light_css="$HOME/.themes/MacTahoe-Light/gnome-shell/gnome-shell.css"
+  local OBS="$EXT/openbar@neuromorph/schemas" name=MacTahoe-Dark fg="['1.0', '1.0', '1.0']"
+  if [ "$1" = light ] && [ -f "$light_css" ]; then
+    python3 - "$dark_css" "$light_css" <<'PY'
+import re, sys
+dark, light = sys.argv[1:3]
+m = re.search(r"/\* tahoe-overrides:.*?/\* end tahoe-overrides \*/", open(dark).read(), flags=re.S)
+if m:
+    css = open(light).read()
+    css = re.sub(r"\n/\* tahoe-overrides:.*?/\* end tahoe-overrides \*/\n?", "\n", css, flags=re.S)
+    open(light, 'w').write(css.rstrip() + "\n" + m.group(0) + "\n")
+PY
+    name=MacTahoe-Light; fg="['0.11', '0.11', '0.12']"
+  fi
+  gsettings set org.gnome.shell.extensions.user-theme name "$name" 2>/dev/null ||
+    gsettings --schemadir /usr/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas \
+      set org.gnome.shell.extensions.user-theme name "$name"
+  if [ -d "$OBS" ]; then
+    gsettings --schemadir "$OBS" set org.gnome.shell.extensions.openbar light-fgcolor "$fg"
+    gsettings --schemadir "$OBS" set org.gnome.shell.extensions.openbar fgcolor "$fg"
+  fi
+}
+
 # gtk_theme MODE: the theme pair and colour scheme for the mode (light: MacTahoe Light)
 gtk_theme() {
   if [ "$1" = light ]; then
@@ -402,7 +430,8 @@ menus() { # on | off : Blur My Shell's popup module
   if [ "$mode" = on ]; then
     # the Tahoe VM's popup settings: v76 defaults (live blur, its own see-through menu style,
     # corner radii per surface), keeping every other Blur My Shell setting as it is
-    python3 - "$cur" > "$cur.new" <<'PY'
+    # light mode: Blur My Shell's light menu style (dark text on light glass); otherwise automatic
+    python3 - "$cur" "$([ "$(glass_mode)" = light ] && echo 1 || echo 3)" > "$cur.new" <<'PY'
 import sys
 out, sec = [], None
 for line in open(sys.argv[1]):
@@ -413,7 +442,7 @@ for line in open(sys.argv[1]):
         continue
     out.append(line)
 out += ['', '[popup]', 'blur=true', 'static-blur=false', "pipeline='pipeline_default'",
-        'override-background=true', 'preserve-shell-theme=false', 'style-popup=3']
+        'override-background=true', 'preserve-shell-theme=false', 'style-popup=' + sys.argv[2]]
 print('\n'.join(out))
 PY
   else
@@ -614,9 +643,10 @@ case "${1:-}" in
       light|dark|milky)
         set_state mode "$m"
         gtk_theme "$([ "$m" = light ] && echo light || echo dark)"
+        shell_theme "$m"
         # every glass surface that is on, from the one recipe
         [ "$(sed -n 's/^bar=//p' "$STATE" | tail -1)" = plain ] || bar_blur glass
-        if [ "$(sed -n 's/^menus=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_menus 'Glass menus' 18.0; fi
+        if [ "$(sed -n 's/^menus=//p' "$STATE" | tail -1)" = on ]; then menus on >/dev/null; fi
         if [ "$(sed -n 's/^dock=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_dock 'Glass dock' 18.0; fi
         if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then apps on; fi
         shell_edges

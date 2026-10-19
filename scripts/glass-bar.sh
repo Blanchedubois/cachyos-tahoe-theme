@@ -17,7 +17,7 @@
 #   bash glass-bar.sh dock off   the dock back to how it was before 'apply' (instant)
 #   bash glass-bar.sh apps on    live Liquid Glass behind Files and the other whitelisted apps (instant)
 #   bash glass-bar.sh apps off   app windows back to how they were before 'apply' (instant)
-#   bash glass-bar.sh tint light one tint for all glass: light (the tuned look) or dark (provisional)
+#   bash glass-bar.sh tint light one tint for all glass: light (the tuned look) or dark (grey glass)
 #   bash glass-bar.sh rebuild    rebuild and reinstall the patched Blur My Shell, then log out and back in
 #   bash glass-bar.sh status     whether the patched Blur My Shell is the one installed
 #   bash glass-bar.sh undo       put everything back exactly as before 'apply', then log out and back in
@@ -102,11 +102,11 @@ ext_list_add() { python3 -c 'import ast,sys;l=ast.literal_eval(sys.argv[1] or "[
 
 # One Liquid Glass recipe for every glass surface (bar, menus, dock); only the blur radius
 # differs per surface. The tint is one setting for all of them: 'light' is the tuned look,
-# 'dark' a provisional starting point to be designed later (glass-bar.sh tint light|dark).
+# 'dark' a darker, still greyish glass (glass-bar.sh tint light|dark).
 glass_params() { # BLUR_RADIUS
   local tint tint_color
   case "$(sed -n 's/^tint=//p' "$STATE" 2>/dev/null | tail -1)" in
-    dark) tint=0.4;  tint_color='[0.12, 0.12, 0.13, 1.0]' ;;   # provisional
+    dark) tint=0.32; tint_color='[0.36, 0.36, 0.38, 1.0]' ;;   # dark: a mid grey glass, not black
     *)    tint=0.12; tint_color='[1.0, 1.0, 1.0, 1.0]' ;;     # light: the tuned look
   esac
   echo "{
@@ -232,15 +232,21 @@ GTK_END='/* end tahoe-glass-gtk4 */'
 gtk_glass_block() { # light | dark
   local edge fill hover press card sidebar window
   if [ "$1" = dark ]; then
-    window='rgba(0, 0, 0, 0.30)'; sidebar='rgba(0, 0, 0, 0.12)'; card='rgba(255, 255, 255, 0.04)'
+    # dark: a grey backing, darker than light's but not black
+    window='rgba(62, 62, 66, 0.55)'; sidebar='rgba(255, 255, 255, 0.03)'; card='rgba(255, 255, 255, 0.05)'
     edge='rgba(255, 255, 255, 0.08)'; fill='rgba(255, 255, 255, 0.05)'; hover='rgba(255, 255, 255, 0.09)'; press='rgba(255, 255, 255, 0.13)'
   else
-    window='rgba(0, 0, 0, 0.12)'; sidebar='rgba(255, 255, 255, 0.04)'; card='rgba(255, 255, 255, 0.06)'
+    # light: a light grey backing so text reads steadily over the blur
+    window='rgba(118, 116, 120, 0.42)'; sidebar='rgba(255, 255, 255, 0.05)'; card='rgba(255, 255, 255, 0.07)'
     edge='rgba(255, 255, 255, 0.12)'; fill='rgba(255, 255, 255, 0.08)'; hover='rgba(255, 255, 255, 0.14)'; press='rgba(255, 255, 255, 0.2)'
   fi
+  # every app window except Files (nautilus-window), which keeps the theme's own look
+  local W='window:not(.nautilus-window)'
+  local B=':not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action)'
+  local H=':not(.titlebutton):not(.close):not(.minimize):not(.maximize)'
   cat <<CSS
 $GTK_BEGIN
-:root {
+$W {
   --window-bg-color: $window;
   --view-bg-color: transparent;
   --headerbar-bg-color: transparent;
@@ -252,24 +258,15 @@ $GTK_BEGIN
   --card-bg-color: $card;
   --dialog-bg-color: $window;
 }
-@define-color window_bg_color $window;
-@define-color view_bg_color transparent;
-@define-color headerbar_bg_color transparent;
-@define-color headerbar_backdrop_color transparent;
-@define-color sidebar_bg_color $sidebar;
-@define-color card_bg_color $card;
-window.csd, window.csd:backdrop { outline: 1px solid $edge; outline-offset: -1px; }
+window.csd:not(.nautilus-window), window.csd:not(.nautilus-window):backdrop { outline: 1px solid $edge; outline-offset: -1px; }
 window.csd.maximized, window.csd.fullscreen, window.csd.tiled { outline: none; }
-button:not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action),
-headerbar button:not(.titlebutton):not(.close):not(.minimize):not(.maximize), .linked > button:not(.close):not(.minimize):not(.maximize) {
+$W button$B, $W headerbar button$H, $W .linked > button$H {
   background-color: $fill; background-image: none;
   box-shadow: inset 0 0 0 1px $edge;
 }
-button:not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action):hover,
-headerbar button:not(.titlebutton):not(.close):not(.minimize):not(.maximize):hover { background-color: $hover; }
-button:not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action):active,
-button:not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action):checked,
-headerbar button:not(.titlebutton):not(.close):not(.minimize):not(.maximize):active, headerbar button:not(.titlebutton):not(.close):not(.minimize):not(.maximize):checked { background-color: $press; }
+$W button$B:hover, $W headerbar button$H:hover { background-color: $hover; }
+$W button$B:active, $W button$B:checked,
+$W headerbar button$H:active, $W headerbar button$H:checked { background-color: $press; }
 $GTK_END
 CSS
 }
@@ -324,7 +321,12 @@ apps() { # on | off : live Liquid Glass behind the whitelisted app windows (File
     # the GTK4 glass block makes the backgrounds translucent, so the window itself stays fully
     # opaque and its text crisp, as on the menus (Blur My Shell's 215 dimmed everything)
     gsettings --schemadir "$BS" set $S opacity 255
-    gtk_glass "$(sed -n 's/^tint=//p' "$STATE" 2>/dev/null | tail -1 | grep -x dark || echo light)"
+    # GTK4 glass block only with gtk=on (it is being reworked: per-window scoping, Files excluded)
+    if [ "$(sed -n 's/^gtk=//p' "$STATE" 2>/dev/null | tail -1)" = on ]; then
+      gtk_glass "$(sed -n 's/^tint=//p' "$STATE" 2>/dev/null | tail -1 | grep -x dark || echo light)"
+    else
+      gtk_glass off
+    fi
   else
     restore_bms_section applications
     gtk_glass off
@@ -553,7 +555,7 @@ case "${1:-}" in
         [ "$(sed -n 's/^bar=//p' "$STATE" | tail -1)" = plain ] || bar_blur glass
         if [ "$(sed -n 's/^menus=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_menus 'Glass menus' 18.0; fi
         if [ "$(sed -n 's/^dock=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_dock 'Glass dock' 18.0; fi
-        if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_apps 'Glass apps' 24.0; gtk_glass "$2"; fi
+        if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_apps 'Glass apps' 24.0; [ "$(sed -n 's/^gtk=//p' "$STATE" | tail -1)" = on ] && gtk_glass "$2"; fi
         shell_edges
         # reload Blur My Shell so its stylesheet (the edges) is read again
         gnome-extensions disable "$BMS_UUID"; sleep 1; gnome-extensions enable "$BMS_UUID"

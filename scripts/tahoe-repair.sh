@@ -283,7 +283,7 @@ PY
     # glass apps: GTK4 backgrounds are translucent (glass block in the GTK4 stylesheet), so
     # windows stay fully opaque; put the block back if a theme rebuild dropped it
     bsg .applications opacity 255
-    if [[ -f "$HOME/.config/gtk-4.0/gtk-Dark.css" ]] && ! grep -q "tahoe-glass-gtk4" "$HOME/.config/gtk-4.0/gtk-Dark.css"; then
+    if [[ "$(glass_state gtk)" == on && -f "$HOME/.config/gtk-4.0/gtk-Dark.css" ]] && ! grep -q "tahoe-glass-gtk4" "$HOME/.config/gtk-4.0/gtk-Dark.css"; then
       log "GTK4 glass block missing: re-applying"; bash "$ROOT/scripts/glass-bar.sh" apps on >/dev/null
     fi
   else

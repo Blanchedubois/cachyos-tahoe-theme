@@ -55,10 +55,16 @@ index 5a891b9..a329690 100644
  
      is_visible() {
 diff --git a/src/components/popup/targets.js b/src/components/popup/targets.js
-index 0dce45a..9ecfc15 100644
+index 0dce45a..a18dd65 100644
 --- a/src/components/popup/targets.js
 +++ b/src/components/popup/targets.js
-@@ -9,6 +9,17 @@ const POPUP_TARGET_STYLE_CLASSES = [
+@@ -1,4 +1,5 @@
+ import St from 'gi://St';
++import { QuickMenuToggle } from 'resource:///org/gnome/shell/ui/quickSettings.js';
+ 
+ import { has_any_style_class, is_internal_actor } from './actors.js';
+ 
+@@ -9,6 +10,17 @@ const POPUP_TARGET_STYLE_CLASSES = [
  ];
  const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog', 'clipboard-dialog'];
  const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];
@@ -76,7 +82,7 @@ index 0dce45a..9ecfc15 100644
  
  export const POPUP_BACKGROUND_STYLES = ['bms-popup-background-transparent', 'bms-popup-background-light', 'bms-popup-background-dark'];
  export const POPUP_SURFACE_STYLES = POPUP_BACKGROUND_STYLES.map(
-@@ -95,6 +106,15 @@ export const PopupBlurTargets = class PopupBlurTargets {
+@@ -95,6 +107,15 @@ export const PopupBlurTargets = class PopupBlurTargets {
          }
  
          const box = actor._delegate?.box;
@@ -92,7 +98,7 @@ index 0dce45a..9ecfc15 100644
          if (this.has_any_style_class(box, POPUP_TARGET_STYLE_CLASSES))
              targets.add(box);
  
-@@ -143,6 +163,11 @@ export const PopupBlurTargets = class PopupBlurTargets {
+@@ -143,6 +164,11 @@ export const PopupBlurTargets = class PopupBlurTargets {
                  }
              }
  
@@ -104,7 +110,7 @@ index 0dce45a..9ecfc15 100644
              if (this.is_blur_target_actor(child)) {
                  targets.add(child);
                  continue;
-@@ -152,6 +177,21 @@ export const PopupBlurTargets = class PopupBlurTargets {
+@@ -152,6 +178,25 @@ export const PopupBlurTargets = class PopupBlurTargets {
          }
      }
  
@@ -115,7 +121,11 @@ index 0dce45a..9ecfc15 100644
 +            const child = stack.pop();
 +            if (is_internal_actor(child))
 +                continue;
-+            if (this.has_any_style_class(child, QUICK_SETTINGS_PIECE_STYLE_CLASSES)) {
++            // a split toggle (Wi-Fi, Bluetooth, power mode) is one piece: GNOME adds its
++            // 'quick-toggle-has-menu' class only once the menu is ready, so it is also known
++            // by its widget type, or its toggle and arrow would be blurred apart
++            if (this.has_any_style_class(child, QUICK_SETTINGS_PIECE_STYLE_CLASSES)
++                || child instanceof QuickMenuToggle) {
 +                targets.add(child);
 +                continue;
 +            }
@@ -126,11 +136,12 @@ index 0dce45a..9ecfc15 100644
      push_children(stack, children) {
          for (let index = children.length - 1; index >= 0; index--)
              stack.push({ actor: children[index], fallback_count: null });
-@@ -167,6 +207,9 @@ export const PopupBlurTargets = class PopupBlurTargets {
+@@ -167,6 +212,10 @@ export const PopupBlurTargets = class PopupBlurTargets {
      }
  
      get_corner_radius(target, root_actor) {
-+        if (this.has_any_style_class(target, QUICK_SETTINGS_ROUND_STYLE_CLASSES)
++        if ((this.has_any_style_class(target, QUICK_SETTINGS_ROUND_STYLE_CLASSES)
++            || target instanceof QuickMenuToggle)
 +            && !this.has_any_style_class(target, ['quick-toggle-menu']))
 +            return ROUND_CORNER_RADIUS;
          return POPUP_CORNER_RADII.find(radius =>
@@ -138,12 +149,13 @@ index 0dce45a..9ecfc15 100644
              || has_any_style_class(root_actor, radius.style_classes)
 diff --git a/src/styles/tahoe-glass.css b/src/styles/tahoe-glass.css
 new file mode 100644
-index 0000000..38de093
+index 0000000..4d053df
 --- /dev/null
 +++ b/src/styles/tahoe-glass.css
-@@ -0,0 +1,152 @@
-+/* tahoe glass (cachyos-tahoe-theme): brighter glass edges on blurred menus and on
-+   each quick settings piece, which is blurred on its own with no card behind it. */
+@@ -0,0 +1,187 @@
++/* tahoe glass (cachyos-tahoe-theme): blurred menus and each quick settings piece, which
++   is blurred on its own with no card behind it, edged like the top bar's capsule:
++   a thin white line at 12 %, no glow. */
 +.bms-popup-background-transparent .popup-menu-content,
 +.bms-popup-background-transparent .notification-banner,
 +.bms-popup-background-transparent .quick-toggle-menu,
@@ -168,8 +180,8 @@ index 0000000..38de093
 +.bms-popup-background-light .quick-toggle-has-menu,
 +.bms-popup-background-light .quick-slider,
 +.bms-popup-background-light .quick-settings-system-item .icon-button {
-+  border: 1px solid rgba(255, 255, 255, 0.55) !important;
-+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18) !important;
++  border: 1px solid rgba(255, 255, 255, 0.12) !important;
++  box-shadow: none !important;
 +}
 +
 +/* a split toggle draws one outline, not one per half */
@@ -259,6 +271,40 @@ index 0000000..38de093
 +.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:active,
 +.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button {
 +  background-color: transparent !important;
++}
++
++/* a split toggle that is on (Wi-Fi, Bluetooth, power mode): white label and a clear arrow,
++   as the theme draws them, in place of Blur My Shell's accent-coloured ones. The white icon
++   circle shows the state. */
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle:checked,
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:checked,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle:checked,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:checked,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked {
++  background-color: transparent !important;
++  color: white !important;
++}
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:hover,
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:hover,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:hover,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:hover {
++  background-color: rgba(255, 255, 255, 0.14) !important;
++  color: white !important;
++}
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:active,
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button:checked:active,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:active,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button:checked:active,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:active,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button:checked:active {
++  background-color: rgba(255, 255, 255, 0.2) !important;
++  color: white !important;
 +}
 +
 +/* no card behind quick settings */

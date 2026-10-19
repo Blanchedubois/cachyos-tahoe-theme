@@ -17,7 +17,8 @@
 #   bash glass-bar.sh dock off   the dock back to how it was before 'apply' (instant)
 #   bash glass-bar.sh apps on    live Liquid Glass behind Files and the other whitelisted apps (instant)
 #   bash glass-bar.sh apps off   app windows back to how they were before 'apply' (instant)
-#   bash glass-bar.sh tint light one tint for all glass: light (the tuned look) or dark (grey glass)
+#   bash glass-bar.sh mode light Tahoe light (light apps), 'mode dark' Tahoe dark, 'mode milky' the
+#                                pre-mode look: milky glass over dark apps (docs/liquid-glass.md)
 #   bash glass-bar.sh rebuild    rebuild and reinstall the patched Blur My Shell, then log out and back in
 #   bash glass-bar.sh status     whether the patched Blur My Shell is the one installed
 #   bash glass-bar.sh undo       put everything back exactly as before 'apply', then log out and back in
@@ -28,7 +29,7 @@ OPENBAR_UUID=openbar@neuromorph
 BMS_UUID=blur-my-shell@aunetx
 BACKUP_ROOT="$HOME/.local/share/glass-backup"
 BACKUP="$BACKUP_ROOT/original"
-# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off, dock=on|off, apps=on|off, tint=light|dark
+# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off, dock=on|off, apps=on|off, mode=light|dark|milky
 STATE="$HOME/.config/tahoe-glass/state"
 SRC="$HOME/.local/src"
 EXT="$HOME/.local/share/gnome-shell/extensions"
@@ -100,14 +101,23 @@ ensure_backup() {
 # enabled-extensions list editing
 ext_list_add() { python3 -c 'import ast,sys;l=ast.literal_eval(sys.argv[1] or "[]");print(l if sys.argv[2] in l else l+[sys.argv[2]])' "$(gsettings get org.gnome.shell enabled-extensions | sed 's/^@as //')" "$1"; }
 
-# One Liquid Glass recipe for every glass surface (bar, menus, dock); only the blur radius
-# differs per surface. The tint is one setting for all of them: 'light' is the tuned look,
-# 'dark' a darker, still greyish glass (glass-bar.sh tint light|dark).
+# Modes (docs/liquid-glass.md): 'light' and 'dark' follow macOS Tahoe, apps included;
+# 'milky' is the shell glass tuned before modes, over dark apps. Older state files used
+# tint=light|dark: tint=dark reads as dark, anything else as milky.
+glass_mode() {
+  local m; m=$(sed -n 's/^mode=//p' "$STATE" 2>/dev/null | tail -1)
+  if [ -z "$m" ]; then [ "$(sed -n 's/^tint=//p' "$STATE" 2>/dev/null | tail -1)" = dark ] && m=dark || m=milky; fi
+  echo "$m"
+}
+
+# One Liquid Glass recipe for every glass surface (bar, menus, dock, apps); only the blur
+# radius differs per surface, and the tint per mode.
 glass_params() { # BLUR_RADIUS
   local tint tint_color
-  case "$(sed -n 's/^tint=//p' "$STATE" 2>/dev/null | tail -1)" in
-    dark) tint=0.32; tint_color='[0.36, 0.36, 0.38, 1.0]' ;;   # dark: a mid grey glass, not black
-    *)    tint=0.12; tint_color='[1.0, 1.0, 1.0, 1.0]' ;;     # light: the tuned look
+  case "$(glass_mode)" in
+    light) tint=0.18; tint_color='[1.0, 1.0, 1.0, 1.0]' ;;        # Tahoe light: clear, milky glass
+    dark)  tint=0.42; tint_color='[0.133, 0.133, 0.149, 1.0]' ;;  # Tahoe dark: smoky grey glass
+    *)     tint=0.12; tint_color='[1.0, 1.0, 1.0, 1.0]' ;;        # milky: the look tuned before modes
   esac
   echo "{
   'strength': <0.8>, 'blur_radius': <$1>, 'edge_size': <12.0>, 'falloff': <2.4>,
@@ -222,57 +232,18 @@ dock() { # on | off : the dock in live Liquid Glass, its own theme background cl
   echo "  dock: $1"
 }
 
-# GTK4 (libadwaita) apps in glass: a marked block appended to the theme's GTK4 stylesheet
-# makes window, header bar, sidebar and view backgrounds translucent, so the window's live
-# Liquid Glass shows through like the menus', with the same edge; buttons get the glass edge
-# and a light translucent fill (no blur of their own: they sit on the window's live blur).
-GTK4_CSS="$HOME/.config/gtk-4.0/gtk-Dark.css"
+# GTK4 apps in the Tahoe layer model (docs/liquid-glass.md): window chrome (header and
+# sidebar areas) is glass over the window's live blur, content (lists, file views, text) nearly
+# opaque, cards and buttons a translucent lift with the rim. The theme paints its surfaces from
+# libadwaita's colours in about 60 rules; those rules are copied, scoped to every window except
+# Files (which keeps the theme's own look), with the mode's values substituted, plus libadwaita's
+# colour variables on the same windows. The block is marked so it can be replaced or removed.
+GTK4_DIR="$HOME/.config/gtk-4.0"
 GTK_BEGIN='/* tahoe-glass-gtk4: managed by glass-bar.sh */'
 GTK_END='/* end tahoe-glass-gtk4 */'
-gtk_glass_block() { # light | dark
-  local edge fill hover press card sidebar window
-  if [ "$1" = dark ]; then
-    # dark: a grey backing, darker than light's but not black
-    window='rgba(62, 62, 66, 0.55)'; sidebar='rgba(255, 255, 255, 0.03)'; card='rgba(255, 255, 255, 0.05)'
-    edge='rgba(255, 255, 255, 0.08)'; fill='rgba(255, 255, 255, 0.05)'; hover='rgba(255, 255, 255, 0.09)'; press='rgba(255, 255, 255, 0.13)'
-  else
-    # light: a light grey backing so text reads steadily over the blur
-    window='rgba(118, 116, 120, 0.42)'; sidebar='rgba(255, 255, 255, 0.05)'; card='rgba(255, 255, 255, 0.07)'
-    edge='rgba(255, 255, 255, 0.12)'; fill='rgba(255, 255, 255, 0.08)'; hover='rgba(255, 255, 255, 0.14)'; press='rgba(255, 255, 255, 0.2)'
-  fi
-  # every app window except Files (nautilus-window), which keeps the theme's own look
-  local W='window:not(.nautilus-window)'
-  local B=':not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action)'
-  local H=':not(.titlebutton):not(.close):not(.minimize):not(.maximize)'
-  cat <<CSS
-$GTK_BEGIN
-$W {
-  --window-bg-color: $window;
-  --view-bg-color: transparent;
-  --headerbar-bg-color: transparent;
-  --headerbar-backdrop-color: transparent;
-  --sidebar-bg-color: $sidebar;
-  --sidebar-backdrop-color: $sidebar;
-  --secondary-sidebar-bg-color: $sidebar;
-  --secondary-sidebar-backdrop-color: $sidebar;
-  --card-bg-color: $card;
-  --dialog-bg-color: $window;
-}
-window.csd:not(.nautilus-window), window.csd:not(.nautilus-window):backdrop { outline: 1px solid $edge; outline-offset: -1px; }
-window.csd.maximized, window.csd.fullscreen, window.csd.tiled { outline: none; }
-$W button$B, $W headerbar button$H, $W .linked > button$H {
-  background-color: $fill; background-image: none;
-  box-shadow: inset 0 0 0 1px $edge;
-}
-$W button$B:hover, $W headerbar button$H:hover { background-color: $hover; }
-$W button$B:active, $W button$B:checked,
-$W headerbar button$H:active, $W headerbar button$H:checked { background-color: $press; }
-$GTK_END
-CSS
-}
-gtk_glass() { # light | dark | off
-  [ -f "$GTK4_CSS" ] || return 0
-  python3 - "$GTK4_CSS" "$GTK_BEGIN" "$GTK_END" <<'PY'
+gtk_strip() { # FILE: remove the marked block
+  [ -f "$1" ] || return 0
+  python3 - "$1" "$GTK_BEGIN" "$GTK_END" <<'PY'
 import sys
 p, b, e = sys.argv[1:4]
 s = open(p).read()
@@ -280,11 +251,99 @@ while b in s and e in s:
     s = s[:s.index(b)].rstrip('\n') + '\n' + s[s.index(e) + len(e):].lstrip('\n')
 open(p, 'w').write(s)
 PY
-  [ "$1" = off ] || gtk_glass_block "$1" >> "$GTK4_CSS"
+}
+gtk_glass() { # light | dark | off
+  local f
+  for f in "$GTK4_DIR/gtk-Dark.css" "$GTK4_DIR/gtk-Light.css"; do gtk_strip "$f"; done
+  [ "$1" = off ] && return 0
+  f="$GTK4_DIR/gtk-$([ "$1" = light ] && echo Light || echo Dark).css"
+  [ -f "$f" ] || return 0
+  python3 - "$f" "$1" "$GTK_BEGIN" "$GTK_END" "$(glass_edge_alpha)" <<'PY'
+import re, sys
+path, mode, begin, end, edge_a = sys.argv[1:6]
+css = open(path).read()
+T = {  # docs/liquid-glass.md, "Tokens used here"
+  'light': dict(window='rgba(250, 250, 252, 0.62)', view='rgba(255, 255, 255, 0.95)',
+                sidebar='rgba(255, 255, 255, 0.30)', card='rgba(255, 255, 255, 0.55)',
+                dialog='rgba(250, 250, 252, 0.96)', popover='rgba(250, 250, 252, 0.97)',
+                fill='rgba(255, 255, 255, 0.45)', hover='rgba(255, 255, 255, 0.65)', press='rgba(255, 255, 255, 0.8)',
+                rim='rgba(255, 255, 255, 0.6)', outline='rgba(255, 255, 255, 0.35)'),
+  'dark':  dict(window='rgba(36, 36, 40, 0.62)', view='rgba(30, 30, 33, 0.90)',
+                sidebar='rgba(0, 0, 0, 0.12)', card='rgba(255, 255, 255, 0.06)',
+                dialog='rgba(40, 40, 44, 0.94)', popover='rgba(44, 44, 48, 0.97)',
+                fill='rgba(255, 255, 255, 0.10)', hover='rgba(255, 255, 255, 0.16)', press='rgba(255, 255, 255, 0.22)',
+                rim='rgba(255, 255, 255, 0.14)', outline='rgba(255, 255, 255, 0.12)'),
+}[mode]
+COLORS = {
+  'window_bg_color': T['window'], 'view_bg_color': T['view'],
+  'headerbar_bg_color': 'transparent', 'headerbar_backdrop_color': 'transparent',
+  'sidebar_bg_color': T['sidebar'], 'sidebar_backdrop_color': T['sidebar'],
+  'secondary_sidebar_bg_color': T['sidebar'], 'secondary_sidebar_backdrop_color': T['sidebar'],
+  'card_bg_color': T['card'], 'dialog_bg_color': T['dialog'], 'popover_bg_color': T['popover'],
+  'thumbnail_bg_color': T['view'],
+}
+NOT_FILES = ':not(.nautilus-window)'
+def scope(sel):
+    sel = sel.strip()
+    if not sel or sel.startswith((':root', '*')):
+        return None
+    m = re.match(r'window\b([.#:\[][^\s>+~]*)?', sel)
+    if m:  # the selector is the window itself: exclude Files on that compound
+        return sel[:m.end()] + NOT_FILES + sel[m.end():]
+    return f'window{NOT_FILES} {sel}'
+out = []
+for sel, body in re.findall(r'([^{}]+)\{([^{}]*)\}', css):
+    decls = []
+    for d in body.split(';'):
+        if ':' not in d:
+            continue
+        prop, val = d.split(':', 1)
+        if not prop.strip().startswith('background'):
+            continue
+        new = val
+        for n, c in COLORS.items():
+            new = re.sub(r'@' + n + r'\b', c, new)
+        if new != val:
+            decls.append(f'{prop.strip()}: {new.strip()}')
+    if not decls:
+        continue
+    sels = [x for x in (scope(x) for x in sel.split(',')) if x]
+    if sels:
+        out.append(',\n'.join(sels) + ' { ' + '; '.join(decls) + '; }')
+var_names = {'window': '--window-bg-color', 'view': '--view-bg-color', 'sidebar': '--sidebar-bg-color',
+             'card': '--card-bg-color', 'dialog': '--dialog-bg-color', 'popover': '--popover-bg-color'}
+vars_ = ' '.join(f'{v}: {T[k]};' for k, v in var_names.items())
+vars_ += ' --headerbar-bg-color: transparent; --headerbar-backdrop-color: transparent;'
+B = ':not(.flat):not(.link):not(.titlebutton):not(.close):not(.minimize):not(.maximize):not(.suggested-action):not(.destructive-action)'
+W = 'window' + NOT_FILES
+extra = f"""{W} {{ {vars_} }}
+window.csd{NOT_FILES}, window.csd{NOT_FILES}:backdrop {{ outline: 1px solid {T['outline']}; outline-offset: -1px; }}
+window.csd.maximized, window.csd.fullscreen, window.csd.tiled {{ outline: none; }}
+{W} button{B} {{ background-color: {T['fill']}; background-image: none; box-shadow: inset 0 0 0 1px {T['rim']}; }}
+{W} button{B}:hover {{ background-color: {T['hover']}; }}
+{W} button{B}:active, {W} button{B}:checked {{ background-color: {T['press']}; }}"""
+block = '\n'.join([begin, f'/* mode: {mode}; {len(out)} theme rules scoped to every window but Files */',
+                   *out, extra, end])
+open(path, 'a').write('\n' + block + '\n')
+print(f'  GTK4 glass ({mode}): {len(out)} theme rules scoped, Files excluded')
+PY
 }
 
-# The glass edge follows the tint: light glass a white line at 12 %, dark glass a quieter 8 %.
-glass_edge_alpha() { [ "$(sed -n 's/^tint=//p' "$STATE" 2>/dev/null | tail -1)" = dark ] && echo 0.08 || echo 0.12; }
+# gtk_theme MODE: the theme pair and colour scheme for the mode (light: MacTahoe Light)
+gtk_theme() {
+  if [ "$1" = light ]; then
+    ln -sfn "$GTK4_DIR/gtk-Light.css" "$GTK4_DIR/gtk.css"
+    gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Light-solid'
+    gsettings set org.gnome.desktop.interface color-scheme 'default'
+  else
+    ln -sfn "$GTK4_DIR/gtk-Dark.css" "$GTK4_DIR/gtk.css"
+    gsettings set org.gnome.desktop.interface gtk-theme 'MacTahoe-Dark-solid'
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+  fi
+}
+
+# The glass edge per mode: Tahoe light has a bright rim, dark a quiet one; milky the bar's 12 %.
+glass_edge_alpha() { case "$(glass_mode)" in light) echo 0.25 ;; dark) echo 0.16 ;; *) echo 0.12 ;; esac; }
 
 # shell_edges: set the edge in the installed Blur My Shell glass stylesheet (menus, quick settings
 # pieces, dock) and on the top bar (Open Bar's border); only the glass part of the stylesheet changes
@@ -297,7 +356,7 @@ s = open(p).read()
 marker = '/* tahoe glass (cachyos-tahoe-theme)'
 if marker in s:
     i = s.index(marker)
-    glass = re.sub(r'border(-color)?: (1px solid )?rgba\(255, 255, 255, 0\.(12|08)\)',
+    glass = re.sub(r'border(-color)?: (1px solid )?rgba\(255, 255, 255, 0\.(12|08|25|16)\)',
                    lambda m: f"border{m.group(1) or ''}: {m.group(2) or ''}rgba(255, 255, 255, {a})", s[i:])
     open(p, 'w').write(s[:i] + glass)
 PY
@@ -318,14 +377,15 @@ apps() { # on | off : live Liquid Glass behind the whitelisted app windows (File
     gsettings --schemadir "$BS" set $S corner-radius 24
     gsettings --schemadir "$BS" set $S rounded-corners 0
     gsettings --schemadir "$BS" set $S corner-when-maximized false
-    # the GTK4 glass block makes the backgrounds translucent, so the window itself stays fully
-    # opaque and its text crisp, as on the menus (Blur My Shell's 215 dimmed everything)
-    gsettings --schemadir "$BS" set $S opacity 255
-    # GTK4 glass block only with gtk=on (it is being reworked: per-window scoping, Files excluded)
-    if [ "$(sed -n 's/^gtk=//p' "$STATE" 2>/dev/null | tail -1)" = on ]; then
-      gtk_glass "$(sed -n 's/^tint=//p' "$STATE" 2>/dev/null | tail -1 | grep -x dark || echo light)"
-    else
+    # light/dark: the GTK4 layer model makes the backgrounds translucent, so the window stays
+    # fully opaque and its text crisp; milky keeps the window at 215 (84 %), as before modes
+    local mode; mode=$(glass_mode)
+    if [ "$mode" = milky ]; then
+      gsettings --schemadir "$BS" set $S opacity 215
       gtk_glass off
+    else
+      gsettings --schemadir "$BS" set $S opacity 255
+      gtk_glass "$mode"
     fi
   else
     restore_bms_section applications
@@ -547,20 +607,23 @@ case "${1:-}" in
       on|off) dock "$2"; set_state dock "$2" ;;
       *) echo "usage: dock on|off"; exit 1 ;;
     esac ;;
-  tint)
-    case "${2:-}" in
-      light|dark)
-        set_state tint "$2"
-        # rewrite every glass surface that is on, from the one recipe
+  mode|tint)
+    m="${2:-}"
+    [ "$1" = tint ] && [ "$m" = light ] && m=milky   # 'tint light' was the milky look
+    case "$m" in
+      light|dark|milky)
+        set_state mode "$m"
+        gtk_theme "$([ "$m" = light ] && echo light || echo dark)"
+        # every glass surface that is on, from the one recipe
         [ "$(sed -n 's/^bar=//p' "$STATE" | tail -1)" = plain ] || bar_blur glass
         if [ "$(sed -n 's/^menus=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_menus 'Glass menus' 18.0; fi
         if [ "$(sed -n 's/^dock=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_dock 'Glass dock' 18.0; fi
-        if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_apps 'Glass apps' 24.0; [ "$(sed -n 's/^gtk=//p' "$STATE" | tail -1)" = on ] && gtk_glass "$2"; fi
+        if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then apps on; fi
         shell_edges
         # reload Blur My Shell so its stylesheet (the edges) is read again
         gnome-extensions disable "$BMS_UUID"; sleep 1; gnome-extensions enable "$BMS_UUID"
-        echo "  tint: $2" ;;
-      *) echo "usage: tint light|dark"; exit 1 ;;
+        echo "  mode: $m (apps opened before this pick it up when reopened)" ;;
+      *) echo "usage: mode light|dark|milky"; exit 1 ;;
     esac ;;
   rebuild) step "Blur My Shell v76, patched"; build_bms; step "Done. LOG OUT AND BACK IN to load it." ;;
   menus)
@@ -574,5 +637,5 @@ case "${1:-}" in
       off) bar_blur plain; set_state bar plain ;;
       *) echo "usage: glass on|off"; exit 1 ;;
     esac ;;
-  *) sed -n '2,23p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+  *) sed -n '2,24p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac

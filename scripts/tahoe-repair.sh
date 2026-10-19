@@ -34,7 +34,7 @@
 # Glass mode (scripts/glass-bar.sh): a patched Blur My Shell v76, Open Bar's
 # floating pill, a Liquid Glass top bar and glass menus. glass-bar.sh records
 # its choices in ~/.config/tahoe-glass/state (enabled=1, bar=glass|plain,
-# menus=on|off, dock=on|off) and 'glass-bar.sh undo' deletes it; this enforces exactly that.
+# menus=on|off, dock=on|off, apps=on|off) and 'glass-bar.sh undo' deletes it; this enforces exactly that.
 # The Blur My Shell build is labelled with extensions.gnome.org's version so
 # GNOME's updater leaves it alone, so the version number is no switch.
 set -uo pipefail
@@ -255,10 +255,22 @@ PY
   }
   bsg .applications blur true
   bsg .applications enable-all false
-  bsg .applications static-blur true    # dynamic mode paints the window opaque on this GPU; static shows what is behind, blurred
-  bsg .applications corner-radius 16
+  if [[ "$GLASS" == 1 && "$(glass_state apps)" == on ]]; then
+    # glass apps: live blur with the shared Liquid Glass (v76's blur engine draws it fine on
+    # this GPU), rounded like the windows: 24 px, square when maximised
+    bsg .applications static-blur false
+    bsg .applications corner-radius 24; bsg .applications rounded-corners 0; bsg .applications corner-when-maximized false
+  else
+    bsg .applications static-blur true    # v75's dynamic mode painted the window opaque on this GPU; static shows what is behind, blurred
+    bsg .applications corner-radius 16
+  fi
   bsg .applications customize true
-  if [[ "$GLASS" == 1 ]]; then
+  if [[ "$GLASS" == 1 && "$(glass_state apps)" == on ]]; then
+    if [[ "$(gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell.applications pipeline)" != "'pipeline_glassbar_apps'" ]] \
+       || ! gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell pipelines | grep -q pipeline_glassbar_apps; then
+      log "glass apps drifted: re-applying"; bash "$ROOT/scripts/glass-bar.sh" apps on >/dev/null
+    fi
+  elif [[ "$GLASS" == 1 ]]; then
     # v76 rounds corners per component, so its upgrade folds "Default rounded" into "Default";
     # hacks-level and the per-component sigma/brightness are gone (kept only for migration)
     bsg .applications pipeline "'pipeline_default'"

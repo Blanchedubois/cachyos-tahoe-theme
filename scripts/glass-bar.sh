@@ -15,6 +15,8 @@
 #   bash glass-bar.sh menus off  menus back to how they were before 'apply' (instant)
 #   bash glass-bar.sh dock on    the dock in live Liquid Glass, as the bar and menus (instant)
 #   bash glass-bar.sh dock off   the dock back to how it was before 'apply' (instant)
+#   bash glass-bar.sh apps on    live Liquid Glass behind Files and the other whitelisted apps (instant)
+#   bash glass-bar.sh apps off   app windows back to how they were before 'apply' (instant)
 #   bash glass-bar.sh tint light one tint for all glass: light (the tuned look) or dark (provisional)
 #   bash glass-bar.sh rebuild    rebuild and reinstall the patched Blur My Shell, then log out and back in
 #   bash glass-bar.sh status     whether the patched Blur My Shell is the one installed
@@ -26,7 +28,7 @@ OPENBAR_UUID=openbar@neuromorph
 BMS_UUID=blur-my-shell@aunetx
 BACKUP_ROOT="$HOME/.local/share/glass-backup"
 BACKUP="$BACKUP_ROOT/original"
-# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off, dock=on|off, tint=light|dark
+# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off, dock=on|off, apps=on|off, tint=light|dark
 STATE="$HOME/.config/tahoe-glass/state"
 SRC="$HOME/.local/src"
 EXT="$HOME/.local/share/gnome-shell/extensions"
@@ -218,6 +220,25 @@ dock() { # on | off : the dock in live Liquid Glass, its own theme background cl
     restore_bms_section dash-to-dock
   fi
   echo "  dock: $1"
+}
+
+apps() { # on | off : live Liquid Glass behind the whitelisted app windows (Files, Settings, ...)
+  local BS="$EXT/$BMS_UUID/schemas" S=org.gnome.shell.extensions.blur-my-shell.applications
+  if [ "$1" = on ]; then
+    # windows are large and full of text: the blur a step stronger than the menus' (24)
+    glass_pipeline pipeline_glassbar_apps 'Glass apps' 24.0
+    gsettings --schemadir "$BS" set $S blur true
+    gsettings --schemadir "$BS" set $S static-blur false
+    gsettings --schemadir "$BS" set $S pipeline pipeline_glassbar_apps
+    # the theme rounds windows at 24 px (GTK4 window.csd, and Rounded Window Corners for the
+    # rest); square when maximised or fullscreen, as the windows are
+    gsettings --schemadir "$BS" set $S corner-radius 24
+    gsettings --schemadir "$BS" set $S rounded-corners 0
+    gsettings --schemadir "$BS" set $S corner-when-maximized false
+  else
+    restore_bms_section applications
+  fi
+  echo "  apps: $1"
 }
 
 menus() { # on | off : Blur My Shell's popup module
@@ -421,6 +442,11 @@ case "${1:-}" in
   apply) apply ;;
   undo) undo ;;
   status) check_bms; echo "  installed: $(python3 -c 'import json,sys;m=json.load(open(sys.argv[1]));print("v%s (built from v%s)" % (m["version"], m.get("tahoe-glass-built-from", m["version"])))' "$EXT/$BMS_UUID/metadata.json")" ;;
+  apps)
+    case "${2:-}" in
+      on|off) apps "$2"; set_state apps "$2" ;;
+      *) echo "usage: apps on|off"; exit 1 ;;
+    esac ;;
   dock)
     case "${2:-}" in
       on|off) dock "$2"; set_state dock "$2" ;;
@@ -434,6 +460,7 @@ case "${1:-}" in
         [ "$(sed -n 's/^bar=//p' "$STATE" | tail -1)" = plain ] || bar_blur glass
         if [ "$(sed -n 's/^menus=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_menus 'Glass menus' 18.0; fi
         if [ "$(sed -n 's/^dock=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_dock 'Glass dock' 18.0; fi
+        if [ "$(sed -n 's/^apps=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_apps 'Glass apps' 24.0; fi
         echo "  tint: $2" ;;
       *) echo "usage: tint light|dark"; exit 1 ;;
     esac ;;
@@ -449,5 +476,5 @@ case "${1:-}" in
       off) bar_blur plain; set_state bar plain ;;
       *) echo "usage: glass on|off"; exit 1 ;;
     esac ;;
-  *) sed -n '2,21p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+  *) sed -n '2,23p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac

@@ -13,6 +13,8 @@
 #   bash glass-bar.sh menus on   live blur behind quick settings, dropdowns, calendar, notifications,
 #                                OSDs and dialogs such as Power Off, as in the Tahoe VM (instant)
 #   bash glass-bar.sh menus off  menus back to how they were before 'apply' (instant)
+#   bash glass-bar.sh dock on    the dock in live Liquid Glass, as the bar and menus (instant)
+#   bash glass-bar.sh dock off   the dock back to how it was before 'apply' (instant)
 #   bash glass-bar.sh rebuild    rebuild and reinstall the patched Blur My Shell, then log out and back in
 #   bash glass-bar.sh status     whether the patched Blur My Shell is the one installed
 #   bash glass-bar.sh undo       put everything back exactly as before 'apply', then log out and back in
@@ -23,7 +25,7 @@ OPENBAR_UUID=openbar@neuromorph
 BMS_UUID=blur-my-shell@aunetx
 BACKUP_ROOT="$HOME/.local/share/glass-backup"
 BACKUP="$BACKUP_ROOT/original"
-# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off
+# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off, dock=on|off
 STATE="$HOME/.config/tahoe-glass/state"
 SRC="$HOME/.local/src"
 EXT="$HOME/.local/share/gnome-shell/extensions"
@@ -139,6 +141,75 @@ print(f"  top bar: {mode}, pipeline={panel.get_string('pipeline')}")
 PY
 }
 
+# glass_pipeline ID NAME BLUR: a Blur My Shell pipeline with the top bar's Liquid Glass recipe
+# (tint, rim, gloss) and its own blur radius, so every glass surface shares one look
+glass_pipeline() {
+  local id=$1 name=$2 blur=$3
+  local bar_blur="'blur_radius': <12.0>" own_blur="'blur_radius': <$blur>"
+  python3 - "$EXT/$BMS_UUID/schemas" "$id" "$name" "${BAR_GLASS_PARAMS/"$bar_blur"/"$own_blur"}" <<'PY'
+import sys
+from gi.repository import Gio, GLib
+schemas, pid, name, params = sys.argv[1:5]
+src = Gio.SettingsSchemaSource.new_from_directory(schemas, Gio.SettingsSchemaSource.get_default(), False)
+root = Gio.Settings.new_full(src.lookup('org.gnome.shell.extensions.blur-my-shell', False), None, None)
+pipelines = {}
+old = root.get_value('pipelines')
+for i in range(old.n_children()):
+    e = old.get_child_value(i); f = e.get_child_value(1)
+    pipelines[e.get_child_value(0).get_string()] = {
+        f.get_child_value(j).get_child_value(0).get_string(): f.get_child_value(j).get_child_value(1).get_variant()
+        for j in range(f.n_children())}
+effect = GLib.Variant.parse(GLib.VariantType('a{sv}'),
+    "{'type': <'refraction'>, 'id': <'effect_%s'>, 'params': <%s>}" % (pid.replace('pipeline_', ''), params), None, None)
+pipelines[pid] = {'name': GLib.Variant('s', name), 'effects': GLib.Variant('av', [effect])}
+root.set_value('pipelines', GLib.Variant('a{sa{sv}}', pipelines))
+Gio.Settings.sync()
+PY
+}
+
+# restore_bms_section SECTION: one Blur My Shell section back to the pre-apply backup
+restore_bms_section() {
+  local section=$1 b cur
+  b=$(readlink -f "$BACKUP")
+  cur=$(mktemp)
+  dconf dump "${EXT_PATH}blur-my-shell/" > "$cur"
+  python3 - "$cur" "$b/extensions.dconf" "$section" > "$cur.new" <<'PY'
+import sys
+def sections(f):
+    out, sec = {}, None
+    for line in open(f):
+        line = line.rstrip('\n')
+        if line.startswith('['):
+            sec = line
+            out.setdefault(sec, [])
+        elif sec and '=' in line:
+            out[sec].append(line)
+    return out
+cur = sections(sys.argv[1]); old = sections(sys.argv[2]); sec = sys.argv[3]
+cur[f'[{sec}]'] = old.get(f'[blur-my-shell/{sec}]', [])
+for s, lines in cur.items():
+    print(s); print('\n'.join(lines)); print()
+PY
+  dconf_apply "${EXT_PATH}blur-my-shell/" "$cur.new" "$cur"
+  rm -f "$cur" "$cur.new"
+}
+
+dock() { # on | off : the dock in live Liquid Glass, its own theme background cleared
+  local BS="$EXT/$BMS_UUID/schemas" S=org.gnome.shell.extensions.blur-my-shell.dash-to-dock
+  if [ "$1" = on ]; then
+    glass_pipeline pipeline_glassbar_dock 'Glass dock' 18.0
+    gsettings --schemadir "$BS" set $S blur true
+    gsettings --schemadir "$BS" set $S static-blur false
+    gsettings --schemadir "$BS" set $S pipeline pipeline_glassbar_dock
+    gsettings --schemadir "$BS" set $S override-background true
+    gsettings --schemadir "$BS" set $S style-dash-to-dock 0
+    gsettings --schemadir "$BS" set $S unblur-in-overview true
+  else
+    restore_bms_section dash-to-dock
+  fi
+  echo "  dock: $1"
+}
+
 menus() { # on | off : Blur My Shell's popup module
   local mode=$1 b cur
   b=$(readlink -f "$BACKUP")
@@ -185,30 +256,10 @@ PY
   dconf_apply "${EXT_PATH}blur-my-shell/" "$cur.new" "$cur"
   rm -f "$cur" "$cur.new"
   if [ "$mode" = on ]; then
-    # the top bar's Liquid Glass (same tint, rim and gloss, so menus and bar match), its blur a
-    # step stronger at 18; a pipeline of its own so the shared default (windows, dock) stays as it is
-    local bar_blur="'blur_radius': <12.0>" menu_blur="'blur_radius': <18.0>"
-    python3 - "$EXT/$BMS_UUID/schemas" "${BAR_GLASS_PARAMS/"$bar_blur"/"$menu_blur"}" <<'PY'
-import sys
-from gi.repository import Gio, GLib
-src = Gio.SettingsSchemaSource.new_from_directory(sys.argv[1], Gio.SettingsSchemaSource.get_default(), False)
-def settings(sub=''):
-    return Gio.Settings.new_full(src.lookup('org.gnome.shell.extensions.blur-my-shell' + sub, False), None, None)
-root, popup = settings(), settings('.popup')
-pipelines = {}
-old = root.get_value('pipelines')
-for i in range(old.n_children()):
-    e = old.get_child_value(i); f = e.get_child_value(1)
-    pipelines[e.get_child_value(0).get_string()] = {
-        f.get_child_value(j).get_child_value(0).get_string(): f.get_child_value(j).get_child_value(1).get_variant()
-        for j in range(f.n_children())}
-effect = GLib.Variant.parse(GLib.VariantType('a{sv}'),
-    "{'type': <'refraction'>, 'id': <'effect_glassbar_menus'>, 'params': <%s>}" % sys.argv[2], None, None)
-pipelines['pipeline_glassbar_menus'] = {'name': GLib.Variant('s', 'Glass menus'), 'effects': GLib.Variant('av', [effect])}
-root.set_value('pipelines', GLib.Variant('a{sa{sv}}', pipelines))
-popup.set_string('pipeline', 'pipeline_glassbar_menus')
-Gio.Settings.sync()
-PY
+    # the top bar's Liquid Glass recipe, its blur a step stronger at 18; a pipeline of its own
+    # so the shared default (windows) stays as it is
+    glass_pipeline pipeline_glassbar_menus 'Glass menus' 18.0
+    gsettings --schemadir "$EXT/$BMS_UUID/schemas" set org.gnome.shell.extensions.blur-my-shell.popup pipeline pipeline_glassbar_menus
   fi
   echo "  menus: $mode"
 }
@@ -360,6 +411,11 @@ case "${1:-}" in
   apply) apply ;;
   undo) undo ;;
   status) check_bms; echo "  installed: $(python3 -c 'import json,sys;m=json.load(open(sys.argv[1]));print("v%s (built from v%s)" % (m["version"], m.get("tahoe-glass-built-from", m["version"])))' "$EXT/$BMS_UUID/metadata.json")" ;;
+  dock)
+    case "${2:-}" in
+      on|off) dock "$2"; set_state dock "$2" ;;
+      *) echo "usage: dock on|off"; exit 1 ;;
+    esac ;;
   rebuild) step "Blur My Shell v76, patched"; build_bms; step "Done. LOG OUT AND BACK IN to load it." ;;
   menus)
     case "${2:-}" in
@@ -372,5 +428,5 @@ case "${1:-}" in
       off) bar_blur plain; set_state bar plain ;;
       *) echo "usage: glass on|off"; exit 1 ;;
     esac ;;
-  *) sed -n '2,18p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+  *) sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac

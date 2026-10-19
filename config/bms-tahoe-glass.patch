@@ -175,10 +175,10 @@ index 0dce45a..a18dd65 100644
              || has_any_style_class(root_actor, radius.style_classes)
 diff --git a/src/styles/tahoe-glass.css b/src/styles/tahoe-glass.css
 new file mode 100644
-index 0000000..e1ececd
+index 0000000..a119c4a
 --- /dev/null
 +++ b/src/styles/tahoe-glass.css
-@@ -0,0 +1,214 @@
+@@ -0,0 +1,227 @@
 +/* tahoe glass (cachyos-tahoe-theme): blurred menus and each quick settings piece (blurred
 +   on its own, no card behind it) look like the top bar's capsule. The tint comes from the
 +   same Liquid Glass effect as the bar, so nothing here paints a fill of its own, and every
@@ -392,4 +392,17 @@ index 0000000..e1ececd
 +.bms-popup-background-light .quick-toggle-has-menu .quick-toggle,
 +.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button {
 +  border-radius: 9999px !important;
++}
++
++/* the dock in glass: Blur My Shell's transparent dock style clears the theme's background
++   and also its edge; put back the top bar's edge (same selectors, so this, loaded later, wins) */
++.transparent-dash .dash-background,
++.transparent-dash.dash-background,
++#dash.transparent-dash > .dash-background.transparent-dash,
++#dash.transparent-dash .dash-background,
++StBoxLayout > StWidget > #dash.transparent-dash > .dash-background.transparent-dash,
++.transparent-dash .multimonitor-dock .dash-background,
++.multimonitor-dock.transparent-dash .dash-background {
++  border: 1px solid rgba(255, 255, 255, 0.12) !important;
++  box-shadow: none !important;
 +}

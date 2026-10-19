@@ -34,7 +34,7 @@
 # Glass mode (scripts/glass-bar.sh): a patched Blur My Shell v76, Open Bar's
 # floating pill, a Liquid Glass top bar and glass menus. glass-bar.sh records
 # its choices in ~/.config/tahoe-glass/state (enabled=1, bar=glass|plain,
-# menus=on|off) and 'glass-bar.sh undo' deletes it; this enforces exactly that.
+# menus=on|off, dock=on|off) and 'glass-bar.sh undo' deletes it; this enforces exactly that.
 # The Blur My Shell build is labelled with extensions.gnome.org's version so
 # GNOME's updater leaves it alone, so the version number is no switch.
 set -uo pipefail
@@ -290,9 +290,20 @@ PY
   bsg .overview blur true; bsg .overview style-components 0
   bsg .appfolder blur true; bsg .appfolder style-dialogs 1
   [[ "$GLASS" == 1 ]] || bsg .appfolder sigma 30
-  bsg .dash-to-dock blur true; bsg .dash-to-dock static-blur true
-  if [[ "$GLASS" == 1 ]]; then bsg .dash-to-dock pipeline "'pipeline_default'"; else bsg .dash-to-dock pipeline "'pipeline_default_rounded'"; fi
-  bsg .dash-to-dock override-background false; bsg .dash-to-dock unblur-in-overview true
+  if [[ "$GLASS" == 1 && "$(glass_state dock)" == on ]]; then
+    # glass dock: live blur with the shared Liquid Glass, the theme's dock background cleared
+    bsg .dash-to-dock blur true; bsg .dash-to-dock static-blur false
+    bsg .dash-to-dock override-background true; bsg .dash-to-dock style-dash-to-dock 0
+    bsg .dash-to-dock unblur-in-overview true
+    if [[ "$(gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell.dash-to-dock pipeline)" != "'pipeline_glassbar_dock'" ]] \
+       || ! gsettings --schemadir "$BS" get org.gnome.shell.extensions.blur-my-shell pipelines | grep -q pipeline_glassbar_dock; then
+      log "glass dock drifted: re-applying"; bash "$ROOT/scripts/glass-bar.sh" dock on >/dev/null
+    fi
+  else
+    bsg .dash-to-dock blur true; bsg .dash-to-dock static-blur true
+    if [[ "$GLASS" == 1 ]]; then bsg .dash-to-dock pipeline "'pipeline_default'"; else bsg .dash-to-dock pipeline "'pipeline_default_rounded'"; fi
+    bsg .dash-to-dock override-background false; bsg .dash-to-dock unblur-in-overview true
+  fi
   if [[ "$GLASS" == 1 && "$GLASS_MENUS" == on ]]; then
     # glass menus: live blur on each menu and each quick settings piece, the top bar's Liquid Glass
     bsg .popup blur true; bsg .popup static-blur false; bsg .popup override-background true

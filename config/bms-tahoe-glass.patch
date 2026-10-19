@@ -1,0 +1,165 @@
+diff --git a/Makefile b/Makefile
+index 67d4d97..e6c759a 100644
+--- a/Makefile
++++ b/Makefile
+@@ -16,7 +16,8 @@ STYLESHEETS = src/styles/panel.css \
+ 	src/styles/popup/menu-items.css \
+ 	src/styles/overview.css \
+ 	src/styles/appfolders.css \
+-	src/styles/panel-light-text.css
++	src/styles/panel-light-text.css \
++	src/styles/tahoe-glass.css
+ 
+ .PHONY: build install pot test-shell test-prefs test-vm remove clean
+ 
+diff --git a/src/components/popup/index.js b/src/components/popup/index.js
+index 4d16af5..bd4ca91 100644
+--- a/src/components/popup/index.js
++++ b/src/components/popup/index.js
+@@ -69,6 +69,16 @@ export const PopupBlur = class PopupBlur {
+         this.track_container(Main.layoutManager.screenShieldGroup);
+         this.track_container(Main.messageTray._bannerBin);
+         this.track_container(Main.panel.statusArea.quickSettings.menu._overlay);
++        // Quick settings fills in its toggles after startup, and some (Wi-Fi, Bluetooth)
++        // come and go: look for unblurred pieces each time it opens.
++        Main.panel.statusArea.quickSettings.menu.connectObject(
++            'open-state-changed',
++            (menu, open) => {
++                if (open)
++                    this.try_blur(menu.actor);
++            },
++            this
++        );
+         this.track_container(global.window_group);
+         this.track_keyboard();
+     }
+@@ -351,6 +361,7 @@ export const PopupBlur = class PopupBlur {
+         }
+ 
+         this.cancel_queued_blurs();
++        Main.panel.statusArea.quickSettings?.menu?.disconnectObject(this);
+ 
+         if (!this.enabled) {
+             this._log("blur already removed");
+diff --git a/src/components/popup/targets.js b/src/components/popup/targets.js
+index 0dce45a..75afee3 100644
+--- a/src/components/popup/targets.js
++++ b/src/components/popup/targets.js
+@@ -9,6 +9,12 @@ const POPUP_TARGET_STYLE_CLASSES = [
+ ];
+ const POPUP_CHILD_STYLE_CLASSES = ['osd-window', 'resize-popup', 'switcher-list', 'workspace-switcher', 'modal-dialog', 'run-dialog', 'clipboard-dialog'];
+ const POPUP_DESCENDANT_TARGET_STYLE_CLASSES = ['switcher-list'];
++// Quick settings without a card: each toggle, slider, system button and opened
++// submenu gets a blur of its own, and the panel behind them none.
++const QUICK_SETTINGS_PIECE_STYLE_CLASSES = [
++    'quick-toggle-has-menu', 'quick-toggle', 'quick-slider', 'quick-toggle-menu',
++    'icon-button', 'power-item',
++];
+ 
+ export const POPUP_BACKGROUND_STYLES = ['bms-popup-background-transparent', 'bms-popup-background-light', 'bms-popup-background-dark'];
+ export const POPUP_SURFACE_STYLES = POPUP_BACKGROUND_STYLES.map(
+@@ -95,6 +101,15 @@ export const PopupBlurTargets = class PopupBlurTargets {
+         }
+ 
+         const box = actor._delegate?.box;
++        const quick_settings = [box, actor].find(
++            candidate => this.has_any_style_class(candidate, ['quick-settings'])
++        );
++        if (quick_settings) {
++            // never the panel itself, even before its pieces exist
++            this.find_quick_settings_pieces(quick_settings, targets);
++            return targets;
++        }
++
+         if (this.has_any_style_class(box, POPUP_TARGET_STYLE_CLASSES))
+             targets.add(box);
+ 
+@@ -143,6 +158,11 @@ export const PopupBlurTargets = class PopupBlurTargets {
+                 }
+             }
+ 
++            if (this.has_any_style_class(child, ['quick-settings'])) {
++                this.find_quick_settings_pieces(child, targets);
++                continue;
++            }
++
+             if (this.is_blur_target_actor(child)) {
+                 targets.add(child);
+                 continue;
+@@ -152,6 +172,21 @@ export const PopupBlurTargets = class PopupBlurTargets {
+         }
+     }
+ 
++    /// The outermost pieces only: a split toggle is blurred once, not per half.
++    find_quick_settings_pieces(quick_settings, targets) {
++        const stack = [...quick_settings.get_children()];
++        while (stack.length > 0) {
++            const child = stack.pop();
++            if (is_internal_actor(child))
++                continue;
++            if (this.has_any_style_class(child, QUICK_SETTINGS_PIECE_STYLE_CLASSES)) {
++                targets.add(child);
++                continue;
++            }
++            stack.push(...child.get_children());
++        }
++    }
++
+     push_children(stack, children) {
+         for (let index = children.length - 1; index >= 0; index--)
+             stack.push({ actor: children[index], fallback_count: null });
+diff --git a/src/styles/tahoe-glass.css b/src/styles/tahoe-glass.css
+new file mode 100644
+index 0000000..09c213d
+--- /dev/null
++++ b/src/styles/tahoe-glass.css
+@@ -0,0 +1,49 @@
++/* tahoe glass (cachyos-tahoe-theme): brighter glass edges on blurred menus and on
++   each quick settings piece, which is blurred on its own with no card behind it. */
++.bms-popup-background-transparent .popup-menu-content,
++.bms-popup-background-transparent .notification-banner,
++.bms-popup-background-transparent .quick-toggle-menu,
++.bms-popup-background-transparent .modal-dialog,
++.bms-popup-background-transparent .quick-toggle,
++.bms-popup-background-transparent .quick-toggle-has-menu,
++.bms-popup-background-transparent .quick-slider,
++.bms-popup-background-transparent .quick-settings-system-item .icon-button,
++.bms-popup-background-dark .popup-menu-content,
++.bms-popup-background-dark .notification-banner,
++.bms-popup-background-dark .quick-toggle-menu,
++.bms-popup-background-dark .modal-dialog,
++.bms-popup-background-dark .quick-toggle,
++.bms-popup-background-dark .quick-toggle-has-menu,
++.bms-popup-background-dark .quick-slider,
++.bms-popup-background-dark .quick-settings-system-item .icon-button,
++.bms-popup-background-light .popup-menu-content,
++.bms-popup-background-light .notification-banner,
++.bms-popup-background-light .quick-toggle-menu,
++.bms-popup-background-light .modal-dialog,
++.bms-popup-background-light .quick-toggle,
++.bms-popup-background-light .quick-toggle-has-menu,
++.bms-popup-background-light .quick-slider,
++.bms-popup-background-light .quick-settings-system-item .icon-button {
++  border: 1px solid rgba(255, 255, 255, 0.55) !important;
++  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.18) !important;
++}
++
++/* a split toggle draws one outline, not one per half */
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button {
++  border-color: transparent !important;
++  box-shadow: none !important;
++}
++
++/* no card behind quick settings */
++.bms-popup-background-transparent .popup-menu-content.quick-settings,
++.bms-popup-background-dark .popup-menu-content.quick-settings,
++.bms-popup-background-light .popup-menu-content.quick-settings {
++  background-color: transparent !important;
++  border: none !important;
++  box-shadow: none !important;
++}

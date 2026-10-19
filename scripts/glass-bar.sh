@@ -13,6 +13,7 @@
 #   bash glass-bar.sh menus on   live blur behind quick settings, dropdowns, calendar, notifications,
 #                                OSDs and dialogs such as Power Off, as in the Tahoe VM (instant)
 #   bash glass-bar.sh menus off  menus back to how they were before 'apply' (instant)
+#   bash glass-bar.sh rebuild    rebuild and reinstall the patched Blur My Shell, then log out and back in
 #   bash glass-bar.sh undo       put everything back exactly as before 'apply', then log out and back in
 set -euo pipefail
 
@@ -24,6 +25,8 @@ BACKUP="$BACKUP_ROOT/original"
 SRC="$HOME/.local/src"
 EXT="$HOME/.local/share/gnome-shell/extensions"
 EXT_PATH=/org/gnome/shell/extensions/
+# patch on top of BMS_COMMIT: quick settings pieces blurred one by one (no card), brighter glass edges
+BMS_PATCH="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/config/bms-tahoe-glass.patch"
 OPENBAR_PRESET_URL=https://raw.githubusercontent.com/kayozxo/GNOME-macOS-Tahoe/6eb17c244fdefb02e81e77128ac5f1be1bb162ee/.config/extensions/openBar/Tahoe-Dark
 
 if [ "$(id -u)" -eq 0 ]; then echo "Run this as yourself, not root."; exit 1; fi
@@ -173,7 +176,7 @@ PY
   dconf_apply "${EXT_PATH}blur-my-shell/" "$cur.new" "$cur"
   rm -f "$cur" "$cur.new"
   if [ "$mode" = on ]; then
-    # the VM's menu blur: radius 12 at full brightness, as its own pipeline so the
+    # the VM's menu blur (radius 12) a step stronger at 18, full brightness, as its own pipeline so the
     # shared default (used by windows and the dock) stays as it is
     python3 - "$EXT/$BMS_UUID/schemas" <<'PY'
 import sys
@@ -190,7 +193,7 @@ for i in range(old.n_children()):
         f.get_child_value(j).get_child_value(0).get_string(): f.get_child_value(j).get_child_value(1).get_variant()
         for j in range(f.n_children())}
 effect = GLib.Variant.parse(GLib.VariantType('a{sv}'),
-    "{'type': <'dual_kawase_blur'>, 'id': <'effect_glassbar_menus'>, 'params': <{'unscaled_radius': <12.0>, 'brightness': <1.0>}>}", None, None)
+    "{'type': <'dual_kawase_blur'>, 'id': <'effect_glassbar_menus'>, 'params': <{'unscaled_radius': <18.0>, 'brightness': <1.0>}>}", None, None)
 pipelines['pipeline_glassbar_menus'] = {'name': GLib.Variant('s', 'Glass menus'), 'effects': GLib.Variant('av', [effect])}
 root.set_value('pipelines', GLib.Variant('a{sa{sv}}', pipelines))
 popup.set_string('pipeline', 'pipeline_glassbar_menus')
@@ -200,18 +203,25 @@ PY
   echo "  menus: $mode"
 }
 
+build_bms() {
+  for c in git make msgfmt glib-compile-schemas; do command -v "$c" >/dev/null || { echo "missing tool: $c"; exit 1; }; done
+  mkdir -p "$SRC"
+  [ -d "$SRC/blur-my-shell/.git" ] || git clone -q https://github.com/aunetx/blur-my-shell.git "$SRC/blur-my-shell"
+  git -C "$SRC/blur-my-shell" fetch -q origin
+  # a checkout of our own, so it is reset to the pinned commit before patching
+  git -C "$SRC/blur-my-shell" reset -q --hard "$BMS_COMMIT"
+  git -C "$SRC/blur-my-shell" clean -fdq
+  git -C "$SRC/blur-my-shell" apply "$BMS_PATCH"
+  /usr/bin/make -C "$SRC/blur-my-shell" install >/dev/null
+  echo "  installed version $(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["version"])' "$EXT/$BMS_UUID/metadata.json") with $(basename "$BMS_PATCH")"
+}
+
 apply() {
   step "1/5 Backup of your current settings and Blur My Shell"
   ensure_backup
 
   step "2/5 Blur My Shell v76 (built from source)"
-  for c in git make msgfmt glib-compile-schemas; do command -v "$c" >/dev/null || { echo "missing tool: $c"; exit 1; }; done
-  mkdir -p "$SRC"
-  [ -d "$SRC/blur-my-shell/.git" ] || git clone -q https://github.com/aunetx/blur-my-shell.git "$SRC/blur-my-shell"
-  git -C "$SRC/blur-my-shell" fetch -q origin
-  git -C "$SRC/blur-my-shell" checkout -q "$BMS_COMMIT"
-  /usr/bin/make -C "$SRC/blur-my-shell" install >/dev/null
-  echo "  installed version $(python3 -c 'import json,sys;print(json.load(open(sys.argv[1]))["version"])' "$EXT/$BMS_UUID/metadata.json")"
+  build_bms
 
   step "3/5 Open Bar"
   local shell_major path tmp
@@ -304,6 +314,7 @@ PY
 case "${1:-}" in
   apply) apply ;;
   undo) undo ;;
+  rebuild) step "Blur My Shell v76, patched"; build_bms; step "Done. LOG OUT AND BACK IN to load it." ;;
   menus)
     case "${2:-}" in
       on|off) menus "$2" ;;
@@ -315,5 +326,5 @@ case "${1:-}" in
       off) bar_blur plain ;;
       *) echo "usage: glass on|off"; exit 1 ;;
     esac ;;
-  *) sed -n '2,16p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+  *) sed -n '2,17p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac

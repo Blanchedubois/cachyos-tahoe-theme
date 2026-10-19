@@ -138,10 +138,10 @@ index 0dce45a..9ecfc15 100644
              || has_any_style_class(root_actor, radius.style_classes)
 diff --git a/src/styles/tahoe-glass.css b/src/styles/tahoe-glass.css
 new file mode 100644
-index 0000000..e39ffbf
+index 0000000..38de093
 --- /dev/null
 +++ b/src/styles/tahoe-glass.css
-@@ -0,0 +1,74 @@
+@@ -0,0 +1,152 @@
 +/* tahoe glass (cachyos-tahoe-theme): brighter glass edges on blurred menus and on
 +   each quick settings piece, which is blurred on its own with no card behind it. */
 +.bms-popup-background-transparent .popup-menu-content,
@@ -181,6 +181,84 @@ index 0000000..e39ffbf
 +.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button {
 +  border-color: transparent !important;
 +  box-shadow: none !important;
++}
++
++/* one glass tint for every menu, dropdown, notification, dialog and quick settings piece:
++   the theme's warm grey at 40 %, so the blur behind reads the same everywhere. A split
++   toggle that is on keeps the tint too; its white icon circle shows the state. */
++.bms-popup-background-transparent .popup-menu-content,
++.bms-popup-background-transparent .popup-menu-content.datemenu-popover,
++.bms-popup-background-transparent .notification-banner,
++.bms-popup-background-transparent .quick-toggle-menu,
++.bms-popup-background-transparent .modal-dialog,
++.bms-popup-background-transparent .quick-toggle,
++.bms-popup-background-transparent .quick-toggle-has-menu,
++.bms-popup-background-transparent .quick-toggle-has-menu:checked,
++.bms-popup-background-transparent .quick-slider,
++.bms-popup-background-transparent .quick-settings-system-item .icon-button,
++.bms-popup-background-transparent .quick-settings-system-item .power-item,
++.bms-popup-background-dark .popup-menu-content,
++.bms-popup-background-dark .popup-menu-content.datemenu-popover,
++.bms-popup-background-dark .notification-banner,
++.bms-popup-background-dark .quick-toggle-menu,
++.bms-popup-background-dark .modal-dialog,
++.bms-popup-background-dark .quick-toggle,
++.bms-popup-background-dark .quick-toggle-has-menu,
++.bms-popup-background-dark .quick-toggle-has-menu:checked,
++.bms-popup-background-dark .quick-slider,
++.bms-popup-background-dark .quick-settings-system-item .icon-button,
++.bms-popup-background-dark .quick-settings-system-item .power-item,
++.bms-popup-background-light .popup-menu-content,
++.bms-popup-background-light .popup-menu-content.datemenu-popover,
++.bms-popup-background-light .notification-banner,
++.bms-popup-background-light .quick-toggle-menu,
++.bms-popup-background-light .modal-dialog,
++.bms-popup-background-light .quick-toggle,
++.bms-popup-background-light .quick-toggle-has-menu,
++.bms-popup-background-light .quick-toggle-has-menu:checked,
++.bms-popup-background-light .quick-slider,
++.bms-popup-background-light .quick-settings-system-item .icon-button,
++.bms-popup-background-light .quick-settings-system-item .power-item {
++  background-color: rgba(70, 65, 66, 0.4) !important;
++}
++
++/* a toggle that is on keeps the theme's white fill and accent-coloured label */
++.bms-popup-background-transparent .quick-toggle:checked,
++.bms-popup-background-dark .quick-toggle:checked,
++.bms-popup-background-light .quick-toggle:checked {
++  background-color: white !important;
++  color: -st-accent-color !important;
++}
++.bms-popup-background-transparent .quick-toggle:checked:hover,
++.bms-popup-background-dark .quick-toggle:checked:hover,
++.bms-popup-background-light .quick-toggle:checked:hover {
++  background-color: st-mix(#dadada, white, 6%) !important;
++  color: -st-accent-color !important;
++}
++.bms-popup-background-transparent .quick-toggle:checked:active,
++.bms-popup-background-dark .quick-toggle:checked:active,
++.bms-popup-background-light .quick-toggle:checked:active {
++  background-color: st-mix(#dadada, white, 15%) !important;
++  color: -st-accent-color !important;
++}
++
++/* the halves of a split toggle draw no fill of their own over the toggle's */
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle:checked,
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle:hover,
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle:active,
++.bms-popup-background-transparent .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle:checked,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle:hover,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle:active,
++.bms-popup-background-dark .quick-toggle-has-menu .quick-toggle-menu-button,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:checked,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:hover,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle:active,
++.bms-popup-background-light .quick-toggle-has-menu .quick-toggle-menu-button {
++  background-color: transparent !important;
 +}
 +
 +/* no card behind quick settings */

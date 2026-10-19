@@ -15,6 +15,7 @@
 #   bash glass-bar.sh menus off  menus back to how they were before 'apply' (instant)
 #   bash glass-bar.sh dock on    the dock in live Liquid Glass, as the bar and menus (instant)
 #   bash glass-bar.sh dock off   the dock back to how it was before 'apply' (instant)
+#   bash glass-bar.sh tint light one tint for all glass: light (the tuned look) or dark (provisional)
 #   bash glass-bar.sh rebuild    rebuild and reinstall the patched Blur My Shell, then log out and back in
 #   bash glass-bar.sh status     whether the patched Blur My Shell is the one installed
 #   bash glass-bar.sh undo       put everything back exactly as before 'apply', then log out and back in
@@ -25,7 +26,7 @@ OPENBAR_UUID=openbar@neuromorph
 BMS_UUID=blur-my-shell@aunetx
 BACKUP_ROOT="$HOME/.local/share/glass-backup"
 BACKUP="$BACKUP_ROOT/original"
-# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off, dock=on|off
+# your choices, which tahoe-repair enforces at every login: enabled=1, bar=glass|plain, menus=on|off, dock=on|off, tint=light|dark
 STATE="$HOME/.config/tahoe-glass/state"
 SRC="$HOME/.local/src"
 EXT="$HOME/.local/share/gnome-shell/extensions"
@@ -97,15 +98,25 @@ ensure_backup() {
 # enabled-extensions list editing
 ext_list_add() { python3 -c 'import ast,sys;l=ast.literal_eval(sys.argv[1] or "[]");print(l if sys.argv[2] in l else l+[sys.argv[2]])' "$(gsettings get org.gnome.shell enabled-extensions | sed 's/^@as //')" "$1"; }
 
-BAR_GLASS_PARAMS="{
-  'strength': <0.8>, 'blur_radius': <12.0>, 'edge_size': <12.0>, 'falloff': <2.4>,
+# One Liquid Glass recipe for every glass surface (bar, menus, dock); only the blur radius
+# differs per surface. The tint is one setting for all of them: 'light' is the tuned look,
+# 'dark' a provisional starting point to be designed later (glass-bar.sh tint light|dark).
+glass_params() { # BLUR_RADIUS
+  local tint tint_color
+  case "$(sed -n 's/^tint=//p' "$STATE" 2>/dev/null | tail -1)" in
+    dark) tint=0.4;  tint_color='[0.12, 0.12, 0.13, 1.0]' ;;   # provisional
+    *)    tint=0.12; tint_color='[1.0, 1.0, 1.0, 1.0]' ;;     # light: the tuned look
+  esac
+  echo "{
+  'strength': <0.8>, 'blur_radius': <$1>, 'edge_size': <12.0>, 'falloff': <2.4>,
   'refraction_style': <0.0>, 'rim_width': <3.0>, 'rgb_fringing': <0.06>,
   'gloss': <0.8>, 'fresnel_angle': <45.0>, 'fresnel_width': <1.0>, 'specular_strength': <0.0>,
-  'tint': <0.12>, 'tint_color': <[1.0, 1.0, 1.0, 1.0]>, 'backdrop_zoom': <1.0>, 'shadow': <0.2>
+  'tint': <$tint>, 'tint_color': <$tint_color>, 'backdrop_zoom': <1.0>, 'shadow': <0.2>
 }"
+}
 
 bar_blur() { # glass | plain : top bar = rounded static blur, with or without Liquid Glass
-  python3 - "$EXT/$BMS_UUID/schemas" "$1" "$BAR_GLASS_PARAMS" <<'PY'
+  python3 - "$EXT/$BMS_UUID/schemas" "$1" "$(glass_params 12.0)" <<'PY'
 import sys
 from gi.repository import Gio, GLib
 schemas, mode, params_text = sys.argv[1:4]
@@ -145,8 +156,7 @@ PY
 # (tint, rim, gloss) and its own blur radius, so every glass surface shares one look
 glass_pipeline() {
   local id=$1 name=$2 blur=$3
-  local bar_blur="'blur_radius': <12.0>" own_blur="'blur_radius': <$blur>"
-  python3 - "$EXT/$BMS_UUID/schemas" "$id" "$name" "${BAR_GLASS_PARAMS/"$bar_blur"/"$own_blur"}" <<'PY'
+  python3 - "$EXT/$BMS_UUID/schemas" "$id" "$name" "$(glass_params "$blur")" <<'PY'
 import sys
 from gi.repository import Gio, GLib
 schemas, pid, name, params = sys.argv[1:5]
@@ -416,6 +426,17 @@ case "${1:-}" in
       on|off) dock "$2"; set_state dock "$2" ;;
       *) echo "usage: dock on|off"; exit 1 ;;
     esac ;;
+  tint)
+    case "${2:-}" in
+      light|dark)
+        set_state tint "$2"
+        # rewrite every glass surface that is on, from the one recipe
+        [ "$(sed -n 's/^bar=//p' "$STATE" | tail -1)" = plain ] || bar_blur glass
+        if [ "$(sed -n 's/^menus=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_menus 'Glass menus' 18.0; fi
+        if [ "$(sed -n 's/^dock=//p' "$STATE" | tail -1)" = on ]; then glass_pipeline pipeline_glassbar_dock 'Glass dock' 18.0; fi
+        echo "  tint: $2" ;;
+      *) echo "usage: tint light|dark"; exit 1 ;;
+    esac ;;
   rebuild) step "Blur My Shell v76, patched"; build_bms; step "Done. LOG OUT AND BACK IN to load it." ;;
   menus)
     case "${2:-}" in
@@ -428,5 +449,5 @@ case "${1:-}" in
       off) bar_blur plain; set_state bar plain ;;
       *) echo "usage: glass on|off"; exit 1 ;;
     esac ;;
-  *) sed -n '2,20p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
+  *) sed -n '2,21p' "$0" | sed 's/^# \{0,1\}//'; exit 1 ;;
 esac

@@ -399,6 +399,12 @@ if [[ "$GLASS_FOLLOW" == 1 ]]; then
      || ! systemctl --user -q is-enabled tahoe-glass-follow.service 2>/dev/null \
      || ! systemctl --user -q is-active tahoe-glass-follow.service; then
     log "Light/Dark follow service missing or stopped: installing it"; bash "$ROOT/scripts/glass-bar.sh" follow on >/dev/null
+  else
+    # bash reads glass-bar.sh once when the service starts: an updated script needs a restart
+    started=$(systemctl --user show -p ActiveEnterTimestamp --value tahoe-glass-follow.service)
+    if [[ -n "$started" && "$(stat -c %Y "$ROOT/scripts/glass-bar.sh")" -gt "$(date -d "$started" +%s)" ]]; then
+      log "glass-bar.sh changed since the follow service started: restarting it"; systemctl --user restart tahoe-glass-follow.service
+    fi
   fi
 fi
 
@@ -514,6 +520,27 @@ if [[ "$GLASS" == 1 && -d "$OBS" ]]; then
   obg apply-gtk false; obg apply-flatpak false; obg gtk-popover false; obg set-yarutheme false
   obg set-notifications false; obg set-notif-position false; obg set-overview false
   obg wmaxbar false   # the bar stays a floating capsule when a window is maximised
+  # bar text: dark in light mode, white otherwise. Open Bar copies light-/dark-fgcolor into fgcolor
+  # itself on a colour scheme change, so those stay fixed per side (glass-bar.sh shell_theme)
+  ob_dark="['0.11', '0.11', '0.12']" ob_white="['1.0', '1.0', '1.0']"
+  ob_fg=$([[ "$GLASS_MODE" == light ]] && echo "$ob_dark" || echo "$ob_white")
+  ob_fixed=0
+  for kv in "light-fgcolor=$ob_dark" "dark-fgcolor=$ob_white" "fgcolor=$ob_fg"; do
+    k=${kv%%=*} v=${kv#*=}
+    if [[ "$(gsettings --schemadir "$OBS" get org.gnome.shell.extensions.openbar "$k")" != "$v" ]]; then
+      log "open bar $k drifted: resetting"; gsettings --schemadir "$OBS" set org.gnome.shell.extensions.openbar "$k" "$v"; ob_fixed=1
+    fi
+  done
+  # the stylesheet Open Bar generated must carry that colour too (a write during its own mode
+  # change can leave it on the old one)
+  ob_css=$(grep -m1 -oE 'height: [0-9]+px !important; +color: rgba\([0-9]+,[0-9]+,[0-9]+' \
+           "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/io.github.neuromorph.openbar/stylesheet.css" 2>/dev/null | sed 's/.*rgba(//')
+  ob_want=$([[ "$GLASS_MODE" == light ]] && echo 28,28,30 || echo 255,255,255)
+  if [[ -n "$ob_css" && "$ob_css" != "$ob_want" ]]; then log "open bar stylesheet has the other text colour: rebuilding it"; ob_fixed=1; fi
+  if [[ "$ob_fixed" == 1 ]]; then   # rebuild Open Bar's stylesheet with the colour
+    t=$([[ "$(gsettings --schemadir "$OBS" get org.gnome.shell.extensions.openbar trigger-reload)" == true ]] && echo false || echo true)
+    gsettings --schemadir "$OBS" set org.gnome.shell.extensions.openbar trigger-reload "$t"
+  fi
 fi
 
 log "done"

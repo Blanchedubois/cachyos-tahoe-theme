@@ -60,7 +60,10 @@ Appearance or the Dark Style toggle in quick settings. Both set
 A systemd user service, `tahoe-glass-follow.service`, watches the colour scheme. It runs
 `glass-bar.sh watch`. `apply` installs it and `undo` removes it. A quick double toggle
 settles first, and then the current value wins. A switch made while the service was not
-running is caught up by tahoe-repair at the next login. With follow on, the colour scheme is
+running is caught up by tahoe-repair at the next login. The service reads glass-bar.sh when it
+starts, so after an update tahoe-repair restarts it. Open Bar also reacts to the scheme by
+itself: it copies its `light-fgcolor` or `dark-fgcolor` into the bar text colour. Those two
+keys therefore stay fixed (dark text and white text), and are not set per mode. With follow on, the colour scheme is
 the source of truth, and tahoe-repair never resets it.
 
 ```bash

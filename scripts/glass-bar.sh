@@ -359,8 +359,18 @@ PY
     gsettings --schemadir /usr/share/gnome-shell/extensions/user-theme@gnome-shell-extensions.gcampax.github.com/schemas \
       set org.gnome.shell.extensions.user-theme name "$name"
   if [ -d "$OBS" ]; then
-    gsettings --schemadir "$OBS" set org.gnome.shell.extensions.openbar light-fgcolor "$fg"
-    gsettings --schemadir "$OBS" set org.gnome.shell.extensions.openbar fgcolor "$fg"
+    # Open Bar copies light-fgcolor or dark-fgcolor into fgcolor by itself when the colour scheme
+    # changes, so both stay fixed per side; then its stylesheet is rebuilt, as a write that lands
+    # during its own mode change is not picked up
+    local ob="gsettings --schemadir $OBS"
+    $ob set org.gnome.shell.extensions.openbar light-fgcolor "['0.11', '0.11', '0.12']"
+    $ob set org.gnome.shell.extensions.openbar dark-fgcolor "['1.0', '1.0', '1.0']"
+    $ob set org.gnome.shell.extensions.openbar fgcolor "$fg"
+    if [ "$($ob get org.gnome.shell.extensions.openbar trigger-reload)" = true ]; then
+      $ob set org.gnome.shell.extensions.openbar trigger-reload false
+    else
+      $ob set org.gnome.shell.extensions.openbar trigger-reload true
+    fi
   fi
 }
 
